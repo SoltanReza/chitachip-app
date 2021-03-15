@@ -30,37 +30,3 @@ export const selectAuthData = createSelector(
   state => state.auth,
 );
 
-export const selectGetMyProfile = createSelector(
-  [selectDomain],
-  state => state.getMyProfile,
-);
-
-export const selectBrowseMessage = createSelector(
-  [selectDomain],
-  state => state.browseMessage,
-);
-
-export const selectBrowseUser = createSelector(
-  [selectDomain],
-  state => state.browseUser,
-);
-
-export const selectBrowseCurrency = createSelector(
-  [selectDomain],
-  state => state.browseCurrency,
-);
-
-export const selectBrowsePackageGlobalList = createSelector(
-  [selectDomain],
-  state => state.browsePackageGlobalList,
-);
-
-export const selectBrowseAgentList = createSelector(
-  [selectDomain],
-  state => state.browseAgentList,
-);
-
-export const selectAddAgent = createSelector(
-  [selectDomain],
-  state => state.addAgent,
-);

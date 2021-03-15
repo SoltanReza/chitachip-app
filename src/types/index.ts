@@ -1,4 +1,3 @@
-import { Currency } from 'app/containers/App/types';
 import { RootState } from './RootState';
 
 export type { RootState };

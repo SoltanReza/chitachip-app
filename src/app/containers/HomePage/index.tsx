@@ -4,33 +4,28 @@
  *
  */
 
-import { Button, Card, Col, Divider, Row, Tabs } from 'antd';
-import { ArdbitChangeHistoryChart } from 'app/components/ArdbitChangeHistoryChart';
-import { ArdbitExchangeHisrotyChart } from 'app/components/ArdbitExchangeHisrotyChart';
-import { FloatContactUs } from 'app/components/FloatContactUs';
+import {
+  AndroidOutlined,
+  AppleOutlined,
+  HeartOutlined,
+  ShoppingOutlined,
+} from '@ant-design/icons';
+import { Button, Tabs } from 'antd';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { ellipseString } from 'utils/helpers';
-import { NewsCards } from './components/NewsCards';
-import { homePageSaga } from './saga';
-import { reducer, sliceKey } from './slice';
-import { StyledHomePage } from './styles';
-import {
-  AppleOutlined,
-  AndroidOutlined,
-  HeartOutlined,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
-} from '@ant-design/icons';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import pic from './image/1.jpeg';
 import pic2 from './image/2.jpeg';
 import pic3 from './image/3.jpeg';
 import pic4 from './image/4.jpeg';
 import pic5 from './image/5.jpeg';
 import pic6 from './image/6.jpeg';
+import { homePageSaga } from './saga';
+import { reducer, sliceKey } from './slice';
+import { StyledHomePage } from './styles';
 
 interface Props {
   className?: string;

@@ -5,7 +5,6 @@
  */
 import { LogoutOutlined } from '@ant-design/icons';
 import { Button, Menu } from 'antd';
-import { UserNotifiction } from 'app/components/UserNotifiction';
 import { Routes } from 'app/containers/App/Router/routes';
 import { selectAuth } from 'app/containers/App/selectors';
 import { translations } from 'locales/i18n';
@@ -82,7 +81,7 @@ export const Navbar = memo(({ className }: Props) => {
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
       <div className="logo">
-        {authData.hasRole([AuthRoles.REGULAR]) && <UserNotifiction />}
+        {authData.hasRole([AuthRoles.REGULAR])}
 
         <Button
           icon={<LogoutOutlined />}
