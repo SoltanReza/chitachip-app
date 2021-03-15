@@ -1,0 +1,130 @@
+/**
+*
+* {{ properCase ComponentName }}
+*
+*/
+
+{{#if wantMemo}}
+  import React, { memo } from 'react';
+{{else}}
+  import React from 'react';
+{{/if}}
+
+{{#if wantTranslations}}
+  import { useTranslation } from 'react-i18next';
+  import { translations } from 'locales/i18n';
+{{/if}}
+
+{{#if wantSlice}}
+  import { useSelector, useDispatch } from 'react-redux';
+{{/if}}
+
+{{#if wantStyledComponents}}
+  import { Styled{{ properCase ComponentName }} } from './styles';
+{{else}}
+  {{#if wantHeaders}}
+    import { Helmet } from 'react-helmet-async';
+  {{/if}}
+{{/if}}
+
+{{#if wantSlice}}
+  {{#if wantSaga}}
+    import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+  {{else}}
+    import { useInjectReducer } from 'utils/redux-injectors';
+  {{/if}}
+{{else}}
+  {{#if wantSaga}}
+    import { useInjectSaga } from 'utils/redux-injectors';
+  {{/if}}
+{{/if}}
+
+{{#if wantSlice}}
+  import { reducer, sliceKey } from './slice';
+  import { select{{ properCase ComponentName }} } from './selectors';
+{{/if}}
+
+{{#if wantSaga}}
+  import { {{ camelCase ComponentName }}Saga } from './saga';
+{{/if}}
+
+interface Props {
+  className?: string
+}
+
+
+{{#if wantMemo}}
+  export const {{ properCase ComponentName }} = memo(({ className }: Props) => {
+{{else}}
+  export function {{ properCase ComponentName }}({ className }: Props) {
+{{/if}}
+
+  {{#if wantSlice}}
+    useInjectReducer({ key: sliceKey, reducer: reducer });
+  {{/if}}
+
+  {{#if wantSaga}}
+    {{#if wantSlice}}
+      useInjectSaga({ key: sliceKey, saga: {{ camelCase ComponentName }}Saga });
+    {{else}}
+      useInjectSaga({ key: '{{ camelCase ComponentName }}', saga: {{ camelCase ComponentName }}Saga });
+    {{/if}}
+  {{/if}}
+
+  {{#if wantSlice}}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {{ camelCase ComponentName }} = useSelector(select{{ properCase ComponentName }});
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const dispatch = useDispatch();
+  {{/if}}
+
+  {{#if wantTranslations}}
+    const { t } = useTranslation();
+  {{/if}}
+
+  return (
+  {{#if wantStyledComponents}}
+    <Styled{{ properCase ComponentName }}
+      className={`{{ properCase ComponentName }} ${className || ''}`}
+      {{#if wantHeaders}}
+        {{#if wantTranslations}}
+          title={t(translations.pages.{{properCase ComponentName}}.title)}
+          description={t(translations.pages.{{properCase ComponentName}}.description)}
+        {{else}}
+          title="{{properCase ComponentName}}"
+          description="Description of {{properCase ComponentName}}"
+        {{/if}}
+      {{/if}}
+    >
+  {{else}}
+    <section>
+    {{#if wantHeaders}}
+      <Helmet>
+        {{#if wantTranslations}}
+          <title>{t(translations.pages.{{properCase ComponentName}}.title)}</title>
+          <meta name="description" content={t(translations.pages.{{properCase ComponentName}}.description)}/>
+        {{else}}
+          <title>{{properCase ComponentName}}</title>
+          <meta name="description" content="Description of {{properCase ComponentName}}" />
+        {{/if}}
+      </Helmet>
+    {{/if}}
+  {{/if}}
+
+  {{#if wantTranslations}}
+    {t('{{ properCase ComponentName }}')}
+  {{/if}}
+
+  {{#if wantStyledComponents}}
+    </Styled{{ properCase ComponentName }}>
+  {{else}}
+    </section>
+  {{/if}}
+  );
+
+{{#if wantMemo}}
+  });
+{{else}}
+  };
+{{/if}}
+

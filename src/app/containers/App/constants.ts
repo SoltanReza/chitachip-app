@@ -1,0 +1,7 @@
+export const MIN_PAYMENT_MONEY = 1000;
+
+export const DATE_FORMAT_DEFAULT = 'YYYY-MM-DD';
+export const DATE_FORMAT_WITH_TIME = 'D MMMM YYYY HH:mm';
+export const DATE_FORMAT_WITH_TIME_MONTH_NAME_FIRST = 'MMMM, D YYYY HH:mm:ss';
+
+export const DEFAULT_PAGINATION_SIZE = 5;

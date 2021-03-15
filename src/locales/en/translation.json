@@ -1,0 +1,622 @@
+{
+  "app": {
+    "titleTemplate": "%s - چیتا چیپ",
+    "title": "چیتا چیپ",
+    "description": "چیتا چیپ"
+  },
+  "global": {
+    "loadMore": "بیشتر ...",
+    "TradeItem": {
+      "currency_id": "نوع سهام",
+      "count": "تعداد سهام",
+      "price": "قیمت سهام",
+      "totalPrice": "قیمت کل",
+      "description": "توضیحات",
+      "btnBuy": "خرید",
+      "btnDisable": "برای خرید این پکیج لطفا موجودی حاب خود را شارژ نمایید"
+    },
+
+    "TradeType": {
+      "ardbit": "سهام اردبیت",
+      "others": "سایر سهام"
+    },
+    "AuthRoles": {
+      "ADMIN": "ادمین",
+      "MANAGER": "مدیر",
+      "REGULAR": "کاربر عادی"
+    },
+    "StockType": {
+      "GHATEI": "قطعی",
+      "MOVAGHAT": "موقت",
+      "PADASH": "پاداش",
+      "HEBE": "هبه"
+    },
+    "TransactionType": {
+      "DEPOSIT": "واریز",
+      "WITHDRAW": "برداشت"
+    },
+    "TransactionStatus": {
+      "DONE": "انجام شده",
+      "PENDING": "در حال انجام",
+      "EXPIRED": "منقضی شده",
+      "FAILED": "ناموفق",
+      "REJECTED": "عدم تایید",
+      "CANCELED": "لغو شده",
+      "COMPLETED": "انجام شده"
+    },
+    "PackageStatus": {
+      "PENDING": "در حال انجام",
+      "EXPIRED": "منقضی شده",
+      "FAILED": "ناموفق",
+      "REJECTED": "عدم تایید",
+      "CANCELED": "لغو شده",
+      "COMPLETED": "انجام شده",
+      "ACCEPTED": "پذیرفته شده"
+    },
+    "AuthLevel": {
+      "ADMIN": "ادمین",
+      "MANAGER": "مدیر",
+      "REGULAR": "کاربر عادی"
+    },
+    "TicketStatus": {
+      "UNREAD": "خوانده نشده",
+      "UNREAD_REPLY": "جواب خوانده نشده",
+      "READ": "خوانده شده",
+      "CLOSED": "تیکت بسته شده"
+    },
+    "MessageStatus": {
+      "UNREAD": "خوانده نشده",
+      "UNREAD_REPLY": "جواب خوانده نشده",
+      "READ": "خوانده شده",
+      "CLOSED": "تیکت بسته شده"
+    },
+    "validation": {
+      "required": " is required.",
+      "types": {
+        "string": "is not validate ",
+        "number": "is not validate ",
+        "password": "is not a validate ",
+        "email": "ایمیل خود را وارد نمایید"
+      },
+      "number": {
+        "range": "must be between"
+      }
+    },
+    "placeholder": {
+      "username": "نام کاربری",
+      "password": "رمز عبور",
+      "firstName": "نام",
+      "lastName": "نام خانوادگی",
+      "name": "Name",
+      "family": "Family",
+      "nationalCode": "کد ملی",
+      "mobile": "موبایل",
+      "phone": "تلفن ثابت",
+      "address": "آدرس",
+      "postCode": "کدپستی",
+      "fatherName": "نام پدر",
+      "shSh": "شماره شناسنامه",
+      "noRegister": "شماره ثبت 532600",
+      "notifLogin": "جهت ورود به پنل کاربری, نام و رمز عبور ارسال شده توسط پیامک را وارد نمایید",
+      "notifForgetPass": "در صورت فراموشی نام کاربری و رمز عبور با شماره 02122222222 تماس بگیرید",
+      "logoTitle": "شرکت کالا هوشمند (سهامی خاص) "
+    },
+    "label": {
+      "username": "Username",
+      "password": "password",
+      "name": "Name",
+      "family": "Family",
+      "codemeli": "Code Meli",
+      "mobile": "mobile",
+      "phone": "phone",
+      "address": "address",
+      "codeposti": "codeposti",
+      "fathername": "fathername"
+    },
+    "titleForm": {
+      "register": "فرم ثبت نام",
+      "finalform": "فرم تکمیل ثبت نام",
+      "login": "فرم ورود کاربر"
+    },
+    "floatContactUs": {
+      "title": "تماس با مشاور سهام",
+      "name": "محمد عارف صومی",
+      "mobile": "09194141260",
+      "tel": "021-88523876",
+      "email": "info@ardbit.org"
+    }
+  },
+  "layouts": {
+    "base": {
+      "menus": {
+        "login": "ورود",
+        "register": "ثبت نام",
+        "logout": "خروج",
+        "adminPanel": "داشبورد",
+        "trading": "تالار بورس",
+        "home": "خانه",
+        "faq": "سوالات متداول",
+        "contactUs": "ارتباط با ما"
+      },
+      "footer": {
+        "address": "تهران خیابان سهروردی خیابان خرمشهر پلاک ۵ طبقه ۶",
+        "phone": "982188523876+",
+        "email": "info@ardbit.org",
+        "copyWrite": "© 2020 تمام حقوق مادی و معنوی این سایت متعلق به سامانه تبادل اردبیت می باشد."
+      }
+    },
+    "admin": {
+      "siderMenu": {
+        "dashboard": "داشبورد",
+        "profile": "پروفایل کاربری",
+        "tradeInfo": "اطلاعات سهام",
+        "peyments": "واریز و برداشت وجه",
+        "finncialInfo": "اطلاعات مالی",
+        "currency": "واحد پول",
+        "transactions": "لیست تراکنش ها",
+        "news": "اخبار",
+        "adminMessage": "پیام ها",
+        "package": "پکیج",
+        "ticket": "تیکت",
+
+        "userManagement": "مدیریت کاربران",
+        "user": {
+          "stock": {
+            "balance": "موجودی",
+            "rate": "تومان"
+          },
+          "recharge": "افزایش موجودی"
+        }
+      }
+    },
+    "auth": {}
+  },
+  "components": {
+    "LazyImg": {
+      "loadingText": "Loading..."
+    },
+    "ArdbitChangeHistoryChart": {
+      "yLabel": "Ardbit",
+      "title": "Changes in the value of Ardebit"
+    },
+    "ArdbitExchangeHisrotyChart": {
+      "yLabel": "Rial",
+      "title": "Rate of Ardabit exchanges"
+    },
+    "TradInfoChart": {
+      "yLabel": "ریال",
+      "title": "نمودار تغییرات سهام اردبیت"
+    },
+    "LazyLoadSpinner": {
+      "tip": "Loading ..."
+    },
+    "TopPackagesCarousel": {
+      "title": "بسته های فروش ویژه سهام"
+    },
+    "ContactUs": {
+      "title": "اطلاعات تماس",
+      "address": "تهران - خیابان سهروردی - خیابان خرمشهر - پلاک 5 - طبقه ششم",
+      "tel": "021-88523876",
+      "fax": "021-88745473",
+      "email": "info@ardbit.net"
+    }
+  },
+  "pages": {
+    "NotFoundPage": {
+      "title": "Page not found",
+      "description": "Page does not exist"
+    },
+    "HomePage": {
+      "title": "صفحه اصلی",
+      "description": "صفحه اصلی",
+      "chartTitle": "نمودار های تغییر وضعیت ارزش سهام",
+      "NewsCards": {
+        "title": "اخبار سهام اردبیت"
+      }
+    },
+    "LoginPage": {
+      "title": "ورود کاربران",
+      "description": "صفحه ورود",
+      "loginSuccessMessage": "به سامانه سهامداران خوش آمدید",
+      "loginErrorMessage": "نام کاربری یا رمز عبور اشتباه میباشد",
+      "LoginForm": {
+        "rememberMe": "مرا به خاطر بسپار",
+        "forgotPassword": "فراموشی رمز عبور",
+        "login": "ورود",
+        "or": "یا",
+        "registerNow": "همین حالا ثبت نام کن!"
+      }
+    },
+    "RegisterPage": {
+      "title": "ثبت نام کاربران",
+      "description": "ثبت نام کاربران",
+      "RegisterForm": {
+        "registerBtn": "ثبت نام"
+      }
+    },
+    "TradingPage": {
+      "title": "Trading Page",
+      "description": "Trading page",
+      "TradingFilter": {
+        "form": {
+          "titlePlaceholder": "نام سهام",
+          "pricePlaceholder": "قیمت",
+          "typePlaceholder": "نوع سهام",
+          "submit": "جستجو"
+        }
+      },
+      "delete": {
+        "title": "آیا از خرید این سهام مطمئن هستید؟",
+        "submit": "بروزرسانی",
+        "titleMessage": "عنوان پیام",
+        "descriptionMessage": "متن پیام"
+      }
+    },
+    "FinancialInfoPage": {
+      "title": "اطلاعات مالی",
+      "description": "اطلاعات مالی",
+      "info": {
+        "date": "تاریخ",
+        "row": "ردیف",
+        "description": "توضیحات",
+        "debtor": "بدهکار",
+        "creditor": "طلبکار",
+        "balance": "موجودی",
+        "type": "نوع"
+      }
+    },
+    "TradInfoPage": {
+      "title": "اطلاعات سهام",
+      "description": "اطلاعات سهام",
+      "empty": "شما هیچ سهامی ندارید",
+      "balanceList": {
+        "title": "اطلاعات سهام کاربر",
+        "defaultValue": "لطفا نماینده را انتخاب نمایید",
+        "currencyName": "واحد پول",
+        "currencyType": "نوع سهم",
+        "rateInRial": "ارزش  ریالی",
+        "balance": "تعداد سهام",
+        "totalRateInRial": "ارزش کل",
+        "agent": "نماینده",
+        "submit": "افزودن نماینده"
+      }
+    },
+    "ContactusPage": {
+      "title": "Contactus Page",
+      "description": "Contactus page"
+    },
+    "FaqPage": {
+      "title": "Faq Page",
+      "description": "Faq page"
+    },
+    "FinalFormPage": {
+      "title": "Final Form Page",
+      "description": "Final Form Page"
+    },
+    "AdminPanelPage": {
+      "title": "پنل ادمین اردبیت",
+      "description": "پنل ادمین اردبیت"
+    },
+    "LogoutPage": {
+      "title": "Logout  Page",
+      "description": "Logout  Page"
+    },
+    "ProfilePage": {
+      "title": "پروفایل کاربری",
+      "description": "پروفایل کاربری",
+      "updateSuccessMessage": "پروفایل کاربری شما با موفقیت تکمیل شد",
+      "updateButton": "تکمیل پروفایل کاربری",
+      "updateForm": {
+        "title": "تکمیل پروفایل کاربری",
+        "ok": "تکمیل پروفایل"
+      },
+      "modifyPassword": {
+        "label": "تغییر رمز عبور",
+        "submit": "تغییر",
+        "placeholder": "رمز جدید را وارد نمایید"
+      }
+    },
+    "CurrencyPage": {
+      "title": "لیست واحد پول",
+      "description": "لیست واحد پول",
+      "list": {
+        "name": " واحد پول",
+        "rate": "مبلغ به ریال",
+        "operations": "عملیات"
+      },
+      "add": {
+        "submit": "افزودن واحد پول"
+      },
+      "update": {
+        "title": "افزودن واحد پول",
+        "submit": "افزودن"
+      }
+    },
+    "UserManagementPage": {
+      "title": "مدیریت کاربران",
+      "description": "مدیریت کاربران",
+      "resetPasswordSuccess": "رمز عبور با موفقیت تغییر پیدا کرد",
+      "resetPasswordError": "رمز عبور تغییر نکرد",
+      "list": {
+        "userName": "نام کاربری",
+        "nameAndFamilyName": "نام و نام خانوادگی",
+        "authLevel": {
+          "title": "سطح دسترسی",
+          "ADMIN": "ادمین",
+          "MANAGER": "مدیر",
+          "REGULAR": "کاربری عادی"
+        },
+
+        "operations": "عملیات",
+        "password": "رمز عبور"
+      },
+      "balanceList": {
+        "title": "موجودی کاربر",
+        "currencyName": "واحد پول",
+        "currencyType": "نوع سهم",
+        "rateInRial": "ارزش  ریالی",
+        "balance": "موجودی",
+        "stock": "تعداد سهام",
+        "totalRateInRial": "ارزش کل"
+      },
+      "financialInfoModal": {
+        "title": "وارد کردن Excel",
+        "description": "لطفا فایل اکسل را انتخاب نمایید",
+        "submit": "تایید",
+        "cancel": "انصراف",
+        "successMessage": "عملیات وارد کردن اطلاعات مالی کاربر با موفقیت انجام شد",
+        "errorMessage": "در عملیات وارد کردن اطلاعات مالی کاربر خطایی رخ  داده است"
+      },
+      "add": {
+        "submit": "افزودن  کاربر",
+        "successMessage": "کاربر با موفقیت ایجاد شد"
+      },
+      "resetPassword": {
+        "cancelText": "انصراف",
+        "okText": "تغییر رمز"
+      },
+      "modifyCurrencyType": {
+        "successMessage": "نوع سهام با موفقیت تغییر پیدا کرد",
+        "title": "تغییر نوع سهام کاربر",
+        "submit": "بروزرسانی",
+        "placeholder": "نوع سهم را وارد نمایید"
+      },
+      "update": {
+        "title": "بروزرسانی اطلاعات کاربر",
+        "submit": "بروزرسانی"
+      },
+      "import": {
+        "title": "وارد کردن Excel",
+        "description": "لطفا فایل اکسل را با مشخصات زیر انتخاب کنید\n ستون های مورد نیاز:\nکد ملی، شماره شناسنامه، نام، نام خانوادگی، نام پدر، ایمیل، موبایل، آدرس، کد پستی، تعداد سهام، کیف پول",
+        "submit": "تایید",
+        "cancel": "انصراف",
+        "successMessage": "عملیات وارد کردن کاربران با موفقیت انجام شد",
+        "errorMessage": "در عملیات وارد کردن کاربران خطایی رخ  داده است"
+      },
+      "export": {
+        "title": "خروجی Excel",
+        "description": "در صورتی که مایل به دانولد لیست کاربران به صورت Excel  هستید لطفا بر روی دکمه زیر کلیک کنید. دقت داشته باشید که این عملیات زمان بر است و لطفا تا اتمام عملیات صبر نمایید.",
+        "submit": "تایید",
+        "cancel": "انصراف",
+        "successMessage": "عملیات صدور کاربران با موفقیت انجام شد",
+        "errorMessage": "در عملیات صدور  کاربران خطایی رخ  داده است"
+      }
+    },
+    "RechargePage": {
+      "title": "افزایش موجودی",
+      "description": "افزایش موجودی",
+      "successMessage": "پرداخت با موفقیت انجام شد",
+      "errorMessage": "پرداخت ناموفق ",
+      "depositForm": {
+        "title": "واریز وجه",
+        "amountPlaceholder": "مبلغ واریزی را وارد نمایید",
+        "amountPerfix": "ریال",
+        "submit": "پرداخت"
+      },
+      "withdrawForm": {
+        "title": "برداشت وجه",
+        "amountPlaceholder": "مبلغ درخواستی را وارد نمایید",
+        "amountPerfix": "ریال",
+        "submit": "درخواست وجه"
+      }
+    },
+    "TransactionPage": {
+      "title": "گردش حساب",
+      "description": "تراکنش ها",
+      "list": {
+        "type": "نوع",
+        "discount": "تخفیف",
+        "vat": "مالیات",
+        "amount": "مقدار",
+        "status": "وضعیت",
+        "description": "توضیحات",
+        "operations": "عملیات",
+        "accept": "تایید درخواست",
+        "reject": "عدم تایید درخواست",
+        "cancel": "لغو درخواست"
+      }
+    },
+    "NewsPage": {
+      "title": "اخبار",
+      "description": "اخبار",
+      "list": {
+        "title": "تیتر خبر",
+        "status": {
+          "title": "وضعیت",
+          "ACTIVE": "فعال",
+          "INACTIVE": "غیر فعال"
+        },
+
+        "operations": "عملیات",
+        "accept": "تایید درخواست",
+        "reject": "عدم تایید درخواست",
+        "cancel": "لغو درخواست"
+      },
+      "add": {
+        "submit": "افزودن خبر",
+        "modal": {
+          "slug": "کد خبر",
+          "title": "افزودن خبر",
+          "titleNews": "تیتر خبر",
+          "descriptionNews": "متن خبر",
+          "submit": "افزودن خبر"
+        }
+      },
+      "update": {
+        "modal": {
+          "title": "بروزرسانی خبر",
+          "slug": "کد خبر",
+
+          "titleNews": "تیتر خبر",
+          "descriptionNews": "متن خبر",
+          "submit": "افزودن خبر"
+        },
+        "submit": "بروزرسانی"
+      },
+      "uploadImage": {
+        "title": "بارگزاری تصویر",
+        "description": "لطفا فایل عکس را انتخاب کنید",
+        "submit": "انتخاب عکس خبر",
+        "cancel": "انصراف",
+        "successMessage": "عملیات بارگزاری تصویر با موفقیت انجام شد",
+        "errorMessage": "در عملیات بارگزاری تصویر خطایی رخ  داده است"
+      }
+    },
+    "AdminMessagePage": {
+      "title": "پیام",
+      "description": "ایجاد پیام توسط ادمین",
+      "list": {
+        "title": "عنوان پیام",
+        "operations": "عملیات",
+        "user": "کاربر",
+        "accept": "تایید درخواست",
+        "reject": "عدم تایید درخواست",
+        "cancel": "لغو درخواست"
+      },
+      "add": {
+        "submit": "افزودن پیام",
+        "modal": {
+          "title": "افزودن پیام",
+          "titleMessage": "عنوان پیام",
+          "descriptionMessage": "متن پیام",
+          "submit": "افزودن پیام",
+          "defualtSelectValue": "نام کاربر"
+        }
+      },
+      "update": {
+        "title": "یروزرسانی پیام",
+        "submit": "بروزرسانی",
+        "titleMessage": "عنوان پیام",
+        "descriptionMessage": "متن پیام"
+      },
+      "delete": {
+        "title": "آیا از حذف کردن پیام مطمئن هستید",
+        "submit": "بروزرسانی",
+        "titleMessage": "عنوان پیام",
+        "descriptionMessage": "متن پیام"
+      },
+      "drawer": {
+        "title": "لیست پیام ها"
+      }
+    },
+    "PackagePage": {
+      "title": "پیکج اردبیتی",
+      "description": "ایجاد پکیج اردبیتی",
+      "list": {
+        "title": "عنوان",
+        "description": "توضیحات",
+        "stockType": "نوع سهم",
+        "currency": "واحد پول",
+        "seller": "فروشنده",
+        "buyer": "خریدار",
+        "count": "تعداد",
+        "price": "قیمت پیشنهادی شما برای هر واحد اردبیت به تومان",
+        "totalPrice": "قیمت کل",
+        "status": "وضعیت",
+        "expireAt": "تاریخ انقضا",
+        "calculatePackage": "مجموع قیمت پیشنهادی پکیج شما {{value}} ریال میباشد",
+        "calculatePackageTip": "لطفا قیمت و تعداد پیشنهادی را وارد نماید",
+        "operations": "عملیات",
+        "user": "کاربر",
+        "accept": "تایید درخواست",
+        "reject": "عدم تایید درخواست",
+        "cancel": "لغو درخواست"
+      },
+      "add": {
+        "submit": "افزودن پکیج",
+        "modal": {
+          "title": "افزودن پکیج",
+          "titleMessage": "عنوان پکیج",
+          "descriptionMessage": "متن پکیج",
+          "submit": "افزودن پکیج",
+          "defualtValueSelectUser": "نام فروشنده",
+          "defualtValueSelectCurrency": "واحد پول",
+          "defualtValueSelectStockType": "نوع سهم"
+        }
+      },
+      "update": {
+        "title": "یروزرسانی پکیج",
+        "submit": "بروزرسانی",
+        "expireAt": "تاریخ انقضا",
+        "description": "متن پکیج",
+        "price": "قیمت"
+      },
+      "delete": {
+        "title": "آیا از حذف کردن پکیج مطمئن هستید",
+        "submit": "بروزرسانی",
+        "titleMessage": "عنوان پکیج",
+        "descriptionMessage": "متن پکیج"
+      },
+      "drawer": {
+        "title": "لیست پکیج ها"
+      }
+    },
+    "TicketPage": {
+      "title": "تیکت",
+      "description": "ارسال تیکت",
+      "replayTitleUser": "کاربر : ",
+      "replayTitleAdmin": "ادمین : ",
+      "list": {
+        "title": "عنوان",
+        "creator": {
+          "title": "ایجاد کننده پیام",
+          "admin": "ادمین"
+        },
+        "receiver": {
+          "title": "گیرنده پیام",
+          "admin": "ادمین"
+        },
+        "createdAt": "زمان ایجاد",
+        "status": "وضعیت",
+        "updateAt": "آخرین بروزرسانی",
+        "childrenLength": "تعداد پاسخ",
+        "operations": "عملیات",
+        "ticketDetail": "مشاهده"
+      },
+      "add": {
+        "submit": "ایجاد تیکت",
+        "modal": {
+          "title": "ایجاد تیکت",
+          "ticketTitle": "عنوان تیکت",
+          "ticketBody": "متن تیکت",
+          "submit": "ایجاد تیکت",
+          "defualtValueSelectUser": "جستجوی نام گیرنده تیکت"
+        }
+      },
+      "replay": {
+        "title": "پاسخ تیکت",
+        "submit": "پاسخ",
+        "titlePlaceholder": "متن پاسخ"
+      },
+      "delete": {
+        "title": "آیا از حذف کردن پکیج مطمئن هستید",
+        "submit": "بروزرسانی",
+        "titleMessage": "عنوان پکیج",
+        "descriptionMessage": "متن پکیج"
+      },
+      "drawer": {
+        "title": "لیست پکیج ها"
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+/**
+*
+* {{ properCase ComponentName }}
+*
+*/
+{{#if wantMemo}}
+  import React, { memo } from 'react';
+{{else}}
+  import React from 'react';
+{{/if}}
+
+{{#if wantStyledComponents}}
+  import { Styled{{ properCase ComponentName }} } from './styles';
+{{/if}}
+
+{{#if wantTranslations}}
+  import { useTranslation } from 'react-i18next';
+{{/if}}
+
+interface Props {
+  className?: string;
+}
+
+{{#if wantMemo}}
+  export const {{ properCase ComponentName }} = memo(({ className }: Props) => {
+{{else}}
+  export function {{ properCase ComponentName }}({ className }: Props) {
+{{/if}}
+
+  {{#if wantTranslations}}
+    const { t } = useTranslation();
+  {{/if}}
+
+  return (
+    {{#if wantStyledComponents}}
+      <Styled{{ properCase ComponentName }} className={ `{{ properCase ComponentName }} ${className || ''}` }>
+    {{else}}
+      <section className={ `{{ properCase ComponentName }} ${className || ''}` }>
+    {{/if}}
+
+    {{#if wantTranslations}}
+      {t('{{ properCase ComponentName }}')} Component
+    {{/if}}
+
+    {{#if wantStyledComponents}}
+      </Styled{{ properCase ComponentName }}>
+    {{else}}
+      </section>
+    {{/if}}
+  );
+
+{{#if wantMemo}}
+  });
+{{else}}
+  };
+{{/if}}
+
+
