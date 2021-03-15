@@ -34,7 +34,7 @@ export const StyledHomePage = styled(BaseLayout)`
     background: #fff;
     padding: 1em;
     border-radius: 6px;
-    width: 140px;
+    width: 170px;
   }
   .imgProduct {
     background-size: contain;
@@ -50,7 +50,22 @@ export const StyledHomePage = styled(BaseLayout)`
   .buyProduct {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 0.7em;
+  }
+  .price {
+    font-weight: bold;
+  }
+  .priceBtn {
+    display: flex;
+    flex-direction: revert;
+    justify-content: space-between;
+  }
+  .iconeShop {
+    margin-left: 0.2em;
+  }
+  .discountBtn {
+    border-radius: 11px;
+    background: #ff9800;
   }
 `;

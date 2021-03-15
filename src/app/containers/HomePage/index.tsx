@@ -4,7 +4,7 @@
  *
  */
 
-import { Card, Col, Divider, Row, Tabs } from 'antd';
+import { Button, Card, Col, Divider, Row, Tabs } from 'antd';
 import { ArdbitChangeHistoryChart } from 'app/components/ArdbitChangeHistoryChart';
 import { ArdbitExchangeHisrotyChart } from 'app/components/ArdbitExchangeHisrotyChart';
 import { FloatContactUs } from 'app/components/FloatContactUs';
@@ -131,7 +131,8 @@ export function HomePage({ className }: Props) {
                         <HeartOutlined size={6} />
                       </div>
                       <div>
-                        <ShoppingOutlined size={6} />
+                        <ShoppingOutlined size={6} />{' '}
+                        <span className="price">2000 تومان</span>
                       </div>
                     </div>
                   </div>
@@ -146,8 +147,15 @@ export function HomePage({ className }: Props) {
                       <div>
                         <HeartOutlined size={6} />
                       </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -164,6 +172,7 @@ export function HomePage({ className }: Props) {
                       </div>
                       <div>
                         <ShoppingOutlined size={6} />
+                        <span className="price">5253 تومان</span>
                       </div>
                     </div>
                   </div>
@@ -178,8 +187,15 @@ export function HomePage({ className }: Props) {
                       <div>
                         <HeartOutlined size={6} />
                       </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -194,8 +210,15 @@ export function HomePage({ className }: Props) {
                       <div>
                         <HeartOutlined size={6} />
                       </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -210,8 +233,118 @@ export function HomePage({ className }: Props) {
                       <div>
                         <HeartOutlined size={6} />
                       </div>
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className=" slideItem">
+                  <div className="offerCard">
+                    <div className="titleProduct">آردینو DOU</div>
+                    <div>
+                      <img src={pic} className="imgProduct" />
+                    </div>
+                    <div className="buyProduct">
+                      <div>
+                        <HeartOutlined size={6} />
+                      </div>
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className=" slideItem">
+                  <div className="offerCard">
+                    <div className="titleProduct">آردینو DOU</div>
+                    <div>
+                      <img src={pic} className="imgProduct" />
+                    </div>
+                    <div className="buyProduct">
+                      <div>
+                        <HeartOutlined size={6} />
+                      </div>
                       <div>
                         <ShoppingOutlined size={6} />
+                        <span className="price">5253 تومان</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className=" slideItem">
+                  <div className="offerCard">
+                    <div className="titleProduct">آردینو DOU</div>
+                    <div>
+                      <img src={pic} className="imgProduct" />
+                    </div>
+                    <div className="buyProduct">
+                      <div>
+                        <HeartOutlined size={6} />
+                      </div>
+                      <div>
+                        <ShoppingOutlined size={6} />
+                        <span className="price">5253 تومان</span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className=" slideItem">
+                  <div className="offerCard">
+                    <div className="titleProduct">آردینو DOU</div>
+                    <div>
+                      <img src={pic} className="imgProduct" />
+                    </div>
+                    <div className="buyProduct">
+                      <div>
+                        <HeartOutlined size={6} />
+                      </div>
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className=" slideItem">
+                  <div className="offerCard">
+                    <div className="titleProduct">آردینو DOU</div>
+                    <div>
+                      <img src={pic} className="imgProduct" />
+                    </div>
+                    <div className="buyProduct">
+                      <div>
+                        <HeartOutlined size={6} />
+                      </div>
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -242,88 +375,15 @@ export function HomePage({ className }: Props) {
                       <div>
                         <HeartOutlined size={6} />
                       </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
+                      <div className="priceBtn">
+                        <div className="iconeShop">
+                          <ShoppingOutlined
+                            style={{ color: '#ff9800', fontSize: '1.5em' }}
+                          />
+                        </div>
+                        <div>
+                          <Button className="discountBtn">3+</Button>
+                        </div>
                       </div>
                     </div>
                   </div>
