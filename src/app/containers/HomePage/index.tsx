@@ -13,10 +13,16 @@ import {
 import { Button, Tabs } from 'antd';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { ellipseString } from 'utils/helpers';
+import { redirect } from 'utils/history';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { Routes } from '../App/Router/routes';
+import { selectBrowseHomeList } from '../App/selectors';
+import { appActions } from '../App/slice';
+import { Offer } from './components/Offer';
 import pic from './image/1.jpeg';
 import pic2 from './image/2.jpeg';
 import pic3 from './image/3.jpeg';
@@ -31,30 +37,19 @@ interface Props {
   className?: string;
 }
 const { TabPane } = Tabs;
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
 
 export function HomePage({ className }: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: homePageSaga });
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const BrowseHomeList = useSelector(selectBrowseHomeList);
+
+  useEffect(() => {
+    dispatch(appActions.browseHomeList({}));
+  }, [dispatch]);
+
+ 
 
   return (
     <StyledHomePage
@@ -103,290 +98,7 @@ export function HomePage({ className }: Props) {
             </span>
           }
           key="1"
-        >
-          <div className="container category">
-            <div className="row slide">
-              <ul
-                className="col container-filter list-unstyled categories-filter text-center"
-                id="filter"
-              >
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">
-                      {ellipseString(
-                        'ماژول تشخیص گاز کربن مونوکسید CO مبتنی بر سنسور MQ7',
-                        11,
-                      )}
-                    </div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />{' '}
-                        <span className="price">2000 تومان</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">نمایشگر 1.3 inch</div>
-                    <div>
-                      <img src={pic2} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic3} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                        <span className="price">5253 تومان</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic4} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic5} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic6} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                        <span className="price">5253 تومان</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                        <span className="price">5253 تومان</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div>
-                        <ShoppingOutlined size={6} />
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className=" slideItem">
-                  <div className="offerCard">
-                    <div className="titleProduct">آردینو DOU</div>
-                    <div>
-                      <img src={pic} className="imgProduct" />
-                    </div>
-                    <div className="buyProduct">
-                      <div>
-                        <HeartOutlined size={6} />
-                      </div>
-                      <div className="priceBtn">
-                        <div className="iconeShop">
-                          <ShoppingOutlined
-                            style={{ color: '#ff9800', fontSize: '1.5em' }}
-                          />
-                        </div>
-                        <div>
-                          <Button className="discountBtn">3+</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </TabPane>
+        ></TabPane>
         <TabPane
           tab={
             <span>
@@ -396,7 +108,10 @@ export function HomePage({ className }: Props) {
           }
           key="2"
         >
-          Tab 2
+           {BrowseHomeList && BrowseHomeList.data && (
+            <Offer product={BrowseHomeList.data.offers} />
+
+          ) }
         </TabPane>
       </Tabs>
     </StyledHomePage>

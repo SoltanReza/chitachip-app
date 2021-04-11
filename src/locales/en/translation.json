@@ -214,10 +214,14 @@
         "title": "اخبار سهام اردبیت"
       }
     },
+    "ProductDetailsPage": {
+      "title": "نمایش محصول",
+      "description": "نمایش جزئیات محصول"
+    },
     "LoginPage": {
       "title": "ورود کاربران",
       "description": "صفحه ورود",
-      "loginSuccessMessage": "به سامانه سهامداران خوش آمدید",
+      "loginSuccessMessage": "به سامانه چیتا چیپ خوش آمدید",
       "loginErrorMessage": "نام کاربری یا رمز عبور اشتباه میباشد",
       "LoginForm": {
         "rememberMe": "مرا به خاطر بسپار",

@@ -1,10 +1,35 @@
-import { Layout } from 'antd';
 import styled from 'styled-components/macro';
+import { Layout } from 'antd';
 import { theme } from 'styles/theme';
 import Logo from './image/Chitachip.svg';
+import background from './image/background.png';
 
 export const StyledBaseLayout = styled(Layout)`
   min-height: 100vh;
+   
+  .contactUs{
+    flex-wrap: nowrap;
+    display: flex;
+    position: absolute;
+    bottom: 73px;
+    right: 15px;
+    >div{
+      margin-left:0.5em;
+    }
+  }
+  .socialMedia{
+    line-height:1em;
+  }
+  .online{
+    background: #ff9800;
+    padding: .2em 0.4em;
+    color: #fff;
+    border-radius: 10px;
+    font-size: .8em;
+    >span{
+     margin-right: .2em;
+    }
+  }
   .navCostum {
     /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
     background: repeating-linear-gradient( 
@@ -38,7 +63,7 @@ export const StyledHeader = styled(Layout.Header)`
 
 
   line-height: 79px;
-  height: 80px;
+  height: 90px;
   .logo {
     /* display: inline-block; */
     background-image: url(${Logo});
@@ -54,7 +79,7 @@ export const StyledHeader = styled(Layout.Header)`
 export const StyledContent = styled(Layout.Content)`
   /* min-height: 100vh; */
   margin-right: 2em;
-  margin-top: 6em;
+  /* margin-top: 6em; */
   /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
 `;
 

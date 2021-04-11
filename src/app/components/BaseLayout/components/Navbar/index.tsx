@@ -4,7 +4,7 @@
  *
  */
 import { LogoutOutlined } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+import { Button, Menu, Input } from 'antd';
 import { Routes } from 'app/containers/App/Router/routes';
 import { selectAuth } from 'app/containers/App/selectors';
 import { translations } from 'locales/i18n';
@@ -14,6 +14,16 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AuthRoles } from 'types';
 import { StyledNavbar } from './styles';
+import {
+  UserOutlined,
+  LaptopOutlined,
+  NotificationOutlined,
+  ShoppingOutlined,
+  PieChartOutlined,
+  WhatsAppOutlined,
+  InstagramOutlined,
+  CustomerServiceOutlined,
+} from '@ant-design/icons';
 
 interface Props {
   className?: string;
@@ -73,14 +83,16 @@ export const Navbar = memo(({ className }: Props) => {
     },
     [history],
   );
-  const handleRedirectToLogoutPage = useCallback(
-    () => history.push(Routes.logout),
-    [history],
-  );
+  const handleRoutToLogin = useCallback(() => history.push(Routes.login), [
+    history,
+  ]);
+  const handleRoutToHome = useCallback(() => history.push(Routes.home), [
+    history,
+  ]);
 
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
-      <div className="logo" />
+      {/* <div className="logo" />
       <div className="logout">
         {authData.isAuthenticated() && (
           <Button
@@ -104,6 +116,21 @@ export const Navbar = memo(({ className }: Props) => {
               {menu.title}
             </Menu.Item>
           ))}
+      </Menu> */}
+
+      <div className="logo" onClick={handleRoutToHome} />
+      <Menu mode="horizontal" defaultSelectedKeys={['2']} className="navCostum">
+        <Menu.Item key="1" icon={<UserOutlined />} onClick={handleRoutToLogin}>
+          ثبت نام / ورود
+        </Menu.Item>
+        <Menu.Item key="2" icon={<ShoppingOutlined />}>
+          سبد خرید
+        </Menu.Item>
+        <Menu.Item key="3">
+          {' '}
+          <Input.Search size="middle" placeholder="input here" />
+          {/* <Search placeholder="input search text" style={{ width: 200 }} /> */}
+        </Menu.Item>
       </Menu>
     </StyledNavbar>
   );

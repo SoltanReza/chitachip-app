@@ -9,6 +9,8 @@ export enum Routes {
   faq = '/faq',
   finalForm = '/finalform',
 
+  productDetails = '/product/:id',
+
   dashboard = '/dashboard',
   profile = '/dashboard/profile',
   currency = '/dashboard/currency',

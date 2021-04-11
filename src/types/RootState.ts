@@ -1,5 +1,8 @@
 import { AppState } from 'app/containers/App/types';
 import { HomePageState } from 'app/containers/HomePage/types';
+import { LoginPageState } from 'app/containers/LoginPage/types';
+import { ProductDetailsPageState } from 'app/containers/ProductDetailsPage/types';
+import { RegisterPageState } from 'app/containers/RegisterPage/types';
 
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
@@ -10,6 +13,8 @@ import { HomePageState } from 'app/containers/HomePage/types';
 export interface RootState {
   app?: AppState;
   homePage?: HomePageState;
-
+  loginPage?: LoginPageState;
+  registerPage?: RegisterPageState;
+  productDetailsPage?: ProductDetailsPageState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

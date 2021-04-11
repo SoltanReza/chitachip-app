@@ -1,5 +1,8 @@
 import { HomePage } from 'app/containers/HomePage/Loadable';
+import { LoginPage } from 'app/containers/LoginPage/Loadable';
 import { NotFoundPage } from 'app/containers/NotFoundPage/Loadable';
+import { ProductDetailsPage } from 'app/containers/ProductDetailsPage/Loadable';
+import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
 import * as React from 'react';
 import {
   Route as BaseRoute,
@@ -20,6 +23,30 @@ export const Router = () => {
       component: HomePage,
       auth: {
         check: AuthLevel.ALL,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.login,
+      component: LoginPage,
+      auth: {
+        check: AuthLevel.UNAUTHENTICATED,
+      },
+    }, 
+    {
+      exact: true,
+      path: Routes.register,
+      component: RegisterPage,
+      auth: {
+        check: AuthLevel.UNAUTHENTICATED,
+      },
+    },
+     {
+      exact: true,
+      path: Routes.productDetails,
+      component: ProductDetailsPage,
+      auth: {
+        check: AuthLevel.UNAUTHENTICATED,
       },
     },
   ];

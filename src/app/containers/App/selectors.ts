@@ -30,3 +30,17 @@ export const selectAuthData = createSelector(
   state => state.auth,
 );
 
+export const selectBrowseHomeList = createSelector(
+  [selectDomain],
+  state => state.browseHomeList,
+);
+
+export const selectBrowseProduct = createSelector(
+  [selectDomain],
+  state => state.browseProduct,
+);
+
+export const selectBrowseCategories = createSelector(
+  [selectDomain],
+  state => state.browseCategories,
+);

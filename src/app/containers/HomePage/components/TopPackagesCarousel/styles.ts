@@ -11,4 +11,22 @@ export const StyledTopPackagesCarousel = styled.section`
     height: 170px;
     width: 100%;
   }
+  .cardCarousel {
+    background: #ff9800;
+    height: 170px;
+    width: 100%;
+    border-radius: 7px;
+    min-height: 245px;
+  }
+  .cardCarousel2 {
+    background: #3f51b5;
+    height: 170px;
+    width: 100%;
+    border-radius: 7px;
+    min-height: 245px;
+  }
+  .carousel {
+    display: flex;
+    
+  }
 `;

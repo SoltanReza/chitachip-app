@@ -19,6 +19,7 @@ import pic3 from '../../image/3.jpeg';
 import pic4 from '../../image/4.jpeg';
 import pic5 from '../../image/5.jpeg';
 import pic6 from '../../image/6.jpeg';
+import { Card, Col, Row } from 'antd';
 
 interface Props {
   className?: string;
@@ -33,37 +34,10 @@ export const TopPackagesCarousel = memo(({ className }: Props) => {
     <StyledTopPackagesCarousel
       className={`TopPackagesCarousel ${className || ''}`}
     >
-      <Carousel
-        // lazyLoad={true}
-        arrows
-        dots
-        rtl
-        // slidesPerPage={2}
-        // slidesPerScroll={1}
-        animationSpeed={1500}
-        // autoPlay={3000}
-        stopAutoPlayOnHover
-        offset={50}
-        itemWidth={250}
-        clickToChange
-        // slidesPerPage={2}
-        // slidesPerScroll={2}
-        // animationSpeed={1500}
-        // autoPlay={3000}
-        // stopAutoPlayOnHover
-        // offset={50}
-        // itemWidth={250}
-        // clickToChange
-        // centered
-        // rtl
-      >
-        <img src={pic} className="imgCarousel" />
-        <img src={pic2} className="imgCarousel" />
-        <img src={pic3} className="imgCarousel" />
-        <img src={pic4} className="imgCarousel" />
-        <img src={pic5} className="imgCarousel" />
-        <img src={pic6} className="imgCarousel" />
-      </Carousel>
+      <div className="carousel">
+        <Card className="cardCarousel"> نمیش محصولات</Card>
+        <Card className="cardCarousel2"> خرید محصولات</Card>
+      </div>
     </StyledTopPackagesCarousel>
   );
 });
