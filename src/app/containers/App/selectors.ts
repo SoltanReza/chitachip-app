@@ -44,3 +44,13 @@ export const selectBrowseCategories = createSelector(
   [selectDomain],
   state => state.browseCategories,
 );
+
+export const selectBrowseListProducts = createSelector(
+  [selectDomain],
+  state => state.browseListProducts,
+);
+
+export const selectRegister = createSelector(
+  [selectDomain],
+  state => state.register,
+);

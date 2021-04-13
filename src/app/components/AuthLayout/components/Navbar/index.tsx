@@ -18,6 +18,7 @@ interface Props {
   className?: string;
 }
 
+
 export const Navbar = memo(({ className }: Props) => {
   const { t } = useTranslation();
   const history = useHistory();

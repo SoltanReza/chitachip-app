@@ -4,40 +4,55 @@
  *
  */
 // import { useWindowSize } from '../../../utils/hooks/useWindowSize';
-import { useWindowWidth } from '@react-hook/window-size';
-
-import React, { memo, useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { sizes } from 'styles/media';
-import { StyledTopPackagesCarousel } from './styles';
-
-import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
-import pic from '../../image/1.jpeg';
-import pic2 from '../../image/2.jpeg';
-import pic3 from '../../image/3.jpeg';
-import pic4 from '../../image/4.jpeg';
-import pic5 from '../../image/5.jpeg';
-import pic6 from '../../image/6.jpeg';
-import { Card, Col, Row } from 'antd';
+import { Card, Button, Row, Col } from 'antd';
+import { CategorySliderData, ProductData } from 'app/containers/App/types';
+import React, { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { StyledCardCarousel, StyledTopPackagesCarousel } from './styles';
 
 interface Props {
   className?: string;
+  categorySlider: CategorySliderData;
+  productSlider: ProductData;
 }
 
-export const TopPackagesCarousel = memo(({ className }: Props) => {
-  const { t } = useTranslation();
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const chevronWidth = 40;
+export const TopPackagesCarousel = memo(
+  ({ className, categorySlider, productSlider }: Props) => {
+    const { t } = useTranslation();
+    const [activeItemIndex, setActiveItemIndex] = useState(0);
+    const chevronWidth = 40;
 
-  return (
-    <StyledTopPackagesCarousel
-      className={`TopPackagesCarousel ${className || ''}`}
-    >
-      <div className="carousel">
-        <Card className="cardCarousel"> نمیش محصولات</Card>
-        <Card className="cardCarousel2"> خرید محصولات</Card>
-      </div>
-    </StyledTopPackagesCarousel>
-  );
-});
+    return (
+      <StyledTopPackagesCarousel
+        className={`TopPackagesCarousel ${className || ''}`}
+      >
+        <Row gutter={16}>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12} >
+            <StyledCardCarousel
+              background={categorySlider.background}
+              defaultBackground="#ff9800"
+            >
+              {' '}
+              <h1>{categorySlider.name}</h1>
+              <Button size="large" type="primary" className="slideProduct">
+                مشاهده
+              </Button>
+            </StyledCardCarousel>
+          </Col>
+          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+            <StyledCardCarousel
+              background={productSlider.image}
+              defaultBackground="#3f51b5"
+            >
+              <h1>{productSlider.title}</h1>
+              <Button size="large" type="primary" className="slideProduct">
+                خرید محصول
+              </Button>
+            </StyledCardCarousel>
+          </Col>
+        </Row>
+      </StyledTopPackagesCarousel>
+    );
+  },
+);

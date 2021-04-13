@@ -1,12 +1,11 @@
+import { Form } from 'antd';
+import { ProductLayout } from 'app/components/ProductLayout';
 import styled from 'styled-components/macro';
-import { BaseLayout } from 'app/components/BaseLayout';
 import { sizes } from 'styles/media';
 import { theme } from 'styles/theme';
-import { Form } from 'antd';
 
-
-export const StyledRegisterPage = styled(BaseLayout)``;
-export const StyledLoginForm = styled(Form)`
+export const StyledRegisterPage = styled(ProductLayout)``;
+export const StyledRegisterForm = styled(Form)`
   padding: 30px;
   background-color: rgba(45, 105, 144, 0.4);
   box-shadow: 0 0 30px #1b3f56;

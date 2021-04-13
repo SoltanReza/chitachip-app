@@ -23,6 +23,16 @@ export interface AppState {
     data?: BrowseCategoriesResponse;
     error?: ErrorResponse;
   };
+  browseListProducts: {
+    params?: BrowseListProductsRequest;
+    data?: BrowseListProductsResponse;
+    error?: ErrorResponse;
+  };
+  register: {
+    params?: RegisterRequest;
+    data?: RegisterResponse;
+    error?: ErrorResponse;
+  };
 
   auth?: AuthData;
 }
@@ -51,7 +61,18 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface LoginResponse extends AuthData {}
+// #region GetToken
+
+export interface GetTokenRequest {
+  username: string;
+  password: string;
+}
+export interface GetTokenResponse extends AuthData {}
+// #endregion GetToken
+
+export interface LoginResponse {
+  status: number;
+}
 // #endregion Login
 
 // #region ProductData
@@ -73,6 +94,12 @@ export interface SliderData {
   image: string;
   url: string;
 }
+export interface CategorySliderData {
+  background: string;
+  id: number;
+  name: string;
+}
+
 // #endregion ProductData
 
 // #region BrowseHomeList
@@ -80,6 +107,8 @@ export interface BrowseHomeListRequest {}
 
 export interface BrowseHomeListResponse {
   slider: Array<SliderData>;
+  category_slider: CategorySliderData;
+  product_slider: ProductData;
   offers: Array<ProductData>;
 }
 // #endregion BrowseHomeList
@@ -102,7 +131,47 @@ export interface BrowseCategoriesResponse {
     id: number;
     name: string;
     background: string;
-  }>
- 
+  }>;
 }
 // #endregion BrowseCategories
+
+// #region BrowseListProducts
+export interface BrowseListProductsRequest {
+  cat_id: number;
+}
+
+export interface BrowseListProductsResponse {}
+// #endregion BrowseListProducts
+
+// #region Register
+export interface RegisterRequest {
+  first_name: string;
+  last_name: string;
+  mobile: string;
+  password: string;
+  national_code: string;
+}
+
+export interface RegisterResponse {
+  response: string;
+  status: number;
+}
+// #endregion Register
+
+// #region GetCode
+export interface GetCodeRequest {}
+
+export interface GetCodeResponse {
+  status: number;
+}
+// #endregion GetCode
+
+// #region ValidateCode
+export interface ValidateCodeRequest {
+  code: string;
+}
+
+export interface ValidateCodeResponse {
+  status: number;
+}
+// #endregion ValidateCode

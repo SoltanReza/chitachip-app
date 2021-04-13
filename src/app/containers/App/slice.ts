@@ -7,6 +7,8 @@ import {
   BrowseCategoriesResponse,
   BrowseHomeListRequest,
   BrowseHomeListResponse,
+  BrowseListProductsRequest,
+  BrowseListProductsResponse,
   BrowseProductRequest,
   BrowseProductResponse,
   ContainerState,
@@ -14,6 +16,8 @@ import {
   LoginResponse,
   Notif,
   NotifType,
+  RegisterRequest,
+  RegisterResponse,
 } from './types';
 
 // The initial state of the App container
@@ -36,6 +40,16 @@ export const initialState: ContainerState = {
     error: undefined,
   },
   browseCategories: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  browseListProducts: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  register: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -162,6 +176,50 @@ const appSlice = createSlice({
       state.browseCategories = initialState.browseCategories;
     },
     //#endregion browseCategories
+
+    //#region BrowseListProducts
+    browseListProducts(
+      state,
+      action: PayloadAction<BrowseListProductsRequest>,
+    ) {
+      state.browseListProducts.params = action.payload;
+      state.browseListProducts.data = initialState.browseListProducts.data;
+      state.browseListProducts.error = initialState.browseListProducts.error;
+    },
+    browseListProductsSuccess(
+      state,
+      action: PayloadAction<BrowseListProductsResponse>,
+    ) {
+      state.browseListProducts.params = initialState.browseListProducts.params;
+      state.browseListProducts.data = action.payload;
+    },
+    browseListProductsError(state, action: PayloadAction<ErrorResponse>) {
+      state.browseListProducts.params = initialState.browseListProducts.params;
+      state.browseListProducts.error = action.payload;
+    },
+    browseListProductsClear(state) {
+      state.browseListProducts = initialState.browseListProducts;
+    },
+    //#endregion BrowseListProducts
+
+    //#region register
+    register(state, action: PayloadAction<RegisterRequest>) {
+      state.register.params = action.payload;
+      state.register.data = initialState.register.data;
+      state.register.error = initialState.register.error;
+    },
+    registerSuccess(state, action: PayloadAction<RegisterResponse>) {
+      state.register.params = initialState.register.params;
+      state.register.data = action.payload;
+    },
+    registerError(state, action: PayloadAction<ErrorResponse>) {
+      state.register.params = initialState.register.params;
+      state.register.error = action.payload;
+    },
+    registerClear(state) {
+      state.register = initialState.register;
+    },
+    //#endregion register
 
     //#region auth
     setAuth: (state, action: PayloadAction<AuthData>) => {

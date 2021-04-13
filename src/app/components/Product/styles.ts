@@ -25,4 +25,14 @@ export const StyledProduct = styled.section`
   .alertText {
     color: red;
   }
+
+  .addToCardBtn {
+    background: red;
+    border-radius: 10px;
+  }
+
+  .imgProduct {
+    max-width: 100%;
+    max-height: 100%;
+  }
 `;

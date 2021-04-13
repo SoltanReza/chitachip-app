@@ -34,13 +34,14 @@ export const StyledBaseLayout = styled(Layout)`
     /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
     background: repeating-linear-gradient( 
 45deg
-,#ffffff,#ffffff 10px,#fdfdfd 10px,#ffffff 20px );
+,#ffffff,#ffffff 10px,#ebebeb 10px,#ffffff 20px );
 }
   .ant-layout {
+    background-image: url(${background});
     /* background: ${theme.HEADER_BACKGROUND_COLOR} !important; */
     background: repeating-linear-gradient( 
 45deg
-,#ffffff,#ffffff 10px,#fdfdfd 10px,#ffffff 20px );
+,#ffffff,#ffffff 10px,#ebebeb 10px,#ffffff 20px );
 }
 
   .ant-layout-sider {
@@ -59,7 +60,7 @@ export const StyledHeader = styled(Layout.Header)`
   /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
   background: repeating-linear-gradient( 
 45deg
-,#ffffff,#ffffff 10px,#fdfdfd 10px,#ffffff 20px );
+,#ffffff,#ffffff 10px,#ebebeb 10px,#ffffff 20px );
 
 
   line-height: 79px;
@@ -77,7 +78,8 @@ export const StyledHeader = styled(Layout.Header)`
   }
 `;
 export const StyledContent = styled(Layout.Content)`
-  /* min-height: 100vh; */
+
+   min-height: 100vh;
   margin-right: 2em;
   /* margin-top: 6em; */
   /* background: ${theme.HEADER_BACKGROUND_COLOR}; */

@@ -64,6 +64,8 @@ export interface AuthData {
   token: string;
   role: AuthRoles;
   user: User;
+  access: string;
+  refresh: string;
 }
 
 export interface Auth {

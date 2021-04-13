@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const StyledOffer = styled.section`
- .styleCarousel {
+  .styleCarousel {
     height: '160px' !important;
     color: '#fff' !important;
     line-height: '160px' !important;
@@ -32,7 +32,11 @@ export const StyledOffer = styled.section`
     background: #fff;
     padding: 1em;
     border-radius: 6px;
-    width: 170px;
+    min-width: 100%;
+    cursor: pointer;
+    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
   }
   .imgProduct {
     background-size: contain;
@@ -48,10 +52,12 @@ export const StyledOffer = styled.section`
   .buyProduct {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end !important;
     margin-top: 0.7em;
   }
   .price {
+    display: flex;
+    justify-content: space-between;
     font-weight: bold;
   }
   .priceBtn {
@@ -66,4 +72,25 @@ export const StyledOffer = styled.section`
     border-radius: 11px;
     background: #ff9800;
   }
-  `;
+
+  .priceStyle {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .currency {
+    font-size: 0.6em;
+    line-height: 2.5em;
+  }
+
+  .discount {
+    margin-left: 1em;
+    color: red;
+    font-weight: bold;
+  }
+
+  .priceDiscount {
+    font-size: 0.8em;
+    line-height: 1.9em;
+  }
+`;

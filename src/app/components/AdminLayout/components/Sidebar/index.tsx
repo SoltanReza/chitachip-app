@@ -162,41 +162,6 @@ export const Sidebar = memo(({ className }: Props) => {
       collapsed={collapsed}
       onCollapse={setCollapsed}
     >
-      {authData.data && authData.data.user.profile ? (
-        <section className="userInfo">
-          <div className="userAvatar">
-            <Avatar icon={<UserOutlined />} className="avatar" />
-
-            <b className="title">
-              {authData.data.user.profile.first_name}{' '}
-              {authData.data.user.profile.last_name}
-            </b>
-          </div>
-          <div className="stock">
-            <div className="stockValue">
-              {t(translations.layouts.admin.siderMenu.user.stock.balance)}
-              <b>{authData.data.user.stock / 10}</b>
-              {t(translations.layouts.admin.siderMenu.user.stock.rate)}
-            </div>
-
-            {/* <Button
-              type="link"
-              size="small"
-              className="stockAdd"
-              onClick={handleRedirectToRechargePage}
-            >
-              {t(translations.layouts.admin.siderMenu.user.recharge)}
-            </Button> */}
-          </div>
-        </section>
-      ) : (
-        <section className="userInfo">
-          <div className="userAvatar">
-            <b className="title">{authData.data?.user.email} </b>
-          </div>
-        </section>
-      )}
-
       <Menu theme="dark" mode="inline" selectedKeys={[selectedKey]}>
         {menus
           .filter(menu => menu.doRender)

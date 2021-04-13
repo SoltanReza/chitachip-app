@@ -10,7 +10,7 @@ import { Card, Breadcrumb, Row, Col, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ProductData } from 'app/containers/App/types';
 import { WarningOutlined } from '@ant-design/icons';
-
+import { Button } from 'antd';
 
 interface Props {
   className?: string;
@@ -24,48 +24,36 @@ export const Product = memo(({ className, data }: Props) => {
     <StyledProduct className={`Product ${className || ''}`}>
       <Card className="cardProduct">
         <Breadcrumb>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>خانه</Breadcrumb.Item>
           <Breadcrumb.Item>
-            <a href="">Application Center</a>
+            <a href="">محصولات</a>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <a href="">Application List</a>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>An Application</Breadcrumb.Item>
         </Breadcrumb>
         <div className="productTitle">
           <h1> {data.title}</h1>
         </div>
-        <Row gutter={16}>
-          <Col xs={2} sm={4} md={9} lg={10} xl={10}>
-            {data.image}
+        <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
+          <Col xs={24} sm={24} md={9} lg={10} xl={10}>
+            <img src={data.image} className='imgProduct' />
           </Col>
-          <Col xs={20} sm={16} md={9} lg={10} xl={10}>
+          <Col xs={24} sm={24} md={9} lg={10} xl={10}>
             <Card className="productInfo">
               <Typography>
-                <Title>Introduction</Title>
-                <Paragraph>
-                  In the process of internal desktop applications development,
-                  many different design specs and implementations would be
-                  involved, which might cause designers and developers
-                  difficulties and duplication and reduce the efficiency of
-                  development.
-                </Paragraph>
+                <Title>ویژگی های محصولات</Title>
+                <Paragraph>مقدار رم: 1گیگ</Paragraph>
+                <Paragraph>کلاک cpu : ءآة56</Paragraph>
               </Typography>
             </Card>
           </Col>
-          <Col xs={2} sm={4} md={6} lg={4} xl={4}>
+          <Col xs={24} sm={24} md={6} lg={4} xl={4}>
             <Card className="productInfo">
               <Typography>
-                <Title>Introduction</Title>
-                <Paragraph>
-                  In the process of internal desktop applications development,
-                  many different design specs and implementations would be
-                  involved, which might cause designers and developers
-                  difficulties and duplication and reduce the efficiency of
-                  development.
-                </Paragraph>
+                <Title>{data.title}</Title>
+                <Paragraph>گارانتی اصل بودن کالا</Paragraph>
+                <Paragraph>ضمانت تحویل سالم!</Paragraph>
+                <Paragraph>250 هزار تومان</Paragraph>
               </Typography>
+              <Button className="addToCardBtn">اضافه کردن به سبد خرید</Button>
             </Card>
           </Col>
         </Row>

@@ -1,6 +1,7 @@
 export const theme = {
-  TEXT_COLOR: '#444',
+  TEXT_COLOR: '#000',
   TEXT_COLOR_INVERT: '#fff',
+  TEXT_COLOR_DARK: '#000',
   SHADOW_COLOR: '#ccc',
   PRIMERY_COLOR: '#0c365c',
   SECONDARY_COLOR: '#fee255',

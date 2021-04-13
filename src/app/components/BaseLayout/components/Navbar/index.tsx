@@ -28,6 +28,7 @@ import {
 interface Props {
   className?: string;
 }
+const { Search } = Input;
 
 export const Navbar = memo(({ className }: Props) => {
   const { t } = useTranslation();
@@ -120,15 +121,30 @@ export const Navbar = memo(({ className }: Props) => {
 
       <div className="logo" onClick={handleRoutToHome} />
       <Menu mode="horizontal" defaultSelectedKeys={['2']} className="navCostum">
-        <Menu.Item key="1" icon={<UserOutlined />} onClick={handleRoutToLogin}>
-          ثبت نام / ورود
-        </Menu.Item>
+        {authData.data ? (
+          <Menu.Item
+            key="1"
+            icon={<UserOutlined />}
+            onClick={handleRoutToLogin}
+          >
+            نام کاربری
+          </Menu.Item>
+        ) : (
+          <Menu.Item
+            key="1"
+            icon={<UserOutlined />}
+            onClick={handleRoutToLogin}
+          >
+            ثبت نام / ورود
+          </Menu.Item>
+        )}
+
         <Menu.Item key="2" icon={<ShoppingOutlined />}>
           سبد خرید
         </Menu.Item>
         <Menu.Item key="3">
           {' '}
-          <Input.Search size="middle" placeholder="input here" />
+          <Search size="middle" placeholder="input here" />
           {/* <Search placeholder="input search text" style={{ width: 200 }} /> */}
         </Menu.Item>
       </Menu>

@@ -34,8 +34,8 @@ export const http = axios.create({
 http.interceptors.request.use(function (config) {
   const authData: AuthData = Storage.read('auth');
 
-  if (authData && authData.token) {
-    config.headers.Authorization = `Bearer ${authData.token}`;
+  if (authData && authData.access) {
+    config.headers.Authorization = `Bearer ${authData.access}`;
   }
 
   return config;
@@ -62,7 +62,8 @@ http.interceptors.response.use(undefined, function (error: AxiosError) {
       code: error.response.status,
       message,
     };
-  } else {
+  }
+   else {
     response = { code: 0, message: 'خطای شبکه' };
   }
   console.dir(error);

@@ -4,14 +4,25 @@ import { translations } from 'locales/i18n';
 import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { redirect } from 'utils/history';
 import { Storage } from 'utils/storage';
-import { browseCategoriesApi, browseHomeListApi, browseProductApi, loginApi } from './api';
+import {
+  browseCategoriesApi,
+  browseHomeListApi,
+  browseListProductsApi,
+  browseProductApi,
+  getCodeApi,
+  getTokenApi,
+  loginApi,
+  registerApi,
+} from './api';
 import { Routes } from './Router/routes';
 import { appActions } from './slice';
 import {
   BrowseCategoriesRequest,
   BrowseHomeListRequest,
+  BrowseListProductsRequest,
   BrowseProductRequest,
   LoginRequest,
+  RegisterRequest,
 } from './types';
 
 export function* logoutSaga() {
@@ -24,19 +35,31 @@ export function* logoutSaga() {
 export function* loginSaga(action: PayloadAction<LoginRequest>) {
   try {
     const response = yield call(loginApi, action.payload);
-
     yield put(appActions.loginSuccess(response));
-    yield put(appActions.setAuth(response));
-    Storage.put('auth', response);
-    yield redirect(Routes.dashboard);
+
+    const token = yield call(getTokenApi, {
+      password: action.payload.password,
+      username: action.payload.username,
+    });
+    if (response.status === 200) {
+      yield put(appActions.setAuth(token));
+      Storage.put('auth', token);
+    }
+    if (response.status === 100) {
+      yield put(appActions.setAuth(token));
+      Storage.put('auth', token);
+      const code = yield call(getCodeApi, {});
+    }
+
     yield put(
       appActions.notifySuccess(
         translations.pages.LoginPage.loginSuccessMessage,
       ),
     );
+    yield redirect(Routes.home);
   } catch (error) {
     yield put(appActions.loginError(error));
-    yield put(appActions.notifyError(error.message));
+    // yield put(appActions.notifyError(error.message));
   }
 }
 export function* browseHomeListSaga(
@@ -80,10 +103,46 @@ export function* browseCategoriesSaga(
   }
 }
 
+export function* browseListProductsSaga(
+  action: PayloadAction<BrowseListProductsRequest>,
+) {
+  try {
+    const response = yield call(browseListProductsApi, action.payload);
+    yield put(appActions.browseListProductsSuccess(response));
+  } catch (error) {
+    yield put(appActions.browseListProductsError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* registerSaga(action: PayloadAction<RegisterRequest>) {
+  try {
+    const response = yield call(registerApi, action.payload);
+    yield put(appActions.registerSuccess(response));
+    if (response.status === 201) {
+      const token = yield call(getTokenApi, {
+        password: action.payload.password,
+        username: action.payload.mobile,
+      });
+
+      Storage.put('auth', token);
+      const code = yield call(getCodeApi, {});
+    }
+    if (response.status === 200) {
+      yield put(appActions.notifySuccess('شما با موفقیت ثبت نام شده اید'));
+      yield redirect(Routes.home);
+    }
+  } catch (error) {
+    yield put(appActions.registerError(error));
+    // yield put(appActions.notifyError(error.message));
+  }
+}
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
   yield takeLatest(appActions.browseHomeList.type, browseHomeListSaga);
   yield takeLatest(appActions.browseProduct.type, browseProductSaga);
   yield takeLatest(appActions.browseCategories.type, browseCategoriesSaga);
+  yield takeLatest(appActions.register.type, registerSaga);
 }

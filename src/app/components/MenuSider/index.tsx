@@ -3,9 +3,7 @@
  * MenuSider
  *
  */
-import {
-  PieChartOutlined
-} from '@ant-design/icons';
+import { PieChartOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { selectBrowseCategories } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
@@ -13,7 +11,6 @@ import React, { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledMenuSider } from './styles';
-
 
 interface Props {
   className?: string;
@@ -40,20 +37,22 @@ export const MenuSider = memo(({ className }: Props) => {
           height: '73vh',
         }}
       >
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          {BrowseCategories &&
-            BrowseCategories.data &&
-            BrowseCategories.data.categories.map(item => (
-              <Menu.Item key="1" icon={<PieChartOutlined />}>
+        {BrowseCategories && BrowseCategories.data && (
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={[
+              BrowseCategories.data.categories[0].id.toString(),
+            ]}
+            defaultOpenKeys={['sub1']}
+            style={{ height: '100%', borderRight: 0 }}
+          >
+            {BrowseCategories.data.categories.map(item => (
+              <Menu.Item key={item.id} icon={<PieChartOutlined />}>
                 {item.name}
               </Menu.Item>
             ))}
-        </Menu>
+          </Menu>
+        )}
       </Sider>
     </StyledMenuSider>
   );

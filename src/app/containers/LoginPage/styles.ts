@@ -1,10 +1,10 @@
+import { Form } from 'antd';
+import { ProductLayout } from 'app/components/ProductLayout';
 import styled from 'styled-components/macro';
-import { BaseLayout } from 'app/components/BaseLayout';
 import { sizes } from 'styles/media';
 import { theme } from 'styles/theme';
-import { Form } from 'antd';
 
-export const StyledLoginPage = styled(BaseLayout)``;
+export const StyledLoginPage = styled(ProductLayout)``;
 
 export const StyledLoginForm = styled(Form)`
   padding: 30px;

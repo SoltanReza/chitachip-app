@@ -50,19 +50,26 @@ export const Offer = memo(({ className, product }: Props) => {
                   </div>
                   <div>
                     <img
-                      src={item.image || ''}
+                      src={item.image}
                       className="imgProduct"
                       alt={item.title}
                     />
                   </div>
 
                   <div className="buyProduct">
-                    <div>
+                    {/* <div>
                       <HeartOutlined size={6} />
-                    </div>
-                    <div>
-                      <ShoppingOutlined size={6} />{' '}
-                      <span className="price">{item.price} تومان</span>
+                    </div> */}
+                    <div className="priceStyle">
+                      {/* <ShoppingOutlined size={6} />{' '} */}
+                      <div className="price">
+                        <div className='discount'>18%</div>
+                        <s className='priceDiscount'>{item.price}</s>
+                      </div>
+                      <div className="price">
+                        <div className='currency'>تومان</div>
+                        <div>{item.price}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
