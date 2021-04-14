@@ -92,6 +92,11 @@ export const Navbar = memo(({ className }: Props) => {
     history,
   ]);
 
+  const handleRedirectToLogoutPage = useCallback(
+    () => history.push(Routes.logout),
+    [history],
+  );
+
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
       {/* <div className="logo" />
@@ -125,7 +130,9 @@ export const Navbar = memo(({ className }: Props) => {
         {authData.data ? (
           <Menu.SubMenu key="1" icon={<UserOutlined />} title="پروفایل کاربری">
             <Menu.Item key="setting:2">پروفایل</Menu.Item>
-            <Menu.Item key="setting:1">خروج</Menu.Item>
+            <Menu.Item key="setting:1" onClick={handleRedirectToLogoutPage}>
+              خروج
+            </Menu.Item>
           </Menu.SubMenu>
         ) : (
           // <Menu.Item

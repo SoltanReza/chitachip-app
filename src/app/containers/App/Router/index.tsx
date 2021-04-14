@@ -1,5 +1,6 @@
 import { HomePage } from 'app/containers/HomePage/Loadable';
 import { LoginPage } from 'app/containers/LoginPage/Loadable';
+import { LogoutPage } from 'app/containers/LogoutPage/Loadable';
 import { NotFoundPage } from 'app/containers/NotFoundPage/Loadable';
 import { ProductDetailsPage } from 'app/containers/ProductDetailsPage/Loadable';
 import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
@@ -32,7 +33,7 @@ export const Router = () => {
       auth: {
         check: AuthLevel.UNAUTHENTICATED,
       },
-    }, 
+    },
     {
       exact: true,
       path: Routes.register,
@@ -41,12 +42,20 @@ export const Router = () => {
         check: AuthLevel.UNAUTHENTICATED,
       },
     },
-     {
+    {
       exact: true,
       path: Routes.productDetails,
       component: ProductDetailsPage,
       auth: {
         check: AuthLevel.UNAUTHENTICATED,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.logout,
+      component: LogoutPage,
+      auth: {
+        check: AuthLevel.AUTHENTICATED,
       },
     },
   ];

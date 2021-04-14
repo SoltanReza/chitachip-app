@@ -53,9 +53,9 @@ export const MenuSider = memo(({ className }: Props) => {
         {BrowseCategories && BrowseCategories.data && (
           <Menu
             mode="inline"
-            defaultSelectedKeys={[
-              BrowseCategories.data.categories[0].id.toString(),
-            ]}
+            // defaultSelectedKeys={[
+            //   BrowseCategories.data.categories[0].id.toString(),
+            // ]}
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
           >
