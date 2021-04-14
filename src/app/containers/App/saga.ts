@@ -36,7 +36,9 @@ export function* loginSaga(action: PayloadAction<LoginRequest>) {
   try {
     const response = yield call(loginApi, action.payload);
     yield put(appActions.loginSuccess(response));
-
+    if (response.status === 400) {
+      yield put(appActions.notifyError('این کاربر تا کنون ثبت نام نشده است'));
+    }
     const token = yield call(getTokenApi, {
       password: action.payload.password,
       username: action.payload.username,
@@ -45,12 +47,12 @@ export function* loginSaga(action: PayloadAction<LoginRequest>) {
       yield put(appActions.setAuth(token));
       Storage.put('auth', token);
     }
+
     if (response.status === 100) {
       yield put(appActions.setAuth(token));
       Storage.put('auth', token);
       const code = yield call(getCodeApi, {});
     }
-
     yield put(
       appActions.notifySuccess(
         translations.pages.LoginPage.loginSuccessMessage,

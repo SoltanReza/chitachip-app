@@ -21,27 +21,35 @@ export const Footer = memo(({ className }: Props) => {
 
   return (
     <StyledFooter className={`Footer ${className || ''}`}>
-      <Row className="footerRow" gutter={16}>
-        <Col md={6} xs={24}>
-          {t(translations.layouts.base.footer.address)}
+      <Row>
+        <Col span={8}>
+          <Row>
+            <Col span={24}>
+              <span>پشتیبانی</span>
+            </Col>
+            <Col span={24}>پیگیری سفارشات</Col>
+            <Col span={24}>پشتیبانی فنی</Col>
+            <Col span={24}>ضمانت محصول</Col>
+          </Row>
         </Col>
-
-        <Col md={6} xs={24}>
-          {t(translations.layouts.base.footer.phone)}
+        <Col span={8}>
+          <Row>
+            <Col span={24}>
+              <span>درباره ما</span>
+            </Col>
+            <Col span={24}>آشنایی با بخش ها</Col>
+            <Col span={24}>اهداف</Col>
+            <Col span={24}>قوانین و مقررات</Col>
+          </Row>
         </Col>
-
-        <Col md={6} xs={24}>
-          {t(translations.layouts.base.footer.email)}
-        </Col>
-        {/* <Col md={6} xs={24}>
-          <a href="https://www.instagram.com/ardbitnet/" target="blank">
-            <img src={instagram} width="60px" height="60px" alt="Instagram" />
-          </a>
-        </Col> */}
-      </Row>
-      <Row className="footerRow" gutter={16}>
-        <Col md={24} xs={24}>
-          {t(translations.layouts.base.footer.copyWrite)}
+        <Col span={8}>
+          <Row>
+            <Col span={24}>
+              <span>تماس با ما</span>
+            </Col>
+            <Col span={24}>اطلاعات تماس</Col>
+            <Col span={24}>آدرس</Col>
+          </Row>
         </Col>
       </Row>
     </StyledFooter>

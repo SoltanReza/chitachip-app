@@ -87,6 +87,7 @@ export interface ProductData {
   stock: number;
   code: string;
   discount_end_time: string;
+  Discount_end_time;
 }
 
 export interface SliderData {
@@ -99,6 +100,12 @@ export interface CategorySliderData {
   id: number;
   name: string;
 }
+export interface productBanner {
+  product_banner: string;
+}
+export interface categoryBanner {
+  category_banner: string;
+}
 
 // #endregion ProductData
 
@@ -109,6 +116,8 @@ export interface BrowseHomeListResponse {
   slider: Array<SliderData>;
   category_slider: CategorySliderData;
   product_slider: ProductData;
+  product_banner: productBanner;
+  category_banner: categoryBanner;
   offers: Array<ProductData>;
 }
 // #endregion BrowseHomeList
@@ -131,6 +140,7 @@ export interface BrowseCategoriesResponse {
     id: number;
     name: string;
     background: string;
+    icon: string;
   }>;
 }
 // #endregion BrowseCategories

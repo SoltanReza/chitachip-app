@@ -8,16 +8,22 @@ import {
   InstagramOutlined,
   WhatsAppOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Input } from 'antd';
 import React, { memo, ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MenuSider } from '../MenuSider';
 import { Navbar } from './components/Navbar';
-import { StyledBaseLayout, StyledContent, StyledHeader } from './styles';
+import { Footer } from './components/Footer';
+import {
+  StyledBaseLayout,
+  StyledContent,
+  StyledHeader,
+  StyledFooter,
+} from './styles';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
-
+const { Search } = Input;
 interface Props {
   className?: string;
   children: ReactNode;
@@ -47,23 +53,14 @@ export const BaseLayout = memo(
 
         <Layout>
           <MenuSider />
-          <div className="contactUs">
-            <div className="online">
-              پشتیبانی آنلاین
-              <span>
-                <CustomerServiceOutlined />
-              </span>
-            </div>
-            <div>تماس با ما</div>
-            <div className="socialMedia">
-              <WhatsAppOutlined />
-            </div>
-            <div className="socialMedia">
-              <InstagramOutlined />
-            </div>
-          </div>
+
           <StyledContent>{children}</StyledContent>
         </Layout>
+
+        <StyledFooter>
+          {' '}
+          <Footer />
+        </StyledFooter>
       </StyledBaseLayout>
     );
   },

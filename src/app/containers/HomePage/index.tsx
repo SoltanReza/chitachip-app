@@ -6,7 +6,7 @@
 
 import { AndroidOutlined, AppleOutlined } from '@ant-design/icons';
 import { Row, Space, Tabs } from 'antd';
-import { DateTimeViewer  } from 'app/components/DateTimeViewer';
+import { DateTimeViewer } from 'app/components/DateTimeViewer';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
 import React, { useEffect } from 'react';
@@ -45,38 +45,21 @@ export function HomePage({ className }: Props) {
       {BrowseHomeList && BrowseHomeList.data && (
         <>
           <TopPackagesCarousel
-            categorySlider={BrowseHomeList.data.category_slider}
-            productSlider={BrowseHomeList.data.product_slider}
+            categoryBanner={BrowseHomeList.data.category_banner}
+            productBanner={BrowseHomeList.data.product_banner}
           />
 
           <Tabs defaultActiveKey="1">
-            <TabPane
-              tab={
-                <span>
-                  <AndroidOutlined />
-                  پیشنهاد های ویژه
-                </span>
-              }
-              key="1"
-            >
+            <TabPane tab={<span>پرفروش ترین ها</span>} key="1">
+              <Offer product={BrowseHomeList.data.offers} />
+            </TabPane>
+            <TabPane tab={<span>جدیدترین</span>} key="2">
               <Offer product={BrowseHomeList.data.offers} />
             </TabPane>
             <TabPane
               tab={
                 <span>
-                  <AppleOutlined />
-                  پرفروش ترین ها
-                </span>
-              }
-              key="2"
-            >
-              <Offer product={BrowseHomeList.data.offers} />
-            </TabPane>
-            <TabPane
-              tab={
-                <span>
-                  <AppleOutlined />
-                 جدیدترین  <DateTimeViewer  />
+                  پیشنهاد های ویژه <DateTimeViewer />
                 </span>
               }
               key="3"

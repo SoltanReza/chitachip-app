@@ -4,7 +4,11 @@
  *
  */
 import React, { memo } from 'react';
-
+import {
+  HeartOutlined,
+  ShoppingOutlined,
+  ShareAltOutlined,
+} from '@ant-design/icons';
 import { StyledProduct } from './styles';
 import { Card, Breadcrumb, Row, Col, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +38,7 @@ export const Product = memo(({ className, data }: Props) => {
         </div>
         <Row gutter={[16, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
           <Col xs={24} sm={24} md={9} lg={10} xl={10}>
-            <img src={data.image} className='imgProduct' />
+            <img src={data.image} className="imgProduct" />
           </Col>
           <Col xs={24} sm={24} md={9} lg={10} xl={10}>
             <Card className="productInfo">
@@ -53,7 +57,21 @@ export const Product = memo(({ className, data }: Props) => {
                 <Paragraph>ضمانت تحویل سالم!</Paragraph>
                 <Paragraph>250 هزار تومان</Paragraph>
               </Typography>
-              <Button className="addToCardBtn">اضافه کردن به سبد خرید</Button>
+              <div>
+                <Button icon={<ShoppingOutlined />} className="addToCardBtn">
+                  اضافه به سبد خرید
+                </Button>
+              </div>
+              <div>
+                <Button icon={<HeartOutlined />} className="addToFavorite">
+                  اضافه به مورد علاقه ها
+                </Button>
+              </div>
+              <div>
+                <Button icon={<ShareAltOutlined />} className="Share">
+                  اشتراک گذاری
+                </Button>
+              </div>
             </Card>
           </Col>
         </Row>

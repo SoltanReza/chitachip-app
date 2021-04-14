@@ -30,19 +30,11 @@ export const StyledTopPackagesCarousel = styled.section`
     display: flex;
   }
 `;
-export const StyledCardCarousel = styled(Card)<{
-  background: Nullable<string>;
+export const StyledCardCarousel = styled.div<{
   defaultBackground: Nullable<string>;
 }>`
-  min-height: 100%;
-  min-width: 100%;
   border-radius: 7px;
-  background: ${props =>
-    props.background?.lastIndexOf(':')
-      ? `url(${props.background}) no-repeat`
-      : props.background || props.defaultBackground};
   background-size: 100%;
-
   margin-left: 1em;
   .slideProduct {
     background: ${theme.TEXT_COLOR_INVERT};
@@ -50,5 +42,11 @@ export const StyledCardCarousel = styled(Card)<{
     color: ${theme.TEXT_COLOR_DARK};
     font-weight: bold;
     border: 1px solid ${theme.TEXT_COLOR_DARK};
+  }
+
+  .container_img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 `;

@@ -27,12 +27,26 @@ export const StyledProduct = styled.section`
   }
 
   .addToCardBtn {
-    background: red;
+    background: #fd9803;
     border-radius: 10px;
+    color: #fff;
+  }
+  .addToFavorite {
+    background: #fb0000;
+    border-radius: 10px;
+    color: #fff;
+  }
+  .Share {
+    background: #a8a8a8;
+    border-radius: 10px;
+    color: #fff;
   }
 
   .imgProduct {
     max-width: 100%;
     max-height: 100%;
+  }
+
+  .productIconProperty {
   }
 `;

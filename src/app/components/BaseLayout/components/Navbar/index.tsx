@@ -23,6 +23,7 @@ import {
   WhatsAppOutlined,
   InstagramOutlined,
   CustomerServiceOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 
 interface Props {
@@ -122,14 +123,18 @@ export const Navbar = memo(({ className }: Props) => {
       <div className="logo" onClick={handleRoutToHome} />
       <Menu mode="horizontal" defaultSelectedKeys={['2']} className="navCostum">
         {authData.data ? (
-          <Menu.Item
-            key="1"
-            icon={<UserOutlined />}
-            onClick={handleRoutToLogin}
-          >
-            نام کاربری
-          </Menu.Item>
+          <Menu.SubMenu key="1" icon={<UserOutlined />} title="پروفایل کاربری">
+            <Menu.Item key="setting:2">پروفایل</Menu.Item>
+            <Menu.Item key="setting:1">خروج</Menu.Item>
+          </Menu.SubMenu>
         ) : (
+          // <Menu.Item
+          //   key="1"
+          //   icon={<UserOutlined />}
+          //   // onClick={handleRoutToLogin}
+          // >
+          //   نام کاربری
+          // </Menu.Item>
           <Menu.Item
             key="1"
             icon={<UserOutlined />}
@@ -144,8 +149,8 @@ export const Navbar = memo(({ className }: Props) => {
         </Menu.Item>
         <Menu.Item key="3">
           {' '}
-          <Search size="middle" placeholder="input here" />
           {/* <Search placeholder="input search text" style={{ width: 200 }} /> */}
+          <Search size="middle" placeholder="input here" />
         </Menu.Item>
       </Menu>
     </StyledNavbar>

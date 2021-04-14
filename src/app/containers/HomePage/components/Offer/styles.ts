@@ -93,4 +93,12 @@ export const StyledOffer = styled.section`
     font-size: 0.8em;
     line-height: 1.9em;
   }
+
+  .react-multi-carousel-list {
+    direction: ltr !important;
+  }
+
+  .react-multi-carousel-item {
+    margin: 1em 2em 2em 3em;
+  }
 `;

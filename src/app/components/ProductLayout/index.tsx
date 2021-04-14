@@ -6,6 +6,8 @@
 import React, { memo, ReactNode } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import { StyledFooter } from '../BaseLayout/styles';
+import { Footer } from '../BaseLayout/components/Footer';
 import { Navbar } from '../BaseLayout/components/Navbar';
 import { StyledContent, StyledHeader, StyledProductLayout } from './styles';
 
@@ -31,6 +33,10 @@ export const ProductLayout = memo(
           <Navbar />
         </StyledHeader>
         <StyledContent>{children}</StyledContent>
+        <StyledFooter>
+          {' '}
+          <Footer />
+        </StyledFooter>
       </StyledProductLayout>
     );
   },
