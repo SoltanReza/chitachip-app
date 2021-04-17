@@ -154,10 +154,12 @@ export const Navbar = memo(({ className }: Props) => {
         <Menu.Item key="2" icon={<ShoppingOutlined />}>
           سبد خرید
         </Menu.Item>
-        <Menu.Item key="3">
-          {' '}
-          {/* <Search placeholder="input search text" style={{ width: 200 }} /> */}
-          <Search size="middle" placeholder="input here" />
+        <Menu.Item>
+          <Search
+            placeholder="جستجو"
+            style={{ width: 200 }}
+            className="searchStyle"
+          />
         </Menu.Item>
       </Menu>
     </StyledNavbar>

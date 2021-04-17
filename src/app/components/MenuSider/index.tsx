@@ -40,51 +40,38 @@ export const MenuSider = memo(({ className }: Props) => {
   }, [onlyWidth, setCollapsed]);
 
   return (
-    <StyledMenuSider className={`MenuSider ${className || ''}`}>
-      <Sider
-        width={200}
-        className="site-layout-background"
-        style={{
-          overflow: 'auto',
-          height: '73vh',
-        }}
-      >
-        <div className="categoryTitle">دسته بندی ها</div>
-        {BrowseCategories && BrowseCategories.data && (
-          <Menu
-            mode="inline"
-            // defaultSelectedKeys={[
-            //   BrowseCategories.data.categories[0].id.toString(),
-            // ]}
-            defaultOpenKeys={['sub1']}
-            style={{ height: '100%', borderRight: 0 }}
-          >
-            {BrowseCategories.data.categories.map(item => (
-              <Menu.Item
-                key={item.id}
-                icon={<img src={item.icon} className="iconCategory" />}
-              >
-                {item.name}
-              </Menu.Item>
-            ))}
-          </Menu>
-        )}
-      </Sider>
-      <div className="contactUs">
-        <div className="online">
-          پشتیبانی آنلاین
-          <span>
-            <CustomerServiceOutlined />
-          </span>
-        </div>
-        <div>تماس با ما</div>
-        <div className="socialMedia">
-          <WhatsAppOutlined />
-        </div>
-        <div className="socialMedia">
-          <InstagramOutlined />
-        </div>
-      </div>
+    <StyledMenuSider
+      className={`MenuSider ${className || ''}`}
+      style={{
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        height: '73vh',
+      }}
+      collapsed={collapsed}
+      onCollapse={setCollapsed}
+    >
+      <div className="categoryTitle">دسته بندی ها</div>
+      {BrowseCategories && BrowseCategories.data && (
+        <Menu
+          mode="inline"
+          // defaultSelectedKeys={[
+          //   BrowseCategories.data.categories[0].id.toString(),
+          // ]}
+          defaultOpenKeys={['sub1']}
+          style={{ height: '100%', borderRight: 0 }}
+        >
+          {BrowseCategories.data.categories.map(item => (
+            <Menu.Item
+              key={item.id}
+              icon={
+                <img src={item.icon} className="iconCategory" alt={item.name} />
+              }
+            >
+              {item.name}
+            </Menu.Item>
+          ))}
+        </Menu>
+      )}
     </StyledMenuSider>
   );
 });

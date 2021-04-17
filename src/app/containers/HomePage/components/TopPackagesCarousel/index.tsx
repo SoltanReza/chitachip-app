@@ -32,7 +32,7 @@ export const TopPackagesCarousel = memo(
       <StyledTopPackagesCarousel
         className={`TopPackagesCarousel ${className || ''}`}
       >
-        <Row gutter={16}>
+        <Row gutter={[16, 24]}>
           <Col xs={24} sm={24} md={12} lg={12} xl={12}>
             <StyledCardCarousel
               // background={categoryBanner.background}

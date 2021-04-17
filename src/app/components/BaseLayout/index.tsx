@@ -19,6 +19,7 @@ import {
   StyledContent,
   StyledHeader,
   StyledFooter,
+  StyledMain,
 } from './styles';
 
 const { SubMenu } = Menu;
@@ -51,11 +52,29 @@ export const BaseLayout = memo(
           <Footer />
         </StyledFooter> */}
 
-        <Layout>
-          <MenuSider />
+        <StyledMain>
+          <div>
+            <MenuSider />
+
+            <div className="contactUs">
+              <div className="online">
+                پشتیبانی آنلاین
+                <span>
+                  <CustomerServiceOutlined />
+                </span>
+              </div>
+              <div>تماس با ما</div>
+              <div className="socialMedia">
+                <WhatsAppOutlined />
+              </div>
+              <div className="socialMedia">
+                <InstagramOutlined />
+              </div>
+            </div>
+          </div>
 
           <StyledContent>{children}</StyledContent>
-        </Layout>
+        </StyledMain>
 
         <StyledFooter>
           {' '}

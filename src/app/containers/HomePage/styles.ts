@@ -36,13 +36,7 @@ export const StyledHomePage = styled(BaseLayout)`
     border-radius: 6px;
     width: 170px;
   }
-  .imgProduct {
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 70px;
-    width: 100%;
-  }
+
   .titleProduct {
     font-weight: bold;
     margin-bottom: 0.7em;

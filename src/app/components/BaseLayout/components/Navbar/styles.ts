@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 import { theme } from 'styles/theme';
-import Logo from '../../../LazyImg/assets/logo.png';
+import Logo from '../../image/Chitachip.svg';
 export const StyledNavbar = styled.section`
   &,
  
@@ -18,10 +18,25 @@ export const StyledNavbar = styled.section`
     background-repeat: no-repeat;
     height: 100px;
     width: 100px;
-    margin: 0.2em -2em 0em 2em;
+    margin: -0.8em 0em 0em -2em;
     float: left;
     cursor: pointer;
   }
 
-  
+
+  .ant-input::placeholder {
+    color:#000;
+}
+
+  .searchStyle{
+    width: 200px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #000;
+    background: none;
+    > input{
+      background: none;
+    }
+  }
 `;

@@ -2,14 +2,13 @@ import styled from 'styled-components/macro';
 import { Layout } from 'antd';
 import { theme } from 'styles/theme';
 import Logo from '../BaseLayout/image/Chitachip.svg';
+import background from '../BaseLayout/image/back_img.png';
 
 export const StyledProductLayout = styled.section``;
 
 export const StyledHeader = styled(Layout.Header)`
   /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
-  background: repeating-linear-gradient( 
-45deg
-,#ffffff,#ffffff 10px,#fdfdfd 10px,#ffffff 20px );
+  background-image: url(${background}) !important;
 
   line-height: 79px;
   height: 90px;

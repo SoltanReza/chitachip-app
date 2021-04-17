@@ -40,10 +40,12 @@ export const StyledOffer = styled.section`
   }
   .imgProduct {
     background-size: contain;
-    background-position: center;
+    /* background-position: center; */
     background-repeat: no-repeat;
-    height: 70px;
+
+    height: 100%;
     width: 100%;
+    object-fit: cover;
   }
   .titleProduct {
     font-weight: bold;
