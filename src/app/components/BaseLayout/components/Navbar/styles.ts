@@ -1,16 +1,14 @@
 import styled from 'styled-components/macro';
 import { theme } from 'styles/theme';
 import Logo from '../../image/Chitachip.svg';
+import background from '../../image/back_img.png';
 export const StyledNavbar = styled.section`
   &,
- 
   .navCostum {
-    /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
-    background: repeating-linear-gradient( 
-45deg
-,#ffffff,#ffffff 10px,#fdfdfd 10px,#ffffff 20px );
-}
-.logo {
+    background-size: cover;
+    background-image: url(${background}) !important;
+  }
+  .logo {
     /* display: inline-block; */
     background-image: url(${Logo});
     background-size: contain;
@@ -23,19 +21,18 @@ export const StyledNavbar = styled.section`
     cursor: pointer;
   }
 
-
   .ant-input::placeholder {
-    color:#000;
-}
+    color: #000;
+  }
 
-  .searchStyle{
+  .searchStyle {
     width: 200px;
     border-top: none;
     border-left: none;
     border-right: none;
     border-bottom: 1px solid #000;
     background: none;
-    > input{
+    > input {
       background: none;
     }
   }

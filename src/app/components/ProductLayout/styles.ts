@@ -4,12 +4,15 @@ import { theme } from 'styles/theme';
 import Logo from '../BaseLayout/image/Chitachip.svg';
 import background from '../BaseLayout/image/back_img.png';
 
-export const StyledProductLayout = styled.section``;
+export const StyledProductLayout = styled.section`
+  background-size: contain;
+  background-image: url(${background}) !important;
+`;
 
 export const StyledHeader = styled(Layout.Header)`
   /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
+  background-size: cover;
   background-image: url(${background}) !important;
-
   line-height: 79px;
   height: 90px;
   .logo {
@@ -25,5 +28,8 @@ export const StyledHeader = styled(Layout.Header)`
   }
 `;
 export const StyledContent = styled(Layout.Content)`
+  min-height: 100vh;
+  background-size: contain;
+  background-image: url(${background}) !important;
   margin-top: 1.5em;
 `;

@@ -102,7 +102,7 @@ const scrollStyles = css`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #878080;
+    background: #000;
     border-radius: 10px;
   }
 

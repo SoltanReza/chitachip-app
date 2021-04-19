@@ -10,6 +10,7 @@ export enum Routes {
   finalForm = '/finalform',
 
   productDetails = '/product/:id',
+  basket = '/basket',
 
   dashboard = '/dashboard',
   profile = '/dashboard/profile',

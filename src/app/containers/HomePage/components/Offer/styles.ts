@@ -37,6 +37,7 @@ export const StyledOffer = styled.section`
     box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    position: relative;
   }
   .imgProduct {
     background-size: contain;
@@ -100,7 +101,39 @@ export const StyledOffer = styled.section`
     direction: ltr !important;
   }
 
+  .react-multi-carousel-track {
+    direction: rtl !important;
+  }
+
   .react-multi-carousel-item {
     margin: 1em 2em 2em 3em;
+  }
+
+  .voteLike {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #9e9e9e;
+    z-index: 9999;
+    opacity: 0.9;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: #ff0000;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  .voteLikeNone {
+    display: none;
+  }
+
+  .voteStyle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important;
+    margin-top: 0.7em;
   }
 `;

@@ -1,3 +1,4 @@
+import { BasketPage } from 'app/containers/BasketPage/Loadable';
 import { HomePage } from 'app/containers/HomePage/Loadable';
 import { LoginPage } from 'app/containers/LoginPage/Loadable';
 import { LogoutPage } from 'app/containers/LogoutPage/Loadable';
@@ -56,6 +57,14 @@ export const Router = () => {
       component: LogoutPage,
       auth: {
         check: AuthLevel.AUTHENTICATED,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.basket,
+      component: BasketPage,
+      auth: {
+        check: AuthLevel.ALL,
       },
     },
   ];

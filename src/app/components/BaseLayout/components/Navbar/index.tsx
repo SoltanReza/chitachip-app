@@ -96,6 +96,10 @@ export const Navbar = memo(({ className }: Props) => {
     () => history.push(Routes.logout),
     [history],
   );
+  const handleRedirectToBasketPage = useCallback(
+    () => history.push(Routes.basket),
+    [history],
+  );
 
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
@@ -151,7 +155,11 @@ export const Navbar = memo(({ className }: Props) => {
           </Menu.Item>
         )}
 
-        <Menu.Item key="2" icon={<ShoppingOutlined />}>
+        <Menu.Item
+          key="2"
+          icon={<ShoppingOutlined />}
+          onClick={handleRedirectToBasketPage}
+        >
           سبد خرید
         </Menu.Item>
         <Menu.Item>

@@ -1,4 +1,5 @@
 import { AppState } from 'app/containers/App/types';
+import { BasketPageState } from 'app/containers/BasketPage/types';
 import { HomePageState } from 'app/containers/HomePage/types';
 import { LoginPageState } from 'app/containers/LoginPage/types';
 import { ProductDetailsPageState } from 'app/containers/ProductDetailsPage/types';
@@ -16,5 +17,6 @@ export interface RootState {
   loginPage?: LoginPageState;
   registerPage?: RegisterPageState;
   productDetailsPage?: ProductDetailsPageState;
+  basketPage?: BasketPageState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

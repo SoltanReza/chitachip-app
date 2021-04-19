@@ -10,6 +10,7 @@ export const StyledBaseLayout = styled(Layout)`
 `;
 
 export const StyledMain = styled(Layout)`
+  background-size: contain;
   background-image: url(${background}) !important;
   .contactUs {
     flex-wrap: nowrap;
@@ -38,11 +39,11 @@ export const StyledMain = styled(Layout)`
 export const StyledHeader = styled(Layout.Header)`
    .navCostum {
     /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
-
+    background-size: cover;
     background-image: url(${background}) !important;
 
 }
-
+   background-size: cover;   
   background-image: url(${background}) !important;
 
 
