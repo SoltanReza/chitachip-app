@@ -44,8 +44,7 @@ export const Product = memo(({ className, data }: Props) => {
             <Card className="productInfo">
               <Typography>
                 <Title>ویژگی های محصولات</Title>
-                <Paragraph>مقدار رم: 1گیگ</Paragraph>
-                <Paragraph>کلاک cpu : ءآة56</Paragraph>
+                <Paragraph>{data.properties}</Paragraph>
               </Typography>
             </Card>
           </Col>

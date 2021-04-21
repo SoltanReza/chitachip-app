@@ -101,6 +101,11 @@ export const Navbar = memo(({ className }: Props) => {
     [history],
   );
 
+  const handleRedirectToUserProfilePage = useCallback(
+    () => history.push(Routes.userProfile),
+    [history],
+  );
+
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
       {/* <div className="logo" />
@@ -133,7 +138,12 @@ export const Navbar = memo(({ className }: Props) => {
       <Menu mode="horizontal" defaultSelectedKeys={['2']} className="navCostum">
         {authData.data ? (
           <Menu.SubMenu key="1" icon={<UserOutlined />} title="پروفایل کاربری">
-            <Menu.Item key="setting:2">پروفایل</Menu.Item>
+            <Menu.Item
+              key="setting:2"
+              onClick={handleRedirectToUserProfilePage}
+            >
+              پروفایل
+            </Menu.Item>
             <Menu.Item key="setting:1" onClick={handleRedirectToLogoutPage}>
               خروج
             </Menu.Item>

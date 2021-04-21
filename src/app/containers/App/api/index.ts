@@ -13,6 +13,8 @@ import {
   GetCodeResponse,
   GetTokenRequest,
   GetTokenResponse,
+  LikeProductRequest,
+  LikeProductResponse,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
@@ -71,4 +73,10 @@ export function validateCodeApi(
   params: ValidateCodeRequest,
 ): Promise<ValidateCodeResponse> {
   return http.post('v1/validate/', params).then(response => response.data);
+}
+
+export function likeProductApi(
+  params: LikeProductRequest,
+): Promise<LikeProductResponse> {
+  return http.get('v1/like/', { params }).then(response => response.data);
 }

@@ -12,6 +12,8 @@ import {
   BrowseProductRequest,
   BrowseProductResponse,
   ContainerState,
+  LikeProductRequest,
+  LikeProductResponse,
   LoginRequest,
   LoginResponse,
   Notif,
@@ -50,6 +52,11 @@ export const initialState: ContainerState = {
     error: undefined,
   },
   register: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  likeProduct: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -220,6 +227,25 @@ const appSlice = createSlice({
       state.register = initialState.register;
     },
     //#endregion register
+
+    //#region register
+    likeProduct(state, action: PayloadAction<LikeProductRequest>) {
+      state.likeProduct.params = action.payload;
+      state.likeProduct.data = initialState.likeProduct.data;
+      state.likeProduct.error = initialState.likeProduct.error;
+    },
+    likeProductSuccess(state, action: PayloadAction<LikeProductResponse>) {
+      state.likeProduct.params = initialState.likeProduct.params;
+      state.likeProduct.data = action.payload;
+    },
+    likeProductError(state, action: PayloadAction<ErrorResponse>) {
+      state.likeProduct.params = initialState.likeProduct.params;
+      state.likeProduct.error = action.payload;
+    },
+    likeProductClear(state) {
+      state.likeProduct = initialState.likeProduct;
+    },
+    //#endregion likeProduct
 
     //#region auth
     setAuth: (state, action: PayloadAction<AuthData>) => {

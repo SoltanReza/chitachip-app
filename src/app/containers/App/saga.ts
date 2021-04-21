@@ -11,6 +11,7 @@ import {
   browseProductApi,
   getCodeApi,
   getTokenApi,
+  likeProductApi,
   loginApi,
   registerApi,
 } from './api';
@@ -21,6 +22,7 @@ import {
   BrowseHomeListRequest,
   BrowseListProductsRequest,
   BrowseProductRequest,
+  LikeProductRequest,
   LoginRequest,
   RegisterRequest,
 } from './types';
@@ -140,6 +142,16 @@ export function* registerSaga(action: PayloadAction<RegisterRequest>) {
   }
 }
 
+export function* likeProductSaga(action: PayloadAction<LikeProductRequest>) {
+  try {
+    const response = yield call(likeProductApi, action.payload);
+    yield put(appActions.likeProductSuccess(response));
+  } catch (error) {
+    yield put(appActions.likeProductError(error));
+    // yield put(appActions.notifyError(error.message));
+  }
+}
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -147,4 +159,5 @@ export function* appSaga() {
   yield takeLatest(appActions.browseProduct.type, browseProductSaga);
   yield takeLatest(appActions.browseCategories.type, browseCategoriesSaga);
   yield takeLatest(appActions.register.type, registerSaga);
+  yield takeLatest(appActions.likeProduct.type, likeProductSaga);
 }

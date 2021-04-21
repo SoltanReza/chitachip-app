@@ -17,7 +17,7 @@ import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 
 import { reducer, sliceKey } from './slice';
 import { selectProductDetailsPage } from './selectors';
-import {Product} from 'app/components/Product'
+import { Product } from 'app/components/Product';
 import { productDetailsPageSaga } from './saga';
 import { useParams } from 'react-router-dom';
 import { appActions } from '../App/slice';
@@ -42,10 +42,8 @@ export function ProductDetailsPage({ className }: Props) {
   const BrowseProduct = useSelector(selectBrowseProduct);
 
   useEffect(() => {
-    dispatch(appActions.browseProduct({ product_id: +params.id }));
+    dispatch(appActions.browseProduct({ product_id: params.id }));
   }, [dispatch, params.id]);
-  console.log(params.id);
-  console.log(BrowseProduct);
 
   return (
     <StyledProductDetailsPage
@@ -54,8 +52,7 @@ export function ProductDetailsPage({ className }: Props) {
       description={t(translations.pages.ProductDetailsPage.description)}
     >
       {BrowseProduct && BrowseProduct.data && (
-         <Product data = {BrowseProduct.data.product} />
-        
+        <Product data={BrowseProduct.data.product} />
       )}
     </StyledProductDetailsPage>
   );

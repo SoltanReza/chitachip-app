@@ -5,6 +5,7 @@ import { LogoutPage } from 'app/containers/LogoutPage/Loadable';
 import { NotFoundPage } from 'app/containers/NotFoundPage/Loadable';
 import { ProductDetailsPage } from 'app/containers/ProductDetailsPage/Loadable';
 import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
+import { UserProfilePage } from 'app/containers/UserProfilePage/Loadable';
 import * as React from 'react';
 import {
   Route as BaseRoute,
@@ -63,6 +64,14 @@ export const Router = () => {
       exact: true,
       path: Routes.basket,
       component: BasketPage,
+      auth: {
+        check: AuthLevel.ALL,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.userProfile,
+      component: UserProfilePage,
       auth: {
         check: AuthLevel.ALL,
       },

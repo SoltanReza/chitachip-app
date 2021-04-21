@@ -54,3 +54,8 @@ export const selectRegister = createSelector(
   [selectDomain],
   state => state.register,
 );
+
+export const selectLikeProduct = createSelector(
+  [selectDomain],
+  state => state.likeProduct,
+);

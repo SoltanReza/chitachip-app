@@ -11,6 +11,7 @@ export enum Routes {
 
   productDetails = '/product/:id',
   basket = '/basket',
+  userProfile = '/userprofile',
 
   dashboard = '/dashboard',
   profile = '/dashboard/profile',

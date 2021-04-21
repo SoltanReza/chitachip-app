@@ -38,6 +38,15 @@ export const StyledOffer = styled.section`
     -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     position: relative;
+
+    &:hover {
+      .buyProduct {
+        display: none;
+      }
+      .voteStyle {
+        display: flex;
+      }
+    }
   }
   .imgProduct {
     background-size: contain;
@@ -55,7 +64,7 @@ export const StyledOffer = styled.section`
   .buyProduct {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end !important;
+    justify-content: space-between !important;
     margin-top: 0.7em;
   }
   .price {
@@ -131,9 +140,25 @@ export const StyledOffer = styled.section`
   }
 
   .voteStyle {
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: space-between !important;
     margin-top: 0.7em;
+  }
+
+  .count {
+    color: #fff;
+    background: #ff9800;
+    border-radius: 15px;
+    padding: 0px 0.5em 0px 0.5em;
+  }
+
+  .btnLogin {
+  }
+
+  .alertLogin {
+    .ant-modal-close {
+      background: red !important;
+    }
   }
 `;

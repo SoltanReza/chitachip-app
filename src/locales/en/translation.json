@@ -242,6 +242,10 @@
       "title": "سبد خرید",
       "description": "سبد خرید"
     },
+    "UserProfilePage": {
+      "title": "پروفایل کاربری",
+      "description": "صفحه اطلاعات کاربر در سامامه چیتا چیپ"
+    },
     "LogoutPage": {
       "title": "خروج",
       "description": "خروج"

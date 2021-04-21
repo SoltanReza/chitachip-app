@@ -14,7 +14,17 @@ import {
   HeartFilled,
   StarFilled,
 } from '@ant-design/icons';
-import { Button, Tabs, Popover, Dropdown, Menu } from 'antd';
+import {
+  Button,
+  Tabs,
+  Popover,
+  Dropdown,
+  Menu,
+  Alert,
+  Popconfirm,
+  message,
+  Modal,
+} from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ellipseString } from 'utils/helpers';
 import { ProductData } from 'app/containers/App/types';
@@ -24,6 +34,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useState } from 'react';
 import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth, selectLikeProduct } from 'app/containers/App/selectors';
+import { appActions } from 'app/containers/App/slice';
 
 interface Props {
   className?: string;
@@ -52,46 +65,82 @@ const responsive = {
 
 export const Offer = memo(({ className, product }: Props) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [timeClose, setTimeClose] = useState(2);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const authData = useSelector(selectAuth);
 
-  const [currentElement, setCurrentElement] = useState(0);
-  const [likeStyle, setLikeStyle] = useState(false);
-  const [starStyle, setStarStyle] = useState(false);
-  const [isShown, setIsShown] = useState(false);
-  const ref1 = useRef<HTMLDivElement>(null);
-  const handleChangeLikeStyleOver = useCallback(e => {
-    const data = e.currentTarget.dataset as any;
-    setCurrentElement(+data.id);
-    setLikeStyle(true);
+  const handleRouteToProductDetails = useCallback(
+    (id: string) => () => redirect(Routes.productDetails, { id }),
+    [],
+  );
+  const handleRouteToLogin = useCallback(() => {
+    setTimeClose(0);
+    redirect(Routes.login);
   }, []);
-  const handleChangeLikeStyleLeave = useCallback(e => {
-    const data = e.currentTarget.dataset as any;
-    setCurrentElement(+data.id);
-    setLikeStyle(false);
-  }, []);
-  const toggle = useCallback(e => {
-    const data = e.currentTarget.dataset as any;
-    setCurrentElement(+data.id);
-    setLikeStyle(prevState => !prevState);
-  }, []);
+  // const handleCloseMessage = useCallback(() => setTimeClose(0), []);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    redirect(Routes.login);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const handleVoteLike = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
-      setCurrentElement(+data.id);
-      toggle(e);
-      setStarStyle(true);
+      if (authData) {
+        if (authData.data) {
+          dispatch(appActions.likeProduct({ product_id: data.id }));
+        } else {
+          // showModal();
+          Modal.info({
+            title: 'ورود به سامانه',
+            className: 'alertLogin',
+            content: (
+              <div>
+                <p>
+                  برای افزودن این محصول به مورد علاقه ها لطفا ابتدا وارد سامانه
+                  شوید
+                </p>
+              </div>
+            ),
+            onOk() {
+              redirect(Routes.login);
+            },
+            okText: 'ورود',
+          });
+          // message.warning({
+          //   content: (
+          //     <div>
+          //       لطفا ابتدا وارد سامانه شوید{' '}
+          //       <div>
+          //         <Button
+          //           block
+          //           style={{ background: '#ff9800', color: '#fff' }}
+          //           onClick={handleRouteToLogin}
+          //         >
+          //           ورود به سامانه
+          //         </Button>
+          //       </div>
+          //     </div>
+          //   ),
+          //   // type: item.type as any,
+          //   duration: timeClose,
+          //   // onClose: { handleCloseMessage },
+          // });
+        }
+      }
     },
-    [toggle],
+    [authData, dispatch],
   );
-
-  const handleRouteToProductDetails = useCallback(
-    (id: number) => () => redirect(Routes.productDetails, { id }),
-    [],
-  );
-
-  console.log('likeStyle', likeStyle);
-  console.log(currentElement);
-  console.log('starStyle', starStyle);
+  console.log(isModalVisible);
   return (
     <StyledOffer className={`Offer ${className || ''}`}>
       <Carousel
@@ -113,128 +162,95 @@ export const Offer = memo(({ className, product }: Props) => {
       >
         {product.map(item => (
           <>
-            {likeStyle && currentElement === item.id && (
+            <div className="offerCard">
               <div
-                className={`${likeStyle ? 'voteLike' : 'voteLikeNone'} `}
-                onClick={handleVoteLike}
                 data-id={item.id}
-                onMouseLeave={toggle}
+                onClick={handleRouteToProductDetails(item.id)}
               >
-                <div>افزودن به لیست علاقه مندی ها</div>
-                <HeartOutlined
-                  style={{ fontSize: '1.5em', color: '#ff0000' }}
-                />
+                <div className="titleProduct">
+                  {ellipseString(`${item.title}`, 14)}
+                </div>
+                <div>
+                  <img
+                    src={item.image}
+                    className="imgProduct"
+                    alt={item.title}
+                  />
+                </div>
               </div>
-            )}
-
-            <div
-              className="offerCard"
-              ref={ref1}
-              data-id={item.id}
-              onClick={handleRouteToProductDetails(item.id)}
-            >
-              <div className="titleProduct">
-                {ellipseString(`${item.title}`, 14)}
+              <div className="buyProduct" id={`buyProduct${item.id}`}>
+                <div>
+                  <StarFilled style={{ color: '#ffc107', fontSize: '1.5em' }} />{' '}
+                  1.3
+                </div>
+                <div className="priceStyle">
+                  <div className="price">
+                    <div className="discount">18%</div>
+                    <s className="priceDiscount">
+                      {item.price
+                        .toFixed()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </s>
+                  </div>
+                  <div className="price">
+                    <div className="currency">تومان</div>
+                    <div>
+                      {item.price
+                        .toFixed()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <img src={item.image} className="imgProduct" alt={item.title} />
-              </div>
-              {starStyle && currentElement === item.id ? (
-                <div className="voteStyle">
-                  <div>
-                    <HeartFilled
-                      style={{ color: '#ffc107', fontSize: '1.5em' }}
+              <div className="voteStyle">
+                <div>
+                  {item.likes === 0 ? (
+                    //    <Popconfirm
+                    //    placement="top"
+                    //    title="لطفا ابتدا وارد سامانه شوید"
+                    //    onConfirm={confirm}
+                    //    okText="Yes"
+                    //    cancelText="No"
+                    //  >
+                    <HeartOutlined
+                      style={{ color: '#ffc107', fontSize: '1.7em' }}
+                      data-id={item.id}
+                      onClick={handleVoteLike}
                     />
-                  </div>
-                  <div>
-                    <StarFilled
-                      style={{ color: '#ffc107', fontSize: '1.5em' }}
-                    />{' '}
-                    1.3
-                  </div>
+                  ) : (
+                    //  </Popconfirm>
+                    <HeartFilled
+                      style={{ color: '#ffc107', fontSize: '1.7em' }}
+                      data-id={item.id}
+                      onClick={handleVoteLike}
+                    />
+                  )}
                 </div>
-              ) : (
-                <div
-                  className="buyProduct"
-                  data-id={item.id}
-                  onMouseOver={toggle}
-                >
-                  <div className="priceStyle">
-                    <div className="price">
-                      <div className="discount">18%</div>
-                      <s className="priceDiscount">
-                        {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      </s>
-                    </div>
-                    <div className="price">
-                      <div className="currency">تومان</div>
-                      <div>
-                        {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  <ShoppingOutlined
+                    style={{ color: '#ffc107', fontSize: '1.5em' }}
+                  />{' '}
+                  <span className="count">- 3 +</span>
                 </div>
-              )}
+              </div>
             </div>
           </>
         ))}
       </Carousel>
 
-      {/* <div className="container category">
-        <div className="row slide">
-          <ul
-            className="col container-filter list-unstyled categories-filter text-center"
-            id="filter"
-          >
-            {product.map(item => (
-              <li className=" slideItem">
-                <div
-                  className="offerCard"
-                  onClick={handleRouteToProductDetails(item.id)}
-                >
-                  <div className="titleProduct">
-                    {ellipseString(`${item.title}`, 14)}
-                  </div>
-                  <div>
-                    <img
-                      src={item.image}
-                      className="imgProduct"
-                     
-                    />
-                  </div>
-
-                  <div className="buyProduct">
-                   
-                    <div className="priceStyle">
-                      
-                      <div className="price">
-                        <div className="discount">18%</div>
-                        <s className="priceDiscount">
-                          {item.price
-                            .toFixed()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </s>
-                      </div>
-                      <div className="price">
-                        <div className="currency">تومان</div>
-                        <div>
-                          {item.price
-                            .toFixed()
-                            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div> */}
+      {isModalVisible && (
+        <Modal
+          title="ورود به سامانه"
+          visible={isModalVisible}
+          onOk={handleOk}
+          okText="ورود به سامانه"
+          //  onCancel={handleCancel}
+        >
+          <p>
+            برای افزودن این محصول به مورد علاقه ها لطفا ابتدا وارد سامانه شوید
+          </p>
+        </Modal>
+      )}
     </StyledOffer>
   );
 });

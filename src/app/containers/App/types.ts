@@ -33,6 +33,11 @@ export interface AppState {
     data?: RegisterResponse;
     error?: ErrorResponse;
   };
+  likeProduct: {
+    params?: LikeProductRequest;
+    data?: LikeProductResponse;
+    error?: ErrorResponse;
+  };
 
   auth?: AuthData;
 }
@@ -77,17 +82,20 @@ export interface LoginResponse {
 
 // #region ProductData
 export interface ProductData {
-  id: number;
-  category: 1;
+  id: string;
+  category: [];
   title: string;
   description: string;
   price: number;
   image: string;
-  is_offer: boolean;
-  stock: number;
+  is_offer: true;
+  stock: 12;
   code: string;
   discount_end_time: string;
-  Discount_end_time;
+  properties: string;
+  num_of_ratings: number;
+  avg_rating: number;
+  likes: number;
 }
 
 export interface SliderData {
@@ -124,7 +132,7 @@ export interface BrowseHomeListResponse {
 
 // #region BrowseProduct
 export interface BrowseProductRequest {
-  product_id: number;
+  product_id: String;
 }
 
 export interface BrowseProductResponse {
@@ -185,3 +193,14 @@ export interface ValidateCodeResponse {
   status: number;
 }
 // #endregion ValidateCode
+
+// #region LikeProduct
+export interface LikeProductRequest {
+  product_id: number;
+}
+
+export interface LikeProductResponse {
+  response: string;
+  status: number;
+}
+// #endregion LikeProduct
