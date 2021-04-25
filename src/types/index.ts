@@ -91,3 +91,15 @@ export interface PaginationResponse<T> {
   payload?: null | any;
 }
 // #endregion pagination
+
+// #region BasketData
+export interface BasketData {
+  products: Array<{
+    product_id: string;
+    quantity: number;
+    title: string;
+    price: number;
+    image: string;
+  }>;
+}
+// #endregion BasketData

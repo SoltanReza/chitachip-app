@@ -5,6 +5,8 @@ import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { redirect } from 'utils/history';
 import { Storage } from 'utils/storage';
 import {
+  addToBasketApi,
+  browseBasketApi,
   browseCategoriesApi,
   browseHomeListApi,
   browseListProductsApi,
@@ -14,10 +16,13 @@ import {
   likeProductApi,
   loginApi,
   registerApi,
+  userInfoApi,
 } from './api';
 import { Routes } from './Router/routes';
 import { appActions } from './slice';
 import {
+  AddToBasketRequest,
+  BrowseBasketRequest,
   BrowseCategoriesRequest,
   BrowseHomeListRequest,
   BrowseListProductsRequest,
@@ -25,6 +30,7 @@ import {
   LikeProductRequest,
   LoginRequest,
   RegisterRequest,
+  UserInfoRequest,
 } from './types';
 
 export function* logoutSaga() {
@@ -152,6 +158,36 @@ export function* likeProductSaga(action: PayloadAction<LikeProductRequest>) {
   }
 }
 
+export function* userInfoSaga(action: PayloadAction<UserInfoRequest>) {
+  try {
+    const response = yield call(userInfoApi, action.payload);
+    yield put(appActions.userInfoSuccess(response));
+  } catch (error) {
+    yield put(appActions.userInfoError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* browseBasketSaga(action: PayloadAction<BrowseBasketRequest>) {
+  try {
+    const response = yield call(browseBasketApi, action.payload);
+    yield put(appActions.browseBasketSuccess(response));
+  } catch (error) {
+    yield put(appActions.browseBasketError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* addToBasketSaga(action: PayloadAction<AddToBasketRequest>) {
+  try {
+    const response = yield call(addToBasketApi, action.payload);
+    yield put(appActions.addToBasketSuccess(response));
+  } catch (error) {
+    yield put(appActions.addToBasketError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -160,4 +196,6 @@ export function* appSaga() {
   yield takeLatest(appActions.browseCategories.type, browseCategoriesSaga);
   yield takeLatest(appActions.register.type, registerSaga);
   yield takeLatest(appActions.likeProduct.type, likeProductSaga);
+  yield takeLatest(appActions.userInfo.type, userInfoSaga);
+  yield takeLatest(appActions.browseBasket.type, browseBasketSaga);
 }

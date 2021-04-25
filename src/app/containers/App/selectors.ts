@@ -56,3 +56,18 @@ export const selectLikeProduct = createSelector(
   [selectDomain],
   state => state.likeProduct,
 );
+
+export const selectUserInfo = createSelector(
+  [selectDomain],
+  state => state.userInfo,
+);
+
+export const selectBrowseBasket = createSelector(
+  [selectDomain],
+  state => state.browseBasket,
+);
+
+export const selectAddToBasket = createSelector(
+  [selectDomain],
+  state => state.addToBasket,
+);

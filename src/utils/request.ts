@@ -1,5 +1,7 @@
+import { Routes } from 'app/containers/App/Router/routes';
 import axios, { AxiosError } from 'axios';
 import { AuthData, ErrorResponse } from 'types';
+import { redirect } from './history';
 import { Storage } from './storage';
 
 // #region fakeApi
@@ -43,13 +45,24 @@ http.interceptors.request.use(function (config) {
 
 http.interceptors.response.use(undefined, function (error: AxiosError) {
   let response: ErrorResponse;
+
   if (error.response) {
+    console.log(error.response.data);
     let message: string;
     if (error.response.status === 422) {
       message = 'داده های ارسالی معتبر نیست';
       message +=
         '\n\n' +
-        Object.values(error.response.data.errors)
+        Object.values(error.response.data.messages)
+          .map((err: any) => err[0] as string)
+          .join('\n');
+    } else if (error.response.status === 401) {
+      Storage.remove('auth');
+      redirect(Routes.login);
+      message = 'توکن شما معتبر نیست لطفا دوباره ورود کنید';
+      message +=
+        '\n\n' +
+        Object.values(error.response.data.messages)
           .map((err: any) => err[0] as string)
           .join('\n');
     } else {
@@ -62,8 +75,7 @@ http.interceptors.response.use(undefined, function (error: AxiosError) {
       code: error.response.status,
       message,
     };
-  }
-   else {
+  } else {
     response = { code: 0, message: 'خطای شبکه' };
   }
   console.dir(error);

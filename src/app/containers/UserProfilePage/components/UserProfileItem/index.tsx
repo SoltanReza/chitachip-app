@@ -17,6 +17,9 @@ import calendarIcon from '../../images/calendar.svg';
 import arrowIcon from '../../images/arrow.svg';
 import heartIcon from '../../images/heart.svg';
 import mailIcon from '../../images/mail.svg';
+import { useState } from 'react';
+import { useCallback } from 'react';
+import { UserAddress } from 'app/components/UserAddress';
 
 interface Props {
   className?: string;
@@ -27,41 +30,54 @@ const { Title } = Typography;
 export const UserProfileItem = memo(({ className }: Props) => {
   const { t } = useTranslation();
 
+  const [showUserInfo, setShowUserInfo] = useState(true);
+  const [showAddress, setShowAddress] = useState(false);
+
+  const handleShowUserInfo = useCallback(() => {
+    setShowUserInfo(true);
+    setShowAddress(false);
+  }, []);
+  const handleShowAddress = useCallback(() => {
+    setShowUserInfo(false);
+    setShowAddress(true);
+  }, []);
+
   return (
     <StyledUserProfileItem className={`UserProfileItem ${className || ''}`}>
       <Row gutter={[32, { xs: 8, sm: 16, md: 32, lg: 32 }]}>
         <Col xs={24} sm={24} md={7} lg={7} xl={7}>
           <Card className="profileTitleItem">
-            <Title level={4}>
+            <div className="profileTitleText" onClick={handleShowUserInfo}>
               <img src={userIcon} className="profileIcon" />
               اطلاعات کاربری
-            </Title>
-            <Title level={4}>
+            </div>
+            <div className="profileTitleText" onClick={handleShowAddress}>
               <img src={addressIcon} className="profileIcon" />
               آدرس ها
-            </Title>
-            <Title level={4}>
+            </div>
+            <div className="profileTitleText">
               <img src={calendarIcon} className="profileIcon" />
               تاریخچه سفارشات
-            </Title>
-            <Title level={4}>
+            </div>
+            <div className="profileTitleText">
               <img src={arrowIcon} className="profileIcon" />
               مکالمات پشتیبانی
-            </Title>
-            <Title level={4}>
+            </div>
+            <div className="profileTitleText">
               <img src={heartIcon} className="profileIcon" />
               لیست علاقه مندی ها
-            </Title>
-            <Title level={4}>
+            </div>
+            <div className="profileTitleText">
               <img src={mailIcon} className="profileIcon" />
               اعلان های من
-            </Title>
+            </div>
           </Card>
         </Col>
 
         <Col className="actionItem" xs={24} sm={24} md={17} lg={17} xl={17}>
           <Card className="profileContentItem">
-            <UserInfo />
+            {showUserInfo && <UserInfo />}
+            {showAddress && <UserAddress />}
           </Card>
         </Col>
       </Row>

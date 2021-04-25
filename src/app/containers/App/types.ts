@@ -1,4 +1,4 @@
-import { AuthData, ErrorResponse } from 'types';
+import { AuthData, BasketData, ErrorResponse } from 'types';
 /* --- STATE --- */
 export interface AppState {
   notifications: Notif[];
@@ -39,6 +39,22 @@ export interface AppState {
     error?: ErrorResponse;
   };
 
+  userInfo: {
+    params?: UserInfoRequest;
+    data?: UserInfoResponse;
+    error?: ErrorResponse;
+  };
+  browseBasket: {
+    params?: BrowseBasketRequest;
+    data?: BrowseBasketResponse;
+    error?: ErrorResponse;
+  };
+  addToBasket: {
+    params?: AddToBasketRequest;
+    data?: AddToBasketResponse;
+    error?: ErrorResponse;
+  };
+
   auth?: AuthData;
 }
 
@@ -66,6 +82,11 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface LoginResponse {
+  status: number;
+}
+// #endregion Login
+
 // #region GetToken
 
 export interface GetTokenRequest {
@@ -74,11 +95,6 @@ export interface GetTokenRequest {
 }
 export interface GetTokenResponse extends AuthData {}
 // #endregion GetToken
-
-export interface LoginResponse {
-  status: number;
-}
-// #endregion Login
 
 // #region ProductData
 export interface ProductData {
@@ -259,3 +275,38 @@ export interface ChangePasswordResponse {
   status: number;
 }
 // #endregion ChangePassword
+
+// #region UserInfo
+export interface UserData {
+  first_name: string;
+  last_name: string;
+  mobile: string;
+  national_code: string;
+}
+export interface UserInfoRequest {}
+export interface UserInfoResponse {
+  user: UserData;
+  status: number;
+}
+// #endregion UserInfo
+
+// #region BrowseBasket
+
+export interface BrowseBasketRequest {}
+export interface BrowseBasketResponse {
+  value: BasketData;
+  amount: number;
+}
+// #endregion BrowseBasket
+
+// #region AddToBasket
+
+export interface AddToBasketRequest {
+  product_id: BasketData;
+  quantity: number;
+}
+export interface AddToBasketResponse {
+  data: BasketData;
+  response: string;
+}
+// #endregion AddToBasket

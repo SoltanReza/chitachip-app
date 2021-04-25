@@ -22,4 +22,11 @@ export const StyledUserProfileItem = styled.section`
     margin-left: 1.5em;
     width: 10%;
   }
+
+  .profileTitleText {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #000;
+  }
 `;

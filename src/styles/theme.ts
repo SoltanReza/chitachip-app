@@ -4,7 +4,7 @@ export const theme = {
   TEXT_COLOR_DARK: '#000',
   SHADOW_COLOR: '#ccc',
   PRIMERY_COLOR: '#0c365c',
-  SECONDARY_COLOR: '#fee255',
+  SECONDARY_COLOR: '#fd9803',
   LAYOUT_HEADER_COLOR: '#fff',
   LAYOUT_FOOTER_COLOR: '#fff',
   LAYOUT_HEADER_BACKGROUND: '#0c365c',

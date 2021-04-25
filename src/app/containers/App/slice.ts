@@ -3,6 +3,10 @@ import { AuthData, ErrorResponse } from 'types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { Storage } from 'utils/storage';
 import {
+  AddToBasketRequest,
+  AddToBasketResponse,
+  BrowseBasketRequest,
+  BrowseBasketResponse,
   BrowseCategoriesRequest,
   BrowseCategoriesResponse,
   BrowseHomeListRequest,
@@ -20,6 +24,8 @@ import {
   NotifType,
   RegisterRequest,
   RegisterResponse,
+  UserInfoRequest,
+  UserInfoResponse,
 } from './types';
 
 // The initial state of the App container
@@ -57,6 +63,21 @@ export const initialState: ContainerState = {
     error: undefined,
   },
   likeProduct: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  userInfo: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  browseBasket: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  addToBasket: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -228,7 +249,7 @@ const appSlice = createSlice({
     },
     //#endregion register
 
-    //#region register
+    //#region likeProduct
     likeProduct(state, action: PayloadAction<LikeProductRequest>) {
       state.likeProduct.params = action.payload;
       state.likeProduct.data = initialState.likeProduct.data;
@@ -257,6 +278,63 @@ const appSlice = createSlice({
       state.likeProduct = initialState.likeProduct;
     },
     //#endregion likeProduct
+
+    //#region UserInfo
+    userInfo(state, action: PayloadAction<UserInfoRequest>) {
+      state.userInfo.params = action.payload;
+      state.userInfo.data = initialState.userInfo.data;
+      state.userInfo.error = initialState.userInfo.error;
+    },
+    userInfoSuccess(state, action: PayloadAction<UserInfoResponse>) {
+      state.userInfo.params = initialState.userInfo.params;
+      state.userInfo.data = action.payload;
+    },
+    userInfoError(state, action: PayloadAction<ErrorResponse>) {
+      state.userInfo.params = initialState.userInfo.params;
+      state.userInfo.error = action.payload;
+    },
+    userInfoClear(state) {
+      state.userInfo = initialState.userInfo;
+    },
+    //#endregion UserInfo
+
+    //#region BrowseBasket
+    browseBasket(state, action: PayloadAction<BrowseBasketRequest>) {
+      state.browseBasket.params = action.payload;
+      state.browseBasket.data = initialState.browseBasket.data;
+      state.browseBasket.error = initialState.browseBasket.error;
+    },
+    browseBasketSuccess(state, action: PayloadAction<BrowseBasketResponse>) {
+      state.browseBasket.params = initialState.browseBasket.params;
+      state.browseBasket.data = action.payload;
+    },
+    browseBasketError(state, action: PayloadAction<ErrorResponse>) {
+      state.browseBasket.params = initialState.browseBasket.params;
+      state.browseBasket.error = action.payload;
+    },
+    browseBasketClear(state) {
+      state.browseBasket = initialState.browseBasket;
+    },
+    //#endregion BrowseBasket
+
+    //#region AddToBasket
+    addToBasket(state, action: PayloadAction<AddToBasketRequest>) {
+      state.addToBasket.params = action.payload;
+      state.addToBasket.data = initialState.addToBasket.data;
+      state.addToBasket.error = initialState.addToBasket.error;
+    },
+    addToBasketSuccess(state, action: PayloadAction<AddToBasketResponse>) {
+      state.addToBasket.params = initialState.addToBasket.params;
+      state.addToBasket.data = action.payload;
+    },
+    addToBasketError(state, action: PayloadAction<ErrorResponse>) {
+      state.addToBasket.params = initialState.addToBasket.params;
+      state.addToBasket.error = action.payload;
+    },
+    addToBasketClear(state) {
+      state.addToBasket = initialState.addToBasket;
+    },
+    //#endregion AddToBasket
 
     //#region auth
     setAuth: (state, action: PayloadAction<AuthData>) => {

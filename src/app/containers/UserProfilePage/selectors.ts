@@ -10,3 +10,8 @@ export const selectUserProfilePage = createSelector(
   [selectDomain],
   userProfilePageState => userProfilePageState,
 );
+
+export const selectEditUser = createSelector(
+  [selectDomain],
+  state => state.editUser,
+);

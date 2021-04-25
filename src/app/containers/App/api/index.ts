@@ -1,6 +1,10 @@
 import { ErrorResponse } from 'types';
 import { http } from 'utils/request';
 import {
+  AddToBasketRequest,
+  AddToBasketResponse,
+  BrowseBasketRequest,
+  BrowseBasketResponse,
   BrowseCategoriesRequest,
   BrowseCategoriesResponse,
   BrowseHomeListRequest,
@@ -27,6 +31,8 @@ import {
   RegisterResponse,
   ResetPasswordCodeRequest,
   ResetPasswordCodeResponse,
+  UserInfoRequest,
+  UserInfoResponse,
   ValidateCodeRequest,
   ValidateCodeResponse,
   ValidationCodeRequest,
@@ -125,4 +131,22 @@ export function likeProductApi(
   params: LikeProductRequest,
 ): Promise<LikeProductResponse> {
   return http.get('v1/like/', { params }).then(response => response.data);
+}
+
+export function userInfoApi(
+  params: UserInfoRequest,
+): Promise<ErrorResponse | UserInfoResponse> {
+  return http.get('v1/user/', { params }).then(response => response.data);
+}
+
+export function browseBasketApi(
+  params: BrowseBasketRequest,
+): Promise<ErrorResponse | BrowseBasketResponse> {
+  return http.get('v1/basket/', { params }).then(response => response.data);
+}
+
+export function addToBasketApi(
+  params: AddToBasketRequest,
+): Promise<ErrorResponse | AddToBasketResponse> {
+  return http.get('v1/basket/', { params }).then(response => response.data);
 }

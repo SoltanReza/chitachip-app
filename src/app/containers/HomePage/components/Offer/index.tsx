@@ -13,6 +13,8 @@ import {
   ShoppingOutlined,
   HeartFilled,
   StarFilled,
+  MinusOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
 import {
   Button,
@@ -37,6 +39,7 @@ import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth, selectLikeProduct } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
+import { useMemo } from 'react';
 
 interface Props {
   className?: string;
@@ -68,6 +71,9 @@ export const Offer = memo(({ className, product }: Props) => {
   const dispatch = useDispatch();
   const [timeClose, setTimeClose] = useState(2);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [quantity, setquantity] = useState(1);
+  const [minusQuantity, setMinusQuantity] = useState(0);
+  const [plusQuantity, setPlusQuantity] = useState(0);
   const authData = useSelector(selectAuth);
 
   const handleRouteToProductDetails = useCallback(
@@ -89,9 +95,28 @@ export const Offer = memo(({ className, product }: Props) => {
     redirect(Routes.login);
   };
 
+  const handleMinusQuantity = useCallback(
+    e => {
+      if (quantity > 1) {
+        setquantity(quantity - 1);
+      } else {
+        setquantity(1);
+      }
+    },
+    [quantity],
+  );
+  const handlePlusQuantity = useCallback(
+    e => {
+      setquantity(quantity + 1);
+    },
+    [quantity],
+  );
+
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  console.log(quantity);
   const handleVoteLike = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
@@ -115,25 +140,6 @@ export const Offer = memo(({ className, product }: Props) => {
             },
             okText: 'ورود',
           });
-          // message.warning({
-          //   content: (
-          //     <div>
-          //       لطفا ابتدا وارد سامانه شوید{' '}
-          //       <div>
-          //         <Button
-          //           block
-          //           style={{ background: '#ff9800', color: '#fff' }}
-          //           onClick={handleRouteToLogin}
-          //         >
-          //           ورود به سامانه
-          //         </Button>
-          //       </div>
-          //     </div>
-          //   ),
-          //   // type: item.type as any,
-          //   duration: timeClose,
-          //   // onClose: { handleCloseMessage },
-          // });
         }
       }
     },
@@ -229,7 +235,10 @@ export const Offer = memo(({ className, product }: Props) => {
                   <ShoppingOutlined
                     style={{ color: '#ffc107', fontSize: '1.5em' }}
                   />{' '}
-                  <span className="count">- 3 +</span>
+                  <span className="count">
+                    <PlusOutlined onClick={handlePlusQuantity} />
+                    {quantity} <MinusOutlined onClick={handleMinusQuantity} />
+                  </span>
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@
  * BasketItem
  *
  */
-import React, { memo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 
 import { StyledBasketItem } from './styles';
 import {
@@ -14,6 +14,9 @@ import {
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { Typography, Divider, Card, Row, Col, Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectBrowseBasket } from 'app/containers/App/selectors';
+import { appActions } from 'app/containers/App/slice';
 
 interface Props {
   className?: string;
@@ -22,6 +25,13 @@ const { Title, Paragraph, Text, Link } = Typography;
 
 export const BasketItem = memo(({ className }: Props) => {
   const { t } = useTranslation();
+
+  const dispatch = useDispatch();
+  const basketData = useSelector(selectBrowseBasket);
+  const loading = useMemo(() => !!basketData.params, [basketData.params]);
+  useEffect(() => {
+    dispatch(appActions.browseBasket({}));
+  }, [dispatch]);
 
   return (
     <StyledBasketItem className={`BasketItem ${className || ''}`}>
@@ -34,6 +44,53 @@ export const BasketItem = memo(({ className }: Props) => {
 
         <Row gutter={{ xs: 8, sm: 16, md: 48, lg: 48 }}>
           <Col span={18}>
+            {/* {basketData &&
+              basketData.data &&
+              basketData.data.value.products.map(item => (
+                <Card className="cardListProduct">
+                  <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
+                    <Col span={5}>
+                      <img src={item.image} className="imgProduct" />
+                    </Col>
+                    <Col span={14}>
+                      <Row className="titleProduct">{item.title}</Row>
+                      <Row>
+                        <Button
+                          style={{ color: '#fff', background: '#ff9800' }}
+                        >
+                          3{' '}
+                        </Button>{' '}
+                        <DeleteOutlined
+                          style={{ color: 'red', fontSize: '1.5em' }}
+                        />
+                        حذف
+                      </Row>
+                    </Col>
+                    <Col span={5}>
+                      <div className="buyProduct">
+                        <div className="priceStyle">
+                          <div className="price">
+                            <div className="discount">18%</div>
+                            <s className="priceDiscount">
+                              {item.price
+                                .toFixed()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            </s>
+                          </div>
+                          <div className="price">
+                            <div className="currency">تومان</div>
+                            <div>
+                              {item.price
+                                .toFixed()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                </Card>
+              ))} */}
             <Card className="cardListProduct">
               <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
                 <Col span={5}>
@@ -82,6 +139,7 @@ export const BasketItem = memo(({ className }: Props) => {
                 </Col>
               </Row>
             </Card>
+
             <Card className="cardListProduct">
               <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
                 <Col span={5}>
