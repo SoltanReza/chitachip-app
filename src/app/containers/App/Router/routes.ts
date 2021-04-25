@@ -12,6 +12,7 @@ export enum Routes {
   productDetails = '/product/:id',
   basket = '/basket',
   userProfile = '/userprofile',
+  resetPassword = '/resetpassword',
 
   dashboard = '/dashboard',
   profile = '/dashboard/profile',

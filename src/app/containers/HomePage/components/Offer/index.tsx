@@ -99,7 +99,6 @@ export const Offer = memo(({ className, product }: Props) => {
         if (authData.data) {
           dispatch(appActions.likeProduct({ product_id: data.id }));
         } else {
-          // showModal();
           Modal.info({
             title: 'ورود به سامانه',
             className: 'alertLogin',
@@ -140,7 +139,7 @@ export const Offer = memo(({ className, product }: Props) => {
     },
     [authData, dispatch],
   );
-  console.log(isModalVisible);
+
   return (
     <StyledOffer className={`Offer ${className || ''}`}>
       <Carousel

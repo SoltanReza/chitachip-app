@@ -190,6 +190,7 @@ export interface ValidateCodeRequest {
 }
 
 export interface ValidateCodeResponse {
+  response: string;
   status: number;
 }
 // #endregion ValidateCode
@@ -200,7 +201,61 @@ export interface LikeProductRequest {
 }
 
 export interface LikeProductResponse {
+  // id: string;
   response: string;
   status: number;
 }
 // #endregion LikeProduct
+
+// #region CheckUser
+export interface CheckUserRequest {
+  username: string;
+}
+export interface CheckUserResponse {
+  response: string;
+  status: number;
+}
+// #endregion CheckPassword
+
+// #region CheckPassword
+export interface CheckPasswordRequest {
+  username: string;
+  password: string;
+}
+export interface CheckPasswordResponse {
+  response: string;
+  status: number;
+}
+// #endregion CheckPassword
+
+// #region ResetPasswordCode
+export interface ResetPasswordCodeRequest {
+  mobile: string;
+}
+export interface ResetPasswordCodeResponse {
+  response: string;
+  status: number;
+}
+// #endregion ResetPasswordCode
+
+// #region ValidationCode
+export interface ValidationCodeRequest {
+  code: string;
+  mobile: string;
+}
+export interface ValidationCodeResponse {
+  response: string;
+  status: number;
+}
+// #endregion ValidationCode
+
+// #region ChangePassword
+export interface ChangePasswordRequest {
+  username: string;
+  password: string;
+}
+export interface ChangePasswordResponse {
+  response: string;
+  status: number;
+}
+// #endregion ChangePassword

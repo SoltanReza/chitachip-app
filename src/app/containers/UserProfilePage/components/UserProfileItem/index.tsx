@@ -6,6 +6,7 @@
 import React, { memo } from 'react';
 
 import { StyledUserProfileItem } from './styles';
+import { UserInfo } from '../UserInfo';
 
 import { useTranslation } from 'react-i18next';
 import { Card, Row, Col, Avatar, Button, Typography } from 'antd';
@@ -59,7 +60,9 @@ export const UserProfileItem = memo(({ className }: Props) => {
         </Col>
 
         <Col className="actionItem" xs={24} sm={24} md={17} lg={17} xl={17}>
-          <Card className="profileContentItem">swwwww</Card>
+          <Card className="profileContentItem">
+            <UserInfo />
+          </Card>
         </Col>
       </Row>
     </StyledUserProfileItem>

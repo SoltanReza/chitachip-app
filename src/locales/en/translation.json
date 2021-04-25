@@ -83,11 +83,12 @@
       }
     },
     "placeholder": {
-      "username": "نام کاربری",
+      "username": "شماره همراه",
       "password": "رمز عبور",
       "firstName": "نام",
       "lastName": "نام خانوادگی",
       "name": "Name",
+      "code": "لطفا کد ارسال شده را وارد نمایید",
       "family": "Family",
       "nationalCode": "کد ملی",
       "mobile": "موبایل",
@@ -226,6 +227,7 @@
       "LoginForm": {
         "rememberMe": "مرا به خاطر بسپار",
         "forgotPassword": "فراموشی رمز عبور",
+        "continue": "ادامه",
         "login": "ورود",
         "or": "یا",
         "registerNow": "همین حالا ثبت نام کن!"
@@ -249,6 +251,10 @@
     "LogoutPage": {
       "title": "خروج",
       "description": "خروج"
+    },
+    "ResetPasswordPage": {
+      "title": "بازیابی رمز عبور",
+      "description": "بازیابی رمز عبور"
     }
   }
 }

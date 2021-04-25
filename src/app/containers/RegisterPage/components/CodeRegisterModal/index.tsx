@@ -14,6 +14,8 @@ import { FieldBinaryOutlined } from '@ant-design/icons';
 import { getCodeApi, validateCodeApi } from 'app/containers/App/api';
 import { appActions } from 'app/containers/App/slice';
 import { ValidateCodeResponse } from 'app/containers/App/types';
+import { redirect } from 'utils/history';
+import { Routes } from 'app/containers/App/Router/routes';
 
 interface Props {
   className?: string;
@@ -45,6 +47,7 @@ export const CodeRegisterModal = memo(({ className, onClose }: Props) => {
     if (showData) {
       if (showData.status === 200) {
         onClose();
+        redirect(Routes.home);
       }
     }
   }, [onClose, showData]);

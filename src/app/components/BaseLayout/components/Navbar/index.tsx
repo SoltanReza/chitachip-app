@@ -3,8 +3,8 @@
  * Navbar
  *
  */
-import { LogoutOutlined } from '@ant-design/icons';
-import { Button, Menu, Input } from 'antd';
+import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
+import { Input, Menu } from 'antd';
 import { Routes } from 'app/containers/App/Router/routes';
 import { selectAuth } from 'app/containers/App/selectors';
 import { translations } from 'locales/i18n';
@@ -14,17 +14,6 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { AuthRoles } from 'types';
 import { StyledNavbar } from './styles';
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-  ShoppingOutlined,
-  PieChartOutlined,
-  WhatsAppOutlined,
-  InstagramOutlined,
-  CustomerServiceOutlined,
-  SettingOutlined,
-} from '@ant-design/icons';
 
 interface Props {
   className?: string;
@@ -59,11 +48,7 @@ export const Navbar = memo(({ className }: Props) => {
         title: t(translations.layouts.base.menus.adminPanel),
         doRender: authData.isAuthenticated(),
       },
-      {
-        route: Routes.trading,
-        title: t(translations.layouts.base.menus.trading),
-        doRender: authData.hasRole([AuthRoles.ADMIN]),
-      },
+
       {
         route: Routes.contactUs,
         title: t(translations.layouts.base.menus.contactUs),

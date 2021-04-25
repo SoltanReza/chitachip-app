@@ -19,9 +19,6 @@ export const selectAuth = createSelector(
     ({
       data: state.auth,
       isAuthenticated: () => !!state.auth,
-      hasRole: (roles?: AuthRoles[]) =>
-        roles && state.auth ? roles.includes(state.auth.role) : false,
-      profileIsCompleted: () => !!state.auth?.user.profile,
     } as Auth),
 );
 

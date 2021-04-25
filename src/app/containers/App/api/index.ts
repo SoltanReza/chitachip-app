@@ -9,6 +9,12 @@ import {
   BrowseListProductsResponse,
   BrowseProductRequest,
   BrowseProductResponse,
+  ChangePasswordRequest,
+  ChangePasswordResponse,
+  CheckPasswordRequest,
+  CheckPasswordResponse,
+  CheckUserRequest,
+  CheckUserResponse,
   GetCodeRequest,
   GetCodeResponse,
   GetTokenRequest,
@@ -19,8 +25,12 @@ import {
   LoginResponse,
   RegisterRequest,
   RegisterResponse,
+  ResetPasswordCodeRequest,
+  ResetPasswordCodeResponse,
   ValidateCodeRequest,
   ValidateCodeResponse,
+  ValidationCodeRequest,
+  ValidationCodeResponse,
 } from '../types';
 
 export function getTokenApi(
@@ -73,6 +83,42 @@ export function validateCodeApi(
   params: ValidateCodeRequest,
 ): Promise<ValidateCodeResponse> {
   return http.post('v1/validate/', params).then(response => response.data);
+}
+
+export function checkUserApi(
+  params: CheckUserRequest,
+): Promise<CheckUserResponse> {
+  return http.get('v1/check-user/', { params }).then(response => response.data);
+}
+
+export function checkPasswordApi(
+  params: CheckPasswordRequest,
+): Promise<CheckPasswordResponse> {
+  return http
+    .get('v1/check-password/', { params })
+    .then(response => response.data);
+}
+
+export function resetPasswordCodeApi(
+  params: ResetPasswordCodeRequest,
+): Promise<ResetPasswordCodeResponse> {
+  return http
+    .get('v1/get-password-code/', { params })
+    .then(response => response.data);
+}
+
+export function validationCodeApi(
+  params: ValidationCodeRequest,
+): Promise<ValidationCodeResponse> {
+  return http.post('v1/validation/', params).then(response => response.data);
+}
+
+export function changePasswordApi(
+  params: ChangePasswordRequest,
+): Promise<ChangePasswordResponse> {
+  return http
+    .put('v1/change-password/', params)
+    .then(response => response.data);
 }
 
 export function likeProductApi(

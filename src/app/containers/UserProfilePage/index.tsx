@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
@@ -21,6 +21,8 @@ import { selectUserProfilePage } from './selectors';
 import { userProfilePageSaga } from './saga';
 import { Card, Row, Col, Avatar, Button, Typography } from 'antd';
 import { UserProfileItem } from './components/UserProfileItem';
+import { history } from 'utils/history';
+import { Routes } from '../App/Router/routes';
 
 interface Props {
   className?: string;
@@ -38,6 +40,8 @@ export function UserProfilePage({ className }: Props) {
 
   const { t } = useTranslation();
 
+  const handleRoutToLogout = useCallback(() => history.push(Routes.logout), []);
+
   return (
     <StyledUserProfilePage
       className={`UserProfilePage ${className || ''}`}
@@ -52,7 +56,9 @@ export function UserProfilePage({ className }: Props) {
           </div>
 
           <div>
-            <Button className="btnLogout">خروج</Button>
+            <Button className="btnLogout" onClick={handleRoutToLogout}>
+              خروج
+            </Button>
           </div>
         </div>
         <UserProfileItem />

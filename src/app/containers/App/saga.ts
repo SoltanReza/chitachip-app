@@ -128,7 +128,7 @@ export function* registerSaga(action: PayloadAction<RegisterRequest>) {
         password: action.payload.password,
         username: action.payload.mobile,
       });
-
+      yield put(appActions.setAuth(token));
       Storage.put('auth', token);
       const code = yield call(getCodeApi, {});
     }

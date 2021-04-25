@@ -7,10 +7,12 @@
 import {
   KeyOutlined,
   UserOutlined,
-  MobileOutlined,
-  FieldBinaryOutlined,
+  LockOutlined,
+  TwitterOutlined,
+  FacebookOutlined,
+  GoogleOutlined,
 } from '@ant-design/icons';
-import { Button, Input } from 'antd';
+import { Button, Input, Form, Col, Row, message } from 'antd';
 import { translations } from 'locales/i18n';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { VALIDATION_REQUIRED_FIELD } from 'utils/rules';
+import { validateCodeApi } from '../App/api';
 import { Routes } from '../App/Router/routes';
 import { selectRegister } from '../App/selectors';
 import { appActions } from '../App/slice';
@@ -42,17 +45,14 @@ export function RegisterPage({ className }: Props) {
   const history = useHistory();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [showCodeModal, setShowCodeModal] = useState(false);
+  const [showCodeSend, setShowCodeSend] = useState(false);
+  const [loadingValideData, setLoadingValideData] = useState(false);
 
   const registerData = useSelector(selectRegister);
   const loading = useMemo(() => !!registerData.params, [registerData.params]);
   const handleRoutToLogin = useCallback(() => history.push(Routes.login), [
     history,
   ]);
-  const handleCloseCodeModal = useCallback(() => {
-    setShowCodeModal(false);
-  }, [setShowCodeModal]);
-
   const handleRegister = useCallback(
     values => {
       dispatch(
@@ -68,10 +68,33 @@ export function RegisterPage({ className }: Props) {
     [dispatch],
   );
 
+  const handleValidateCode = useCallback(
+    values => {
+      setLoadingValideData(true);
+      validateCodeApi({
+        code: values.code,
+      })
+        .then(data => {
+          if (data.status === 200) {
+            setLoadingValideData(false);
+            message.info('ثبت نام شما با موفقیت انجام');
+            history.push(Routes.home);
+          } else if (data.status === 400) {
+            message.info('کد وارد شده صحیح نمیباشد');
+            history.push(Routes.register);
+          } else {
+            setLoadingValideData(false);
+          }
+        })
+        .catch(() => {});
+    },
+    [history],
+  );
+
   useEffect(() => {
     if (registerData.data) {
       if (registerData.data.status === 201) {
-        setShowCodeModal(true);
+        setShowCodeSend(true);
       }
     }
     dispatch(appActions.registerClear());
@@ -83,7 +106,101 @@ export function RegisterPage({ className }: Props) {
       title={t(translations.pages.RegisterPage.title)}
       description={t(translations.pages.RegisterPage.description)}
     >
-      <StyledRegisterForm onFinish={handleRegister}>
+      {!showCodeSend ? (
+        <div className="form">
+          <div className="logo">
+            {/* {t(translations.global.placeholder.logoTitle)} */}
+            <img
+              alt="logo"
+              src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
+            />
+          </div>
+
+          <div className="titleLogin">ثبت نام</div>
+          <Form onFinish={handleRegister}>
+            <Form.Item name="first_name" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.firstName)}
+                disabled={loading}
+              />
+            </Form.Item>
+            <Form.Item name="last_name" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.lastName)}
+                disabled={loading}
+              />
+            </Form.Item>
+            <Form.Item name="mobile" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.username)}
+                disabled={loading}
+              />
+            </Form.Item>
+            <Form.Item name="national_code" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.nationalCode)}
+                disabled={loading}
+              />
+            </Form.Item>
+            <Form.Item name="password" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.password)}
+                disabled={loading}
+              />
+            </Form.Item>
+
+            <Row className="btnDir">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="btnLogin"
+                loading={loading}
+              >
+                {t(translations.pages.LoginPage.LoginForm.continue)}
+              </Button>{' '}
+            </Row>
+          </Form>
+        </div>
+      ) : (
+        <div className="form">
+          <div className="logo">
+            {/* {t(translations.global.placeholder.logoTitle)} */}
+            <img
+              alt="logo"
+              src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
+            />
+          </div>
+
+          <div className="titleLogin">کد ارسالی</div>
+          <Form onFinish={handleValidateCode}>
+            <Form.Item name="code" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.code)}
+                disabled={loading}
+              />
+            </Form.Item>
+
+            <Row className="btnDir">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="btnLogin"
+                loading={loading}
+              >
+                {t(translations.pages.RegisterPage.RegisterForm.registerBtn)}
+              </Button>{' '}
+            </Row>
+          </Form>
+        </div>
+      )}
+
+      {/* <StyledRegisterForm onFinish={handleRegister}>
         <div className="container">
           <div className="header">
             <h5 className="title">فرم ثبت نام</h5>
@@ -163,7 +280,7 @@ export function RegisterPage({ className }: Props) {
           </StyledRegisterForm.Item>
         </div>
       </StyledRegisterForm>
-      {showCodeModal && <CodeRegisterModal onClose={handleCloseCodeModal} />}
+      {showCodeModal && <CodeRegisterModal onClose={handleCloseCodeModal} />} */}
     </StyledRegisterPage>
   );
 }

@@ -18,7 +18,6 @@ interface Props {
   className?: string;
 }
 
-
 export const Navbar = memo(({ className }: Props) => {
   const { t } = useTranslation();
   const history = useHistory();
@@ -41,16 +40,6 @@ export const Navbar = memo(({ className }: Props) => {
         doRender: !authData.isAuthenticated(),
       },
 
-      {
-        route: Routes.dashboard,
-        title: t(translations.layouts.base.menus.adminPanel),
-        doRender: authData.hasRole([AuthRoles.ADMIN]),
-      },
-      {
-        route: Routes.trading,
-        title: t(translations.layouts.base.menus.trading),
-        doRender: authData.hasRole([AuthRoles.ADMIN]),
-      },
       {
         route: Routes.contactUs,
         title: t(translations.layouts.base.menus.contactUs),

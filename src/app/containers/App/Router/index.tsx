@@ -5,6 +5,7 @@ import { LogoutPage } from 'app/containers/LogoutPage/Loadable';
 import { NotFoundPage } from 'app/containers/NotFoundPage/Loadable';
 import { ProductDetailsPage } from 'app/containers/ProductDetailsPage/Loadable';
 import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
+import { ResetPasswordPage } from 'app/containers/ResetPasswordPage/Loadable';
 import { UserProfilePage } from 'app/containers/UserProfilePage/Loadable';
 import * as React from 'react';
 import {
@@ -72,6 +73,14 @@ export const Router = () => {
       exact: true,
       path: Routes.userProfile,
       component: UserProfilePage,
+      auth: {
+        check: AuthLevel.ALL,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.resetPassword,
+      component: ResetPasswordPage,
       auth: {
         check: AuthLevel.ALL,
       },

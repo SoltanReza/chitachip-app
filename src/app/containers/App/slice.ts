@@ -235,6 +235,17 @@ const appSlice = createSlice({
       state.likeProduct.error = initialState.likeProduct.error;
     },
     likeProductSuccess(state, action: PayloadAction<LikeProductResponse>) {
+      // if(state.browseHomeList){
+      //   if(state.browseHomeList.data){
+      //     const index = state.browseHomeList.data.offers.findIndex(item => item.id === action.payload.id);
+      //     if (index === -1) state.card.push(action.payload);
+      //     else {
+      //       state.card[index].quantity = action.payload.quantity;
+      //     }
+
+      //   }
+      // }
+
       state.likeProduct.params = initialState.likeProduct.params;
       state.likeProduct.data = action.payload;
     },
