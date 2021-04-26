@@ -98,16 +98,28 @@ export const StyledBasketItem = styled.section`
     text-align: left;
   }
 
-  .finlaPay {
+  .continueBuy {
     margin-top: 4em;
     justify-content: center;
   }
 
-  .addToCardBtn {
+  .finlaPay {
+    justify-content: center;
+  }
+
+  .finlaPayBtn {
+    margin-top: 0.5em;
     background: #fd9803;
     border-radius: 10px;
     color: #fff;
   }
+
+  .continueBuyBtn {
+    background: #7f8283;
+    border-radius: 10px;
+    color: #fff;
+  }
+
   .cardListProduct {
     margin-bottom: 1em;
   }
@@ -115,5 +127,7 @@ export const StyledBasketItem = styled.section`
   .quantity {
     color: #fff;
     background: #ff9800;
+    padding: 0.2em 0.8em 0.2em 0.8em;
+    border-radius: 7px;
   }
 `;

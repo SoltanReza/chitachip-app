@@ -37,9 +37,14 @@ import 'react-multi-carousel/lib/styles.css';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAuth, selectLikeProduct } from 'app/containers/App/selectors';
+import {
+  selectAddToBasket,
+  selectAuth,
+  selectLikeProduct,
+} from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 import { useMemo } from 'react';
+import { useEffect } from 'react';
 
 interface Props {
   className?: string;
@@ -76,6 +81,8 @@ export const Offer = memo(({ className, product }: Props) => {
   const [minusQuantity, setMinusQuantity] = useState(0);
   const [plusQuantity, setPlusQuantity] = useState(0);
   const authData = useSelector(selectAuth);
+  const likeData = useSelector(selectLikeProduct);
+  const addToBasketData = useSelector(selectAddToBasket);
 
   const handleRouteToProductDetails = useCallback(
     (id: string) => () => redirect(Routes.productDetails, { id }),
@@ -124,14 +131,18 @@ export const Offer = memo(({ className, product }: Props) => {
   const handleAddToBasket = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
-
-      dispatch(
-        appActions.addToBasket({
-          product_id: data.product_id,
-          quantity: quantity,
-        }),
-      );
-      setquantity(0);
+      setCurrentElement(data.product_id);
+      if (quantity <= 0) {
+        message.warning('لطفا تعداد محصول را مشخص کنید');
+      } else {
+        dispatch(
+          appActions.addToBasket({
+            product_id: data.product_id,
+            quantity: quantity,
+          }),
+        );
+        setquantity(0);
+      }
     },
     [dispatch, quantity],
   );
@@ -169,6 +180,18 @@ export const Offer = memo(({ className, product }: Props) => {
     [authData, dispatch],
   );
 
+  useEffect(() => {
+    if (addToBasketData) {
+      if (addToBasketData.data) {
+        addToBasketData.data.data.products.map(
+          item =>
+            item.product_id === currentElement &&
+            message.info('محصول به سبد خرید اضافه شد'),
+        );
+      }
+    }
+  }, [addToBasketData, currentElement]);
+
   return (
     <StyledOffer className={`Offer ${className || ''}`}>
       <Carousel
@@ -196,9 +219,10 @@ export const Offer = memo(({ className, product }: Props) => {
                 onClick={handleRouteToProductDetails(item.id)}
               >
                 <div className="titleProduct">
-                  {ellipseString(`${item.title}`, 14)}
+                  {item.title}
+                  {/* {ellipseString(`${item.title}`, 30)} */}
                 </div>
-                <div>
+                <div className="imgProductWrapper">
                   <img
                     src={item.image}
                     className="imgProduct"
@@ -232,22 +256,22 @@ export const Offer = memo(({ className, product }: Props) => {
               </div>
               <div className="voteStyle">
                 <div>
-                  {item.likes === 0 ? (
-                    //    <Popconfirm
-                    //    placement="top"
-                    //    title="لطفا ابتدا وارد سامانه شوید"
-                    //    onConfirm={confirm}
-                    //    okText="Yes"
-                    //    cancelText="No"
-                    //  >
-                    <HeartOutlined
-                      style={{ color: '#ffc107', fontSize: '1.7em' }}
-                      data-id={item.id}
-                      onClick={handleVoteLike}
-                    />
+                  {likeData && likeData.data ? (
+                    likeData.data.status === 201 ? (
+                      <HeartOutlined
+                        style={{ color: '#ffc107', fontSize: '1.7em' }}
+                        data-id={item.id}
+                        onClick={handleVoteLike}
+                      />
+                    ) : (
+                      <HeartFilled
+                        style={{ color: '#ffc107', fontSize: '1.7em' }}
+                        data-id={item.id}
+                        onClick={handleVoteLike}
+                      />
+                    )
                   ) : (
-                    //  </Popconfirm>
-                    <HeartFilled
+                    <HeartOutlined
                       style={{ color: '#ffc107', fontSize: '1.7em' }}
                       data-id={item.id}
                       onClick={handleVoteLike}

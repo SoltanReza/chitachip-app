@@ -32,8 +32,10 @@ import {
   changePasswordApi,
   checkPasswordApi,
   checkUserApi,
+  getCodeApi,
   getTokenApi,
   resetPasswordCodeApi,
+  validateCodeApi,
   validationCodeApi,
 } from '../App/api';
 import { Storage } from 'utils/storage';
@@ -59,6 +61,7 @@ export function LoginPage({ className }: Props) {
   const [showCheckPassword, setShowCheckPassword] = useState(false);
   const [showValidationCode, setShowValidationCode] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const [showActive, setShowActive] = useState(false);
   const [lodingData, setLodingData] = useState(false);
   const [lodingPassData, setLodingPassData] = useState(false);
   const loginData = useSelector(selectLogin);
@@ -138,6 +141,38 @@ export function LoginPage({ className }: Props) {
                 setShowCheckPassword(false);
                 setShowValidationCode(false);
               });
+          } else if (data.status === 100) {
+            message.warning(' کاربر گرامی اکانت شما فعال نمی باشد');
+            message.warning(
+              'تا لحظاتی دیگر کد فعال سازی برای شما ارسال می شود',
+            );
+            setShowCheckPassword(false);
+            setShowValidationCode(false);
+            setShowActive(true);
+            getTokenApi({
+              username: username,
+              password: password,
+            })
+              .then(data => {
+                if (data) {
+                  setLodingPassData(false);
+
+                  dispatch(
+                    appActions.setAuth({
+                      access: data.access,
+                      refresh: data.refresh,
+                    }),
+                  );
+                  Storage.put('auth', data);
+                  getCodeApi({})
+                    .then(data => {})
+                    .catch(() => {});
+                }
+              })
+              .catch(() => {
+                setShowCheckPassword(false);
+                setShowValidationCode(false);
+              });
           } else {
             setShowCheckPassword(false);
             setShowValidationCode(false);
@@ -170,6 +205,31 @@ export function LoginPage({ className }: Props) {
         });
     },
     [username],
+  );
+
+  const handleValidatCode = useCallback(
+    values => {
+      setLodingPassData(true);
+      validateCodeApi({
+        code: values.code,
+      })
+        .then(data => {
+          if (data.status === 200) {
+            message.info('اکانت شما فعال شد');
+            history.push(Routes.home);
+          } else if (data.status === 400) {
+            message.info('کد را اشتباه وارد کردید, لطفا دوباره تلاش کنید');
+          } else {
+            setShowResetPassword(false);
+            setShowValidationCode(true);
+          }
+        })
+
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    [history],
   );
 
   const handleSendValidationCode = useCallback(
@@ -436,6 +496,41 @@ export function LoginPage({ className }: Props) {
                 // loading={loadingValideData}
               >
                 {t(translations.pages.LoginPage.LoginForm.forgotPassword)}
+              </Button>{' '}
+            </Row>
+          </Form>
+        </div>
+      )}
+
+      {showActive && (
+        <div className="form">
+          <div className="logo">
+            {/* {t(translations.global.placeholder.logoTitle)} */}
+            <img
+              alt="logo"
+              src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
+            />
+          </div>
+
+          <div className="titleLogin">کد فعال سازی</div>
+          <div>لطفا کد پیامک شده به شماره همراه خود را وارد نمایید</div>
+          <Form onFinish={handleValidatCode}>
+            <Form.Item name="code" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.code)}
+                // disabled={loadingValideData}
+              />
+            </Form.Item>
+
+            <Row className="btnDir">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="btnLogin"
+                // loading={loadingValideData}
+              >
+                {t(translations.pages.LoginPage.LoginForm.continue)}
               </Button>{' '}
             </Row>
           </Form>

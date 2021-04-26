@@ -22,7 +22,7 @@ export const StyledHeader = styled(Layout.Header)`
     background-position: center;
     background-repeat: no-repeat;
     height: 100px;
-    width: 100px;
+    width: 150px;
     margin: 0.2em -2em 0em 2em;
     float: left;
   }

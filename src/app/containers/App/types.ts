@@ -218,11 +218,10 @@ export interface ValidateCodeResponse {
 
 // #region LikeProduct
 export interface LikeProductRequest {
-  product_id: number;
+  product_id: string;
 }
 
 export interface LikeProductResponse {
-  // id: string;
   response: string;
   status: number;
 }

@@ -15,9 +15,12 @@ import {
   PlusOutlined,
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { Typography, Divider, Card, Row, Col, Button } from 'antd';
+import { Typography, Divider, Card, Row, Col, Button, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBrowseBasket } from 'app/containers/App/selectors';
+import {
+  selectAddToBasket,
+  selectBrowseBasket,
+} from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 
 interface Props {
@@ -32,12 +35,14 @@ export const BasketItem = memo(({ className }: Props) => {
   const basketData = useSelector(selectBrowseBasket);
   const [quantity, setquantity] = useState(0);
   const [currentElement, setCurrentElement] = useState('');
+  const addToBasketData = useSelector(selectAddToBasket);
 
   const loading = useMemo(() => !!basketData.params, [basketData.params]);
 
   const handleMinusQuantity = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
+      setCurrentElement(data.product_id);
       dispatch(
         appActions.addToBasket({
           product_id: data.product_id,
@@ -50,6 +55,7 @@ export const BasketItem = memo(({ className }: Props) => {
   const handlePlusQuantity = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
+      setCurrentElement(data.product_id);
       dispatch(
         appActions.addToBasket({
           product_id: data.product_id,
@@ -75,6 +81,20 @@ export const BasketItem = memo(({ className }: Props) => {
     dispatch(appActions.browseBasket({}));
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   if (addToBasketData) {
+  //     if (addToBasketData.data) {
+  //       console.log(addToBasketData);
+  //       addToBasketData.data.data.products.map(
+  //         item =>
+  //           item.product_id === currentElement &&
+  //           item.is_exists &&
+  //           message.info(''),
+  //       );
+  //     }
+  //   }
+  // }, [addToBasketData, currentElement]);
+
   return (
     <StyledBasketItem className={`BasketItem ${className || ''}`}>
       <Typography>
@@ -86,8 +106,7 @@ export const BasketItem = memo(({ className }: Props) => {
 
         <Row gutter={{ xs: 8, sm: 16, md: 48, lg: 48 }}>
           <Col span={18}>
-            {basketData &&
-              basketData.data &&
+            {basketData && basketData.data && basketData.data.value ? (
               basketData.data.value.products.map(item => (
                 <Card className="cardListProduct">
                   <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
@@ -96,26 +115,35 @@ export const BasketItem = memo(({ className }: Props) => {
                     </Col>
                     <Col span={14}>
                       <Row className="titleProduct">{item.title}</Row>
-                      <Row>
-                        <PlusOutlined
-                          style={{ color: '#ff9800' }}
-                          data-product_id={item.product_id}
-                          data-quantity={item.quantity}
-                          onClick={handlePlusQuantity}
-                        />
-                        <span>{item.quantity}</span>
-                        <MinusOutlined
-                          style={{ color: '#ff9800' }}
-                          data-product_id={item.product_id}
-                          data-quantity={item.quantity}
-                          onClick={handleMinusQuantity}
-                        />
-                        <DeleteOutlined
-                          style={{ color: 'red', fontSize: '1.5em' }}
-                          data-product_id={item.product_id}
-                          onClick={handleDeleteItem}
-                        />
-                        حذف
+                      <Row gutter={8}>
+                        <Col>
+                          <PlusOutlined
+                            style={{ color: '#ff9800' }}
+                            data-product_id={item.product_id}
+                            data-quantity={item.quantity}
+                            onClick={handlePlusQuantity}
+                          />
+                        </Col>
+                        <Col>
+                          <span className="quantity">{item.quantity}</span>
+                        </Col>
+                        <Col>
+                          <MinusOutlined
+                            style={{ color: '#ff9800' }}
+                            data-product_id={item.product_id}
+                            data-quantity={item.quantity}
+                            onClick={handleMinusQuantity}
+                          />
+                        </Col>
+
+                        <Col>
+                          <DeleteOutlined
+                            style={{ color: 'red', fontSize: '1.5em' }}
+                            data-product_id={item.product_id}
+                            onClick={handleDeleteItem}
+                          />
+                          حذف
+                        </Col>
                       </Row>
                     </Col>
                     <Col span={5}>
@@ -142,7 +170,10 @@ export const BasketItem = memo(({ className }: Props) => {
                     </Col>
                   </Row>
                 </Card>
-              ))}
+              ))
+            ) : (
+              <div>سبد خرید شما خالی می باشد.</div>
+            )}
           </Col>
           <Col className="actionItem" span={6}>
             <Card className="basketItemAction">
@@ -170,8 +201,17 @@ export const BasketItem = memo(({ className }: Props) => {
                   150/210 تومان
                 </Col>
               </Row>
+              <Row className="continueBuy">
+                <Button block className="continueBuyBtn">
+                  ادامه خرید
+                </Button>
+              </Row>
               <Row className="finlaPay">
-                <Button icon={<ShoppingOutlined />} className="addToCardBtn">
+                <Button
+                  block
+                  icon={<ShoppingOutlined />}
+                  className="finlaPayBtn"
+                >
                   پرداخت نهایی
                 </Button>
               </Row>

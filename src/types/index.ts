@@ -100,6 +100,7 @@ export interface BasketData {
     title: string;
     price: number;
     image: string;
+    is_exists: boolean;
   }>;
 }
 // #endregion BasketData

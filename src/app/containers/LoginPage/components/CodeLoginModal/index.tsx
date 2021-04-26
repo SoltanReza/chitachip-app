@@ -40,7 +40,7 @@ export const CodeLoginModal = memo(({ className, onClose }: Props) => {
     if (showData) {
       if (showData.status === 200) {
         onClose();
-        redirect(Routes.home)
+        redirect(Routes.home);
       }
     }
   }, [onClose, showData]);

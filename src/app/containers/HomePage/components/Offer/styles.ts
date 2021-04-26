@@ -48,13 +48,18 @@ export const StyledOffer = styled.section`
       }
     }
   }
+
+  .imgProductWrapper {
+    display: flex;
+    justify-content: center;
+  }
+
   .imgProduct {
     background-size: contain;
-    /* background-position: center; */
+    background-position: center;
     background-repeat: no-repeat;
-
     height: 100%;
-    width: 100%;
+    width: 235px;
     object-fit: cover;
   }
   .titleProduct {

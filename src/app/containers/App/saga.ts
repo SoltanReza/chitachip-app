@@ -87,7 +87,7 @@ export function* browseHomeListSaga(
     // );
   } catch (error) {
     yield put(appActions.browseHomeListError(error));
-    yield put(appActions.notifyError(error.message));
+    // yield put(appActions.notifyError(error.message));
   }
 }
 
@@ -184,6 +184,12 @@ export function* addToBasketSaga(action: PayloadAction<AddToBasketRequest>) {
   try {
     const response = yield call(addToBasketApi, action.payload);
     yield put(appActions.addToBasketSuccess(response));
+    // if(response.value){
+    //   yield put(appActions.notifySuccess());
+    // }
+    // if(response.data){
+    //   yield put(appActions.notifySuccess(error.message));
+    // }
   } catch (error) {
     yield put(appActions.addToBasketError(error));
     yield put(appActions.notifyError(error.message));

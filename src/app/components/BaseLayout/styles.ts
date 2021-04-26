@@ -45,8 +45,6 @@ export const StyledHeader = styled(Layout.Header)`
 }
    background-size: cover;   
   background-image: url(${background}) !important;
-
-
   line-height: 79px;
   height: 90px;
   
