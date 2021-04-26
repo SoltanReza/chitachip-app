@@ -19,6 +19,8 @@ import {
   CheckPasswordResponse,
   CheckUserRequest,
   CheckUserResponse,
+  DeleteFromBasketItemRequest,
+  DeleteFromBasketItemResponse,
   GetCodeRequest,
   GetCodeResponse,
   GetTokenRequest,
@@ -149,4 +151,12 @@ export function addToBasketApi(
   params: AddToBasketRequest,
 ): Promise<ErrorResponse | AddToBasketResponse> {
   return http.get('v1/basket/', { params }).then(response => response.data);
+}
+
+export function deleteFromBasketItemApi(
+  params: DeleteFromBasketItemRequest,
+): Promise<ErrorResponse | DeleteFromBasketItemResponse> {
+  return http
+    .get('v1/delete-basket/', { params })
+    .then(response => response.data);
 }

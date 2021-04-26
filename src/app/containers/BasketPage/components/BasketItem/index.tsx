@@ -3,7 +3,7 @@
  * BasketItem
  *
  */
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { StyledBasketItem } from './styles';
 import {
@@ -11,6 +11,8 @@ import {
   ShoppingOutlined,
   ShareAltOutlined,
   DeleteOutlined,
+  MinusOutlined,
+  PlusOutlined,
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { Typography, Divider, Card, Row, Col, Button } from 'antd';
@@ -28,7 +30,47 @@ export const BasketItem = memo(({ className }: Props) => {
 
   const dispatch = useDispatch();
   const basketData = useSelector(selectBrowseBasket);
+  const [quantity, setquantity] = useState(0);
+  const [currentElement, setCurrentElement] = useState('');
+
   const loading = useMemo(() => !!basketData.params, [basketData.params]);
+
+  const handleMinusQuantity = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.product_id,
+          quantity: -1,
+        }),
+      );
+    },
+    [dispatch],
+  );
+  const handlePlusQuantity = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.product_id,
+          quantity: 1,
+        }),
+      );
+    },
+    [dispatch],
+  );
+  const handleDeleteItem = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+      dispatch(
+        appActions.deleteFromBasketItem({
+          product_id: data.product_id,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
     dispatch(appActions.browseBasket({}));
   }, [dispatch]);
@@ -44,7 +86,7 @@ export const BasketItem = memo(({ className }: Props) => {
 
         <Row gutter={{ xs: 8, sm: 16, md: 48, lg: 48 }}>
           <Col span={18}>
-            {/* {basketData &&
+            {basketData &&
               basketData.data &&
               basketData.data.value.products.map(item => (
                 <Card className="cardListProduct">
@@ -55,13 +97,23 @@ export const BasketItem = memo(({ className }: Props) => {
                     <Col span={14}>
                       <Row className="titleProduct">{item.title}</Row>
                       <Row>
-                        <Button
-                          style={{ color: '#fff', background: '#ff9800' }}
-                        >
-                          3{' '}
-                        </Button>{' '}
+                        <PlusOutlined
+                          style={{ color: '#ff9800' }}
+                          data-product_id={item.product_id}
+                          data-quantity={item.quantity}
+                          onClick={handlePlusQuantity}
+                        />
+                        <span>{item.quantity}</span>
+                        <MinusOutlined
+                          style={{ color: '#ff9800' }}
+                          data-product_id={item.product_id}
+                          data-quantity={item.quantity}
+                          onClick={handleMinusQuantity}
+                        />
                         <DeleteOutlined
                           style={{ color: 'red', fontSize: '1.5em' }}
+                          data-product_id={item.product_id}
+                          onClick={handleDeleteItem}
                         />
                         حذف
                       </Row>
@@ -90,200 +142,7 @@ export const BasketItem = memo(({ className }: Props) => {
                     </Col>
                   </Row>
                 </Card>
-              ))} */}
-            <Card className="cardListProduct">
-              <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
-                <Col span={5}>
-                  <img
-                    src="https://picsum.photos/200/300"
-                    className="imgProduct"
-                  />
-                </Col>
-                <Col span={14}>
-                  <Row className="titleProduct">
-                    مگا 3r آردویینو مگا 3r آردویینو
-                  </Row>
-                  <Row>
-                    <Button style={{ color: '#fff', background: '#ff9800' }}>
-                      3{' '}
-                    </Button>{' '}
-                    <DeleteOutlined
-                      style={{ color: 'red', fontSize: '1.5em' }}
-                    />
-                    حذف
-                  </Row>
-                </Col>
-                <Col span={5}>
-                  <div className="buyProduct">
-                    <div className="priceStyle">
-                      <div className="price">
-                        <div className="discount">18%</div>
-                        <s className="priceDiscount">
-                          895/896
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </s>
-                      </div>
-                      <div className="price">
-                        <div className="currency">تومان</div>
-                        <div>
-                          852/652
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Card>
-
-            <Card className="cardListProduct">
-              <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
-                <Col span={5}>
-                  <img
-                    src="https://picsum.photos/200/300"
-                    className="imgProduct"
-                  />
-                </Col>
-                <Col span={14}>
-                  <Row className="titleProduct">
-                    مگا 3r آردویینو مگا 3r آردویینو
-                  </Row>
-                  <Row>
-                    <Button style={{ color: '#fff', background: '#ff9800' }}>
-                      3{' '}
-                    </Button>{' '}
-                    <DeleteOutlined
-                      style={{ color: 'red', fontSize: '1.5em' }}
-                    />
-                    حذف
-                  </Row>
-                </Col>
-                <Col span={5}>
-                  <div className="buyProduct">
-                    <div className="priceStyle">
-                      <div className="price">
-                        <div className="discount">18%</div>
-                        <s className="priceDiscount">
-                          895/896
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </s>
-                      </div>
-                      <div className="price">
-                        <div className="currency">تومان</div>
-                        <div>
-                          852/652
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Card>
-            <Card className="cardListProduct">
-              <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
-                <Col span={5}>
-                  <img
-                    src="https://picsum.photos/200/300"
-                    className="imgProduct"
-                  />
-                </Col>
-                <Col span={14}>
-                  <Row className="titleProduct">
-                    مگا 3r آردویینو مگا 3r آردویینو
-                  </Row>
-                  <Row>
-                    <Button style={{ color: '#fff', background: '#ff9800' }}>
-                      3{' '}
-                    </Button>{' '}
-                    <DeleteOutlined
-                      style={{ color: 'red', fontSize: '1.5em' }}
-                    />
-                    حذف
-                  </Row>
-                </Col>
-                <Col span={5}>
-                  <div className="buyProduct">
-                    <div className="priceStyle">
-                      <div className="price">
-                        <div className="discount">18%</div>
-                        <s className="priceDiscount">
-                          895/896
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </s>
-                      </div>
-                      <div className="price">
-                        <div className="currency">تومان</div>
-                        <div>
-                          852/652
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Card>
-            <Card className="cardListProduct">
-              <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
-                <Col span={5}>
-                  <img
-                    src="https://picsum.photos/200/300"
-                    className="imgProduct"
-                  />
-                </Col>
-                <Col span={14}>
-                  <Row className="titleProduct">
-                    مگا 3r آردویینو مگا 3r آردویینو
-                  </Row>
-                  <Row>
-                    <Button style={{ color: '#fff', background: '#ff9800' }}>
-                      3{' '}
-                    </Button>{' '}
-                    <DeleteOutlined
-                      style={{ color: 'red', fontSize: '1.5em' }}
-                    />
-                    حذف
-                  </Row>
-                </Col>
-                <Col span={5}>
-                  <div className="buyProduct">
-                    <div className="priceStyle">
-                      <div className="price">
-                        <div className="discount">18%</div>
-                        <s className="priceDiscount">
-                          895/896
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </s>
-                      </div>
-                      <div className="price">
-                        <div className="currency">تومان</div>
-                        <div>
-                          852/652
-                          {/* {item.price
-                          .toFixed()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </Card>
+              ))}
           </Col>
           <Col className="actionItem" span={6}>
             <Card className="basketItemAction">

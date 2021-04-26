@@ -54,6 +54,11 @@ export interface AppState {
     data?: AddToBasketResponse;
     error?: ErrorResponse;
   };
+  deleteFromBasketItem: {
+    params?: DeleteFromBasketItemRequest;
+    data?: DeleteFromBasketItemResponse;
+    error?: ErrorResponse;
+  };
 
   auth?: AuthData;
 }
@@ -302,7 +307,7 @@ export interface BrowseBasketResponse {
 // #region AddToBasket
 
 export interface AddToBasketRequest {
-  product_id: BasketData;
+  product_id: string;
   quantity: number;
 }
 export interface AddToBasketResponse {
@@ -310,3 +315,14 @@ export interface AddToBasketResponse {
   response: string;
 }
 // #endregion AddToBasket
+
+// #region DeleteFromBasketItem
+
+export interface DeleteFromBasketItemRequest {
+  product_id: string;
+}
+export interface DeleteFromBasketItemResponse {
+  data: BasketData;
+  response: string;
+}
+// #endregion DeleteFromBasketItem

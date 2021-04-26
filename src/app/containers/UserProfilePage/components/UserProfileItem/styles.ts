@@ -28,5 +28,6 @@ export const StyledUserProfileItem = styled.section`
     font-weight: bold;
     font-size: 1.5em;
     color: #000;
+    margin-bottom: 0.7em;
   }
 `;

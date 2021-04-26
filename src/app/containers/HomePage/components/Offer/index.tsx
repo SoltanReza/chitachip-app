@@ -71,7 +71,8 @@ export const Offer = memo(({ className, product }: Props) => {
   const dispatch = useDispatch();
   const [timeClose, setTimeClose] = useState(2);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [quantity, setquantity] = useState(1);
+  const [quantity, setquantity] = useState(0);
+  const [currentElement, setCurrentElement] = useState('');
   const [minusQuantity, setMinusQuantity] = useState(0);
   const [plusQuantity, setPlusQuantity] = useState(0);
   const authData = useSelector(selectAuth);
@@ -97,26 +98,48 @@ export const Offer = memo(({ className, product }: Props) => {
 
   const handleMinusQuantity = useCallback(
     e => {
+      const data = e.currentTarget.dataset as any;
+      setCurrentElement(data.id);
       if (quantity > 1) {
         setquantity(quantity - 1);
       } else {
-        setquantity(1);
+        setquantity(0);
       }
     },
     [quantity],
   );
   const handlePlusQuantity = useCallback(
     e => {
-      setquantity(quantity + 1);
+      const data = e.currentTarget.dataset as any;
+      setCurrentElement(data.id);
+      if (currentElement !== data.id) {
+        setquantity(1);
+      } else {
+        setquantity(quantity + 1);
+      }
     },
-    [quantity],
+    [currentElement, quantity],
+  );
+
+  const handleAddToBasket = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.product_id,
+          quantity: quantity,
+        }),
+      );
+      setquantity(0);
+    },
+    [dispatch, quantity],
   );
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
 
-  console.log(quantity);
   const handleVoteLike = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
@@ -234,10 +257,23 @@ export const Offer = memo(({ className, product }: Props) => {
                 <div>
                   <ShoppingOutlined
                     style={{ color: '#ffc107', fontSize: '1.5em' }}
+                    data-product_id={item.id}
+                    onClick={handleAddToBasket}
                   />{' '}
                   <span className="count">
-                    <PlusOutlined onClick={handlePlusQuantity} />
-                    {quantity} <MinusOutlined onClick={handleMinusQuantity} />
+                    <PlusOutlined
+                      data-id={item.id}
+                      onClick={handlePlusQuantity}
+                    />
+                    {currentElement === item.id ? (
+                      <span>{quantity}</span>
+                    ) : (
+                      <span>0</span>
+                    )}
+                    <MinusOutlined
+                      data-id={item.id}
+                      onClick={handleMinusQuantity}
+                    />
                   </span>
                 </div>
               </div>

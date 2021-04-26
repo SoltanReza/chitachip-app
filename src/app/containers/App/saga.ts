@@ -11,6 +11,7 @@ import {
   browseHomeListApi,
   browseListProductsApi,
   browseProductApi,
+  deleteFromBasketItemApi,
   getCodeApi,
   getTokenApi,
   likeProductApi,
@@ -27,6 +28,7 @@ import {
   BrowseHomeListRequest,
   BrowseListProductsRequest,
   BrowseProductRequest,
+  DeleteFromBasketItemRequest,
   LikeProductRequest,
   LoginRequest,
   RegisterRequest,
@@ -188,6 +190,18 @@ export function* addToBasketSaga(action: PayloadAction<AddToBasketRequest>) {
   }
 }
 
+export function* deleteFromBasketItemSaga(
+  action: PayloadAction<DeleteFromBasketItemRequest>,
+) {
+  try {
+    const response = yield call(deleteFromBasketItemApi, action.payload);
+    yield put(appActions.deleteFromBasketItemSuccess(response));
+  } catch (error) {
+    yield put(appActions.deleteFromBasketItemError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -198,4 +212,9 @@ export function* appSaga() {
   yield takeLatest(appActions.likeProduct.type, likeProductSaga);
   yield takeLatest(appActions.userInfo.type, userInfoSaga);
   yield takeLatest(appActions.browseBasket.type, browseBasketSaga);
+  yield takeLatest(appActions.addToBasket.type, addToBasketSaga);
+  yield takeLatest(
+    appActions.deleteFromBasketItem.type,
+    deleteFromBasketItemSaga,
+  );
 }

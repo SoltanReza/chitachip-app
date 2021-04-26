@@ -71,3 +71,8 @@ export const selectAddToBasket = createSelector(
   [selectDomain],
   state => state.addToBasket,
 );
+
+export const selectDeleteFromBasketItem = createSelector(
+  [selectDomain],
+  state => state.deleteFromBasketItem,
+);

@@ -16,6 +16,8 @@ import {
   BrowseProductRequest,
   BrowseProductResponse,
   ContainerState,
+  DeleteFromBasketItemRequest,
+  DeleteFromBasketItemResponse,
   LikeProductRequest,
   LikeProductResponse,
   LoginRequest,
@@ -78,6 +80,11 @@ export const initialState: ContainerState = {
     error: undefined,
   },
   addToBasket: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  deleteFromBasketItem: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -324,6 +331,14 @@ const appSlice = createSlice({
       state.addToBasket.error = initialState.addToBasket.error;
     },
     addToBasketSuccess(state, action: PayloadAction<AddToBasketResponse>) {
+      if (state.browseBasket.data) {
+        if (state.browseBasket.data.value) {
+          state.browseBasket.data.value.products = [
+            ...action.payload.data.products,
+          ];
+        }
+      }
+
       state.addToBasket.params = initialState.addToBasket.params;
       state.addToBasket.data = action.payload;
     },
@@ -335,6 +350,41 @@ const appSlice = createSlice({
       state.addToBasket = initialState.addToBasket;
     },
     //#endregion AddToBasket
+
+    //#region DeleteFromBasketItem
+    deleteFromBasketItem(
+      state,
+      action: PayloadAction<DeleteFromBasketItemRequest>,
+    ) {
+      state.deleteFromBasketItem.params = action.payload;
+      state.deleteFromBasketItem.data = initialState.deleteFromBasketItem.data;
+      state.deleteFromBasketItem.error =
+        initialState.deleteFromBasketItem.error;
+    },
+    deleteFromBasketItemSuccess(
+      state,
+      action: PayloadAction<DeleteFromBasketItemResponse>,
+    ) {
+      if (state.browseBasket.data) {
+        state.browseBasket.data.value.products = state.browseBasket.data.value.products.filter(
+          item =>
+            item.product_id !== state.deleteFromBasketItem.params?.product_id,
+        );
+      }
+
+      state.deleteFromBasketItem.params =
+        initialState.deleteFromBasketItem.params;
+      state.deleteFromBasketItem.data = action.payload;
+    },
+    deleteFromBasketItemError(state, action: PayloadAction<ErrorResponse>) {
+      state.deleteFromBasketItem.params =
+        initialState.deleteFromBasketItem.params;
+      state.deleteFromBasketItem.error = action.payload;
+    },
+    deleteFromBasketItemClear(state) {
+      state.deleteFromBasketItem = initialState.deleteFromBasketItem;
+    },
+    //#endregion DeleteFromBasketItem
 
     //#region auth
     setAuth: (state, action: PayloadAction<AuthData>) => {

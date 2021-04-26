@@ -111,4 +111,9 @@ export const StyledBasketItem = styled.section`
   .cardListProduct {
     margin-bottom: 1em;
   }
+
+  .quantity {
+    color: #fff;
+    background: #ff9800;
+  }
 `;
