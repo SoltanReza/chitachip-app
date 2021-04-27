@@ -97,6 +97,16 @@ export const BasketItem = memo(({ className }: Props) => {
 
   return (
     <StyledBasketItem className={`BasketItem ${className || ''}`}>
+      {addToBasketData.params && (
+        <div id="preloader">
+          <div id="status">
+            <div className="spinner">
+              <div className="double-bounce1"></div>
+              <div className="double-bounce2"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <Typography>
         <Title>سبد خرید</Title>
       </Typography>

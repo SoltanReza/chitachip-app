@@ -26,6 +26,7 @@ import {
   Popconfirm,
   message,
   Modal,
+  Spin,
 } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ellipseString } from 'utils/helpers';
@@ -83,6 +84,9 @@ export const Offer = memo(({ className, product }: Props) => {
   const authData = useSelector(selectAuth);
   const likeData = useSelector(selectLikeProduct);
   const addToBasketData = useSelector(selectAddToBasket);
+  const loading = useMemo(() => !!addToBasketData.params, [
+    addToBasketData.params,
+  ]);
 
   const handleRouteToProductDetails = useCallback(
     (id: string) => () => redirect(Routes.productDetails, { id }),
@@ -194,6 +198,18 @@ export const Offer = memo(({ className, product }: Props) => {
 
   return (
     <StyledOffer className={`Offer ${className || ''}`}>
+      {addToBasketData.params ||
+        (likeData.params && (
+          <div id="preloader">
+            <div id="status">
+              <div className="spinner">
+                <div className="double-bounce1"></div>
+                <div className="double-bounce2"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+
       <Carousel
         swipeable={true}
         draggable={true}

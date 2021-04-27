@@ -5,10 +5,12 @@
  */
 import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Menu } from 'antd';
+import { BasketHeader } from 'app/components/BasketHeader';
 import { Routes } from 'app/containers/App/Router/routes';
 import { selectAuth } from 'app/containers/App/selectors';
 import { translations } from 'locales/i18n';
 import React, { memo, useCallback, useMemo } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -25,6 +27,7 @@ export const Navbar = memo(({ className }: Props) => {
   const history = useHistory();
   const location = useLocation();
   const authData = useSelector(selectAuth);
+  const [showBasket, setShowBasket] = useState(false);
   const menus = useMemo(
     () => [
       {
@@ -82,8 +85,9 @@ export const Navbar = memo(({ className }: Props) => {
     [history],
   );
   const handleRedirectToBasketPage = useCallback(
-    () => history.push(Routes.basket),
-    [history],
+    () => setShowBasket(true),
+    //  history.push(Routes.basket),
+    [],
   );
 
   const handleRedirectToUserProfilePage = useCallback(
@@ -93,78 +97,66 @@ export const Navbar = memo(({ className }: Props) => {
 
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
-      {/* <div className="logo" />
-      <div className="logout">
-        {authData.isAuthenticated() && (
-          <Button
-            icon={<LogoutOutlined />}
-            size="large"
-            type="link"
-            onClick={handleRedirectToLogoutPage}
-          />
-        )}
-      </div>
+      {/* <div className="logo" onClick={handleRoutToHome} /> */}
+      {authData.data ? (
+        <ul>
+          <li>
+            <a onClick={handleRedirectToUserProfilePage}>
+              {' '}
+              <UserOutlined /> پروفایل
+            </a>
+          </li>
 
-      <Menu
-        className="navbarMenu"
-        mode="horizontal"
-        selectedKeys={[location.pathname]}
-      >
-        {menus
-          .filter(menu => menu.doRender)
-          .map(menu => (
-            <Menu.Item key={menu.route} onClick={handleRedirect}>
-              {menu.title}
-            </Menu.Item>
-          ))}
-      </Menu> */}
+          <li className="basket">
+            <a>
+              <ShoppingOutlined /> سبد خرید
+            </a>
+            <BasketHeader />
+          </li>
+          <li>
+            <Search
+              placeholder="جستجو"
+              style={{ width: 200 }}
+              className="searchStyle"
+            />
+          </li>
+          <li style={{ float: 'left' }}>
+            <div className="logo" onClick={handleRoutToHome} />
+            {/* <a className="active" href="#about">
+             About
+           </a> */}
+          </li>
+        </ul>
+      ) : (
+        <ul>
+          <li>
+            <a onClick={handleRoutToLogin}>
+              {' '}
+              <UserOutlined /> ثبت نام / ورود
+            </a>
+          </li>
 
-      <div className="logo" onClick={handleRoutToHome} />
-      <Menu mode="horizontal" defaultSelectedKeys={['2']} className="navCostum">
-        {authData.data ? (
-          <Menu.SubMenu key="1" icon={<UserOutlined />} title="پروفایل کاربری">
-            <Menu.Item
-              key="setting:2"
-              onClick={handleRedirectToUserProfilePage}
-            >
-              پروفایل
-            </Menu.Item>
-            <Menu.Item key="setting:1" onClick={handleRedirectToLogoutPage}>
-              خروج
-            </Menu.Item>
-          </Menu.SubMenu>
-        ) : (
-          // <Menu.Item
-          //   key="1"
-          //   icon={<UserOutlined />}
-          //   // onClick={handleRoutToLogin}
-          // >
-          //   نام کاربری
-          // </Menu.Item>
-          <Menu.Item
-            key="1"
-            icon={<UserOutlined />}
-            onClick={handleRoutToLogin}
-          >
-            ثبت نام / ورود
-          </Menu.Item>
-        )}
-
-        <Menu.Item
-          key="2"
-          icon={<ShoppingOutlined />}
-          onClick={handleRedirectToBasketPage}
-        >
-          سبد خرید
-        </Menu.Item>
-        <Menu.Item>
-          <Search
-            placeholder="جستجو"
-            style={{ width: 200 }}
-            className="searchStyle"
-          />
-        </Menu.Item>
-      </Menu>
+          <li className="basket">
+            <a>
+              <ShoppingOutlined /> سبد خرید
+            </a>
+            <BasketHeader />
+          </li>
+          <li>
+            <Search
+              placeholder="جستجو"
+              style={{ width: 200 }}
+              className="searchStyle"
+            />
+          </li>
+          <li style={{ float: 'left' }}>
+            <div className="logo" onClick={handleRoutToHome} />
+            {/* <a className="active" href="#about">
+            About
+          </a> */}
+          </li>
+        </ul>
+      )}
     </StyledNavbar>
   );
 });

@@ -3,6 +3,13 @@ import { theme } from 'styles/theme';
 import Logo from '../../image/Chitachip.svg';
 import background from '../../image/back_img.png';
 export const StyledNavbar = styled.section`
+  .basket {
+    &:hover {
+      .basketItem {
+        display: flex;
+      }
+    }
+  }
   &,
   .navCostum {
     background-size: cover;
@@ -16,8 +23,6 @@ export const StyledNavbar = styled.section`
     background-repeat: no-repeat;
     height: 100px;
     width: 150px;
-    margin: -0.8em 0em 0em -2em;
-    float: left;
     cursor: pointer;
   }
 
@@ -35,5 +40,33 @@ export const StyledNavbar = styled.section`
     > input {
       background: none;
     }
+  }
+
+  ul {
+    margin: 0em 0em 0em 2em !important;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: transparent;
+  }
+  li {
+    float: right;
+  }
+
+  li a {
+    display: block;
+    color: #000;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover:not(.active) {
+    background: transparent;
+  }
+
+  .active {
+    background: transparent;
   }
 `;

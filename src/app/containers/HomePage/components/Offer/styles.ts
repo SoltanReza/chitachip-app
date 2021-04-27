@@ -59,7 +59,7 @@ export const StyledOffer = styled.section`
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
-    width: 235px;
+    width: 150px;
     object-fit: cover;
   }
   .titleProduct {

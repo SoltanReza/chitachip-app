@@ -7,6 +7,7 @@ import { sizes } from 'styles/media';
 
 export const StyledBaseLayout = styled(Layout)`
   min-height: 100vh;
+  background-image: url(${background}) !important;
 `;
 
 export const StyledMain = styled(Layout)`
@@ -37,17 +38,14 @@ export const StyledMain = styled(Layout)`
   }
 `;
 export const StyledHeader = styled(Layout.Header)`
-   .navCostum {
-    /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
+  padding: 0px !important;
+  /* .navCostum {
     background-size: cover;
-    background-image: url(${background}) !important;
-
-}
-   background-size: cover;   
+  } */
   background-image: url(${background}) !important;
+  background-size: cover;
   line-height: 79px;
   height: 90px;
-  
 `;
 export const StyledContent = styled(Layout.Content)`
 
