@@ -16,6 +16,7 @@ export interface EditUserRequest {
   first_name: string;
   last_name: string;
   mobile: string;
+  username: string;
   national_code: string;
 }
 export interface EditUserResponse {}

@@ -46,11 +46,17 @@ import {
 import { appActions } from 'app/containers/App/slice';
 import { useMemo } from 'react';
 import { useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+
+import SwiperCore, { Navigation } from 'swiper/core';
 
 interface Props {
   className?: string;
   product: Array<ProductData>;
 }
+
+SwiperCore.use([Navigation]);
 
 const responsive = {
   superLargeDesktop: {
@@ -210,33 +216,21 @@ export const Offer = memo(({ className, product }: Props) => {
           </div>
         ))}
 
-      <Carousel
-        swipeable={true}
-        draggable={true}
-        // showDots={true}
-        responsive={responsive}
-        ssr={true}
-        infinite={true}
-        // autoPlay={true}
-        // autoPlaySpeed={1000}
-        keyBoardControl={true}
-        customTransition="all .5"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={['tablet', 'mobile']}
-        // dotListClass="custom-dot-list-style"
-        // itemClass="carousel-item-padding-500-px"
+      <Swiper
+        slidesPerView={4}
+        spaceBetween={30}
+        navigation={true}
+        className="mySwiper"
       >
         {product.map(item => (
-          <>
+          <SwiperSlide>
             <div className="offerCard">
               <div
                 data-id={item.id}
                 onClick={handleRouteToProductDetails(item.id)}
               >
                 <div className="titleProduct">
-                  {item.title}
-                  {/* {ellipseString(`${item.title}`, 30)} */}
+                  {ellipseString(`${item.title}`, 20)}
                 </div>
                 <div className="imgProductWrapper">
                   <img
@@ -318,9 +312,9 @@ export const Offer = memo(({ className, product }: Props) => {
                 </div>
               </div>
             </div>
-          </>
+          </SwiperSlide>
         ))}
-      </Carousel>
+      </Swiper>
 
       {isModalVisible && (
         <Modal

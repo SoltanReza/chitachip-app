@@ -140,7 +140,7 @@ export const Navbar = memo(({ className }: Props) => {
             <a>
               <ShoppingOutlined /> سبد خرید
             </a>
-            <BasketHeader />
+            {/* <BasketHeader /> */}
           </li>
           <li>
             <Search

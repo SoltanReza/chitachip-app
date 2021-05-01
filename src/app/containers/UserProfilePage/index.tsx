@@ -48,21 +48,15 @@ export function UserProfilePage({ className }: Props) {
       title={t(translations.pages.UserProfilePage.title)}
       description={t(translations.pages.UserProfilePage.description)}
     >
-      <Card className="cardUserProfile">
+      <div className="cardUserProfile">
         <div className="titleCardProfile">
           <div>
             <Avatar size="large" icon={<UserOutlined />} />
             <span className="profileName">نام کاربری</span>
           </div>
-
-          <div>
-            <Button className="btnLogout" onClick={handleRoutToLogout}>
-              خروج
-            </Button>
-          </div>
         </div>
         <UserProfileItem />
-      </Card>
+      </div>
     </StyledUserProfilePage>
   );
 }

@@ -184,11 +184,8 @@ export interface BrowseListProductsResponse {}
 
 // #region Register
 export interface RegisterRequest {
-  first_name: string;
-  last_name: string;
   mobile: string;
   password: string;
-  national_code: string;
 }
 
 export interface RegisterResponse {

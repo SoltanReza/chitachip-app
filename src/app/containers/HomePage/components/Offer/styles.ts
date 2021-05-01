@@ -38,6 +38,7 @@ export const StyledOffer = styled.section`
     -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     position: relative;
+    height: 275px;
 
     &:hover {
       .buyProduct {
@@ -58,7 +59,7 @@ export const StyledOffer = styled.section`
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100%;
+    height: 162px;
     width: 150px;
     object-fit: cover;
   }
@@ -113,6 +114,7 @@ export const StyledOffer = styled.section`
 
   .react-multi-carousel-list {
     direction: ltr !important;
+    margin: 0px 41px;
   }
 
   .react-multi-carousel-track {
@@ -120,7 +122,7 @@ export const StyledOffer = styled.section`
   }
 
   .react-multi-carousel-item {
-    margin: 1em 2em 2em 3em;
+    margin: 2em 2em 2em 2em;
   }
 
   .voteLike {
@@ -148,7 +150,7 @@ export const StyledOffer = styled.section`
     display: none;
     flex-direction: row;
     justify-content: space-between !important;
-    margin-top: 0.7em;
+    margin-top: 1.6em;
   }
 
   .count {
@@ -165,5 +167,12 @@ export const StyledOffer = styled.section`
     .ant-modal-close {
       background: red !important;
     }
+  }
+
+  .react-multiple-carousel__arrow--left {
+    left: calc(4% - 43px);
+  }
+  .react-multiple-carousel__arrow--right {
+    right: calc(4% - 48px);
   }
 `;

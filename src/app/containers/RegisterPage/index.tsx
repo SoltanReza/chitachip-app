@@ -57,10 +57,7 @@ export function RegisterPage({ className }: Props) {
     values => {
       dispatch(
         appActions.register({
-          first_name: values.first_name,
-          last_name: values.last_name,
           mobile: values.mobile,
-          national_code: values.national_code,
           password: values.password,
         }),
       );
@@ -77,7 +74,9 @@ export function RegisterPage({ className }: Props) {
         .then(data => {
           if (data.status === 200) {
             setLoadingValideData(false);
-            message.info('ثبت نام شما با موفقیت انجام');
+            message.info(
+              'لطفا برای تکمیل اطلاعات کاربری به صفحه پروفایل کاربری مراجعه فرمایید',
+            );
             history.push(Routes.home);
           } else if (data.status === 400) {
             message.info('کد وارد شده صحیح نمیباشد');
@@ -104,7 +103,7 @@ export function RegisterPage({ className }: Props) {
     <StyledRegisterPage
       className={`RegisterPage ${className || ''}`}
       title={t(translations.pages.RegisterPage.title)}
-      description={t(translations.pages.RegisterPage.description)}
+      // description={t(translations.pages.RegisterPage.description)}
     >
       {!showCodeSend ? (
         <div className="form">
@@ -118,7 +117,7 @@ export function RegisterPage({ className }: Props) {
 
           <div className="titleLogin">ثبت نام</div>
           <Form onFinish={handleRegister}>
-            <Form.Item name="first_name" rules={[{ required: true }]}>
+            {/* <Form.Item name="first_name" rules={[{ required: true }]}>
               <Input
                 className="inputLoginStyle"
                 placeholder={t(translations.global.placeholder.firstName)}
@@ -131,22 +130,38 @@ export function RegisterPage({ className }: Props) {
                 placeholder={t(translations.global.placeholder.lastName)}
                 disabled={loading}
               />
-            </Form.Item>
-            <Form.Item name="mobile" rules={[{ required: true }]}>
+            </Form.Item> */}
+            <Form.Item
+              name="mobile"
+              rules={[
+                {
+                  required: true,
+                  message: 'لطفا شماره همراه خود را وارد نمایید',
+                },
+              ]}
+            >
               <Input
                 className="inputLoginStyle"
                 placeholder={t(translations.global.placeholder.username)}
                 disabled={loading}
               />
             </Form.Item>
-            <Form.Item name="national_code" rules={[{ required: true }]}>
+            {/* <Form.Item name="national_code" rules={[{ required: true }]}>
               <Input
                 className="inputLoginStyle"
                 placeholder={t(translations.global.placeholder.nationalCode)}
                 disabled={loading}
               />
-            </Form.Item>
-            <Form.Item name="password" rules={[{ required: true }]}>
+            </Form.Item> */}
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'لطفا رمز عبور خود را وارد نمایید',
+                },
+              ]}
+            >
               <Input
                 className="inputLoginStyle"
                 placeholder={t(translations.global.placeholder.password)}

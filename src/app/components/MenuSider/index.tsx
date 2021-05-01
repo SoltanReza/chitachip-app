@@ -43,9 +43,9 @@ export const MenuSider = memo(({ className }: Props) => {
     <StyledMenuSider
       className={`MenuSider ${className || ''}`}
       style={{
-        overflowY: 'auto',
+        // overflowY: 'auto',
         overflowX: 'hidden',
-        height: '73vh',
+        // height: '73vh',
       }}
       collapsed={collapsed}
       onCollapse={setCollapsed}

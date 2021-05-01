@@ -10,11 +10,7 @@ export const StyledNavbar = styled.section`
       }
     }
   }
-  &,
-  .navCostum {
-    background-size: cover;
-    background-image: url(${background}) !important;
-  }
+
   .logo {
     /* display: inline-block; */
     background-image: url(${Logo});

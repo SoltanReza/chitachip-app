@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 import { BaseLayout } from 'app/components/BaseLayout';
 import { theme } from 'styles/theme';
+import { sizes } from 'styles/media';
 
 export const StyledHomePage = styled(BaseLayout)`
   .styleCarousel {
@@ -10,56 +11,23 @@ export const StyledHomePage = styled(BaseLayout)`
     text-align: 'center' !important;
     background: '#364d79' !important;
   }
-  .slide {
-    display: flex;
-    justify-content: space-between;
-    overflow: auto;
-    white-space: nowrap;
-    padding-top: 0.5em;
 
-    -webkit-box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
-    -moz-box-shadow: 0px 0px 18px -8px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
-  }
-  .slideItem {
-    display: inline-block;
-    vertical-align: top;
-    margin: 1em;
-    white-space: normal;
+  .swiper-container {
+    margin: 1em 3.2em 2.2em 2em !important;
+    padding: 2em 2em 2em 2em !important;
   }
 
-  .offerCard {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    padding: 1em;
-    border-radius: 6px;
-    width: 170px;
+  .divStory {
+    width: 70px;
+    height: 70px;
+    border: 2px solid #fbaf4d;
+    border-radius: 44px;
+    background: gray;
   }
 
-  .titleProduct {
-    font-weight: bold;
-    margin-bottom: 0.7em;
-  }
-  .buyProduct {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 0.7em;
-  }
-  .price {
-    font-weight: bold;
-  }
-  .priceBtn {
-    display: flex;
-    flex-direction: revert;
-    justify-content: space-between;
-  }
-  .iconeShop {
-    margin-left: 0.2em;
-  }
-  .discountBtn {
-    border-radius: 11px;
-    background: #ff9800;
+  @media (max-width: ${sizes.small}px) {
+    .swiper-slide {
+      width: 100% !important;
+    }
   }
 `;

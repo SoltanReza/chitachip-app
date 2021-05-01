@@ -30,4 +30,11 @@ export const StyledUserProfileItem = styled.section`
     color: #000;
     margin-bottom: 0.7em;
   }
+
+  .btnLogout {
+    background: red;
+    color: #fff;
+    border-radius: 50px;
+    margin-top: 3em;
+  }
 `;

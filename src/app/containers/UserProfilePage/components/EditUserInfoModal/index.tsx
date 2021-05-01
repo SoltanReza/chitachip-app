@@ -33,6 +33,7 @@ export const EditUserInfoModal = memo(({ className, user, onClose }: Props) => {
           last_name: values.last_name,
           mobile: values.mobile,
           national_code: values.national_code,
+          username: values.mobile,
         }),
       );
     },

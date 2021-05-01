@@ -323,7 +323,7 @@ export function LoginPage({ className }: Props) {
     <StyledLoginPage
       className={`LoginPage ${className || ''}`}
       title={t(translations.pages.LoginPage.title)}
-      description={t(translations.pages.LoginPage.description)}
+      // description={t(translations.pages.LoginPage.description)}
     >
       {!showValidationCode ? (
         !showCheckPassword ? (

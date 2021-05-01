@@ -21,10 +21,20 @@ import { homePageSaga } from './saga';
 import { reducer, sliceKey } from './slice';
 import { StyledHomePage } from './styles';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+
+import SwiperCore, { Navigation } from 'swiper/core';
+
 interface Props {
   className?: string;
 }
 const { TabPane } = Tabs;
+/**
+ * Component is described here.
+ *
+ * @example ./extra.examples.md
+//  */
 
 export function HomePage({ className }: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
@@ -43,13 +53,58 @@ export function HomePage({ className }: Props) {
       title={t(translations.pages.HomePage.title)}
       description={t(translations.pages.HomePage.description)}
     >
+      <Swiper
+        slidesPerView={10}
+        spaceBetween={10}
+        navigation={true}
+        className="mySwiper"
+      >
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="divStory"></div>{' '}
+        </SwiperSlide>
+      </Swiper>
       {BrowseHomeList && BrowseHomeList.data && (
         <>
           <TopPackagesCarousel
             categoryBanner={BrowseHomeList.data.category_banner}
             productBanner={BrowseHomeList.data.product_banner}
           />
-
           <Tabs defaultActiveKey="1">
             <TabPane tab={<span>پرفروش ترین ها</span>} key="1">
               <Offer product={BrowseHomeList.data.offers} />

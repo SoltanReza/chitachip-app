@@ -4,13 +4,25 @@ import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
 import { theme } from 'styles/theme';
 
-export const StyledLoginPage = styled(ProductLayout)`
+export const StyledLoginPage = styled.section`
+  background-image: url('/assest/back_img.png');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+
   .form {
-    position: absolute;
+    /* position: absolute;
     top: 45%;
     left: 50%;
     margin: -160px 0 0 -160px;
-    width: 320px;
+    width: 320px; */
+    width: 30%;
     padding: 36px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
     border-radius: 6px;

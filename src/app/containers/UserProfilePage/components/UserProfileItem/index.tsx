@@ -20,6 +20,8 @@ import mailIcon from '../../images/mail.svg';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { UserAddress } from 'app/components/UserAddress';
+import { history } from 'utils/history';
+import { Routes } from 'app/containers/App/Router/routes';
 
 interface Props {
   className?: string;
@@ -41,6 +43,8 @@ export const UserProfileItem = memo(({ className }: Props) => {
     setShowUserInfo(false);
     setShowAddress(true);
   }, []);
+
+  const handleRoutToLogout = useCallback(() => history.push(Routes.logout), []);
 
   return (
     <StyledUserProfileItem className={`UserProfileItem ${className || ''}`}>
@@ -71,6 +75,10 @@ export const UserProfileItem = memo(({ className }: Props) => {
               <img src={mailIcon} className="profileIcon" />
               اعلان های من
             </div>
+
+            <Button className="btnLogout" onClick={handleRoutToLogout}>
+              خروج
+            </Button>
           </Card>
         </Col>
 
