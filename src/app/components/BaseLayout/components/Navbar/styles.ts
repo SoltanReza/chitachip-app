@@ -27,7 +27,7 @@ export const StyledNavbar = styled.section`
   }
 
   .searchStyle {
-    width: 200px;
+    width: 300px;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -64,5 +64,9 @@ export const StyledNavbar = styled.section`
 
   .active {
     background: transparent;
+  }
+
+  .searchBar {
+    padding: 0.3em 0.7em;
   }
 `;

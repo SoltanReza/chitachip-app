@@ -22,7 +22,7 @@ export const Footer = memo(({ className }: Props) => {
   return (
     <StyledFooter className={`Footer ${className || ''}`}>
       <Row>
-        <Col span={8}>
+        <Col span={6}>
           <Row>
             <Col span={24}>
               <span>پشتیبانی</span>
@@ -32,7 +32,7 @@ export const Footer = memo(({ className }: Props) => {
             <Col span={24}>ضمانت محصول</Col>
           </Row>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Row>
             <Col span={24}>
               <span>درباره ما</span>
@@ -42,13 +42,30 @@ export const Footer = memo(({ className }: Props) => {
             <Col span={24}>قوانین و مقررات</Col>
           </Row>
         </Col>
-        <Col span={8}>
+        <Col span={6}>
           <Row>
             <Col span={24}>
               <span>تماس با ما</span>
             </Col>
             <Col span={24}>اطلاعات تماس</Col>
             <Col span={24}>آدرس</Col>
+          </Row>
+        </Col>
+        <Col span={6}>
+          <Row>
+            <a
+              referrerPolicy="origin"
+              target="blank"
+              href="https://trustseal.enamad.ir/?id=207694&amp;Code=NU8O4ZYfjg0rdNCWhvH3"
+            >
+              <img
+                referrerPolicy="origin"
+                src="https://Trustseal.eNamad.ir/logo.aspx?id=207694&amp;Code=NU8O4ZYfjg0rdNCWhvH3"
+                alt=""
+                style={{ cursor: 'pointer' }}
+                id="NU8O4ZYfjg0rdNCWhvH3"
+              />
+            </a>
           </Row>
         </Col>
       </Row>

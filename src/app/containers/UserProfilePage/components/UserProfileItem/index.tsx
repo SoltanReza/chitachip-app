@@ -10,7 +10,7 @@ import { UserInfo } from '../UserInfo';
 
 import { useTranslation } from 'react-i18next';
 import { Card, Row, Col, Avatar, Button, Typography } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { LoginOutlined } from '@ant-design/icons';
 import userIcon from '../../images/person.svg';
 import addressIcon from '../../images/address.svg';
 import calendarIcon from '../../images/calendar.svg';
@@ -50,7 +50,15 @@ export const UserProfileItem = memo(({ className }: Props) => {
     <StyledUserProfileItem className={`UserProfileItem ${className || ''}`}>
       <Row gutter={[32, { xs: 8, sm: 16, md: 32, lg: 32 }]}>
         <Col xs={24} sm={24} md={7} lg={7} xl={7}>
-          <Card className="profileTitleItem">
+          <Card
+            className="profileTitleItem"
+            actions={[
+              <div className="logout" onClick={handleRoutToLogout}>
+                <img src="images/logout.svg" alt="خروج" className="imgLogout" />
+                <span> خروج</span>
+              </div>,
+            ]}
+          >
             <div className="profileTitleText" onClick={handleShowUserInfo}>
               <img src={userIcon} className="profileIcon" />
               اطلاعات کاربری
@@ -75,10 +83,6 @@ export const UserProfileItem = memo(({ className }: Props) => {
               <img src={mailIcon} className="profileIcon" />
               اعلان های من
             </div>
-
-            <Button className="btnLogout" onClick={handleRoutToLogout}>
-              خروج
-            </Button>
           </Card>
         </Col>
 

@@ -3,11 +3,6 @@
  * MenuSider
  *
  */
-import {
-  CustomerServiceOutlined,
-  InstagramOutlined,
-  WhatsAppOutlined,
-} from '@ant-design/icons';
 import { useWindowWidth } from '@react-hook/window-size';
 import { Layout, Menu } from 'antd';
 import { selectBrowseCategories } from 'app/containers/App/selectors';
@@ -47,10 +42,11 @@ export const MenuSider = memo(({ className }: Props) => {
         overflowX: 'hidden',
         // height: '73vh',
       }}
-      collapsed={collapsed}
-      onCollapse={setCollapsed}
+      // collapsed={collapsed}
+      // onCollapse={setCollapsed}
     >
       <div className="categoryTitle">دسته بندی ها</div>
+
       {BrowseCategories && BrowseCategories.data && (
         <Menu
           mode="inline"
@@ -61,14 +57,23 @@ export const MenuSider = memo(({ className }: Props) => {
           style={{ height: '100%', borderRight: 0 }}
         >
           {BrowseCategories.data.categories.map(item => (
-            <Menu.Item
-              key={item.id}
-              icon={
-                <img src={item.icon} className="iconCategory" alt={item.name} />
-              }
-            >
-              {item.name}
-            </Menu.Item>
+            <>
+              <Menu.Item
+                className="menuSiderItem"
+                key={item.id}
+                icon={
+                  <span>
+                    <img
+                      src={item.icon}
+                      className="iconCategory"
+                      alt={item.name}
+                    />
+                  </span>
+                }
+              >
+                <span className="titleCategory">{item.name}</span>
+              </Menu.Item>
+            </>
           ))}
         </Menu>
       )}

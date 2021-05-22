@@ -8,8 +8,8 @@ import {
   InstagramOutlined,
   WhatsAppOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Input } from 'antd';
-import React, { memo, ReactNode } from 'react';
+import { Layout, Menu, Input, Affix, Button } from 'antd';
+import React, { memo, ReactNode, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { MenuSider } from '../MenuSider';
 import { Navbar } from './components/Navbar';
@@ -21,6 +21,7 @@ import {
   StyledFooter,
   StyledMain,
 } from './styles';
+import { useEffect } from 'react';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -34,6 +35,35 @@ interface Props {
 
 export const BaseLayout = memo(
   ({ className, children, title, description }: Props) => {
+    const [scrolling, setScrolling] = useState(false);
+    const [scrollTop, setScrollTop] = useState(0);
+    const stickyRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      console.log(scrollTop, 'scrollTop');
+      console.log(scrolling, 'scrolling');
+      const onScroll = e => {
+        setScrollTop(e.target.documentElement.scrollTop);
+        setScrolling(e.target.documentElement.scrollTop < scrollTop);
+      };
+      window.addEventListener('scroll', onScroll);
+      if (stickyRef) {
+        if (stickyRef.current) {
+          if (scrollTop < 250) {
+            stickyRef.current.style.position = 'relative';
+            stickyRef.current.style.padding = '8px 10px';
+            stickyRef.current.style.background = '#ff2525';
+            // stickyRef.current.style.top = '0';
+          } else {
+            stickyRef.current.style.position = 'sticky';
+            stickyRef.current.style.background = '#3eff25';
+            // stickyRef.current.style.top = '100px';
+          }
+        }
+      }
+
+      return () => window.removeEventListener('scroll', onScroll);
+    }, [scrollTop, scrolling]);
     return (
       <StyledBaseLayout className={`BaseLayout ${className || ''}`}>
         <Helmet>
@@ -45,33 +75,8 @@ export const BaseLayout = memo(
           <Navbar />
         </StyledHeader>
 
-        {/* <StyledContent>{children}</StyledContent> */}
-
-        {/* <StyledFooter>
-          {' '}
-          <Footer />
-        </StyledFooter> */}
-
         <StyledMain>
-          <div>
-            <MenuSider />
-
-            <div className="contactUs">
-              <div className="online">
-                پشتیبانی آنلاین
-                <span>
-                  <CustomerServiceOutlined />
-                </span>
-              </div>
-              <div>تماس با ما</div>
-              <div className="socialMedia">
-                <WhatsAppOutlined />
-              </div>
-              <div className="socialMedia">
-                <InstagramOutlined />
-              </div>
-            </div>
-          </div>
+          <div></div>
 
           <StyledContent>{children}</StyledContent>
         </StyledMain>

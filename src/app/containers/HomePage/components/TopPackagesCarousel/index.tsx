@@ -5,13 +5,8 @@
  */
 // import { useWindowSize } from '../../../utils/hooks/useWindowSize';
 import '@brainhubeu/react-carousel/lib/style.css';
-import { Card, Button, Row, Col } from 'antd';
-import {
-  categoryBanner,
-  CategorySliderData,
-  productBanner,
-  ProductData,
-} from 'app/containers/App/types';
+import { Col, Row } from 'antd';
+import { categoryBanner, productBanner } from 'app/containers/App/types';
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledCardCarousel, StyledTopPackagesCarousel } from './styles';
@@ -32,7 +27,7 @@ export const TopPackagesCarousel = memo(
       <StyledTopPackagesCarousel
         className={`TopPackagesCarousel ${className || ''}`}
       >
-        <Row gutter={[16, 24]}>
+        <Row gutter={[16, 24]} style={{ margin: '0' }}>
           <Col xs={24} sm={24} md={12} lg={12} xl={12}>
             <StyledCardCarousel
               // background={categoryBanner.background}

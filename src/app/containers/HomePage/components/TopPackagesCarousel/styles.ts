@@ -35,7 +35,7 @@ export const StyledCardCarousel = styled.div<{
 }>`
   border-radius: 7px;
   background-size: 100%;
-  margin-left: 1em;
+  /* margin-left: 1em; */
   .slideProduct {
     background: ${theme.TEXT_COLOR_INVERT};
     border-radius: 10px;

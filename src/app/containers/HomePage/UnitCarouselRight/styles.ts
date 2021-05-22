@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-export const StyledOffer = styled.section`
+export const StyledUnitCarouselRight = styled.section`
   .styleCarousel {
     height: '160px' !important;
     color: '#fff' !important;
@@ -40,14 +40,14 @@ export const StyledOffer = styled.section`
     position: relative;
     height: 275px;
 
-    &:hover {
+    /* &:hover {
       .buyProduct {
         display: none;
       }
       .voteStyle {
         display: flex;
       }
-    }
+    } */
   }
 
   .imgProductWrapper {
@@ -112,19 +112,6 @@ export const StyledOffer = styled.section`
     line-height: 1.9em;
   }
 
-  .react-multi-carousel-list {
-    direction: ltr !important;
-    margin: 0px 41px;
-  }
-
-  .react-multi-carousel-track {
-    direction: rtl !important;
-  }
-
-  .react-multi-carousel-item {
-    margin: 2em 2em 2em 2em;
-  }
-
   .voteLike {
     position: absolute;
     top: 0;
@@ -169,10 +156,13 @@ export const StyledOffer = styled.section`
     }
   }
 
-  /* .react-multiple-carousel__arrow--left {
-    left: calc(4% - 43px);
+  .swiper-button-next {
+    color: #000;
+    margin-left: 0.5em;
   }
-  .react-multiple-carousel__arrow--right {
-    right: calc(4% - 48px);
-  } */
+
+  .swiper-button-prev {
+    color: #000;
+    margin-right: 0.5em;
+  }
 `;

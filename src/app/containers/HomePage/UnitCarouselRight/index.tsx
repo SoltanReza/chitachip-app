@@ -1,91 +1,50 @@
 /**
  *
- * Offer
+ * UnitCarouselRight
  *
  */
-import React, { memo, useCallback } from 'react';
-
-import { StyledOffer } from './styles';
 import {
-  AndroidOutlined,
-  AppleOutlined,
-  HeartOutlined,
-  ShoppingOutlined,
   HeartFilled,
-  StarFilled,
+  HeartOutlined,
   MinusOutlined,
   PlusOutlined,
+  ShoppingOutlined,
+  StarFilled,
 } from '@ant-design/icons';
-import {
-  Button,
-  Tabs,
-  Popover,
-  Dropdown,
-  Menu,
-  Alert,
-  Popconfirm,
-  message,
-  Modal,
-  Spin,
-} from 'antd';
-import { useTranslation } from 'react-i18next';
-import { ellipseString } from 'utils/helpers';
-import { ProductData } from 'app/containers/App/types';
-import { redirect } from 'utils/history';
+import { useWindowWidth } from '@react-hook/window-size';
+import { message, Modal } from 'antd';
 import { Routes } from 'app/containers/App/Router/routes';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import { useState } from 'react';
-import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   selectAddToBasket,
   selectAuth,
   selectLikeProduct,
 } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
-import { useMemo } from 'react';
-import { useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css';
-
+import { ProductData } from 'app/containers/App/types';
+import React, { memo, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import 'react-multi-carousel/lib/styles.css';
+import { useDispatch, useSelector } from 'react-redux';
 import SwiperCore, {
+  A11y,
+  Autoplay,
   Navigation,
   Pagination,
   Scrollbar,
-  A11y,
-  Autoplay,
 } from 'swiper/core';
-import { useWindowWidth } from '@react-hook/window-size';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+import { ellipseString } from 'utils/helpers';
+import { redirect } from 'utils/history';
+import { StyledUnitCarouselRight } from './styles';
 
 interface Props {
   className?: string;
   product: Array<ProductData>;
 }
-
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
-const responsive = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 5,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
-export const Offer = memo(({ className, product }: Props) => {
+export const UnitCarouselRight = memo(({ className, product }: Props) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const onlyWidth = useWindowWidth();
@@ -183,41 +142,17 @@ export const Offer = memo(({ className, product }: Props) => {
     [authData, dispatch],
   );
 
-  useEffect(() => {
-    // if (addToBasketData) {
-    //   if (addToBasketData.data) {
-    //     addToBasketData.data.data.products.map(
-    //       item =>
-    //         item.product_id === currentElement &&
-    //         message.info('محصول به سبد خرید اضافه شد'),
-    //     );
-    //   }
-    // }
-  }, [addToBasketData, currentElement]);
-
   return (
-    <StyledOffer className={`Offer ${className || ''}`}>
-      {likeData.params && (
-        <div id="preloader">
-          <div id="status">
-            <div className="spinner">
-              <div className="double-bounce1"></div>
-              <div className="double-bounce2"></div>
-            </div>
-          </div>
-        </div>
-      )}
-
+    <StyledUnitCarouselRight className={`UnitCarouselRight ${className || ''}`}>
       <Swiper
-        // slidesPerView={4}
         // spaceBetween={30}
-        // navigation={true}
+        navigation={true}
         // className="mySwiper"
         spaceBetween={20}
-        slidesPerView={onlyWidth > 960 ? 4 : 1}
-        // autoplay={{
-        //   delay: 1000,
-        // }}
+        slidesPerView={1}
+        autoplay={{
+          delay: 2000,
+        }}
         // navigation
         // pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
@@ -266,7 +201,7 @@ export const Offer = memo(({ className, product }: Props) => {
                   </div>
                 </div>
               </div>
-              <div className="voteStyle">
+              {/* <div className="voteStyle">
                 <div>
                   {likeData && likeData.data ? (
                     likeData.data.status === 201 ? (
@@ -312,7 +247,7 @@ export const Offer = memo(({ className, product }: Props) => {
                     />
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </SwiperSlide>
         ))}
@@ -332,6 +267,6 @@ export const Offer = memo(({ className, product }: Props) => {
           </p>
         </Modal>
       )}
-    </StyledOffer>
+    </StyledUnitCarouselRight>
   );
 });

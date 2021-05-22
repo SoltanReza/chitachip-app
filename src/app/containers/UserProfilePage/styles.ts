@@ -1,7 +1,8 @@
+import { BasketLayout } from 'app/components/BasketLayout';
 import { ProductLayout } from 'app/components/ProductLayout';
 import styled from 'styled-components/macro';
 
-export const StyledUserProfilePage = styled(ProductLayout)`
+export const StyledUserProfilePage = styled(BasketLayout)`
   .cardUserProfile {
     margin: 0px 20px;
     /* border-radius: 2px;

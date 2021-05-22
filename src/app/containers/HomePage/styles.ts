@@ -1,6 +1,5 @@
-import styled from 'styled-components/macro';
 import { BaseLayout } from 'app/components/BaseLayout';
-import { theme } from 'styles/theme';
+import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
 
 export const StyledHomePage = styled(BaseLayout)`
@@ -13,8 +12,8 @@ export const StyledHomePage = styled(BaseLayout)`
   }
 
   .swiper-container {
-    margin: 1em 3.2em 2.2em 2em !important;
-    padding: 2em 2em 2em 2em !important;
+    /* margin: 1em 0em 2.2em 2em !important; */
+    padding: 1em 1em 1em 1em !important;
   }
 
   .divStory {
@@ -25,9 +24,63 @@ export const StyledHomePage = styled(BaseLayout)`
     background: gray;
   }
 
-  @media (max-width: ${sizes.small}px) {
+.rightBanner{
+  height: 214px;
+}
+
+.rightBannerImg{
+width:100%;
+height: 100%;
+border-radius: 7px;
+}
+
+.rightContactUs{
+  text-align: center;
+  font-weight: bold;
+ 
+}
+
+.newsInputStyle{
+  border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #000;
+    background: none;
+    > input {
+      background: none;
+    }
+}
+
+.rowWrraperRight{
+  margin-top :1.5em;
+}
+
+.titleBannerLeft{
+  font-size: 2.7em;
+  font-weight: bold;
+  margin: 0 !important;
+  
+}
+
+.sliceCard{
+  height: 233px;
+}
+.sliceCardImg{
+width:100%;
+height: 100%;
+border-radius: 14px;
+}
+
+.productsCount{
+  background: #fff;
+  height: 368px;
+}
+
+
+
+  /* @media (max-width: ${sizes.small}px) {
     .swiper-slide {
       width: 100% !important;
     }
-  }
+  } */
 `;

@@ -23,7 +23,7 @@ interface Props {
 const { Title, Paragraph, Text, Link } = Typography;
 export const Product = memo(({ className, data }: Props) => {
   const { t } = useTranslation();
-
+  let inputhtml = '<a >HelloWorld</a>';
   return (
     <StyledProduct className={`Product ${className || ''}`}>
       <Card className="cardProduct">
@@ -45,32 +45,32 @@ export const Product = memo(({ className, data }: Props) => {
               <Typography>
                 <Title>ویژگی های محصولات</Title>
                 <Paragraph>{data.properties}</Paragraph>
+                <div dangerouslySetInnerHTML={{ __html: inputhtml }}></div>
               </Typography>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={6} lg={4} xl={4}>
             <Card className="productInfo">
               <Typography>
-                <Title>{data.title}</Title>
                 <Paragraph>گارانتی اصل بودن کالا</Paragraph>
                 <Paragraph>ضمانت تحویل سالم!</Paragraph>
                 <Paragraph>250 هزار تومان</Paragraph>
               </Typography>
-              <div>
+              <Col xs={24} sm={24} md={9} lg={10} xl={10}>
                 <Button icon={<ShoppingOutlined />} className="addToCardBtn">
                   اضافه به سبد خرید
                 </Button>
-              </div>
-              <div>
+              </Col>
+              <Col>
                 <Button icon={<HeartOutlined />} className="addToFavorite">
                   اضافه به مورد علاقه ها
                 </Button>
-              </div>
-              <div>
+              </Col>
+              <Col>
                 <Button icon={<ShareAltOutlined />} className="Share">
                   اشتراک گذاری
                 </Button>
-              </div>
+              </Col>
             </Card>
           </Col>
         </Row>

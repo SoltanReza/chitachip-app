@@ -2,7 +2,6 @@ import styled from 'styled-components/macro';
 
 export const StyledUserProfileItem = styled.section`
   .profileTitleItem {
-    background: #ece8e8;
     border-radius: 2px;
     border: none;
     -webkit-box-shadow: 0px 0px 11px -3px rgb(0 0 0 / 75%);
@@ -36,5 +35,24 @@ export const StyledUserProfileItem = styled.section`
     color: #fff;
     border-radius: 50px;
     margin-top: 3em;
+  }
+
+  .logout {
+    text-align: right;
+    margin-right: 1.3em;
+    > span {
+      color: red;
+      font-size: 1.6em;
+      font-weight: bold;
+    }
+  }
+
+  .anticon.anticon-login {
+    text-align: center;
+  }
+
+  .ant-card-actions {
+    border: none !important;
+    background: #fff !important;
   }
 `;

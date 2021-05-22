@@ -4,17 +4,15 @@
  *
  */
 import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
-import { Input, Menu } from 'antd';
+import { Input, message } from 'antd';
 import { BasketHeader } from 'app/components/BasketHeader';
 import { Routes } from 'app/containers/App/Router/routes';
 import { selectAuth } from 'app/containers/App/selectors';
 import { translations } from 'locales/i18n';
-import React, { memo, useCallback, useMemo } from 'react';
-import { useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { AuthRoles } from 'types';
 import { StyledNavbar } from './styles';
 
 interface Props {
@@ -28,43 +26,6 @@ export const Navbar = memo(({ className }: Props) => {
   const location = useLocation();
   const authData = useSelector(selectAuth);
   const [showBasket, setShowBasket] = useState(false);
-  const menus = useMemo(
-    () => [
-      {
-        route: Routes.home,
-        title: t(translations.layouts.base.menus.home),
-        doRender: false,
-      },
-      {
-        route: Routes.login,
-        title: t(translations.layouts.base.menus.login),
-        doRender: !authData.isAuthenticated(),
-      },
-      // {
-      //   route: Routes.register,
-      //   title: t(translations.layouts.base.menus.register),
-      //   doRender: !authData.isAuthenticated(),
-      // },
-
-      {
-        route: Routes.dashboard,
-        title: t(translations.layouts.base.menus.adminPanel),
-        doRender: authData.isAuthenticated(),
-      },
-
-      {
-        route: Routes.contactUs,
-        title: t(translations.layouts.base.menus.contactUs),
-        doRender: true,
-      },
-      {
-        route: Routes.faq,
-        title: t(translations.layouts.base.menus.faq),
-        doRender: true,
-      },
-    ],
-    [authData, t],
-  );
 
   const handleRedirect = useCallback(
     e => {
@@ -94,6 +55,11 @@ export const Navbar = memo(({ className }: Props) => {
     () => history.push(Routes.userProfile),
     [history],
   );
+  const handleshowEmptyBasket = useCallback(() => {
+    if (!authData.data) {
+      message.info('برای دیدن سبد خرید لطفا ابتدا وارد سامانه شوید');
+    }
+  }, [authData]);
 
   return (
     <StyledNavbar className={`Navbar ${className || ''}`}>
@@ -113,10 +79,10 @@ export const Navbar = memo(({ className }: Props) => {
             </a>
             <BasketHeader />
           </li>
-          <li>
+          <li className="searchBar">
             <Search
               placeholder="جستجو"
-              style={{ width: 200 }}
+              style={{ width: 300, color: '#ff2222fsd1', opacity: '1' }}
               className="searchStyle"
             />
           </li>
@@ -137,7 +103,7 @@ export const Navbar = memo(({ className }: Props) => {
           </li>
 
           <li className="basket">
-            <a>
+            <a onClick={handleshowEmptyBasket}>
               <ShoppingOutlined /> سبد خرید
             </a>
             {/* <BasketHeader /> */}

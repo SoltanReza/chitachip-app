@@ -1,5 +1,4 @@
 import { Form } from 'antd';
-import { ProductLayout } from 'app/components/ProductLayout';
 import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
 import { theme } from 'styles/theme';
@@ -17,11 +16,6 @@ export const StyledLoginPage = styled.section`
   align-items: center;
 
   .form {
-    /* position: absolute;
-    top: 45%;
-    left: 50%;
-    margin: -160px 0 0 -160px;
-    width: 320px; */
     width: 30%;
     padding: 36px;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);

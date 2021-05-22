@@ -4,31 +4,21 @@
  *
  */
 
-import {
-  KeyOutlined,
-  UserOutlined,
-  LockOutlined,
-  TwitterOutlined,
-  FacebookOutlined,
-  GoogleOutlined,
-} from '@ant-design/icons';
-import { Button, Input, Form, Col, Row, message } from 'antd';
+import { Button, Form, Input, message, Row } from 'antd';
 import { translations } from 'locales/i18n';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { VALIDATION_REQUIRED_FIELD } from 'utils/rules';
 import { validateCodeApi } from '../App/api';
 import { Routes } from '../App/Router/routes';
 import { selectRegister } from '../App/selectors';
 import { appActions } from '../App/slice';
-import { CodeRegisterModal } from './components/CodeRegisterModal';
 import { registerPageSaga } from './saga';
 import { selectRegisterPage } from './selectors';
 import { reducer, sliceKey } from './slice';
-import { StyledRegisterForm, StyledRegisterPage } from './styles';
+import { StyledRegisterPage } from './styles';
 
 interface Props {
   className?: string;
@@ -44,6 +34,7 @@ export function RegisterPage({ className }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const history = useHistory();
   const { t } = useTranslation();
+  const mobile = useParams<{ mobile: string }>();
   const dispatch = useDispatch();
   const [showCodeSend, setShowCodeSend] = useState(false);
   const [loadingValideData, setLoadingValideData] = useState(false);
@@ -57,12 +48,12 @@ export function RegisterPage({ className }: Props) {
     values => {
       dispatch(
         appActions.register({
-          mobile: values.mobile,
           password: values.password,
+          mobile: mobile.mobile,
         }),
       );
     },
-    [dispatch],
+    [dispatch, mobile.mobile],
   );
 
   const handleValidateCode = useCallback(
@@ -90,6 +81,10 @@ export function RegisterPage({ className }: Props) {
     [history],
   );
 
+  const handleRoutToHome = useCallback(() => history.push(Routes.home), [
+    history,
+  ]);
+
   useEffect(() => {
     if (registerData.data) {
       if (registerData.data.status === 201) {
@@ -99,6 +94,7 @@ export function RegisterPage({ className }: Props) {
     dispatch(appActions.registerClear());
   }, [dispatch, registerData.data]);
 
+  console.log(mobile);
   return (
     <StyledRegisterPage
       className={`RegisterPage ${className || ''}`}
@@ -107,7 +103,7 @@ export function RegisterPage({ className }: Props) {
     >
       {!showCodeSend ? (
         <div className="form">
-          <div className="logo">
+          <div className="logo" onClick={handleRoutToHome}>
             {/* {t(translations.global.placeholder.logoTitle)} */}
             <img
               alt="logo"
@@ -131,19 +127,12 @@ export function RegisterPage({ className }: Props) {
                 disabled={loading}
               />
             </Form.Item> */}
-            <Form.Item
-              name="mobile"
-              rules={[
-                {
-                  required: true,
-                  message: 'لطفا شماره همراه خود را وارد نمایید',
-                },
-              ]}
-            >
+            <Form.Item name="mobile">
               <Input
                 className="inputLoginStyle"
                 placeholder={t(translations.global.placeholder.username)}
-                disabled={loading}
+                defaultValue={`${mobile.mobile}`}
+                disabled={true}
               />
             </Form.Item>
             {/* <Form.Item name="national_code" rules={[{ required: true }]}>
@@ -163,6 +152,7 @@ export function RegisterPage({ className }: Props) {
               ]}
             >
               <Input
+                type="password"
                 className="inputLoginStyle"
                 placeholder={t(translations.global.placeholder.password)}
                 disabled={loading}

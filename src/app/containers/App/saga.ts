@@ -173,7 +173,9 @@ export function* userInfoSaga(action: PayloadAction<UserInfoRequest>) {
 export function* browseBasketSaga(action: PayloadAction<BrowseBasketRequest>) {
   try {
     const response = yield call(browseBasketApi, action.payload);
-    yield put(appActions.browseBasketSuccess(response));
+    if (!response.data) {
+      yield put(appActions.browseBasketSuccess(response));
+    }
   } catch (error) {
     yield put(appActions.browseBasketError(error));
     yield put(appActions.notifyError(error.message));

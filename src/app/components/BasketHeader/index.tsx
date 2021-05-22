@@ -40,7 +40,7 @@ export const BasketHeader = memo(({ className }: Props) => {
   useEffect(() => {
     dispatch(appActions.browseBasket({}));
   }, [dispatch]);
-
+  console.log(basketData);
   return (
     <StyledBasketHeader className={`BasketHeader ${className || ''}`}>
       <div className="basketItem">
@@ -48,8 +48,7 @@ export const BasketHeader = memo(({ className }: Props) => {
           <ShoppingOutlined /> سبد خرید
         </div>
         <div className="bodyBasket">
-          {basketData &&
-            basketData.data &&
+          {basketData && basketData.data && basketData.data.value.products ? (
             basketData.data.value.products.map(item => (
               <>
                 <div className="bodyBasketCard">
@@ -90,7 +89,10 @@ export const BasketHeader = memo(({ className }: Props) => {
                 </div>
                 <Divider style={{ margin: 0 }} />
               </>
-            ))}
+            ))
+          ) : (
+            <div className="bodyBasketCard"></div>
+          )}
         </div>
 
         <div className="footerBasket">

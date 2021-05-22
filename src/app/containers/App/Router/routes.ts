@@ -1,6 +1,6 @@
 export enum Routes {
   login = '/login',
-  register = '/register',
+  register = '/register/mobile=:mobile',
   logout = '/logout',
 
   home = '/',

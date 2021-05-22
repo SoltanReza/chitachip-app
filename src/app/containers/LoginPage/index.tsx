@@ -5,29 +5,19 @@
  */
 
 import {
-  KeyOutlined,
-  UserOutlined,
-  LockOutlined,
-  TwitterOutlined,
   FacebookOutlined,
   GoogleOutlined,
+  TwitterOutlined,
 } from '@ant-design/icons';
-import { Button, Form, Input, Row, Col, message } from 'antd';
+import { Button, Col, Form, Input, message, Row } from 'antd';
 import { translations } from 'locales/i18n';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { redirect } from 'utils/history';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { VALIDATION_REQUIRED_FIELD } from 'utils/rules';
-import { Routes } from '../App/Router/routes';
-import { selectLogin } from '../App/selectors';
-import { appActions } from '../App/slice';
-import { loginPageSaga } from './saga';
-import { selectLoginPage } from './selectors';
-import { reducer, sliceKey } from './slice';
-import { StyledLoginForm, StyledLoginPage } from './styles';
-import { CodeLoginModal } from './components/CodeLoginModal';
+import { Storage } from 'utils/storage';
 import {
   changePasswordApi,
   checkPasswordApi,
@@ -38,7 +28,13 @@ import {
   validateCodeApi,
   validationCodeApi,
 } from '../App/api';
-import { Storage } from 'utils/storage';
+import { Routes } from '../App/Router/routes';
+import { selectLogin } from '../App/selectors';
+import { appActions } from '../App/slice';
+import { loginPageSaga } from './saga';
+import { selectLoginPage } from './selectors';
+import { reducer, sliceKey } from './slice';
+import { StyledLoginPage } from './styles';
 
 interface Props {
   className?: string;
@@ -77,6 +73,7 @@ export function LoginPage({ className }: Props) {
   const handleUsernameSubmit = useCallback(
     values => {
       setLodingData(true);
+
       checkUserApi({
         username: username,
       })
@@ -86,14 +83,14 @@ export function LoginPage({ className }: Props) {
             setShowCheckPassword(true);
           } else if (data.status === 201) {
             message.info('لطفا ابتدا ثبت نام کنید');
-            history.push(Routes.register);
+            redirect(Routes.register, { mobile: username });
           } else {
             setLodingPassData(false);
           }
         })
         .catch(() => {});
     },
-    [history, username],
+    [username],
   );
 
   const handleGoToResetPassword = useCallback(() => {
@@ -115,6 +112,10 @@ export function LoginPage({ className }: Props) {
       checkPasswordApi({
         username: username,
         password: password,
+        mobile: username,
+        first_name: '',
+        last_name: '',
+        national_code: '',
       })
         .then(data => {
           if (data.status === 200) {
@@ -267,13 +268,21 @@ export function LoginPage({ className }: Props) {
             message.info('رمز عبور شما با موفقیت تغغیر کرد');
             checkPasswordApi({
               username: username,
-              password: values.password,
+              password: password,
+              mobile: username,
+              first_name: '',
+              last_name: '',
+              national_code: '',
             })
               .then(data => {
                 if (data.status === 200) {
                   checkPasswordApi({
                     username: username,
-                    password: values.password,
+                    password: password,
+                    mobile: username,
+                    first_name: '',
+                    last_name: '',
+                    national_code: '',
                   })
                     .then(data => {
                       if (data.status === 200) {
@@ -308,8 +317,12 @@ export function LoginPage({ className }: Props) {
         })
         .catch(() => {});
     },
-    [dispatch, history, username],
+    [dispatch, history, password, username],
   );
+
+  const handleRoutToHome = useCallback(() => history.push(Routes.home), [
+    history,
+  ]);
 
   useEffect(() => {
     if (loginData.data) {
@@ -328,7 +341,7 @@ export function LoginPage({ className }: Props) {
       {!showValidationCode ? (
         !showCheckPassword ? (
           <div className="form">
-            <div className="logo">
+            <div className="logo" onClick={handleRoutToHome}>
               {/* {t(translations.global.placeholder.logoTitle)} */}
               <img
                 alt="logo"
@@ -391,6 +404,7 @@ export function LoginPage({ className }: Props) {
             <Form onFinish={handlePasswordSubmit}>
               <Form.Item name="password" rules={[{ required: true }]}>
                 <Input
+                  type="password"
                   className="inputLoginStyle"
                   placeholder={t(translations.global.placeholder.password)}
                   disabled={loading}

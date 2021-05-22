@@ -4,15 +4,14 @@ import { theme } from 'styles/theme';
 import Logo from '../BaseLayout/image/Chitachip.svg';
 import background from '../BaseLayout/image/back_img.png';
 
-export const StyledProductLayout = styled.section`
+export const StyledBasketLayout = styled.section`
   background-size: contain;
-  background: #f9f9f9;
+  background-image: url(${background}) !important;
 `;
 
 export const StyledHeader = styled(Layout.Header)`
-  /* background: ${theme.HEADER_BACKGROUND_COLOR}; */
+  background: transparent;
   background-size: cover;
-  background:transparent;
   line-height: 79px;
   height: 90px;
   .logo {

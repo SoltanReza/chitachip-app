@@ -238,6 +238,10 @@ export interface CheckUserResponse {
 export interface CheckPasswordRequest {
   username: string;
   password: string;
+  first_name: string;
+  last_name: string;
+  national_code: string;
+  mobile: string;
 }
 export interface CheckPasswordResponse {
   response: string;

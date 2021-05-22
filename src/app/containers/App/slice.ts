@@ -320,13 +320,16 @@ const appSlice = createSlice({
       state.addToBasket.error = initialState.addToBasket.error;
     },
     addToBasketSuccess(state, action: PayloadAction<AddToBasketResponse>) {
-      if (state.browseBasket.data) {
-        if (state.browseBasket.data.value) {
-          state.browseBasket.data.value.products = [
-            ...action.payload.data.products,
-          ];
-        }
-      }
+      // if (state.browseBasket.data) {
+      //   if (state.browseBasket.data.value) {
+      //     console.log(action.payload.data.products);
+      //     state.browseBasket.data.value.products =
+      //     state.browseBasket.data.value.products.map(item =>
+      //       item.product_id === )
+
+      //     action.payload.data.products.;
+      //   }
+      // }
 
       state.addToBasket.params = initialState.addToBasket.params;
       state.addToBasket.data = action.payload;
