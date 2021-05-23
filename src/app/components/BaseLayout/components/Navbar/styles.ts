@@ -27,7 +27,7 @@ export const StyledNavbar = styled.section`
   }
 
   .searchStyle {
-    width: 300px;
+    width: 500px;
     border-top: none;
     border-left: none;
     border-right: none;

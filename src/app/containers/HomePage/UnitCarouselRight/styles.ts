@@ -65,7 +65,7 @@ export const StyledUnitCarouselRight = styled.section`
   }
   .titleProduct {
     font-weight: bold;
-    margin-bottom: 0.7em;
+    margin-top: 0.7em;
   }
   .buyProduct {
     display: flex;
@@ -164,5 +164,13 @@ export const StyledUnitCarouselRight = styled.section`
   .swiper-button-prev {
     color: #000;
     margin-right: 0.5em;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 17px;
+
+    padding: 0.4em;
+    font-weight: bold;
   }
 `;

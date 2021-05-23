@@ -149,11 +149,11 @@ export function HomePage({ className }: Props) {
       </Row>
 
       <Row gutter={[16, 24]}>
-        <Col xs={24} sm={24} md={10} lg={6} xl={6}>
+        <Col xs={24} sm={24} md={10} lg={5} xl={5}>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
               <img
-                src="https://picsum.photos/200/300"
+                src="images/bazargani.PNG"
                 className="rightBannerImg"
                 alt=""
               />
@@ -178,11 +178,7 @@ export function HomePage({ className }: Props) {
           </Row>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
-              <img
-                src="https://picsum.photos/seed/picsum/200/300"
-                className="rightBannerImg"
-                alt=""
-              />
+              <img src="images/aboutus.PNG" className="rightBannerImg" alt="" />
             </Col>
           </Row>
           <Row gutter={16} className="rowWrraperRight">
@@ -193,18 +189,23 @@ export function HomePage({ className }: Props) {
             </Col>
           </Row>
         </Col>
-        <Col xs={24} sm={24} md={12} lg={18} xl={18}>
+        <Col xs={24} sm={24} md={12} lg={19} xl={19}>
           <h1 className="titleBannerLeft">قطعات جانبی آردوینو</h1>
           <Row gutter={[16, 24]}>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
-              <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+            <Col className="allViewBannerLeft" span={24}>
+              مشاهده همه
             </Col>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
-              <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
-              <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
-            </Col>
+            <Row gutter={[16, 24]}>
+              <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
+                <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
+                <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
+                <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+              </Col>
+            </Row>
           </Row>
           <Row gutter={[16, 24]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24} className="sliceCard">
@@ -213,15 +214,20 @@ export function HomePage({ className }: Props) {
           </Row>
           <h1 className="titleBannerLeft">قطعات جانبی آردوینو</h1>
           <Row gutter={[16, 24]}>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
-              <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+            <Col className="allViewBannerLeft" span={24}>
+              مشاهده همه
             </Col>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
-              <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
-              <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
-            </Col>
+            <Row gutter={[16, 24]}>
+              <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
+                <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
+                <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+              </Col>
+              <Col xs={24} sm={24} md={24} lg={8} xl={8} className="sliceCard">
+                <img src="images/noImg.jpg" className="sliceCardImg" alt="" />
+              </Col>
+            </Row>
           </Row>
           <Row gutter={[16, 24]}>
             <Col
@@ -232,7 +238,119 @@ export function HomePage({ className }: Props) {
               xl={24}
               className="productsCount"
             >
-              fgh
+              <div className="titleProductCount">
+                بیش از 10000 محصول در 100 بسته بندی مختلف
+              </div>
+              <Row gutter={16}>
+                <Col
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={5}
+                  xl={5}
+                  className="colProductCount"
+                >
+                  <Row>
+                    <img src="images/icons-chitachip/Group 25.png" />
+                  </Row>
+                  <Row>
+                    <Col span={24}>تجهیزات بیسیم</Col>
+                  </Row>
+                  <Row>
+                    <Col span={24} className="ProductCount">
+                      +1000 کالا
+                    </Col>
+                  </Row>
+                </Col>
+                <Col
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={5}
+                  xl={5}
+                  className="colProductCount"
+                >
+                  <Row>
+                    <Col span={24}>
+                      <img src="images/icons-chitachip/Group 23.png" />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>سنسور</Col>
+                  </Row>
+                  <Row>
+                    <Col span={24} className="ProductCount">
+                      +1000 کالا
+                    </Col>
+                  </Row>
+                </Col>
+                <Col
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={5}
+                  xl={5}
+                  className="colProductCount"
+                >
+                  <Row>
+                    <Col span={24}>
+                      <img src="images/icons-chitachip/Group 24.png" />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>موتور</Col>
+                  </Row>
+                  <Row>
+                    <Col span={24} className="ProductCount">
+                      +1000 کالا
+                    </Col>
+                  </Row>
+                </Col>
+                <Col
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={5}
+                  xl={5}
+                  className="colProductCount"
+                >
+                  <Row>
+                    <Col span={24}>
+                      <img src="images/icons-chitachip/Group 21.png" />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>ماژول / مبدل</Col>
+                  </Row>
+                  <Row>
+                    <Col span={24} className="ProductCount">
+                      +1000 کالا
+                    </Col>
+                  </Row>
+                </Col>
+                <Col
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={4}
+                  xl={4}
+                  className="colProductCount"
+                >
+                  <Row>
+                    <Col span={24}>
+                      <img src="images/icons-chitachip/Group 23.png" />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col span={24}>بردهای توسعه</Col>
+                  </Row>
+                  <Row>
+                    <Col span={24} className="ProductCount">
+                      +1000 کالا
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>

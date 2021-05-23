@@ -4,7 +4,7 @@
  *
  */
 import { useWindowWidth } from '@react-hook/window-size';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Row, Col } from 'antd';
 import { selectBrowseCategories } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 import React, { memo, useEffect, useState } from 'react';
@@ -48,34 +48,68 @@ export const MenuSider = memo(({ className }: Props) => {
       <div className="categoryTitle">دسته بندی ها</div>
 
       {BrowseCategories && BrowseCategories.data && (
-        <Menu
-          mode="inline"
+        <ul
           // defaultSelectedKeys={[
           //   BrowseCategories.data.categories[0].id.toString(),
           // ]}
-          defaultOpenKeys={['sub1']}
+          className="ulCategotry"
           style={{ height: '100%', borderRight: 0 }}
         >
           {BrowseCategories.data.categories.map(item => (
-            <>
-              <Menu.Item
-                className="menuSiderItem"
-                key={item.id}
-                icon={
-                  <span>
-                    <img
-                      src={item.icon}
-                      className="iconCategory"
-                      alt={item.name}
-                    />
-                  </span>
-                }
-              >
-                <span className="titleCategory">{item.name}</span>
-              </Menu.Item>
-            </>
+            <li className="rowCategory" key={item.id}>
+              <img src={item.icon} className="iconCategory" alt={item.name} />
+              <span className="titleCategory">{item.name}</span>
+
+              <div className="hoverCategory">
+                <Row gutter={16}>
+                  <Col span={8} className="colCategoryList">
+                    <Col span={24}>
+                      <img
+                        src="http://chitachip.com/media/images/products/product/7_KtIGFZA.jpg"
+                        className="imgCategoryList"
+                        alt={item.name}
+                      />
+                    </Col>
+                    <Col span={24}>{item.name}</Col>
+                  </Col>
+                  <Col span={8}>
+                    <Col span={24}>
+                      <img
+                        src="http://chitachip.com/media/images/products/product/6_CLdkpBt.jpg"
+                        className="imgCategoryList"
+                        alt={item.name}
+                      />
+                    </Col>
+                    <Col span={24}>{item.name}</Col>
+                  </Col>
+                  <Col span={8}>
+                    <Col span={24}>
+                      <img
+                        src="http://chitachip.com/media/images/products/product/2_om6A3S0.jpg"
+                        className="imgCategoryList"
+                        alt={item.name}
+                      />
+                    </Col>
+                    <Col span={24}>{item.name}</Col>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={8}>
+                    {' '}
+                    <Col span={24}>
+                      <img
+                        src="http://chitachip.com/media/images/products/product/2_om6A3S0.jpg"
+                        className="imgCategoryList"
+                        alt={item.name}
+                      />
+                    </Col>
+                    <Col span={24}>{item.name}</Col>
+                  </Col>
+                </Row>
+              </div>
+            </li>
           ))}
-        </Menu>
+        </ul>
       )}
     </StyledMenuSider>
   );

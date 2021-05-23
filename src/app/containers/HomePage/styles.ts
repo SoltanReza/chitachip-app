@@ -58,7 +58,8 @@ border-radius: 7px;
 .titleBannerLeft{
   font-size: 2.7em;
   font-weight: bold;
-  margin: 0 !important;
+  /* margin: 0 !important;
+  margin-bottom: 1em; */
   
 }
 
@@ -73,7 +74,31 @@ border-radius: 14px;
 
 .productsCount{
   background: #fff;
-  height: 368px;
+ 
+}
+
+.titleProductCount{
+  text-align: center;
+  color: #6F6F6F;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.colProductCount{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ProductCount{
+  color: #F9AE4E;
+}
+
+.allViewBannerLeft{
+  text-align: left;
+  padding: 0 0 .5em .8em!important;
+  color: #0275DB;
+  font-weight: bold;
 }
 
 

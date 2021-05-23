@@ -150,9 +150,9 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
         // className="mySwiper"
         spaceBetween={20}
         slidesPerView={1}
-        autoplay={{
-          delay: 2000,
-        }}
+        // autoplay={{
+        //   delay: 2000,
+        // }}
         // navigation
         // pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
@@ -166,15 +166,16 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
                 data-id={item.id}
                 onClick={handleRouteToProductDetails(item.id)}
               >
-                <div className="titleProduct">
-                  {ellipseString(`${item.title}`, 20)}
-                </div>
+                <div>پیشنهادهای چیتاچیپ</div>
                 <div className="imgProductWrapper">
                   <img
                     src={item.image}
                     className="imgProduct"
                     alt={item.title}
                   />
+                </div>
+                <div className="titleProduct">
+                  {ellipseString(`${item.title}`, 20)}
                 </div>
               </div>
               <div className="buyProduct" id={`buyProduct${item.id}`}>
