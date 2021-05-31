@@ -13,6 +13,8 @@ export enum Routes {
   basket = '/basket',
   userProfile = '/userprofile',
   resetPassword = '/resetpassword',
+  productList = '/productlist/catId=:catId,subId=:subId,catName=:catName',
+  sendInfo = '/sendinfo',
 
   dashboard = '/dashboard',
   profile = '/dashboard/profile',

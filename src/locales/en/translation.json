@@ -248,6 +248,10 @@
       "title": "پروفایل کاربری",
       "description": "صفحه اطلاعات کاربر در سامامه چیتا چیپ"
     },
+    "ProductListPage": {
+      "title": "لیست محصولات",
+      "description": "لیست محصولات"
+    },
     "LogoutPage": {
       "title": "خروج",
       "description": "خروج"
@@ -255,6 +259,10 @@
     "ResetPasswordPage": {
       "title": "بازیابی رمز عبور",
       "description": "بازیابی رمز عبور"
+    },
+    "SendInfoPage": {
+      "title": "اطلاعات ارسال",
+      "description": "اطلاعات ارسال"
     }
   }
 }

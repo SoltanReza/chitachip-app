@@ -28,48 +28,6 @@ export const StyledMain = styled(Layout)`
   .menuSiderItemHover {
     display: none;
   }
-
-  .contactUs {
-    flex-wrap: nowrap;
-    display: flex;
-    position: relative;
-    right: 13px;
-    top: 9px;
-    > div {
-      margin-left: 0.5em;
-    }
-  }
-  .socialMedia {
-    line-height: 1em;
-  }
-  .online {
-    background: #ff9800;
-    padding: 0.2em 0.4em;
-    color: #fff;
-    border-radius: 10px;
-    font-size: 0.8em;
-    > span {
-      margin-right: 0.2em;
-    }
-  }
-
-  .sticky {
-    position: sticky;
-    top: 0;
-    z-index: 100; /* this is optional and should be different for every project */
-  }
-  .sticky-wrapper {
-    position: relative;
-    height: 3rem; /* We need to change this value */
-  }
-
-  .sticky .sticky-inner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-  }
 `;
 export const StyledHeader = styled(Layout.Header)`
   padding: 0px !important;

@@ -104,19 +104,21 @@ export interface GetTokenResponse extends AuthData {}
 // #region ProductData
 export interface ProductData {
   id: string;
-  category: [];
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-  is_offer: true;
-  stock: 12;
+  avg_stars: number;
   code: string;
+  description: string;
   discount_end_time: string;
-  properties: string;
+
+  image: string;
+  image_thumbnail: string;
+  is_offer: boolean;
   num_of_ratings: number;
-  avg_rating: number;
-  likes: number;
+  price: number;
+  properties: string;
+  stock: number;
+  sub_category: Array<string>;
+  title: string;
+  like_number: number;
 }
 
 export interface SliderData {
@@ -141,19 +143,50 @@ export interface categoryBanner {
 // #region BrowseHomeList
 export interface BrowseHomeListRequest {}
 
+export interface Banners {
+  first_banner: string;
+  second_banner: string;
+  third_banner: string;
+  url_first: string;
+  url_second: string;
+  url_third: string;
+}
+export interface ProductsDataWithText {
+  text: string;
+  prs: Array<ProductData>;
+}
+export interface Categories {
+  category: {
+    icon: string;
+    id: string;
+    name: string;
+  };
+  sub: Array<{
+    icon: string;
+    id: string;
+    name: string;
+  }>;
+}
+
 export interface BrowseHomeListResponse {
-  slider: Array<SliderData>;
-  category_slider: CategorySliderData;
-  product_slider: ProductData;
-  product_banner: productBanner;
-  category_banner: categoryBanner;
+  banners: Banners;
+  first_list: ProductsDataWithText;
+  second_list: ProductsDataWithText;
+  slider_products: ProductsDataWithText;
+  most_sold: Array<ProductData>;
+  new_products: Array<ProductData>;
   offers: Array<ProductData>;
+  stories: Array<{
+    image: string;
+    name: string;
+  }>;
+  categories: Array<Categories>;
 }
 // #endregion BrowseHomeList
 
 // #region BrowseProduct
 export interface BrowseProductRequest {
-  product_id: String;
+  product_id: string;
 }
 
 export interface BrowseProductResponse {
@@ -162,15 +195,27 @@ export interface BrowseProductResponse {
 // #endregion BrowseProduct
 
 // #region BrowseCategories
-export interface BrowseCategoriesRequest {}
+export interface BrowseCategoriesRequest {
+  cat_id?: string;
+  sub_id?: string;
+}
+
+export interface Cats {
+  active: boolean;
+  icon: string;
+  id: string;
+  name: string;
+}
+export interface Sub {
+  icon: string;
+  id: string;
+  name: string;
+}
 
 export interface BrowseCategoriesResponse {
-  categories: Array<{
-    id: number;
-    name: string;
-    background: string;
-    icon: string;
-  }>;
+  cats: Array<Cats>;
+  sub: Array<Sub>;
+  data: Array<ProductData>;
 }
 // #endregion BrowseCategories
 

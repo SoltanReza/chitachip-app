@@ -6,60 +6,45 @@
 // import { useWindowSize } from '../../../utils/hooks/useWindowSize';
 import '@brainhubeu/react-carousel/lib/style.css';
 import { Col, Row } from 'antd';
-import { categoryBanner, productBanner } from 'app/containers/App/types';
+import {
+  Banners,
+  categoryBanner,
+  productBanner,
+} from 'app/containers/App/types';
 import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyledCardCarousel, StyledTopPackagesCarousel } from './styles';
 
 interface Props {
   className?: string;
-  categoryBanner: categoryBanner;
-  productBanner: productBanner;
+  banners: Banners;
 }
 
-export const TopPackagesCarousel = memo(
-  ({ className, categoryBanner, productBanner }: Props) => {
-    const { t } = useTranslation();
-    const [activeItemIndex, setActiveItemIndex] = useState(0);
-    const chevronWidth = 40;
+export const TopPackagesCarousel = memo(({ className, banners }: Props) => {
+  const { t } = useTranslation();
+  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const chevronWidth = 40;
 
-    return (
-      <StyledTopPackagesCarousel
-        className={`TopPackagesCarousel ${className || ''}`}
-      >
-        <Row gutter={[16, 24]} style={{ margin: '0' }}>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-            <StyledCardCarousel
-              // background={categoryBanner.background}
-              defaultBackground="#ff9800"
-            >
-              <img
-                src={categoryBanner.category_banner}
-                className="container_img"
-              />{' '}
-              {/* <h1>{categorySlider.name}</h1>
-              <Button size="large" type="primary" className="slideProduct">
-                مشاهده
-              </Button> */}
-            </StyledCardCarousel>
-          </Col>
-          <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-            <StyledCardCarousel
-              // background={productSlider.image}
-              defaultBackground="#3f51b5"
-            >
-              <img
-                src={productBanner.product_banner}
-                className="container_img"
-              />
-              {/* <h1>{productSlider.title}</h1>
-              <Button size="large" type="primary" className="slideProduct">
-                خرید محصول
-              </Button> */}
-            </StyledCardCarousel>
-          </Col>
-        </Row>
-      </StyledTopPackagesCarousel>
-    );
-  },
-);
+  return (
+    <StyledTopPackagesCarousel
+      className={`TopPackagesCarousel ${className || ''}`}
+    >
+      <Row gutter={[16, 24]} style={{ margin: '0' }}>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <StyledCardCarousel defaultBackground="#ff9800">
+            <a href={banners.url_first} target="blank">
+              <img src={banners.first_banner} className="container_img" />
+            </a>
+          </StyledCardCarousel>
+        </Col>
+        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+          <StyledCardCarousel defaultBackground="#3f51b5">
+            <a href={banners.url_second} target="blank">
+              <img src={banners.second_banner} className="container_img" />{' '}
+            </a>
+          </StyledCardCarousel>
+        </Col>
+      </Row>
+    </StyledTopPackagesCarousel>
+  );
+});

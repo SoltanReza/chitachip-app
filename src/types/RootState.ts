@@ -3,8 +3,10 @@ import { BasketPageState } from 'app/containers/BasketPage/types';
 import { HomePageState } from 'app/containers/HomePage/types';
 import { LoginPageState } from 'app/containers/LoginPage/types';
 import { ProductDetailsPageState } from 'app/containers/ProductDetailsPage/types';
+import { ProductListPageState } from 'app/containers/ProductListPage/types';
 import { RegisterPageState } from 'app/containers/RegisterPage/types';
 import { ResetPasswordPageState } from 'app/containers/ResetPasswordPage/types';
+import { SendInfoPageState } from 'app/containers/SendInfoPage/types';
 import { UserProfilePageState } from 'app/containers/UserProfilePage/types';
 
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
@@ -22,5 +24,7 @@ export interface RootState {
   basketPage?: BasketPageState;
   userProfilePage?: UserProfilePageState;
   resetPasswordPage?: ResetPasswordPageState;
+  productListPage?: ProductListPageState;
+  sendInfoPage?: SendInfoPageState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

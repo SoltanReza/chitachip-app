@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { redirect } from 'utils/history';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Storage } from 'utils/storage';
+import Recaptcha from 'react-recaptcha';
 import {
   changePasswordApi,
   checkPasswordApi,
@@ -57,6 +58,7 @@ export function LoginPage({ className }: Props) {
   const [showCheckPassword, setShowCheckPassword] = useState(false);
   const [showValidationCode, setShowValidationCode] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const [isValideCAptcha, setIsValideCAptcha] = useState(false);
   const [showActive, setShowActive] = useState(false);
   const [lodingData, setLodingData] = useState(false);
   const [lodingPassData, setLodingPassData] = useState(false);
@@ -72,25 +74,30 @@ export function LoginPage({ className }: Props) {
   }, []);
   const handleUsernameSubmit = useCallback(
     values => {
-      setLodingData(true);
+      console.log(isValideCAptcha);
+      if (isValideCAptcha) {
+        setLodingData(true);
 
-      checkUserApi({
-        username: username,
-      })
-        .then(data => {
-          if (data.status === 200) {
-            setLodingData(false);
-            setShowCheckPassword(true);
-          } else if (data.status === 201) {
-            message.info('لطفا ابتدا ثبت نام کنید');
-            redirect(Routes.register, { mobile: username });
-          } else {
-            setLodingPassData(false);
-          }
+        checkUserApi({
+          username: username,
         })
-        .catch(() => {});
+          .then(data => {
+            if (data.status === 200) {
+              setLodingData(false);
+              setShowCheckPassword(true);
+            } else if (data.status === 201) {
+              message.info('لطفا ابتدا ثبت نام کنید');
+              redirect(Routes.register, { mobile: username });
+            } else {
+              setLodingPassData(false);
+            }
+          })
+          .catch(() => {});
+      } else {
+        alert('لطفا گزینه من ربات نیستم را تیک بزنید');
+      }
     },
-    [username],
+    [isValideCAptcha, username],
   );
 
   const handleGoToResetPassword = useCallback(() => {
@@ -195,9 +202,9 @@ export function LoginPage({ className }: Props) {
         .then(data => {
           if (data.status === 200) {
             setShowResetPassword(true);
+            setShowValidationCode(false);
+            setShowCheckPassword(false);
           } else {
-            setShowResetPassword(false);
-            setShowValidationCode(true);
           }
         })
 
@@ -324,6 +331,13 @@ export function LoginPage({ className }: Props) {
     history,
   ]);
 
+  const onloadRecaptcha = useCallback(() => {}, []);
+  const verifyRecaptcha = useCallback(response => {
+    if (response) {
+      setIsValideCAptcha(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (loginData.data) {
       if (loginData.data.status === 100) {
@@ -369,9 +383,14 @@ export function LoginPage({ className }: Props) {
                 >
                   {t(translations.pages.LoginPage.LoginForm.continue)}
                 </Button>{' '}
-                {/* <Link className="textLink" to="/register">
-              {t(translations.pages.LoginPage.LoginForm.registerNow)}
-            </Link> */}
+                <div className="recaptcha">
+                  <Recaptcha
+                    sitekey="6LdjRe0aAAAAAL_CiGrh0ABjzgcRbtLIF6tJZEfr"
+                    render="explicit"
+                    verifyCallback={verifyRecaptcha}
+                    onloadCallback={onloadRecaptcha}
+                  />
+                </div>
               </Row>
             </Form>
             <Row gutter={8} className="footer">
@@ -427,9 +446,6 @@ export function LoginPage({ className }: Props) {
                 >
                   {t(translations.pages.LoginPage.LoginForm.login)}
                 </Button>{' '}
-                {/* <Link className="textLink" to="/register">
-              {t(translations.pages.LoginPage.LoginForm.registerNow)}
-            </Link> */}
               </Row>
             </Form>
             <Row gutter={8} className="footer">

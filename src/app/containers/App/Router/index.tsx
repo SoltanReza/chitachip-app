@@ -4,8 +4,10 @@ import { LoginPage } from 'app/containers/LoginPage/Loadable';
 import { LogoutPage } from 'app/containers/LogoutPage/Loadable';
 import { NotFoundPage } from 'app/containers/NotFoundPage/Loadable';
 import { ProductDetailsPage } from 'app/containers/ProductDetailsPage/Loadable';
+import { ProductListPage } from 'app/containers/ProductListPage/Loadable';
 import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
 import { ResetPasswordPage } from 'app/containers/ResetPasswordPage/Loadable';
+import { SendInfoPage } from 'app/containers/SendInfoPage/Loadable';
 import { UserProfilePage } from 'app/containers/UserProfilePage/Loadable';
 import * as React from 'react';
 import {
@@ -83,6 +85,22 @@ export const Router = () => {
       component: ResetPasswordPage,
       auth: {
         check: AuthLevel.ALL,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.productList,
+      component: ProductListPage,
+      auth: {
+        check: AuthLevel.ALL,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.sendInfo,
+      component: SendInfoPage,
+      auth: {
+        check: AuthLevel.AUTHENTICATED,
       },
     },
   ];

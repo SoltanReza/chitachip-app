@@ -58,7 +58,7 @@ http.interceptors.response.use(undefined, function (error: AxiosError) {
           .join('\n');
     } else if (error.response.status === 401) {
       Storage.remove('auth');
-      redirect(Routes.login);
+      // redirect(Routes.login);
       message = 'توکن شما معتبر نیست لطفا دوباره ورود کنید';
       message +=
         '\n\n' +

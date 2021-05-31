@@ -102,6 +102,16 @@ export const StyledLoginPage = styled.section`
   .forgetPassword {
     cursor: pointer;
   }
+
+  .recaptcha {
+    margin: auto;
+    margin-top: 2em;
+  }
+  @media (max-width: ${sizes.small}px) {
+    .form {
+      width: 96%;
+    }
+  }
 `;
 
 export const StyledLoginForm = styled(Form)`
@@ -157,6 +167,7 @@ export const StyledLoginForm = styled(Form)`
 
   @media (max-width: ${sizes.small}px) {
     padding: 1em;
+    width: 100%;
   }
 
   @media (max-height: ${sizes.small}px) {

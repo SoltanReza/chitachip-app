@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import { theme } from 'styles/theme';
 import { sizes } from 'styles/media';
 
-export const StyledMenuSider = styled.section`
+export const StyledCategorySider = styled.section`
   background: ${theme.LAYOUT_HEADER_COLOR};
   background: #fff;
   width: 100%;
@@ -11,6 +11,8 @@ export const StyledMenuSider = styled.section`
   -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
   -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
+  overflow-y: auto;
+  max-height: 235px;
   .categoryTitle {
     padding: 1em 1em 0.6em 0em;
     font-weight: bold;
@@ -21,8 +23,12 @@ export const StyledMenuSider = styled.section`
   }
 
   .rowCategory {
-    margin-bottom: 1em;
+    margin-bottom: 1em !important;
     list-style-type: none;
+    padding: 0 0.3em;
+
+    margin: 0 0.3em;
+
     &:hover {
       .hoverCategory {
         display: inline;
@@ -31,7 +37,7 @@ export const StyledMenuSider = styled.section`
   }
 
   .ulCategotry {
-    padding-right: 1.5em;
+    padding-right: 0.5em;
   }
   .titleCategory {
     margin-right: 1em;
@@ -87,6 +93,19 @@ export const StyledMenuSider = styled.section`
     -webkit-box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .activeCategory {
+    padding: 0 0.3em;
+    margin-bottom: 1em !important;
+    background: black;
+    color: white;
+    margin: 0 0.3em;
+    border-radius: 7px;
+    .titleCategory {
+      color: #9e9e9e;
+      font-weight: bold;
+    }
   }
 
   /* .menuSiderItem {

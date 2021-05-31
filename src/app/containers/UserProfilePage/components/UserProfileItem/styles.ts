@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 
 export const StyledUserProfileItem = styled.section`
   .profileTitleItem {
-    border-radius: 2px;
+    border-radius: 5px !important;
     border: none;
     -webkit-box-shadow: 0px 0px 11px -3px rgb(0 0 0 / 75%);
     -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
@@ -10,7 +10,7 @@ export const StyledUserProfileItem = styled.section`
   }
 
   .profileContentItem {
-    border-radius: px;
+    border-radius: 5px !important;
     border: none;
     -webkit-box-shadow: 0px 0px 11px -3px rgb(0 0 0 / 75%);
     -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
@@ -28,6 +28,9 @@ export const StyledUserProfileItem = styled.section`
     font-size: 1.5em;
     color: #000;
     margin-bottom: 0.7em;
+  }
+  .activeItem {
+    color: #fd9803 !important;
   }
 
   .btnLogout {

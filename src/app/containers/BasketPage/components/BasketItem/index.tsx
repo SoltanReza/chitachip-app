@@ -22,11 +22,13 @@ import {
   selectBrowseBasket,
 } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
+import { redirect } from 'utils/history';
+import { Routes } from 'app/containers/App/Router/routes';
 
 interface Props {
   className?: string;
 }
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 
 export const BasketItem = memo(({ className }: Props) => {
   const { t } = useTranslation();
@@ -76,6 +78,10 @@ export const BasketItem = memo(({ className }: Props) => {
     },
     [dispatch],
   );
+  const handleRouteToProductDetails = useCallback(
+    (id: string) => () => redirect(Routes.productDetails, { id }),
+    [],
+  );
 
   useEffect(() => {
     dispatch(appActions.browseBasket({}));
@@ -121,10 +127,19 @@ export const BasketItem = memo(({ className }: Props) => {
                 <Card className="cardListProduct">
                   <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
                     <Col span={5}>
-                      <img src={item.image} className="imgProduct" />
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="imgProduct"
+                      />
                     </Col>
                     <Col span={14}>
-                      <Row className="titleProduct">{item.title}</Row>
+                      <Row
+                        className="titleProduct"
+                        onClick={handleRouteToProductDetails(item.product_id)}
+                      >
+                        {item.title}
+                      </Row>
                       <Row gutter={8}>
                         <Col>
                           <PlusOutlined

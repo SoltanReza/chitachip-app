@@ -103,6 +103,12 @@ export const StyledRegisterPage = styled.section`
     margin-top: 2em;
     direction: ltr;
   }
+
+  @media (max-width: ${sizes.small}px) {
+    .form {
+      width: 96%;
+    }
+  }
 `;
 export const StyledRegisterForm = styled(Form)`
   padding: 30px;

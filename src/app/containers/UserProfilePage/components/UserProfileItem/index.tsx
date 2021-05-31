@@ -20,6 +20,8 @@ import mailIcon from '../../images/mail.svg';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { UserAddress } from 'app/components/UserAddress';
+import { UserOrder } from 'app/components/UserOrder';
+import { UserFavorite } from 'app/components/UserFavorite';
 import { history } from 'utils/history';
 import { Routes } from 'app/containers/App/Router/routes';
 
@@ -34,14 +36,32 @@ export const UserProfileItem = memo(({ className }: Props) => {
 
   const [showUserInfo, setShowUserInfo] = useState(true);
   const [showAddress, setShowAddress] = useState(false);
+  const [showOrder, setShowOrder] = useState(false);
+  const [showFavorite, setShowFavorite] = useState(false);
 
   const handleShowUserInfo = useCallback(() => {
     setShowUserInfo(true);
     setShowAddress(false);
+    setShowFavorite(false);
+    setShowOrder(false);
   }, []);
   const handleShowAddress = useCallback(() => {
-    setShowUserInfo(false);
     setShowAddress(true);
+    setShowUserInfo(false);
+    setShowFavorite(false);
+    setShowOrder(false);
+  }, []);
+  const handleShowOrder = useCallback(() => {
+    setShowOrder(true);
+    setShowUserInfo(false);
+    setShowAddress(false);
+    setShowFavorite(false);
+  }, []);
+  const handleFavoriteList = useCallback(() => {
+    setShowFavorite(true);
+    setShowUserInfo(false);
+    setShowAddress(false);
+    setShowOrder(false);
   }, []);
 
   const handleRoutToLogout = useCallback(() => history.push(Routes.logout), []);
@@ -59,15 +79,24 @@ export const UserProfileItem = memo(({ className }: Props) => {
               </div>,
             ]}
           >
-            <div className="profileTitleText" onClick={handleShowUserInfo}>
+            <div
+              className={`profileTitleText ${showUserInfo ? 'activeItem' : ''}`}
+              onClick={handleShowUserInfo}
+            >
               <img src={userIcon} className="profileIcon" />
               اطلاعات کاربری
             </div>
-            <div className="profileTitleText" onClick={handleShowAddress}>
+            <div
+              className={`profileTitleText ${showAddress ? 'activeItem' : ''}`}
+              onClick={handleShowAddress}
+            >
               <img src={addressIcon} className="profileIcon" />
               آدرس ها
             </div>
-            <div className="profileTitleText">
+            <div
+              className={`profileTitleText ${showOrder ? 'activeItem' : ''}`}
+              onClick={handleShowOrder}
+            >
               <img src={calendarIcon} className="profileIcon" />
               تاریخچه سفارشات
             </div>
@@ -75,7 +104,10 @@ export const UserProfileItem = memo(({ className }: Props) => {
               <img src={arrowIcon} className="profileIcon" />
               مکالمات پشتیبانی
             </div>
-            <div className="profileTitleText">
+            <div
+              className={`profileTitleText ${showFavorite ? 'activeItem' : ''}`}
+              onClick={handleFavoriteList}
+            >
               <img src={heartIcon} className="profileIcon" />
               لیست علاقه مندی ها
             </div>
@@ -90,6 +122,8 @@ export const UserProfileItem = memo(({ className }: Props) => {
           <Card className="profileContentItem">
             {showUserInfo && <UserInfo />}
             {showAddress && <UserAddress />}
+            {showOrder && <UserOrder />}
+            {showFavorite && <UserFavorite />}
           </Card>
         </Col>
       </Row>

@@ -31,5 +31,6 @@ export const StyledContent = styled(Layout.Content)`
   min-height: 100vh;
   background-size: contain;
   background: transparent;
-  margin-top: 1.5em;
+
+  margin: 0em 1.5em;
 `;

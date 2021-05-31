@@ -8,7 +8,7 @@ import { Layout, Menu, Row, Col } from 'antd';
 import { Routes } from 'app/containers/App/Router/routes';
 import { selectBrowseCategories } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
-import { Categories } from 'app/containers/App/types';
+import { Categories, Cats } from 'app/containers/App/types';
 import React, { memo, useEffect, useState } from 'react';
 import { useCallback } from 'react';
 import { useRef } from 'react';
@@ -16,15 +16,15 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { sizes } from 'styles/media';
 import { redirect } from 'utils/history';
-import { StyledMenuSider } from './styles';
+import { StyledCategorySider } from './styles';
 
 interface Props {
   className?: string;
-  categories: Array<Categories>;
+  categories: Array<Cats>;
 }
 const { Sider } = Layout;
 
-export const MenuSider = memo(({ className, categories }: Props) => {
+export const CategorySider = memo(({ className, categories }: Props) => {
   const { t } = useTranslation();
   const refMenu = useRef<HTMLSpanElement>(null);
 
@@ -49,7 +49,7 @@ export const MenuSider = memo(({ className, categories }: Props) => {
   }, [onlyWidth, setCollapsed]);
 
   return (
-    <StyledMenuSider
+    <StyledCategorySider
       className={`MenuSider ${className || ''}`}
       style={{
         // overflowY: 'auto',
@@ -69,46 +69,22 @@ export const MenuSider = memo(({ className, categories }: Props) => {
         <div className="categoryTitle">دسته بندی ها</div>
         {categories &&
           categories.map(menu => (
-            <li className="rowCategory" key={menu.category.id}>
+            <li
+              className={`${menu.active ? 'activeCategory' : 'rowCategory'}`}
+              key={menu.id}
+            >
               <span
-                data-cat-id={menu.category.id}
-                data-cat-name={menu.category.name}
+                data-cat-id={menu.id}
+                data-cat-name={menu.name}
                 onClick={handleRoutToProductList}
               >
                 {' '}
-                <img
-                  src={menu.category.icon}
-                  className="iconCategory"
-                  alt={menu.category.name}
-                />
-                <span className="titleCategory">{menu.category.name}</span>
+                <img src={menu.icon} className="iconCategory" alt={menu.name} />
+                <span className="titleCategory">{menu.name}</span>
               </span>
-
-              <div className="hoverCategory">
-                <Row gutter={16}>
-                  {menu.sub.map(subMenue => (
-                    <Col
-                      span={8}
-                      className="colCategoryList"
-                      data-sub-id={subMenue.id}
-                      data-cat-name={subMenue.name}
-                      onClick={handleRoutToProductList}
-                    >
-                      <Col span={24}>
-                        <img
-                          src={subMenue.icon}
-                          className="imgCategoryList"
-                          alt={subMenue.name}
-                        />
-                      </Col>
-                      <Col span={24}>{subMenue.name}</Col>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
             </li>
           ))}
       </ul>
-    </StyledMenuSider>
+    </StyledCategorySider>
   );
 });

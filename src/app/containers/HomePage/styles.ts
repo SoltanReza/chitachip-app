@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
 
 export const StyledHomePage = styled(BaseLayout)`
+
   .styleCarousel {
     height: '160px' !important;
     color: '#fff' !important;
@@ -23,6 +24,17 @@ export const StyledHomePage = styled(BaseLayout)`
     border-radius: 44px;
     background: gray;
   }
+  .imgStory {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+
+
 
 .rightBanner{
   height: 214px;
@@ -54,6 +66,7 @@ border-radius: 7px;
 .rowWrraperRight{
   margin-top :1.5em;
 }
+
 
 .titleBannerLeft{
   font-size: 2.7em;
@@ -101,7 +114,48 @@ border-radius: 14px;
   font-weight: bold;
 }
 
+.contactUs {
+    flex-wrap: nowrap;
+    display: flex;
+    position: relative;
+    right: 13px;
+    top: 9px;
+    > div {
+      margin-left: 0.5em;
+    }
+  }
+  .socialMedia {
+    line-height: 1em;
+  }
+  .online {
+   
+    background: #ff9800;
+    padding: 0.2em 0.4em;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 0.8em;
+    > span {
+      margin-right: 0.2em;
+    }
+  }
 
+  .sticky {
+    position: sticky;
+    top: 0;
+    z-index: 100; /* this is optional and should be different for every project */
+  }
+  .sticky-wrapper {
+    position: relative;
+    height: 3rem; /* We need to change this value */
+  }
+
+  .sticky .sticky-inner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
 
   /* @media (max-width: ${sizes.small}px) {
     .swiper-slide {

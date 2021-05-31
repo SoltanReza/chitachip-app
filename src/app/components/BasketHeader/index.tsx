@@ -20,7 +20,7 @@ import { Typography, Divider, Card, Row, Col, Button, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectBrowseBasket } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
-import { history } from 'utils/history';
+import { history, redirect } from 'utils/history';
 import { Routes } from 'app/containers/App/Router/routes';
 interface Props {
   className?: string;
@@ -34,6 +34,10 @@ export const BasketHeader = memo(({ className }: Props) => {
 
   const handleRedirectToBasketPage = useCallback(
     () => history.push(Routes.basket),
+    [],
+  );
+  const handleRouteToProductDetails = useCallback(
+    (id: string) => () => redirect(Routes.productDetails, { id }),
     [],
   );
 
@@ -52,11 +56,19 @@ export const BasketHeader = memo(({ className }: Props) => {
             basketData.data.value.products.map(item => (
               <>
                 <div className="bodyBasketCard">
-                  <Col span={12}>
+                  <Col
+                    span={12}
+                    onClick={handleRouteToProductDetails(item.product_id)}
+                    style={{ cursor: 'pointer' }}
+                  >
                     <h5>{item.title}</h5>
                   </Col>
                   <Col span={6}>
-                    <img src={item.image} className="imgProduct" />
+                    <img
+                      src={item.image}
+                      className="imgProduct"
+                      alt={item.title}
+                    />
                   </Col>
                   <Col span={6} className="action">
                     <Col>

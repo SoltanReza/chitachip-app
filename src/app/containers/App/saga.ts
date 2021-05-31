@@ -165,8 +165,8 @@ export function* userInfoSaga(action: PayloadAction<UserInfoRequest>) {
     const response = yield call(userInfoApi, action.payload);
     yield put(appActions.userInfoSuccess(response));
   } catch (error) {
-    yield put(appActions.userInfoError(error));
-    yield put(appActions.notifyError(error.message));
+    // yield put(appActions.userInfoError(error));
+    // yield put(appActions.notifyError(error.message));
   }
 }
 

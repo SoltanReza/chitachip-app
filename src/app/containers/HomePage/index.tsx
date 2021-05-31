@@ -8,8 +8,9 @@ import {
   InstagramOutlined,
   WhatsAppOutlined,
 } from '@ant-design/icons';
-import { Tabs, Row, Col, Input, Button } from 'antd';
+import { Tabs, Row, Col, Input, Button, Affix } from 'antd';
 import { DateTimeViewer } from 'app/components/DateTimeViewer';
+import { SliderProduct } from 'app/components/SliderProduct';
 import { MenuSider } from 'app/components/MenuSider';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
@@ -26,6 +27,8 @@ import { homePageSaga } from './saga';
 import { reducer, sliceKey } from './slice';
 import { StyledHomePage } from './styles';
 import { UnitCarouselRight } from './UnitCarouselRight';
+import { useCallback } from 'react';
+import { useState } from 'react';
 
 interface Props {
   className?: string;
@@ -42,7 +45,13 @@ export function HomePage({ className }: Props) {
   useInjectSaga({ key: sliceKey, saga: homePageSaga });
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [changeAffixed, setChangeAffixed] = useState(false);
+
   const BrowseHomeList = useSelector(selectBrowseHomeList);
+
+  const handleChangeAffixed = useCallback(affixed => {
+    setChangeAffixed(affixed);
+  }, []);
 
   useEffect(() => {
     dispatch(appActions.browseHomeList({}));
@@ -56,7 +65,18 @@ export function HomePage({ className }: Props) {
     >
       <Row gutter={[16, 24]}>
         <Col xs={4} sm={4} md={6} lg={6} xl={6}>
-          <MenuSider />
+          {BrowseHomeList && BrowseHomeList.data && (
+            <MenuSider categories={BrowseHomeList.data.categories} />
+          )}
+          {/* {changeAffixed ? (
+            <Affix offsetTop={20} onChange={handleChangeAffixed}>
+              <Button>sticky</Button>
+            </Affix>
+          ) : (
+            <Affix offsetTop={20} onChange={handleChangeAffixed}>
+              <Button>none</Button>
+            </Affix>
+          )} */}
 
           <div
             // ref={stickyRef}
@@ -78,59 +98,28 @@ export function HomePage({ className }: Props) {
           </div>
         </Col>
         <Col xs={20} sm={20} md={6} lg={18} xl={18}>
+          <div className="emptyBlocks"></div>
+
           <Swiper slidesPerView={10} spaceBetween={10} className="mySwiper">
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="divStory"></div>{' '}
-            </SwiperSlide>
+            {BrowseHomeList.data &&
+              BrowseHomeList.data.stories.map(story => (
+                <SwiperSlide>
+                  <div className="divStory">
+                    <img src={story.image} className="imgStory" />
+                  </div>{' '}
+                </SwiperSlide>
+              ))}
           </Swiper>
+
           {BrowseHomeList && BrowseHomeList.data && (
             <>
-              <TopPackagesCarousel
-                categoryBanner={BrowseHomeList.data.category_banner}
-                productBanner={BrowseHomeList.data.product_banner}
-              />
+              <TopPackagesCarousel banners={BrowseHomeList.data.banners} />
               <Tabs defaultActiveKey="1">
                 <TabPane tab={<span>پرفروش ترین ها</span>} key="1">
-                  <Offer product={BrowseHomeList.data.offers} />
+                  <SliderProduct product={BrowseHomeList.data.most_sold} />
                 </TabPane>
                 <TabPane tab={<span>جدیدترین</span>} key="2">
-                  <Offer product={BrowseHomeList.data.offers} />
+                  <SliderProduct product={BrowseHomeList.data.new_products} />
                 </TabPane>
                 <TabPane
                   tab={
@@ -140,7 +129,7 @@ export function HomePage({ className }: Props) {
                   }
                   key="3"
                 >
-                  <Offer product={BrowseHomeList.data.offers} />
+                  <SliderProduct product={BrowseHomeList.data.offers} />
                 </TabPane>
               </Tabs>
             </>
@@ -184,7 +173,9 @@ export function HomePage({ className }: Props) {
           <Row gutter={16} className="rowWrraperRight">
             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
               {BrowseHomeList && BrowseHomeList.data && (
-                <UnitCarouselRight product={BrowseHomeList.data.offers} />
+                <UnitCarouselRight
+                  product={BrowseHomeList.data.slider_products}
+                />
               )}
             </Col>
           </Row>
@@ -209,7 +200,19 @@ export function HomePage({ className }: Props) {
           </Row>
           <Row gutter={[16, 24]}>
             <Col xs={24} sm={24} md={24} lg={24} xl={24} className="sliceCard">
-              <img src="images/package.png" className="sliceCardImg" alt="" />
+              {BrowseHomeList && BrowseHomeList.data && (
+                <>
+                  <a
+                    href={BrowseHomeList.data.banners.url_third}
+                    target="blank"
+                  ></a>
+                  <img
+                    src={BrowseHomeList.data.banners.third_banner}
+                    className="sliceCardImg"
+                    alt=""
+                  />
+                </>
+              )}
             </Col>
           </Row>
           <h1 className="titleBannerLeft">قطعات جانبی آردوینو</h1>

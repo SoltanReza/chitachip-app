@@ -84,6 +84,7 @@ export const StyledBasketItem = styled.section`
   }
 
   .titleProduct {
+    cursor: pointer;
     margin-bottom: 3em;
   }
 
@@ -109,13 +110,21 @@ export const StyledBasketItem = styled.section`
 
   .finlaPayBtn {
     margin-top: 0.5em;
-    background: #fd9803;
+    background-image: linear-gradient(
+      to right,
+      #ffb14d,
+      #fbaf4d,
+      #f0aa4e,
+      #dea151,
+      #d29b53
+    );
+
     border-radius: 10px;
     color: #fff;
   }
 
   .continueBuyBtn {
-    background: #7f8283;
+    background: #cccccc;
     border-radius: 10px;
     color: #fff;
   }

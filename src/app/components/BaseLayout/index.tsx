@@ -40,8 +40,8 @@ export const BaseLayout = memo(
     const stickyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-      console.log(scrollTop, 'scrollTop');
-      console.log(scrolling, 'scrolling');
+      // console.log(scrollTop, 'scrollTop');
+      // console.log(scrolling, 'scrolling');
       const onScroll = e => {
         setScrollTop(e.target.documentElement.scrollTop);
         setScrolling(e.target.documentElement.scrollTop < scrollTop);

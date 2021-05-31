@@ -1,6 +1,6 @@
 /**
  *
- * Offer
+ * SliderProduct
  *
  */
 import {
@@ -21,9 +21,8 @@ import {
 } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 import { ProductData } from 'app/containers/App/types';
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import 'react-multi-carousel/lib/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import SwiperCore, {
   A11y,
@@ -33,10 +32,9 @@ import SwiperCore, {
   Scrollbar,
 } from 'swiper/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css';
 import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
-import { StyledOffer } from './styles';
+import { StyledSliderProduct } from './styles';
 
 interface Props {
   className?: string;
@@ -45,7 +43,7 @@ interface Props {
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
-export const Offer = memo(({ className, product }: Props) => {
+export const SliderProduct = memo(({ className, product }: Props) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const onlyWidth = useWindowWidth();
@@ -69,6 +67,9 @@ export const Offer = memo(({ className, product }: Props) => {
   const handleOk = () => {
     setIsModalVisible(false);
     redirect(Routes.login);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   const handleMinusQuantity = useCallback(
@@ -115,10 +116,6 @@ export const Offer = memo(({ className, product }: Props) => {
     [dispatch, quantity],
   );
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-
   const handleVoteLike = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
@@ -134,7 +131,7 @@ export const Offer = memo(({ className, product }: Props) => {
   );
 
   return (
-    <StyledOffer className={`Offer ${className || ''}`}>
+    <StyledSliderProduct className={`SliderProduct ${className || ''}`}>
       {likeData.params && (
         <div id="preloader">
           <div id="status">
@@ -270,6 +267,6 @@ export const Offer = memo(({ className, product }: Props) => {
           </p>
         </Modal>
       )}
-    </StyledOffer>
+    </StyledSliderProduct>
   );
 });

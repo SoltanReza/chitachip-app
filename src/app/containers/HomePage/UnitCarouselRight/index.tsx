@@ -20,7 +20,7 @@ import {
   selectLikeProduct,
 } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
-import { ProductData } from 'app/containers/App/types';
+import { ProductData, ProductsDataWithText } from 'app/containers/App/types';
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import 'react-multi-carousel/lib/styles.css';
@@ -40,7 +40,7 @@ import { StyledUnitCarouselRight } from './styles';
 
 interface Props {
   className?: string;
-  product: Array<ProductData>;
+  product: ProductsDataWithText;
 }
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
@@ -144,6 +144,7 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
 
   return (
     <StyledUnitCarouselRight className={`UnitCarouselRight ${className || ''}`}>
+      <div>{product.text}</div>
       <Swiper
         // spaceBetween={30}
         navigation={true}
@@ -159,14 +160,13 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
         onSwiper={swiper => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}
       >
-        {product.map(item => (
+        {product.prs.map(item => (
           <SwiperSlide>
             <div className="offerCard">
               <div
                 data-id={item.id}
                 onClick={handleRouteToProductDetails(item.id)}
               >
-                <div>پیشنهادهای چیتاچیپ</div>
                 <div className="imgProductWrapper">
                   <img
                     src={item.image}
