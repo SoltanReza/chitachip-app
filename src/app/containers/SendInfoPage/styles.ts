@@ -173,4 +173,16 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     color: #000;
     font-size: 0.7em;
   }
+
+  .role {
+    display: flex;
+  }
+
+  .roleTitle {
+    color: #ffb14d !important;
+    font-size: 0.8em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 0.3em;
+  }
 `;

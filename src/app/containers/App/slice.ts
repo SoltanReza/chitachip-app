@@ -18,6 +18,10 @@ import {
   ContainerState,
   DeleteFromBasketItemRequest,
   DeleteFromBasketItemResponse,
+  GetProductSliderRequest,
+  GetProductSliderResponse,
+  HisrtoryOfPurchaseRequest,
+  HisrtoryOfPurchaseResponse,
   LikeProductRequest,
   LikeProductResponse,
   LoginRequest,
@@ -26,6 +30,8 @@ import {
   NotifType,
   RegisterRequest,
   RegisterResponse,
+  SendEmailNewsRequest,
+  SendEmailNewsResponse,
   UserInfoRequest,
   UserInfoResponse,
 } from './types';
@@ -85,6 +91,21 @@ export const initialState: ContainerState = {
     error: undefined,
   },
   deleteFromBasketItem: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  sendEmailNews: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  getProductSlider: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  hisrtoryOfPurchase: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -312,6 +333,72 @@ const appSlice = createSlice({
       state.browseBasket = initialState.browseBasket;
     },
     //#endregion BrowseBasket
+
+    //#region SendEmailNews
+    sendEmailNews(state, action: PayloadAction<SendEmailNewsRequest>) {
+      state.sendEmailNews.params = action.payload;
+      state.sendEmailNews.data = initialState.sendEmailNews.data;
+      state.sendEmailNews.error = initialState.sendEmailNews.error;
+    },
+    sendEmailNewsSuccess(state, action: PayloadAction<SendEmailNewsResponse>) {
+      state.sendEmailNews.params = initialState.sendEmailNews.params;
+      state.sendEmailNews.data = action.payload;
+    },
+    sendEmailNewsError(state, action: PayloadAction<ErrorResponse>) {
+      state.sendEmailNews.params = initialState.sendEmailNews.params;
+      state.sendEmailNews.error = action.payload;
+    },
+    sendEmailNewsClear(state) {
+      state.sendEmailNews = initialState.sendEmailNews;
+    },
+    //#endregion SendEmailNews
+
+    //#region GetProductSlider
+    getProductSlider(state, action: PayloadAction<GetProductSliderRequest>) {
+      state.getProductSlider.params = action.payload;
+      state.getProductSlider.data = initialState.getProductSlider.data;
+      state.getProductSlider.error = initialState.getProductSlider.error;
+    },
+    getProductSliderSuccess(
+      state,
+      action: PayloadAction<GetProductSliderResponse>,
+    ) {
+      state.getProductSlider.params = initialState.getProductSlider.params;
+      state.getProductSlider.data = action.payload;
+    },
+    getProductSliderError(state, action: PayloadAction<ErrorResponse>) {
+      state.getProductSlider.params = initialState.getProductSlider.params;
+      state.getProductSlider.error = action.payload;
+    },
+    getProductSliderClear(state) {
+      state.getProductSlider = initialState.getProductSlider;
+    },
+    //#endregion GetProductSlider
+
+    //#region HisrtoryOfPurchase
+    hisrtoryOfPurchase(
+      state,
+      action: PayloadAction<HisrtoryOfPurchaseRequest>,
+    ) {
+      state.hisrtoryOfPurchase.params = action.payload;
+      state.hisrtoryOfPurchase.data = initialState.hisrtoryOfPurchase.data;
+      state.hisrtoryOfPurchase.error = initialState.hisrtoryOfPurchase.error;
+    },
+    hisrtoryOfPurchaseSuccess(
+      state,
+      action: PayloadAction<HisrtoryOfPurchaseResponse>,
+    ) {
+      state.hisrtoryOfPurchase.params = initialState.hisrtoryOfPurchase.params;
+      state.hisrtoryOfPurchase.data = action.payload;
+    },
+    hisrtoryOfPurchaseError(state, action: PayloadAction<ErrorResponse>) {
+      state.hisrtoryOfPurchase.params = initialState.hisrtoryOfPurchase.params;
+      state.hisrtoryOfPurchase.error = action.payload;
+    },
+    hisrtoryOfPurchaseClear(state) {
+      state.hisrtoryOfPurchase = initialState.hisrtoryOfPurchase;
+    },
+    //#endregion HisrtoryOfPurchase
 
     //#region AddToBasket
     addToBasket(state, action: PayloadAction<AddToBasketRequest>) {

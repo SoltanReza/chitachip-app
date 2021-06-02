@@ -59,6 +59,21 @@ export interface AppState {
     data?: DeleteFromBasketItemResponse;
     error?: ErrorResponse;
   };
+  sendEmailNews: {
+    params?: SendEmailNewsRequest;
+    data?: SendEmailNewsResponse;
+    error?: ErrorResponse;
+  };
+  getProductSlider: {
+    params?: GetProductSliderRequest;
+    data?: GetProductSliderResponse;
+    error?: ErrorResponse;
+  };
+  hisrtoryOfPurchase: {
+    params?: HisrtoryOfPurchaseRequest;
+    data?: HisrtoryOfPurchaseResponse;
+    error?: ErrorResponse;
+  };
 
   auth?: AuthData;
 }
@@ -155,6 +170,10 @@ export interface ProductsDataWithText {
   text: string;
   prs: Array<ProductData>;
 }
+export interface Stories {
+  image: string;
+  name: string;
+}
 export interface Categories {
   category: {
     icon: string;
@@ -176,11 +195,9 @@ export interface BrowseHomeListResponse {
   most_sold: Array<ProductData>;
   new_products: Array<ProductData>;
   offers: Array<ProductData>;
-  stories: Array<{
-    image: string;
-    name: string;
-  }>;
+  stories: Array<Stories>;
   categories: Array<Categories>;
+  offers_time: number;
 }
 // #endregion BrowseHomeList
 
@@ -191,6 +208,8 @@ export interface BrowseProductRequest {
 
 export interface BrowseProductResponse {
   product: ProductData;
+  similar: Array<ProductData>;
+  status: number;
 }
 // #endregion BrowseProduct
 
@@ -336,6 +355,7 @@ export interface UserData {
 export interface UserInfoRequest {}
 export interface UserInfoResponse {
   user: UserData;
+  mobile: string;
   status: number;
 }
 // #endregion UserInfo
@@ -371,3 +391,51 @@ export interface DeleteFromBasketItemResponse {
   response: string;
 }
 // #endregion DeleteFromBasketItem
+
+// #region SendEmailNews
+
+export interface SendEmailNewsRequest {
+  email: string;
+}
+export interface SendEmailNewsResponse {}
+// #endregion SendEmailNews
+
+// #region GetProductSlider
+
+export interface GetProductSliderRequest {
+  item: number;
+}
+export interface GetProductSliderResponse {}
+// #endregion GetProductSlider
+
+// #region HisrtoryOfPurchase
+export interface Bill {
+  user: string;
+  date: string;
+  weight: string;
+  shipment: string;
+  invoiceNumber: number;
+  address: string;
+  phone: string;
+  prs: [
+    {
+      name: string;
+      qty: string;
+      single_price: string;
+      total_price: string;
+      image: string;
+    },
+  ];
+}
+export interface HisrtoryOfPurchaseRequest {}
+export interface HisrtoryOfPurchaseResponse {
+  bill: Array<Bill>;
+  refID: number;
+  state: string;
+  invoiceNumber: number;
+  date: string;
+  type: string;
+  price: string;
+}
+
+// #endregion HisrtoryOfPurchase

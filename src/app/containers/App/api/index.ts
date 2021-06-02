@@ -23,8 +23,12 @@ import {
   DeleteFromBasketItemResponse,
   GetCodeRequest,
   GetCodeResponse,
+  GetProductSliderRequest,
+  GetProductSliderResponse,
   GetTokenRequest,
   GetTokenResponse,
+  HisrtoryOfPurchaseRequest,
+  HisrtoryOfPurchaseResponse,
   LikeProductRequest,
   LikeProductResponse,
   LoginRequest,
@@ -33,6 +37,8 @@ import {
   RegisterResponse,
   ResetPasswordCodeRequest,
   ResetPasswordCodeResponse,
+  SendEmailNewsRequest,
+  SendEmailNewsResponse,
   UserInfoRequest,
   UserInfoResponse,
   ValidateCodeRequest,
@@ -158,5 +164,29 @@ export function deleteFromBasketItemApi(
 ): Promise<ErrorResponse | DeleteFromBasketItemResponse> {
   return http
     .get('v1/delete-basket/', { params })
+    .then(response => response.data);
+}
+
+export function sendEmailNewsApi(
+  params: SendEmailNewsRequest,
+): Promise<ErrorResponse | SendEmailNewsResponse> {
+  return http
+    .post('v1/register-email/', params)
+    .then(response => response.data);
+}
+
+export function getProductSliderApi(
+  params: GetProductSliderRequest,
+): Promise<ErrorResponse | GetProductSliderResponse> {
+  return http
+    .get('v1/get-products-slider/', { params })
+    .then(response => response.data);
+}
+
+export function hisrtoryOfPurchaseApi(
+  params: HisrtoryOfPurchaseRequest,
+): Promise<ErrorResponse | HisrtoryOfPurchaseResponse> {
+  return http
+    .get('v1/get-hisrtory-of-purchase/', { params })
     .then(response => response.data);
 }

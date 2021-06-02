@@ -63,14 +63,23 @@ export const StyledUserFavorite = styled.section`
     font-weight: bold;
     padding-right: 1em;
     color: #fff;
+    padding: 0 2em;
   }
 
   .actionDelete {
-    background: #df1e26;
+    background-image: linear-gradient(
+      to right,
+      #ed1c24,
+      #e91c24,
+      #de1f26,
+      #cd232a,
+      #c1272d
+    );
     border-radius: 20px !important;
     font-size: 0.8em;
     font-weight: bold;
     padding-right: 1em;
     color: #fff;
+    padding: 0 2em;
   }
 `;

@@ -144,7 +144,6 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
 
   return (
     <StyledUnitCarouselRight className={`UnitCarouselRight ${className || ''}`}>
-      <div>{product.text}</div>
       <Swiper
         // spaceBetween={30}
         navigation={true}
@@ -163,6 +162,7 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
         {product.prs.map(item => (
           <SwiperSlide>
             <div className="offerCard">
+              <div>{product.text}</div>
               <div
                 data-id={item.id}
                 onClick={handleRouteToProductDetails(item.id)}
@@ -202,7 +202,7 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="voteStyle">
+              <div className="voteStyle">
                 <div>
                   {likeData && likeData.data ? (
                     likeData.data.status === 201 ? (
@@ -248,7 +248,7 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
                     />
                   </span>
                 </div>
-              </div> */}
+              </div>
             </div>
           </SwiperSlide>
         ))}

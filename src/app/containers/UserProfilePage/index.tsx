@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
@@ -23,6 +23,8 @@ import { Card, Row, Col, Avatar, Button, Typography } from 'antd';
 import { UserProfileItem } from './components/UserProfileItem';
 import { history } from 'utils/history';
 import { Routes } from '../App/Router/routes';
+import { selectUserInfo } from '../App/selectors';
+import { appActions } from '../App/slice';
 
 interface Props {
   className?: string;
@@ -39,8 +41,13 @@ export function UserProfilePage({ className }: Props) {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
+  const userData = useSelector(selectUserInfo);
 
   const handleRoutToLogout = useCallback(() => history.push(Routes.logout), []);
+
+  useEffect(() => {
+    dispatch(appActions.userInfo({}));
+  }, [dispatch]);
 
   return (
     <StyledUserProfilePage
@@ -52,7 +59,15 @@ export function UserProfilePage({ className }: Props) {
         <div className="titleCardProfile">
           <div>
             <Avatar size="large" icon={<UserOutlined />} />
-            <span className="profileName">نام کاربری</span>
+            <span className="profileName">
+              {userData &&
+              userData.data &&
+              (userData.data.user.first_name || userData.data.user.first_name)
+                ? userData.data.user.first_name +
+                  ' ' +
+                  userData.data.user.last_name
+                : userData.data && userData.data.mobile}
+            </span>
           </div>
         </div>
         <UserProfileItem />

@@ -70,6 +70,7 @@ export const StyledUserOrder = styled.section`
     font-weight: bold;
     padding-right: 1em;
     color: #fff;
+    padding: 0 2em;
   }
 
   .actionDelete {

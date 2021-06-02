@@ -155,4 +155,26 @@ export const StyledSliderProduct = styled.section`
       background: red !important;
     }
   }
+
+  .swiper-button-next {
+    color: #000;
+    margin-left: 0.5em;
+    left: -15px !important;
+    margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
+  }
+
+  .swiper-button-prev {
+    color: #000;
+    right: -15px !important;
+    margin-right: 0.5em;
+    margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 17px;
+
+    padding: 0.4em;
+    font-weight: bold;
+  }
 `;

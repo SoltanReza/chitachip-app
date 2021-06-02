@@ -15,7 +15,6 @@ export type ContainerState = UserProfilePageState;
 export interface EditUserRequest {
   first_name: string;
   last_name: string;
-  mobile: string;
   username: string;
   national_code: string;
 }

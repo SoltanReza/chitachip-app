@@ -31,7 +31,6 @@ export const EditUserInfoModal = memo(({ className, user, onClose }: Props) => {
         actions.editUser({
           first_name: values.first_name,
           last_name: values.last_name,
-          mobile: values.mobile,
           national_code: values.national_code,
           username: values.mobile,
         }),
@@ -69,16 +68,13 @@ export const EditUserInfoModal = memo(({ className, user, onClose }: Props) => {
         onFinish={handleSubmit}
         initialValues={user || {}}
       >
-        <Form.Item name="first_name" rules={[{ required: true }]}>
-          <Input readOnly={loading} type="text" placeholder="نام کاربری" />
+        <Form.Item name="first_name">
+          <Input readOnly={loading} type="text" placeholder="نام" />
         </Form.Item>
-        <Form.Item name="last_name" rules={[{ required: true }]}>
+        <Form.Item name="last_name">
           <Input type="text" placeholder="نام خانوادگی" readOnly={loading} />
         </Form.Item>
-        <Form.Item name="mobile" rules={[{ required: true }]}>
-          <Input type="text" placeholder="شماره همراه" readOnly={loading} />
-        </Form.Item>
-        <Form.Item name="national_code" rules={[{ required: true }]}>
+        <Form.Item name="national_code">
           <Input type="text" placeholder="کد ملی" readOnly={loading} />
         </Form.Item>
 

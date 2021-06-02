@@ -14,7 +14,7 @@ export const StyledBasketHeader = styled.section`
     position: absolute;
     width: 50%;
     padding: 0em 1em 0 1em;
-    top: 2.4em;
+    top: 5.3em;
     border-radius: 10px;
     box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
     -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);

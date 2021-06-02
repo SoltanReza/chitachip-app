@@ -44,15 +44,18 @@ export const BasketHeader = memo(({ className }: Props) => {
   useEffect(() => {
     dispatch(appActions.browseBasket({}));
   }, [dispatch]);
-  console.log(basketData);
+
   return (
     <StyledBasketHeader className={`BasketHeader ${className || ''}`}>
       <div className="basketItem">
-        <div className="headerBasket">
+        {/* <div className="headerBasket">
           <ShoppingOutlined /> سبد خرید
-        </div>
+        </div> */}
         <div className="bodyBasket">
-          {basketData && basketData.data && basketData.data.value.products ? (
+          {basketData &&
+          basketData.data &&
+          basketData.data.amount > 0 &&
+          basketData.data.value.products ? (
             basketData.data.value.products.map(item => (
               <>
                 <div className="bodyBasketCard">

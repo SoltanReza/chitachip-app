@@ -99,32 +99,28 @@ export const Product = memo(({ className, data }: Props) => {
           <h1>{data.title}</h1>
         </div>
         <Row gutter={[16, { xs: 8, sm: 16, md: 48, lg: 48 }]}>
-          <Col xs={24} sm={24} md={9} lg={10} xl={10}>
+          <Col xs={24} sm={24} md={7} lg={8} xl={8}>
             <img src={data.image} alt={data.title} className="imgProduct" />
           </Col>
           <Col
             xs={24}
             sm={24}
-            md={9}
-            lg={10}
-            xl={10}
+            md={11}
+            lg={12}
+            xl={12}
             className="productInfoCard"
           >
             <Card className="productInfo">
-              <Typography>
-                <Title>ویژگی های محصولات</Title>
+              <div className="productInfoTitle">ویژگی های محصولات</div>
 
-                <div
-                  dangerouslySetInnerHTML={{ __html: data.properties }}
-                ></div>
-              </Typography>
+              <div dangerouslySetInnerHTML={{ __html: data.properties }}></div>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={6} lg={4} xl={4}>
-            <Card className="productInfo">
+            <Card className="priceInfoCard">
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                  <ul className="productInfoTitle">
+                  <ul className="priceInfoTitle">
                     <li>گارانتی اصل بودن کالا</li>
                     <li>ضمانت تحویل سالم!</li>
                   </ul>
@@ -183,12 +179,12 @@ export const Product = memo(({ className, data }: Props) => {
           </Col>
         </Row>
         <Row justify="end" className="productAlert">
-          <Col span={16}>
+          <Col xs={24} sm={24} md={16} lg={16} xl={16}>
             <h3 className="alertText">
               {' '}
               <WarningOutlined color="red" /> هشدار
             </h3>
-            <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
+            {/* <div dangerouslySetInnerHTML={{ __html: data.description }}></div> */}
           </Col>
         </Row>
       </Card>
@@ -222,8 +218,7 @@ export const Product = memo(({ className, data }: Props) => {
           className="tabcontent"
           style={{ display: 'block' }}
         >
-          <h3>چیتا چیپ</h3>
-          <p>مشخصات</p>
+          <div dangerouslySetInnerHTML={{ __html: data.description }}></div>
         </div>
 
         <div id="review" className="tabcontent">

@@ -76,3 +76,18 @@ export const selectDeleteFromBasketItem = createSelector(
   [selectDomain],
   state => state.deleteFromBasketItem,
 );
+
+export const selectSendEmailNews = createSelector(
+  [selectDomain],
+  state => state.sendEmailNews,
+);
+
+export const selectGetProductSlider = createSelector(
+  [selectDomain],
+  state => state.getProductSlider,
+);
+
+export const selectHisrtoryOfPurchase = createSelector(
+  [selectDomain],
+  state => state.hisrtoryOfPurchase,
+);

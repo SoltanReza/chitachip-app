@@ -161,6 +161,11 @@ export const StyledRegisterForm = styled(Form)`
     }
   }
 
+  .recaptcha {
+    margin: auto;
+    margin-top: 2em;
+  }
+
   @media (max-width: ${sizes.small}px) {
     padding: 1em;
   }

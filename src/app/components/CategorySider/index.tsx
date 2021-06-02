@@ -70,7 +70,8 @@ export const CategorySider = memo(({ className, categories }: Props) => {
         {categories &&
           categories.map(menu => (
             <li
-              className={`${menu.active ? 'activeCategory' : 'rowCategory'}`}
+              className="rowCategory"
+              // {`${menu.active ? 'activeCategory' : 'rowCategory'}`}
               key={menu.id}
             >
               <span

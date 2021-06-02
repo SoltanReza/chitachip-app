@@ -82,6 +82,9 @@ export const BasketItem = memo(({ className }: Props) => {
     (id: string) => () => redirect(Routes.productDetails, { id }),
     [],
   );
+  const handleContinueBuy = useCallback(() => {
+    redirect(Routes.sendInfo);
+  }, []);
 
   useEffect(() => {
     dispatch(appActions.browseBasket({}));
@@ -227,7 +230,11 @@ export const BasketItem = memo(({ className }: Props) => {
                 </Col>
               </Row>
               <Row className="continueBuy">
-                <Button block className="continueBuyBtn">
+                <Button
+                  block
+                  className="continueBuyBtn"
+                  onClick={handleContinueBuy}
+                >
                   ادامه خرید
                 </Button>
               </Row>

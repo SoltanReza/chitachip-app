@@ -19,6 +19,7 @@ import { registerPageSaga } from './saga';
 import { selectRegisterPage } from './selectors';
 import { reducer, sliceKey } from './slice';
 import { StyledRegisterPage } from './styles';
+import Recaptcha from 'react-recaptcha';
 
 interface Props {
   className?: string;
@@ -38,6 +39,7 @@ export function RegisterPage({ className }: Props) {
   const dispatch = useDispatch();
   const [showCodeSend, setShowCodeSend] = useState(false);
   const [loadingValideData, setLoadingValideData] = useState(false);
+  const [isValideCAptcha, setIsValideCAptcha] = useState(false);
 
   const registerData = useSelector(selectRegister);
   const loading = useMemo(() => !!registerData.params, [registerData.params]);
@@ -46,14 +48,18 @@ export function RegisterPage({ className }: Props) {
   ]);
   const handleRegister = useCallback(
     values => {
-      dispatch(
-        appActions.register({
-          password: values.password,
-          mobile: mobile.mobile,
-        }),
-      );
+      if (isValideCAptcha) {
+        dispatch(
+          appActions.register({
+            password: values.password,
+            mobile: mobile.mobile,
+          }),
+        );
+      } else {
+        alert('لطفا گزینه من ربات نیستم را تیک بزنید');
+      }
     },
-    [dispatch, mobile.mobile],
+    [dispatch, isValideCAptcha, mobile.mobile],
   );
 
   const handleValidateCode = useCallback(
@@ -84,6 +90,12 @@ export function RegisterPage({ className }: Props) {
   const handleRoutToHome = useCallback(() => history.push(Routes.home), [
     history,
   ]);
+  const onloadRecaptcha = useCallback(() => {}, []);
+  const verifyRecaptcha = useCallback(response => {
+    if (response) {
+      setIsValideCAptcha(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (registerData.data) {
@@ -168,6 +180,14 @@ export function RegisterPage({ className }: Props) {
               >
                 {t(translations.pages.LoginPage.LoginForm.continue)}
               </Button>{' '}
+              <div className="recaptcha">
+                <Recaptcha
+                  sitekey="6LdjRe0aAAAAAL_CiGrh0ABjzgcRbtLIF6tJZEfr"
+                  render="explicit"
+                  verifyCallback={verifyRecaptcha}
+                  onloadCallback={onloadRecaptcha}
+                />
+              </div>
             </Row>
           </Form>
         </div>

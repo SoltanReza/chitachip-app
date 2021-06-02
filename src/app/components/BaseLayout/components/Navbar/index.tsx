@@ -82,7 +82,13 @@ export const Navbar = memo(({ className }: Props) => {
           <li className="searchBar">
             <Search
               placeholder="جستجو"
-              style={{ width: 400, color: '#ff2222fsd1', opacity: '1' }}
+              style={{
+                width: 400,
+                color: '#ff2222fsd1',
+                opacity: '1',
+                direction: 'ltr',
+                marginTop: '2.4em',
+              }}
               className="searchStyle"
             />
           </li>
@@ -111,7 +117,13 @@ export const Navbar = memo(({ className }: Props) => {
           <li>
             <Search
               placeholder="جستجو"
-              style={{ width: 400 }}
+              style={{
+                width: 400,
+                color: '#ff2222fsd1',
+                opacity: '1',
+                direction: 'ltr',
+                marginTop: '2.4em',
+              }}
               className="searchStyle"
             />
           </li>

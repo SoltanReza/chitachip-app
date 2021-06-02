@@ -29,7 +29,16 @@ import {
   UpOutlined,
 } from '@ant-design/icons';
 
-import { Breadcrumb, Button, Card, Col, Row, Typography, Modal } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Row,
+  Typography,
+  Modal,
+  Checkbox,
+} from 'antd';
 import { sendInfoPageSaga } from './saga';
 
 interface Props {
@@ -65,7 +74,7 @@ export function SendInfoPage({ className }: Props) {
 
             <Card className="userAddressDetaileCard">
               <Row gutter={16}>
-                <Col xs={24} sm={24} md={3} lg={3} xl={3} className="selected">
+                <Col xs={24} sm={24} md={4} lg={4} xl={4} className="selected">
                   <CheckOutlined />
                   انتخاب شده
                 </Col>
@@ -86,10 +95,10 @@ export function SendInfoPage({ className }: Props) {
               </Row>
               <hr className="solid" />
               <Row gutter={16}>
-                <Col xs={24} sm={24} md={3} lg={3} xl={3} className="selected">
+                <Col xs={24} sm={24} md={7} lg={4} xl={4} className="selected">
                   <Button className="selectBtn">انتخاب</Button>
                 </Col>
-                <Col xs={24} sm={24} md={21} lg={21} xl={21}>
+                <Col xs={24} sm={24} md={17} lg={20} xl={20}>
                   <div className="moreBtnAddressCol">
                     <span>
                       مشاهده بیشتر
@@ -118,10 +127,10 @@ export function SendInfoPage({ className }: Props) {
               </Row>
               <hr className="solid" />
               <Row gutter={16}>
-                <Col xs={24} sm={24} md={3} lg={3} xl={3} className="selected">
+                <Col xs={24} sm={24} md={6} lg={4} xl={4} className="selected">
                   <Button className="selectBtn">انتخاب</Button>
                 </Col>
-                <Col xs={24} sm={24} md={15} lg={15} xl={15}>
+                <Col xs={24} sm={24} md={14} lg={15} xl={15}>
                   <p>
                     <span className="reciverName">نام آدرس: </span>
                     <span>خانه</span>
@@ -131,9 +140,56 @@ export function SendInfoPage({ className }: Props) {
                     <span> پویا جنانی</span>
                   </p>
                 </Col>
-                <Col xs={24} sm={24} md={5} lg={5} xl={5} className="moreVeiw">
+                <Col xs={24} sm={24} md={4} lg={5} xl={5} className="moreVeiw">
                   مشاهده بیشتر
                   <DownOutlined />
+                </Col>
+              </Row>
+            </Card>
+
+            <div className="cardInfoTitle">مرسولات</div>
+            <div className="cardInfoTitle">لاسرا شور </div>
+            <Card className="userAddressDetaileCard">
+              <Row gutter={16}>
+                <Col xs={24} sm={24} md={4} lg={4} xl={4} className="selected">
+                  <CheckOutlined />
+                  انتخاب شده
+                </Col>
+                <Col xs={24} sm={24} md={20} lg={20} xl={20}>
+                  <p>
+                    <span className="reciverName">
+                      {' '}
+                      منطقه تهران22ارسال ارزان{' '}
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      {' '}
+                      منطقه تهران با پیک موتوری22 روز پس از ثبت سفارش برای
+                      2ارسال تا{' '}
+                    </span>
+                  </p>
+                </Col>
+              </Row>
+              <hr className="solid" />
+              <Row gutter={16}>
+                <Col xs={24} sm={24} md={4} lg={4} xl={4} className="selected">
+                  <Button className="selectBtn">انتخاب</Button>
+                </Col>
+                <Col xs={24} sm={24} md={20} lg={20} xl={20}>
+                  <p>
+                    <span className="reciverName">
+                      {' '}
+                      منطقه تهران22ارسال ارزان{' '}
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      {' '}
+                      منطقه تهران با پیک موتوری22 روز پس از ثبت سفارش برای
+                      2ارسال تا{' '}
+                    </span>
+                  </p>
                 </Col>
               </Row>
             </Card>
@@ -228,6 +284,19 @@ export function SendInfoPage({ className }: Props) {
             </Card>
           </Col>
         </Row>
+        <div className="role">
+          <Checkbox
+          // checked={this.state.checked}
+          // disabled={this.state.disabled}
+          // onChange={this.onChange}
+          />
+
+          <div className="roleTitle">
+            (خواندن شرایط خدمات)شرایط خدمات را مطالعه کرده و بدون قید و شرط با
+            آن موافقم.
+          </div>
+        </div>
+        <div className="cardInfoTitle">درگاه پرداخت</div>
       </Card>
     </StyledSendInfoPage>
   );

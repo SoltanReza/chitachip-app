@@ -159,17 +159,20 @@ export const StyledUnitCarouselRight = styled.section`
   .swiper-button-next {
     color: #000;
     margin-left: 0.5em;
+    left: 1px !important;
+    margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
   }
 
   .swiper-button-prev {
     color: #000;
     margin-right: 0.5em;
+    right: 1px !important;
+    margin-top: calc(0px - (var(--swiper-navigation-size) / 2)) !important;
   }
 
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 17px;
-
     padding: 0.4em;
     font-weight: bold;
   }

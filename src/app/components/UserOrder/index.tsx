@@ -4,8 +4,11 @@
  *
  */
 import { Button, Card, Divider, Descriptions } from 'antd';
-import React, { memo } from 'react';
+import { selectHisrtoryOfPurchase } from 'app/containers/App/selectors';
+import { appActions } from 'app/containers/App/slice';
+import React, { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { StyledUserOrder } from './styles';
 
 interface Props {
@@ -14,6 +17,13 @@ interface Props {
 
 export const UserOrder = memo(({ className }: Props) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const hisrtoryOfPurchaseData = useSelector(selectHisrtoryOfPurchase);
+
+  useEffect(() => {
+    dispatch(appActions.hisrtoryOfPurchase({}));
+  }, [dispatch]);
 
   return (
     <StyledUserOrder className={`UserOrder ${className || ''}`}>
@@ -42,11 +52,9 @@ export const UserOrder = memo(({ className }: Props) => {
           <td>
             <div className="action">
               <div>
-                <Button className="actionView">نمایش</Button>
+                <Button className="actionView">جزئیات</Button>
               </div>
-              <div>
-                <Button className="actionDelete">حذف</Button>
-              </div>
+              <div>سفارش مجدد</div>
             </div>
           </td>
         </tr>

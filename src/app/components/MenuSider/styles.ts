@@ -27,6 +27,9 @@ export const StyledMenuSider = styled.section`
       .hoverCategory {
         display: inline;
       }
+      .rowCategoryItem {
+        background: #f9ae3b !important;
+      }
     }
   }
 
@@ -61,15 +64,14 @@ export const StyledMenuSider = styled.section`
     max-height: 250px;
     height: 100%;
     overflow-y: auto;
-    margin-top: -2em;
+    margin-top: -1.7em;
     -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
     -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
   }
 
   .colCategoryList {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 1em;
   }
 
   .imgCategoryList {
@@ -77,9 +79,11 @@ export const StyledMenuSider = styled.section`
     height: 50px;
   }
 
-  .colCategoryList {
-    padding: 1em;
+  .rowImgCategoryList {
+    display: flex;
+    justify-content: center;
   }
+
   .colCategoryList:hover {
     padding: 1em;
     background: #fff;
@@ -87,6 +91,13 @@ export const StyledMenuSider = styled.section`
     -webkit-box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  .subCategoryListTitle {
+    display: flex;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
   }
 
   /* .menuSiderItem {

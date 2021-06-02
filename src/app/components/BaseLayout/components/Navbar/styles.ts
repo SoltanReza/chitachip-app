@@ -35,7 +35,11 @@ export const StyledNavbar = styled.section`
     background: none;
     > input {
       background: none;
+      text-align: right;
     }
+  }
+  .ant-input-search-rtl .ant-input-search-icon::after {
+    border-right: none;
   }
 
   ul {

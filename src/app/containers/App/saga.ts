@@ -13,10 +13,13 @@ import {
   browseProductApi,
   deleteFromBasketItemApi,
   getCodeApi,
+  getProductSliderApi,
   getTokenApi,
+  hisrtoryOfPurchaseApi,
   likeProductApi,
   loginApi,
   registerApi,
+  sendEmailNewsApi,
   userInfoApi,
 } from './api';
 import { Routes } from './Router/routes';
@@ -29,9 +32,12 @@ import {
   BrowseListProductsRequest,
   BrowseProductRequest,
   DeleteFromBasketItemRequest,
+  GetProductSliderRequest,
+  HisrtoryOfPurchaseRequest,
   LikeProductRequest,
   LoginRequest,
   RegisterRequest,
+  SendEmailNewsRequest,
   UserInfoRequest,
 } from './types';
 
@@ -210,6 +216,42 @@ export function* deleteFromBasketItemSaga(
   }
 }
 
+export function* sendEmailNewsSaga(
+  action: PayloadAction<SendEmailNewsRequest>,
+) {
+  try {
+    const response = yield call(sendEmailNewsApi, action.payload);
+    yield put(appActions.sendEmailNewsSuccess(response));
+  } catch (error) {
+    yield put(appActions.sendEmailNewsError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* getProductSliderSaga(
+  action: PayloadAction<GetProductSliderRequest>,
+) {
+  try {
+    const response = yield call(getProductSliderApi, action.payload);
+    yield put(appActions.getProductSliderSuccess(response));
+  } catch (error) {
+    yield put(appActions.getProductSliderError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* hisrtoryOfPurchaseSaga(
+  action: PayloadAction<HisrtoryOfPurchaseRequest>,
+) {
+  try {
+    const response = yield call(hisrtoryOfPurchaseApi, action.payload);
+    yield put(appActions.hisrtoryOfPurchaseSuccess(response));
+  } catch (error) {
+    yield put(appActions.hisrtoryOfPurchaseError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -221,6 +263,9 @@ export function* appSaga() {
   yield takeLatest(appActions.userInfo.type, userInfoSaga);
   yield takeLatest(appActions.browseBasket.type, browseBasketSaga);
   yield takeLatest(appActions.addToBasket.type, addToBasketSaga);
+  yield takeLatest(appActions.sendEmailNews.type, sendEmailNewsSaga);
+  yield takeLatest(appActions.getProductSlider.type, getProductSliderSaga);
+  yield takeLatest(appActions.hisrtoryOfPurchase.type, hisrtoryOfPurchaseSaga);
   yield takeLatest(
     appActions.deleteFromBasketItem.type,
     deleteFromBasketItemSaga,

@@ -70,20 +70,21 @@ export const MenuSider = memo(({ className, categories }: Props) => {
         {categories &&
           categories.map(menu => (
             <li className="rowCategory" key={menu.category.id}>
-              <span
-                data-cat-id={menu.category.id}
-                data-cat-name={menu.category.name}
-                onClick={handleRoutToProductList}
-              >
-                {' '}
-                <img
-                  src={menu.category.icon}
-                  className="iconCategory"
-                  alt={menu.category.name}
-                />
-                <span className="titleCategory">{menu.category.name}</span>
-              </span>
-
+              <div className="rowCategoryItem">
+                <span
+                  data-cat-id={menu.category.id}
+                  data-cat-name={menu.category.name}
+                  onClick={handleRoutToProductList}
+                >
+                  {' '}
+                  <img
+                    src={menu.category.icon}
+                    className="iconCategory"
+                    alt={menu.category.name}
+                  />
+                  <span className="titleCategory">{menu.category.name}</span>
+                </span>
+              </div>
               <div className="hoverCategory">
                 <Row gutter={16}>
                   {menu.sub.map(subMenue => (
@@ -94,14 +95,16 @@ export const MenuSider = memo(({ className, categories }: Props) => {
                       data-cat-name={subMenue.name}
                       onClick={handleRoutToProductList}
                     >
-                      <Col span={24}>
+                      <Row className="rowImgCategoryList">
                         <img
                           src={subMenue.icon}
                           className="imgCategoryList"
                           alt={subMenue.name}
                         />
-                      </Col>
-                      <Col span={24}>{subMenue.name}</Col>
+                      </Row>
+                      <Row className="subCategoryListTitle">
+                        {subMenue.name}
+                      </Row>
                     </Col>
                   ))}
                 </Row>

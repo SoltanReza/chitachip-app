@@ -69,13 +69,13 @@ export const UserInfo = memo(({ className }: Props) => {
               <Col span={4}></Col>
             </Row>
             <Row gutter={[8, 8]} className="profileInfoTitle">
-              <Col span={10}>ایمیل:</Col>
+              <Col span={10}>کد ملی:</Col>
               <Col span={10}>{userData.data.user.national_code}</Col>
               <Col span={4}></Col>
             </Row>
             <Row gutter={[8, 8]} className="profileInfoTitle">
               <Col span={10}>شماره همراه:</Col>
-              <Col span={10}>{userData.data.user.mobile}</Col>
+              <Col span={10}>{userData.data.mobile}</Col>
               <Col span={4}></Col>
             </Row>
 
