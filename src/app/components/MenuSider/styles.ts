@@ -29,6 +29,7 @@ export const StyledMenuSider = styled.section`
       }
       .rowCategoryItem {
         background: #f9ae3b !important;
+        opacity: 0.5;
       }
     }
   }

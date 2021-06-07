@@ -184,7 +184,9 @@ export const SliderProduct = memo(({ className, product }: Props) => {
                 </div>
                 <div className="priceStyle">
                   <div className="price">
-                    <div className="discount">18%</div>
+                    <div className="discount">
+                      {item.discount > 0 && item.discount}
+                    </div>
                     <s className="priceDiscount">
                       {item.price
                         .toFixed()

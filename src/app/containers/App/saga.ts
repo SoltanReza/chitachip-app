@@ -5,13 +5,17 @@ import { call, delay, put, takeLatest } from 'redux-saga/effects';
 import { redirect } from 'utils/history';
 import { Storage } from 'utils/storage';
 import {
+  addAddressApi,
   addToBasketApi,
+  browseAddressApi,
   browseBasketApi,
   browseCategoriesApi,
   browseHomeListApi,
+  browseLikeListApi,
   browseListProductsApi,
   browseProductApi,
   deleteFromBasketItemApi,
+  deleteLikeItemApi,
   getCodeApi,
   getProductSliderApi,
   getTokenApi,
@@ -25,13 +29,17 @@ import {
 import { Routes } from './Router/routes';
 import { appActions } from './slice';
 import {
+  AddAddressRequest,
   AddToBasketRequest,
+  BrowseAddressRequest,
   BrowseBasketRequest,
   BrowseCategoriesRequest,
   BrowseHomeListRequest,
+  BrowseLikeListRequest,
   BrowseListProductsRequest,
   BrowseProductRequest,
   DeleteFromBasketItemRequest,
+  DeleteLikeItemRequest,
   GetProductSliderRequest,
   HisrtoryOfPurchaseRequest,
   LikeProductRequest,
@@ -252,6 +260,55 @@ export function* hisrtoryOfPurchaseSaga(
   }
 }
 
+export function* browseAddressSaga(
+  action: PayloadAction<BrowseAddressRequest>,
+) {
+  try {
+    const response = yield call(browseAddressApi, action.payload);
+    yield put(appActions.browseAddressSuccess(response));
+  } catch (error) {
+    yield put(appActions.browseAddressError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* addAddressSaga(action: PayloadAction<AddAddressRequest>) {
+  try {
+    const response = yield call(addAddressApi, action.payload);
+    yield put(appActions.addAddressSuccess(response));
+    if (response.status === 201) {
+      yield put(appActions.notifySuccess('آدرس شما با موفقیت اضافه شد'));
+    }
+  } catch (error) {
+    yield put(appActions.addAddressError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* browseLikeListSaga(
+  action: PayloadAction<BrowseLikeListRequest>,
+) {
+  try {
+    const response = yield call(browseLikeListApi, action.payload);
+    yield put(appActions.browseLikeListSuccess(response));
+  } catch (error) {
+    yield put(appActions.browseLikeListError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* deleteLikeItemSaga(
+  action: PayloadAction<DeleteLikeItemRequest>,
+) {
+  try {
+    const response = yield call(deleteLikeItemApi, action.payload);
+    yield put(appActions.deleteLikeItemSuccess(response));
+  } catch (error) {
+    yield put(appActions.deleteLikeItemError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -266,6 +323,10 @@ export function* appSaga() {
   yield takeLatest(appActions.sendEmailNews.type, sendEmailNewsSaga);
   yield takeLatest(appActions.getProductSlider.type, getProductSliderSaga);
   yield takeLatest(appActions.hisrtoryOfPurchase.type, hisrtoryOfPurchaseSaga);
+  yield takeLatest(appActions.browseAddress.type, browseAddressSaga);
+  yield takeLatest(appActions.addAddress.type, addAddressSaga);
+  yield takeLatest(appActions.browseLikeList.type, browseLikeListSaga);
+  yield takeLatest(appActions.deleteLikeItem.type, deleteLikeItemSaga);
   yield takeLatest(
     appActions.deleteFromBasketItem.type,
     deleteFromBasketItemSaga,

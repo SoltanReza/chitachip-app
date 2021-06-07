@@ -97,6 +97,7 @@ export interface BasketData {
   products: Array<{
     product_id: string;
     quantity: number;
+    discount: number;
     title: string;
     price: number;
     image: string;

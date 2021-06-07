@@ -74,6 +74,26 @@ export interface AppState {
     data?: HisrtoryOfPurchaseResponse;
     error?: ErrorResponse;
   };
+  addAddress: {
+    params?: AddAddressRequest;
+    data?: AddAddressResponse;
+    error?: ErrorResponse;
+  };
+  browseAddress: {
+    params?: BrowseAddressRequest;
+    data?: BrowseAddressResponse;
+    error?: ErrorResponse;
+  };
+  browseLikeList: {
+    params?: BrowseLikeListRequest;
+    data?: BrowseLikeListResponse;
+    error?: ErrorResponse;
+  };
+  deleteLikeItem: {
+    params?: DeleteLikeItemRequest;
+    data?: DeleteLikeItemResponse;
+    error?: ErrorResponse;
+  };
 
   auth?: AuthData;
 }
@@ -123,11 +143,11 @@ export interface ProductData {
   code: string;
   description: string;
   discount_end_time: string;
-
   image: string;
   image_thumbnail: string;
   is_offer: boolean;
   num_of_ratings: number;
+  discount: number;
   price: number;
   properties: string;
   stock: number;
@@ -414,8 +434,9 @@ export interface Bill {
   date: string;
   weight: string;
   shipment: string;
-  invoiceNumber: number;
+  invoiceNumber: string;
   address: string;
+  address_name: string;
   phone: string;
   prs: [
     {
@@ -429,13 +450,66 @@ export interface Bill {
 }
 export interface HisrtoryOfPurchaseRequest {}
 export interface HisrtoryOfPurchaseResponse {
-  bill: Array<Bill>;
-  refID: number;
-  state: string;
-  invoiceNumber: number;
-  date: string;
-  type: string;
-  price: string;
+  data: Array<{
+    bill: Bill;
+    refID: number;
+    state: string;
+    invoiceNumber: number;
+    date: string;
+    type: string;
+    price: string;
+  }>;
 }
 
 // #endregion HisrtoryOfPurchase
+
+// #region AddAddress
+export interface AddAddressRequest {
+  receiver_name: string;
+  receiver_mobile: string;
+  code_posti: string;
+  name: string;
+  address: string;
+}
+export interface AddAddressResponse {
+  id: string;
+  staus: string;
+}
+// #endregion AddAddress
+
+// #region BrowseAddress
+export interface BrowseAddressRequest {}
+export interface BrowseAddressResponse {
+  data: Array<{
+    id: string;
+    address: string;
+    code_posti: string;
+    name: string;
+    receiver_mobile: string;
+    receiver_name: string;
+    user: string;
+  }>;
+  staus: number;
+}
+// #endregion BrowseAddress
+
+// #region BrowseLikeList
+export interface BrowseLikeListRequest {}
+export interface BrowseLikeListResponse {
+  data: Array<{
+    image_thumbnail: string;
+    title: string;
+    price: string;
+    id: string;
+  }>;
+}
+// #endregion BrowseLikeList
+
+// #region DeleteLikeItem
+export interface DeleteLikeItemRequest {
+  id: string;
+}
+export interface DeleteLikeItemResponse {
+  status: number;
+}
+// #endregion DeleteLikeItem

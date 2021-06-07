@@ -129,7 +129,7 @@ export const Product = memo(({ className, data }: Props) => {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                   <div className="priceInfo">
-                    <div className="discount">18%</div>
+                    <div className="discount"></div>
                     <div>2235255</div>
                   </div>
                   <p className="showPrice">235.325 تومان</p>

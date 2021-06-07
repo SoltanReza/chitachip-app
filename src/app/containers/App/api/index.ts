@@ -1,14 +1,20 @@
 import { ErrorResponse } from 'types';
 import { http } from 'utils/request';
 import {
+  AddAddressRequest,
+  AddAddressResponse,
   AddToBasketRequest,
   AddToBasketResponse,
+  BrowseAddressRequest,
+  BrowseAddressResponse,
   BrowseBasketRequest,
   BrowseBasketResponse,
   BrowseCategoriesRequest,
   BrowseCategoriesResponse,
   BrowseHomeListRequest,
   BrowseHomeListResponse,
+  BrowseLikeListRequest,
+  BrowseLikeListResponse,
   BrowseListProductsRequest,
   BrowseListProductsResponse,
   BrowseProductRequest,
@@ -21,6 +27,8 @@ import {
   CheckUserResponse,
   DeleteFromBasketItemRequest,
   DeleteFromBasketItemResponse,
+  DeleteLikeItemRequest,
+  DeleteLikeItemResponse,
   GetCodeRequest,
   GetCodeResponse,
   GetProductSliderRequest,
@@ -188,5 +196,33 @@ export function hisrtoryOfPurchaseApi(
 ): Promise<ErrorResponse | HisrtoryOfPurchaseResponse> {
   return http
     .get('v1/get-hisrtory-of-purchase/', { params })
+    .then(response => response.data);
+}
+
+export function browseAddressApi(
+  params: BrowseAddressRequest,
+): Promise<ErrorResponse | BrowseAddressResponse> {
+  return http.get('v1/address/', { params }).then(response => response.data);
+}
+
+export function addAddressApi(
+  params: AddAddressRequest,
+): Promise<ErrorResponse | AddAddressResponse> {
+  return http.post('v1/address/', params).then(response => response.data);
+}
+
+export function browseLikeListApi(
+  params: BrowseLikeListRequest,
+): Promise<ErrorResponse | BrowseLikeListResponse> {
+  return http
+    .get('v1/get-favorities-purchase/', { params })
+    .then(response => response.data);
+}
+
+export function deleteLikeItemApi(
+  params: DeleteLikeItemRequest,
+): Promise<ErrorResponse | DeleteLikeItemResponse> {
+  return http
+    .get('v1/get-favorities-purchase/', { params })
     .then(response => response.data);
 }

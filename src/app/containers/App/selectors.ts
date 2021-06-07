@@ -91,3 +91,18 @@ export const selectHisrtoryOfPurchase = createSelector(
   [selectDomain],
   state => state.hisrtoryOfPurchase,
 );
+
+export const selectBrowseAddress = createSelector(
+  [selectDomain],
+  state => state.browseAddress,
+);
+
+export const selectAddAddress = createSelector(
+  [selectDomain],
+  state => state.addAddress,
+);
+
+export const selectBrowseLikeList = createSelector(
+  [selectDomain],
+  state => state.browseLikeList,
+);

@@ -3,14 +3,20 @@ import { AuthData, ErrorResponse } from 'types';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { Storage } from 'utils/storage';
 import {
+  AddAddressRequest,
+  AddAddressResponse,
   AddToBasketRequest,
   AddToBasketResponse,
+  BrowseAddressRequest,
+  BrowseAddressResponse,
   BrowseBasketRequest,
   BrowseBasketResponse,
   BrowseCategoriesRequest,
   BrowseCategoriesResponse,
   BrowseHomeListRequest,
   BrowseHomeListResponse,
+  BrowseLikeListRequest,
+  BrowseLikeListResponse,
   BrowseListProductsRequest,
   BrowseListProductsResponse,
   BrowseProductRequest,
@@ -18,6 +24,8 @@ import {
   ContainerState,
   DeleteFromBasketItemRequest,
   DeleteFromBasketItemResponse,
+  DeleteLikeItemRequest,
+  DeleteLikeItemResponse,
   GetProductSliderRequest,
   GetProductSliderResponse,
   HisrtoryOfPurchaseRequest,
@@ -106,6 +114,26 @@ export const initialState: ContainerState = {
     error: undefined,
   },
   hisrtoryOfPurchase: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  addAddress: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  browseAddress: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  browseLikeList: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  deleteLikeItem: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -399,6 +427,93 @@ const appSlice = createSlice({
       state.hisrtoryOfPurchase = initialState.hisrtoryOfPurchase;
     },
     //#endregion HisrtoryOfPurchase
+
+    //#region BrowseAddress
+    browseAddress(state, action: PayloadAction<BrowseAddressRequest>) {
+      state.browseAddress.params = action.payload;
+      state.browseAddress.data = initialState.browseAddress.data;
+      state.browseAddress.error = initialState.browseAddress.error;
+    },
+    browseAddressSuccess(state, action: PayloadAction<BrowseAddressResponse>) {
+      state.browseAddress.params = initialState.browseAddress.params;
+      state.browseAddress.data = action.payload;
+    },
+    browseAddressError(state, action: PayloadAction<ErrorResponse>) {
+      state.browseAddress.params = initialState.browseAddress.params;
+      state.browseAddress.error = action.payload;
+    },
+    browseAddressClear(state) {
+      state.browseAddress = initialState.browseAddress;
+    },
+    //#endregion BrowseAddress
+
+    //#region AddAddress
+    addAddress(state, action: PayloadAction<AddAddressRequest>) {
+      state.addAddress.params = action.payload;
+      state.addAddress.data = initialState.addAddress.data;
+      state.addAddress.error = initialState.addAddress.error;
+    },
+    addAddressSuccess(state, action: PayloadAction<AddAddressResponse>) {
+      state.addAddress.params = initialState.addAddress.params;
+      state.addAddress.data = action.payload;
+    },
+    addAddressError(state, action: PayloadAction<ErrorResponse>) {
+      state.addAddress.params = initialState.addAddress.params;
+      state.addAddress.error = action.payload;
+    },
+    addAddressClear(state) {
+      state.addAddress = initialState.addAddress;
+    },
+    //#endregion AddAddress
+
+    //#region browseLikeList
+    browseLikeList(state, action: PayloadAction<BrowseLikeListRequest>) {
+      state.browseLikeList.params = action.payload;
+      state.browseLikeList.data = initialState.browseLikeList.data;
+      state.browseLikeList.error = initialState.browseLikeList.error;
+    },
+    browseLikeListSuccess(
+      state,
+      action: PayloadAction<BrowseLikeListResponse>,
+    ) {
+      state.browseLikeList.params = initialState.browseLikeList.params;
+      state.browseLikeList.data = action.payload;
+    },
+    browseLikeListError(state, action: PayloadAction<ErrorResponse>) {
+      state.browseLikeList.params = initialState.browseLikeList.params;
+      state.browseLikeList.error = action.payload;
+    },
+    browseLikeListClear(state) {
+      state.browseLikeList = initialState.browseLikeList;
+    },
+    //#endregion browseLikeList
+
+    //#region deleteLikeItem
+    deleteLikeItem(state, action: PayloadAction<DeleteLikeItemRequest>) {
+      state.deleteLikeItem.params = action.payload;
+      state.deleteLikeItem.data = initialState.deleteLikeItem.data;
+      state.deleteLikeItem.error = initialState.deleteLikeItem.error;
+    },
+    deleteLikeItemSuccess(
+      state,
+      action: PayloadAction<DeleteLikeItemResponse>,
+    ) {
+      if (state.browseLikeList.data) {
+        state.browseLikeList.data.data = state.browseLikeList.data.data.filter(
+          like => like.id !== state.deleteLikeItem.params?.id,
+        );
+      }
+      state.deleteLikeItem.params = initialState.deleteLikeItem.params;
+      state.deleteLikeItem.data = action.payload;
+    },
+    deleteLikeItemError(state, action: PayloadAction<ErrorResponse>) {
+      state.deleteLikeItem.params = initialState.deleteLikeItem.params;
+      state.deleteLikeItem.error = action.payload;
+    },
+    deleteLikeItemClear(state) {
+      state.deleteLikeItem = initialState.deleteLikeItem;
+    },
+    //#endregion deleteLikeItem
 
     //#region AddToBasket
     addToBasket(state, action: PayloadAction<AddToBasketRequest>) {
