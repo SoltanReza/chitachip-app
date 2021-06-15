@@ -3,6 +3,7 @@ import { HomePage } from 'app/containers/HomePage/Loadable';
 import { LoginPage } from 'app/containers/LoginPage/Loadable';
 import { LogoutPage } from 'app/containers/LogoutPage/Loadable';
 import { NotFoundPage } from 'app/containers/NotFoundPage/Loadable';
+import { PaymentCallbackPage } from 'app/containers/PaymentCallbackPage/Loadable';
 import { ProductDetailsPage } from 'app/containers/ProductDetailsPage/Loadable';
 import { ProductListPage } from 'app/containers/ProductListPage/Loadable';
 import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
@@ -99,6 +100,14 @@ export const Router = () => {
       exact: true,
       path: Routes.sendInfo,
       component: SendInfoPage,
+      auth: {
+        check: AuthLevel.AUTHENTICATED,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.paymentCallback,
+      component: PaymentCallbackPage,
       auth: {
         check: AuthLevel.AUTHENTICATED,
       },

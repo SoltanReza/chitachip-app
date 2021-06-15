@@ -16,6 +16,7 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     color: #000;
     font-weight: bold;
     font-size: 1.2em;
+    margin-bottom: 1em;
   }
 
   .userAddressAdd {
@@ -62,6 +63,44 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     hr.solid {
       border-top: 3px solid #bbb;
       margin-bottom: 1em;
+    }
+  }
+
+  .timeDateCard {
+    background: #f6f6f6;
+    border-radius: 9px;
+    padding: 0;
+    margin: 1em 0;
+    .ant-card-body {
+      padding: 0;
+    }
+    .timeDateRow {
+      text-align: center;
+    }
+    .timeDateCol {
+      border-left: 1px solid;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 1em;
+      color: #000;
+      cursor: pointer;
+    }
+    .timeDateColSelected {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 1em;
+      color: #000;
+      background: #fff;
+      border: 1px solid #ffb14d;
+      border-radius: 5px;
+      cursor: pointer;
+      -webkit-box-shadow: 0px 0px 14px 0px rgb(55 50 50 / 44%);
+      -moz-box-shadow: 0px 0px 14px 0px rgba(55, 50, 50, 0.44);
+      box-shadow: 0px 0px 14px 0px rgb(55 50 50 / 44%);
+    }
+
+    .timeDateCol:last-child {
+      border-left: none;
     }
   }
 
@@ -184,5 +223,82 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     font-weight: bold;
     cursor: pointer;
     margin-right: 0.3em;
+  }
+
+  .offerCard {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 1em;
+    border-radius: 6px;
+    min-width: 100%;
+    cursor: pointer;
+    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    position: relative;
+    height: 275px;
+  }
+
+  .imgProductWrapper {
+    display: flex;
+    justify-content: center;
+    height: 130px;
+  }
+
+  .imgProduct {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  .titleProduct {
+    font-weight: bold;
+    margin-bottom: 0.7em;
+  }
+  .buyProduct {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between !important;
+    margin-top: 0.7em;
+  }
+  .price {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  .priceBtn {
+    display: flex;
+    flex-direction: revert;
+    justify-content: space-between;
+  }
+  .iconeShop {
+    margin-left: 0.2em;
+  }
+  .discountBtn {
+    border-radius: 11px;
+    background: #ff9800;
+  }
+
+  .priceStyle {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .currency {
+    font-size: 0.6em;
+    line-height: 2.5em;
+  }
+
+  .discount {
+    margin-left: 1em;
+    color: red;
+    font-weight: bold;
+  }
+
+  .priceDiscount {
+    font-size: 0.8em;
+    line-height: 1.9em;
   }
 `;

@@ -21,7 +21,7 @@ import {
 } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 import { ProductData } from 'app/containers/App/types';
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import SwiperCore, {
@@ -49,7 +49,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
   const onlyWidth = useWindowWidth();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [quantity, setquantity] = useState(0);
+  const [quantity, setquantity] = useState<number | undefined>(0);
   const [currentElement, setCurrentElement] = useState('');
 
   const authData = useSelector(selectAuth);
@@ -75,45 +75,30 @@ export const SliderProduct = memo(({ className, product }: Props) => {
   const handleMinusQuantity = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
+      setquantity(addToBasketData.data?.quantity);
       setCurrentElement(data.id);
-      if (quantity > 1) {
-        setquantity(quantity - 1);
-      } else {
-        setquantity(0);
-      }
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.id,
+          quantity: -1,
+        }),
+      );
     },
-    [quantity],
+    [addToBasketData.data, dispatch],
   );
   const handlePlusQuantity = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
-      setCurrentElement(data.id);
-      if (currentElement !== data.id) {
-        setquantity(1);
-      } else {
-        setquantity(quantity + 1);
-      }
-    },
-    [currentElement, quantity],
-  );
 
-  const handleAddToBasket = useCallback(
-    e => {
-      const data = e.currentTarget.dataset as any;
-      setCurrentElement(data.product_id);
-      if (quantity <= 0) {
-        message.warning('لطفا تعداد محصول را مشخص کنید');
-      } else {
-        dispatch(
-          appActions.addToBasket({
-            product_id: data.product_id,
-            quantity: quantity,
-          }),
-        );
-        setquantity(0);
-      }
+      setCurrentElement(data.id);
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.id,
+          quantity: 1,
+        }),
+      );
     },
-    [dispatch, quantity],
+    [dispatch],
   );
 
   const handleVoteLike = useCallback(
@@ -129,6 +114,26 @@ export const SliderProduct = memo(({ className, product }: Props) => {
     },
     [authData, dispatch],
   );
+  useEffect(() => {
+    if (addToBasketData) {
+      if (addToBasketData.data) {
+        if (addToBasketData.data.status === 402) {
+          // message.info('ظرفیت این محصول به اتمام رسیده است');
+        }
+      }
+    }
+  }, [addToBasketData]);
+  useEffect(() => {
+    if (addToBasketData.data?.status === 200) {
+      if (quantity) {
+        if (quantity < addToBasketData.data?.quantity) {
+          message.success('محصول با موفقیت به سبد خرید اضافه شد');
+        } else {
+          message.success('محصول با موفقیت از سبد خرید کم شد');
+        }
+      }
+    }
+  }, [addToBasketData, quantity]);
 
   return (
     <StyledSliderProduct className={`SliderProduct ${className || ''}`}>
@@ -228,18 +233,22 @@ export const SliderProduct = memo(({ className, product }: Props) => {
                   )}
                 </div>
                 <div>
-                  <ShoppingOutlined
+                  {/* <ShoppingOutlined
                     style={{ color: '#ffc107', fontSize: '1.5em' }}
                     data-product_id={item.id}
                     onClick={handleAddToBasket}
-                  />{' '}
+                  />{' '} */}
                   <span className="count">
                     <PlusOutlined
                       data-id={item.id}
                       onClick={handlePlusQuantity}
                     />
                     {currentElement === item.id ? (
-                      <span>{quantity}</span>
+                      addToBasketData.data?.status === 402 ? (
+                        0
+                      ) : (
+                        <span>{addToBasketData.data?.quantity}</span>
+                      )
                     ) : (
                       <span>0</span>
                     )}

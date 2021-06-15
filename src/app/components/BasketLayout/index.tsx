@@ -14,8 +14,8 @@ import { StyledContent, StyledHeader, StyledBasketLayout } from './styles';
 interface Props {
   className?: string;
   children: ReactNode;
-  title?: string;
-  description?: string;
+  title?: string | undefined;
+  description?: string | undefined;
 }
 
 export const BasketLayout = memo(

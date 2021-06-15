@@ -20,7 +20,7 @@ import { SliderProduct } from 'app/components/SliderProduct';
 import { MenuSider } from 'app/components/MenuSider';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -71,9 +71,16 @@ export function HomePage({ className }: Props) {
 
   const authData = useSelector(selectAuth);
   const addToBasketData = useSelector(selectAddToBasket);
-
   const BrowseHomeList = useSelector(selectBrowseHomeList);
   const likeData = useSelector(selectLikeProduct);
+
+  const loading = useMemo(() => !!BrowseHomeList.params, [
+    BrowseHomeList.params,
+  ]);
+  const loadingAddToBasket = useMemo(() => !!addToBasketData.params, [
+    addToBasketData.params,
+  ]);
+
   const handleChangeAffixed = useCallback(affixed => {
     setChangeAffixed(affixed);
   }, []);
@@ -107,45 +114,47 @@ export function HomePage({ className }: Props) {
     e => {
       const data = e.currentTarget.dataset as any;
       setCurrentElement(data.id);
-      if (quantity > 1) {
-        setquantity(quantity - 1);
-      } else {
-        setquantity(0);
-      }
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.id,
+          quantity: -1,
+        }),
+      );
     },
-    [quantity],
+    [dispatch],
   );
   const handlePlusQuantity = useCallback(
     e => {
       const data = e.currentTarget.dataset as any;
       setCurrentElement(data.id);
-      if (currentElement !== data.id) {
-        setquantity(1);
-      } else {
-        setquantity(quantity + 1);
-      }
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.id,
+          quantity: 1,
+        }),
+      );
     },
-    [currentElement, quantity],
+    [dispatch],
   );
 
-  const handleAddToBasket = useCallback(
-    e => {
-      const data = e.currentTarget.dataset as any;
-      setCurrentElement(data.product_id);
-      if (quantity <= 0) {
-        message.warning('لطفا تعداد محصول را مشخص کنید');
-      } else {
-        dispatch(
-          appActions.addToBasket({
-            product_id: data.product_id,
-            quantity: quantity,
-          }),
-        );
-        setquantity(0);
-      }
-    },
-    [dispatch, quantity],
-  );
+  // const handleAddToBasket = useCallback(
+  //   e => {
+  //     const data = e.currentTarget.dataset as any;
+  //     setCurrentElement(data.product_id);
+  //     if (quantity <= 0) {
+  //       message.warning('لطفا تعداد محصول را مشخص کنید');
+  //     } else {
+  //       dispatch(
+  //         appActions.addToBasket({
+  //           product_id: data.product_id,
+  //           quantity: quantity,
+  //         }),
+  //       );
+  //       setquantity(0);
+  //     }
+  //   },
+  //   [dispatch, quantity],
+  // );
 
   const handleRouteToProductDetails = useCallback(
     (id: string) => () => redirect(Routes.productDetails, { id }),
@@ -156,12 +165,28 @@ export function HomePage({ className }: Props) {
     dispatch(appActions.browseHomeList({}));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (addToBasketData.data?.status === 402) {
+      // message.info('ظرفیت این محصول به اتمام رسیده است');
+    }
+  }, [addToBasketData]);
+
   return (
     <StyledHomePage
       className={`HomePage ${className || ''}`}
       title={t(translations.pages.HomePage.title)}
       description={t(translations.pages.HomePage.description)}
     >
+      {(loading || loadingAddToBasket) && (
+        <div id="preloader">
+          <div id="status">
+            <div className="spinner">
+              <div className="double-bounce1"></div>
+              <div className="double-bounce2"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <Row gutter={[16, 24]}>
         <Col xs={4} sm={4} md={6} lg={6} xl={6}>
           {BrowseHomeList && BrowseHomeList.data && (
@@ -362,18 +387,18 @@ export function HomePage({ className }: Props) {
                           )}
                         </div>
                         <div>
-                          <ShoppingOutlined
+                          {/* <ShoppingOutlined
                             style={{ color: '#ffc107', fontSize: '1.5em' }}
                             data-product_id={item.id}
                             onClick={handleAddToBasket}
-                          />{' '}
+                          />{' '} */}
                           <span className="count">
                             <PlusOutlined
                               data-id={item.id}
                               onClick={handlePlusQuantity}
                             />
                             {currentElement === item.id ? (
-                              <span>{quantity}</span>
+                              <span>{addToBasketData.data?.quantity}</span>
                             ) : (
                               <span>0</span>
                             )}
@@ -390,21 +415,54 @@ export function HomePage({ className }: Props) {
             </Row>
           </div>
           <Row gutter={[16, 24]}>
-            <Col xs={24} sm={24} md={24} lg={24} xl={24} className="sliceCard">
-              {BrowseHomeList && BrowseHomeList.data && (
-                <>
-                  <a
-                    href={BrowseHomeList.data.banners.url_third}
-                    target="blank"
-                  ></a>
-                  <img
-                    src={BrowseHomeList.data.banners.third_banner}
-                    className="sliceCardImg"
-                    alt=""
-                  />
-                </>
-              )}
-            </Col>
+            {BrowseHomeList && BrowseHomeList.data && (
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                lg={24}
+                xl={24}
+                className="sliceCard"
+                style={{
+                  background:
+                    BrowseHomeList.data.banners.third_background_color,
+                }}
+              >
+                <a href={BrowseHomeList.data.banners.url_third} target="blank">
+                  <Row>
+                    <Col
+                      xs={14}
+                      sm={14}
+                      md={18}
+                      lg={14}
+                      xl={14}
+                      className="thirdBanner"
+                    >
+                      <Row>{BrowseHomeList.data.banners.third_title}</Row>
+                      <Row>{BrowseHomeList.data.banners.third_description}</Row>
+                    </Col>
+                    <Col
+                      xs={10}
+                      sm={10}
+                      md={6}
+                      lg={10}
+                      xl={10}
+                      style={{
+                        background: `url(${BrowseHomeList.data.banners.third_banner})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                      }}
+                    >
+                      {/* <img
+                        src={BrowseHomeList.data.banners.third_banner}
+                        className="sliceCardImg"
+                        alt=""
+                      /> */}
+                    </Col>
+                  </Row>
+                </a>
+              </Col>
+            )}
           </Row>
           <h1 className="titleBannerLeft">
             {BrowseHomeList.data?.second_list.text}
@@ -461,6 +519,53 @@ export function HomePage({ className }: Props) {
                           </div>
                         </div>
                       </div>
+                      <div className="voteStyle">
+                        <div>
+                          {likeData && likeData.data ? (
+                            likeData.data.status === 201 ? (
+                              <HeartOutlined
+                                style={{ color: '#ffc107', fontSize: '1.7em' }}
+                                data-id={item.id}
+                                onClick={handleVoteLike}
+                              />
+                            ) : (
+                              <HeartFilled
+                                style={{ color: '#ffc107', fontSize: '1.7em' }}
+                                data-id={item.id}
+                                onClick={handleVoteLike}
+                              />
+                            )
+                          ) : (
+                            <HeartOutlined
+                              style={{ color: '#ffc107', fontSize: '1.7em' }}
+                              data-id={item.id}
+                              onClick={handleVoteLike}
+                            />
+                          )}
+                        </div>
+                        <div>
+                          {/* <ShoppingOutlined
+                            style={{ color: '#ffc107', fontSize: '1.5em' }}
+                            data-product_id={item.id}
+                            onClick={handleAddToBasket}
+                          />{' '} */}
+                          <span className="count">
+                            <PlusOutlined
+                              data-id={item.id}
+                              onClick={handlePlusQuantity}
+                            />
+                            {currentElement === item.id ? (
+                              <span>{addToBasketData.data?.quantity}</span>
+                            ) : (
+                              <span>0</span>
+                            )}
+                            <MinusOutlined
+                              data-id={item.id}
+                              onClick={handleMinusQuantity}
+                            />
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </Col>
                 ))}
@@ -495,7 +600,7 @@ export function HomePage({ className }: Props) {
                   </Row>
                   <Row>
                     <Col span={24} className="ProductCount">
-                      +1000 کالا
+                      {/* +1000 کالا */}
                     </Col>
                   </Row>
                 </Col>
@@ -517,7 +622,7 @@ export function HomePage({ className }: Props) {
                   </Row>
                   <Row>
                     <Col span={24} className="ProductCount">
-                      +1000 کالا
+                      {/* +1000 کالا */}
                     </Col>
                   </Row>
                 </Col>
@@ -539,7 +644,7 @@ export function HomePage({ className }: Props) {
                   </Row>
                   <Row>
                     <Col span={24} className="ProductCount">
-                      +1000 کالا
+                      {/* +1000 کالا */}
                     </Col>
                   </Row>
                 </Col>
@@ -561,7 +666,7 @@ export function HomePage({ className }: Props) {
                   </Row>
                   <Row>
                     <Col span={24} className="ProductCount">
-                      +1000 کالا
+                      {/* +1000 کالا */}
                     </Col>
                   </Row>
                 </Col>
@@ -583,7 +688,7 @@ export function HomePage({ className }: Props) {
                   </Row>
                   <Row>
                     <Col span={24} className="ProductCount">
-                      +1000 کالا
+                      {/* +1000 کالا */}
                     </Col>
                   </Row>
                 </Col>

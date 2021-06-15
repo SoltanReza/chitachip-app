@@ -10,7 +10,7 @@ const initialProjectStyles = css`
   label,
   input,
   select {
-    font-family: IRANSans, Helvetica, Arial, sans-serif;
+    font-family: DiodrumArabic, Helvetica, Arial, sans-serif;
   }
   html,
   body {

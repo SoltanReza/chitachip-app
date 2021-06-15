@@ -14,8 +14,8 @@ import { StyledContent, StyledHeader, StyledProductLayout } from './styles';
 interface Props {
   className?: string;
   children: ReactNode;
-  title?: string;
-  description?: string;
+  title?: string | undefined;
+  description?: string | undefined;
 }
 
 export const ProductLayout = memo(

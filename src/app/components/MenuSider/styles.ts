@@ -29,9 +29,16 @@ export const StyledMenuSider = styled.section`
       }
       .rowCategoryItem {
         background: #f9ae3b !important;
+        padding: 0.5em;
         opacity: 0.5;
       }
+      .titleCategory {
+        color: #000 !important;
+      }
     }
+  }
+  .rowCategoryItem {
+    padding: 0.5em;
   }
 
   .ulCategotry {

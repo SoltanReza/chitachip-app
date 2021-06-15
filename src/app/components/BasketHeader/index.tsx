@@ -3,7 +3,7 @@
  * BasketHeader
  *
  */
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { StyledBasketHeader } from './styles';
 
@@ -18,7 +18,10 @@ import {
 } from '@ant-design/icons';
 import { Typography, Divider, Card, Row, Col, Button, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBrowseBasket } from 'app/containers/App/selectors';
+import {
+  selectAddToBasket,
+  selectBrowseBasket,
+} from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 import { history, redirect } from 'utils/history';
 import { Routes } from 'app/containers/App/Router/routes';
@@ -29,24 +32,102 @@ interface Props {
 export const BasketHeader = memo(({ className }: Props) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [quantity, setquantity] = useState<number | undefined>(0);
 
   const basketData = useSelector(selectBrowseBasket);
+  const addTobasketData = useSelector(selectAddToBasket);
+
+  const loadingAddToBasket = useMemo(() => !!addTobasketData.params, [
+    addTobasketData.params,
+  ]);
 
   const handleRedirectToBasketPage = useCallback(
     () => history.push(Routes.basket),
+
     [],
   );
   const handleRouteToProductDetails = useCallback(
     (id: string) => () => redirect(Routes.productDetails, { id }),
     [],
   );
-
+  const handleRouteToSendInfo = useCallback(
+    () => redirect(Routes.sendInfo),
+    [],
+  );
+  const handlePlusQuantity = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+      setquantity(addTobasketData.data?.quantity);
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.product_id,
+          quantity: 1,
+        }),
+      );
+    },
+    [addTobasketData.data, dispatch],
+  );
+  const handleMinusQuantity = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+      dispatch(
+        appActions.addToBasket({
+          product_id: data.product_id,
+          quantity: -1,
+        }),
+      );
+    },
+    [dispatch],
+  );
+  const handleDeleteItem = useCallback(
+    e => {
+      const data = e.currentTarget.dataset as any;
+      dispatch(
+        appActions.deleteFromBasketItem({
+          product_id: data.product_id,
+        }),
+      );
+    },
+    [dispatch],
+  );
   useEffect(() => {
     dispatch(appActions.browseBasket({}));
   }, [dispatch]);
+  useEffect(() => {
+    if (addTobasketData) {
+      if (addTobasketData.data) {
+        if (addTobasketData.data.status === 402) {
+          message.info('ظرفیت این محصول به اتمام رسیده است');
+          dispatch(appActions.browseBasket({}));
+        }
+      }
+    }
+  }, [addTobasketData, dispatch]);
+
+  useEffect(() => {
+    if (addTobasketData.data?.status === 200) {
+      if (quantity) {
+        if (quantity < addTobasketData.data?.quantity) {
+          message.success('محصول با موفقیت به سبد خرید اضافه شد');
+        } else {
+          message.success('محصول با موفقیت از سبد خرید کم شد');
+        }
+      }
+    }
+  }, [addTobasketData, quantity]);
 
   return (
     <StyledBasketHeader className={`BasketHeader ${className || ''}`}>
+      {loadingAddToBasket && (
+        <div id="preloader">
+          <div id="status">
+            <div className="spinner">
+              <div className="double-bounce1"></div>
+              <div className="double-bounce2"></div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="basketItem">
         {/* <div className="headerBasket">
           <ShoppingOutlined /> سبد خرید
@@ -55,8 +136,8 @@ export const BasketHeader = memo(({ className }: Props) => {
           {basketData &&
           basketData.data &&
           basketData.data.amount > 0 &&
-          basketData.data.value.products ? (
-            basketData.data.value.products.map(item => (
+          basketData.data.data.products ? (
+            basketData.data.data.products.map(item => (
               <>
                 <div className="bodyBasketCard">
                   <Col
@@ -79,7 +160,7 @@ export const BasketHeader = memo(({ className }: Props) => {
                         style={{ color: '#ff9800' }}
                         data-product_id={item.product_id}
                         data-quantity={item.quantity}
-                        // onClick={handlePlusQuantity}
+                        onClick={handlePlusQuantity}
                       />
                     </Col>
                     <Col>
@@ -90,14 +171,14 @@ export const BasketHeader = memo(({ className }: Props) => {
                         style={{ color: '#ff9800' }}
                         data-product_id={item.product_id}
                         data-quantity={item.quantity}
-                        // onClick={handleMinusQuantity}
+                        onClick={handleMinusQuantity}
                       />
                     </Col>
                     <div>
                       <DeleteOutlined
                         style={{ color: 'red', fontSize: '1.5em' }}
                         data-product_id={item.product_id}
-                        // onClick={handleDeleteItem}
+                        onClick={handleDeleteItem}
                       />
                     </div>
                   </Col>
@@ -115,7 +196,9 @@ export const BasketHeader = memo(({ className }: Props) => {
             مشاهده همه
           </div>
           <div>
-            <span className="buy">تسویه حساب</span>
+            <span className="buy" onClick={handleRouteToSendInfo}>
+              تسویه حساب
+            </span>
           </div>
         </div>
       </div>

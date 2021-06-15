@@ -142,7 +142,7 @@ export const UserOrder = memo(({ className }: Props) => {
                   <img
                     src={item.image}
                     style={{ width: '70px', height: '70px' }}
-                  />{' '}
+                  />
                 </td>
                 <td>{item.name}</td>
                 <td>{item.single_price} تومان</td>
@@ -157,7 +157,8 @@ export const UserOrder = memo(({ className }: Props) => {
       )}
 
       <div className="sendType">نحوه ارسال</div>
-      {hisrtoryOfPurchaseData && hisrtoryOfPurchaseData.data ? (
+
+      {orderDetaileId === 0 ? (
         <table className="orderTable sendTypeTable">
           <tr>
             <th>تاریخ</th>
@@ -166,18 +167,40 @@ export const UserOrder = memo(({ className }: Props) => {
             <th>هزینه ارسال</th>
             <th>شماره پیگیری</th>
           </tr>
-          {hisrtoryOfPurchaseData.data.data.map(item => (
-            <tr>
-              <td>{item.bill.date}</td>
-              <td>{item.bill.user}</td>
-              <td>{item.bill.weight}</td>
-              <td>{item.bill.shipment} تومان</td>
-              <td>{item.bill.invoiceNumber}</td>
-            </tr>
-          ))}
+
+          <tr>
+            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.date}</td>
+            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.user}</td>
+            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.weight}</td>
+            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.shipment} تومان</td>
+            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.invoiceNumber}</td>
+          </tr>
         </table>
       ) : (
-        'سقارشی یرا نحوه ارسال ثبت نشده است'
+        hisrtoryOfPurchaseData &&
+        hisrtoryOfPurchaseData.data && (
+          <table className="orderTable sendTypeTable">
+            <tr>
+              <th>تاریخ</th>
+              <th>حامل</th>
+              <th>وزن</th>
+              <th>هزینه ارسال</th>
+              <th>شماره پیگیری</th>
+            </tr>
+            {hisrtoryOfPurchaseData.data.data.map(
+              item =>
+                item.bill.invoiceNumber === orderDetaileId.toString() && (
+                  <tr>
+                    <td>{item.bill.date}</td>
+                    <td>{item.bill.user}</td>
+                    <td>{item.bill.weight}</td>
+                    <td>{item.bill.shipment} تومان</td>
+                    <td>{item.bill.invoiceNumber}</td>
+                  </tr>
+                ),
+            )}
+          </table>
+        )
       )}
     </StyledUserOrder>
   );

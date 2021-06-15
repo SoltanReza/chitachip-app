@@ -41,6 +41,8 @@ import {
   LikeProductResponse,
   LoginRequest,
   LoginResponse,
+  RegisterOrderRequest,
+  RegisterOrderResponse,
   RegisterRequest,
   RegisterResponse,
   ResetPasswordCodeRequest,
@@ -53,6 +55,8 @@ import {
   ValidateCodeResponse,
   ValidationCodeRequest,
   ValidationCodeResponse,
+  VerifyPaymentRequest,
+  VerifyPaymentResponse,
 } from '../types';
 
 export function getTokenApi(
@@ -223,6 +227,22 @@ export function deleteLikeItemApi(
   params: DeleteLikeItemRequest,
 ): Promise<ErrorResponse | DeleteLikeItemResponse> {
   return http
-    .get('v1/get-favorities-purchase/', { params })
+    .post('v1/get-favorities-purchase/', params)
+    .then(response => response.data);
+}
+
+export function registerOrderApi(
+  params: RegisterOrderRequest,
+): Promise<RegisterOrderResponse> {
+  return http
+    .post('v1/register-order/', params)
+    .then(response => response.data);
+}
+
+export function verifyPaymentApi(
+  params: VerifyPaymentRequest,
+): Promise<VerifyPaymentResponse> {
+  return http
+    .post('v1/verify-payment/', params)
     .then(response => response.data);
 }

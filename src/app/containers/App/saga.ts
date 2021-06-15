@@ -187,9 +187,7 @@ export function* userInfoSaga(action: PayloadAction<UserInfoRequest>) {
 export function* browseBasketSaga(action: PayloadAction<BrowseBasketRequest>) {
   try {
     const response = yield call(browseBasketApi, action.payload);
-    if (!response.data) {
-      yield put(appActions.browseBasketSuccess(response));
-    }
+    yield put(appActions.browseBasketSuccess(response));
   } catch (error) {
     yield put(appActions.browseBasketError(error));
     yield put(appActions.notifyError(error.message));
@@ -200,6 +198,7 @@ export function* addToBasketSaga(action: PayloadAction<AddToBasketRequest>) {
   try {
     const response = yield call(addToBasketApi, action.payload);
     yield put(appActions.addToBasketSuccess(response));
+
     // if(response.value){
     //   yield put(appActions.notifySuccess());
     // }
@@ -208,7 +207,10 @@ export function* addToBasketSaga(action: PayloadAction<AddToBasketRequest>) {
     // }
   } catch (error) {
     yield put(appActions.addToBasketError(error));
-    yield put(appActions.notifyError(error.message));
+
+    yield put(
+      appActions.notifyError('برای انجام این عملیات لطفا وارد سامانه شوید'),
+    );
   }
 }
 

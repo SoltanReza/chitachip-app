@@ -55,6 +55,7 @@ export function LoginPage({ className }: Props) {
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showCheckUsername, setShowCheckUsername] = useState(true);
   const [showCheckPassword, setShowCheckPassword] = useState(false);
   const [showValidationCode, setShowValidationCode] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
@@ -62,6 +63,8 @@ export function LoginPage({ className }: Props) {
   const [showActive, setShowActive] = useState(false);
   const [lodingData, setLodingData] = useState(false);
   const [lodingPassData, setLodingPassData] = useState(false);
+  const [loadingValideData, setLoadingValideData] = useState(false);
+  const [loadingResetPass, setLoadingResetPass] = useState(false);
   const loginData = useSelector(selectLogin);
   const loading = useMemo(() => !!loginData.params, [loginData.params]);
 
@@ -82,12 +85,11 @@ export function LoginPage({ className }: Props) {
         .then(data => {
           if (data.status === 200) {
             setLodingData(false);
+            setShowCheckUsername(false);
             setShowCheckPassword(true);
           } else if (data.status === 201) {
             message.info('لطفا ابتدا ثبت نام کنید');
             redirect(Routes.register, { mobile: username });
-          } else {
-            setLodingPassData(false);
           }
         })
         .catch(() => {});
@@ -97,6 +99,7 @@ export function LoginPage({ className }: Props) {
 
   const handleGoToResetPassword = useCallback(() => {
     setShowValidationCode(true);
+    setShowCheckPassword(false);
     resetPasswordCodeApi({
       mobile: username,
     })
@@ -130,35 +133,6 @@ export function LoginPage({ className }: Props) {
               .then(data => {
                 if (data) {
                   history.push(Routes.home);
-                  setLodingPassData(false);
-                  dispatch(
-                    appActions.setAuth({
-                      access: data.access,
-                      refresh: data.refresh,
-                    }),
-                  );
-                  Storage.put('auth', data);
-                }
-              })
-              .catch(() => {
-                setShowCheckPassword(false);
-                setShowValidationCode(false);
-              });
-          } else if (data.status === 100) {
-            message.warning(' کاربر گرامی اکانت شما فعال نمی باشد');
-            message.warning(
-              'تا لحظاتی دیگر کد فعال سازی برای شما ارسال می شود',
-            );
-            setShowCheckPassword(false);
-            setShowValidationCode(false);
-            setShowActive(true);
-            getTokenApi({
-              username: username,
-              password: password,
-            })
-              .then(data => {
-                if (data) {
-                  setLodingPassData(false);
 
                   dispatch(
                     appActions.setAuth({
@@ -167,18 +141,21 @@ export function LoginPage({ className }: Props) {
                     }),
                   );
                   Storage.put('auth', data);
-                  getCodeApi({})
-                    .then(data => {})
-                    .catch(() => {});
                 }
               })
               .catch(() => {
                 setShowCheckPassword(false);
-                setShowValidationCode(false);
               });
+          } else if (data.status === 100) {
+            message.warning(' کاربر گرامی اکانت شما فعال نمی باشد');
+            message.warning(
+              'تا لحظاتی دیگر کد فعال سازی برای شما ارسال می شود',
+            );
+            setShowCheckPassword(false);
+            setShowActive(true);
           } else {
             setShowCheckPassword(false);
-            setShowValidationCode(false);
+            setShowCheckUsername(true);
           }
         })
 
@@ -189,16 +166,16 @@ export function LoginPage({ className }: Props) {
 
   const handleValidationCode = useCallback(
     values => {
-      setLodingPassData(true);
+      setLoadingValideData(true);
       validationCodeApi({
         code: values.code,
         mobile: username,
       })
         .then(data => {
           if (data.status === 200) {
+            setLoadingValideData(false);
             setShowResetPassword(true);
             setShowValidationCode(false);
-            setShowCheckPassword(false);
           } else {
           }
         })
@@ -220,11 +197,31 @@ export function LoginPage({ className }: Props) {
           if (data.status === 200) {
             message.info('اکانت شما فعال شد');
             history.push(Routes.home);
+            setShowActive(false);
+            getTokenApi({
+              username: username,
+              password: password,
+            })
+              .then(data => {
+                if (data) {
+                  setLodingPassData(false);
+
+                  dispatch(
+                    appActions.setAuth({
+                      access: data.access,
+                      refresh: data.refresh,
+                    }),
+                  );
+                  Storage.put('auth', data);
+                  getCodeApi({})
+                    .then(data => {})
+                    .catch(() => {});
+                }
+              })
+              .catch(() => {});
           } else if (data.status === 400) {
             message.info('کد را اشتباه وارد کردید, لطفا دوباره تلاش کنید');
           } else {
-            setShowResetPassword(false);
-            setShowValidationCode(true);
           }
         })
 
@@ -232,42 +229,22 @@ export function LoginPage({ className }: Props) {
           console.log(e);
         });
     },
-    [history],
-  );
-
-  const handleSendValidationCode = useCallback(
-    values => {
-      setLodingPassData(true);
-      validationCodeApi({
-        code: values.code,
-        mobile: username,
-      })
-        .then(data => {
-          if (data.status === 200) {
-            setShowResetPassword(true);
-          } else {
-            setShowResetPassword(false);
-            setShowValidationCode(true);
-          }
-        })
-
-        .catch(e => {
-          console.log(e);
-        });
-    },
-    [username],
+    [dispatch, history, password, username],
   );
 
   const handleResetPassword = useCallback(
     values => {
-      setShowValidationCode(true);
+      setLoadingResetPass(true);
       changePasswordApi({
         username: username,
         password: values.password,
       })
         .then(data => {
           if (data.status === 200) {
+            setLoadingResetPass(false);
+            setShowValidationCode(false);
             message.info('رمز عبور شما با موفقیت تغغیر کرد');
+
             checkPasswordApi({
               username: username,
               password: password,
@@ -278,35 +255,20 @@ export function LoginPage({ className }: Props) {
             })
               .then(data => {
                 if (data.status === 200) {
-                  checkPasswordApi({
+                  history.push(Routes.home);
+                  getTokenApi({
                     username: username,
-                    password: password,
-                    mobile: username,
-                    first_name: '',
-                    last_name: '',
-                    national_code: '',
+                    password: values.password,
                   })
                     .then(data => {
-                      if (data.status === 200) {
-                        getTokenApi({
-                          username: username,
-                          password: values.password,
-                        })
-                          .then(data => {
-                            if (data) {
-                              history.push(Routes.home);
-
-                              dispatch(
-                                appActions.setAuth({
-                                  access: data.access,
-                                  refresh: data.refresh,
-                                }),
-                              );
-                              Storage.put('auth', data);
-                            }
-                          })
-                          .catch(() => {});
-                      } else {
+                      if (data) {
+                        dispatch(
+                          appActions.setAuth({
+                            access: data.access,
+                            refresh: data.refresh,
+                          }),
+                        );
+                        Storage.put('auth', data);
                       }
                     })
                     .catch(() => {});
@@ -340,111 +302,9 @@ export function LoginPage({ className }: Props) {
       title={t(translations.pages.LoginPage.title)}
       // description={t(translations.pages.LoginPage.description)}
     >
-      {!showValidationCode ? (
-        !showCheckPassword ? (
-          <div className="form">
-            <div className="logo" onClick={handleRoutToHome}>
-              {/* {t(translations.global.placeholder.logoTitle)} */}
-              <img
-                alt="logo"
-                src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
-              />
-            </div>
-
-            <div className="titleLogin">ورود / ثبت نام</div>
-            <Form onFinish={handleUsernameSubmit}>
-              <Form.Item name="username" rules={[{ required: true }]}>
-                <Input
-                  className="inputLoginStyle"
-                  placeholder={t(translations.global.placeholder.username)}
-                  disabled={loading}
-                  onChange={handleChangeUsername}
-                />
-              </Form.Item>
-
-              <Row className="btnDir">
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="btnLogin"
-                  loading={lodingData}
-                >
-                  {t(translations.pages.LoginPage.LoginForm.continue)}
-                </Button>{' '}
-              </Row>
-            </Form>
-            <Row gutter={8} className="footer">
-              <Col>
-                <GoogleOutlined />
-              </Col>
-              <Col>
-                <FacebookOutlined />
-              </Col>
-              <Col>
-                <TwitterOutlined />
-              </Col>
-              <Col>ورود از طریق</Col>
-            </Row>
-          </div>
-        ) : (
-          <div className="form">
-            <div className="logo">
-              {/* {t(translations.global.placeholder.logoTitle)} */}
-              <img
-                alt="logo"
-                src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
-              />
-            </div>
-
-            <div className="titleLogin">رمز عبور</div>
-            <div className="descPassowrd">
-              جهت ورود به حساب کاربری لطفا رمز عبور خود را وارد نمایید.
-            </div>
-            <Form onFinish={handlePasswordSubmit}>
-              <Form.Item name="password" rules={[{ required: true }]}>
-                <Input
-                  type="password"
-                  className="inputLoginStyle"
-                  placeholder={t(translations.global.placeholder.password)}
-                  disabled={loading}
-                  onChange={handleChangePassword}
-                />
-              </Form.Item>
-
-              <Row className="actionPass">
-                <div
-                  className="forgetPassword"
-                  onClick={handleGoToResetPassword}
-                >
-                  فراموشی رمز عبور
-                </div>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="btnLogin"
-                  loading={lodingPassData}
-                >
-                  {t(translations.pages.LoginPage.LoginForm.login)}
-                </Button>{' '}
-              </Row>
-            </Form>
-            <Row gutter={8} className="footer">
-              <Col>
-                <GoogleOutlined />
-              </Col>
-              <Col>
-                <FacebookOutlined />
-              </Col>
-              <Col>
-                <TwitterOutlined />
-              </Col>
-              <Col>ورود از طریق</Col>
-            </Row>
-          </div>
-        )
-      ) : (
+      {showCheckUsername && (
         <div className="form">
-          <div className="logo">
+          <div className="logo" onClick={handleRoutToHome}>
             {/* {t(translations.global.placeholder.logoTitle)} */}
             <img
               alt="logo"
@@ -452,14 +312,14 @@ export function LoginPage({ className }: Props) {
             />
           </div>
 
-          <div className="titleLogin">فراموشی رمز عبور</div>
-          <div>لطفا کد پیامک شده به شماره همراه خود را وارد نمایید</div>
-          <Form onFinish={handleValidationCode}>
-            <Form.Item name="code" rules={[{ required: true }]}>
+          <div className="titleLogin">ورود / ثبت نام</div>
+          <Form onFinish={handleUsernameSubmit}>
+            <Form.Item name="username" rules={[{ required: true }]}>
               <Input
                 className="inputLoginStyle"
-                placeholder={t(translations.global.placeholder.code)}
-                // disabled={loadingValideData}
+                placeholder="شماره همراه"
+                disabled={loading}
+                onChange={handleChangeUsername}
               />
             </Form.Item>
 
@@ -468,18 +328,30 @@ export function LoginPage({ className }: Props) {
                 type="primary"
                 htmlType="submit"
                 className="btnLogin"
-                // loading={loadingValideData}
+                loading={lodingData}
               >
-                {t(translations.pages.LoginPage.LoginForm.continue)}
+                ادامه
               </Button>{' '}
             </Row>
           </Form>
+          <Row gutter={8} className="footer">
+            <Col>
+              <GoogleOutlined />
+            </Col>
+            <Col>
+              <FacebookOutlined />
+            </Col>
+            <Col>
+              <TwitterOutlined />
+            </Col>
+            <Col>ورود از طریق</Col>
+          </Row>
         </div>
       )}
 
-      {showResetPassword && (
+      {showCheckPassword && (
         <div className="form">
-          <div className="logo">
+          <div className="logo" onClick={handleRoutToHome}>
             {/* {t(translations.global.placeholder.logoTitle)} */}
             <img
               alt="logo"
@@ -487,34 +359,53 @@ export function LoginPage({ className }: Props) {
             />
           </div>
 
-          <div className="titleLogin">فراموشی رمز عبور</div>
-          <div>لطفا رمز عبور جدید را وارد نمایید</div>
-          <Form onFinish={handleResetPassword}>
+          <div className="titleLogin">رمز عبور</div>
+          <div className="descPassowrd">
+            جهت ورود به حساب کاربری لطفا رمز عبور خود را وارد نمایید.
+          </div>
+          <Form onFinish={handlePasswordSubmit}>
             <Form.Item name="password" rules={[{ required: true }]}>
               <Input
+                type="password"
                 className="inputLoginStyle"
-                placeholder={t(translations.global.placeholder.password)}
-                // disabled={loadingValideData}
+                placeholder="رمز عبور"
+                disabled={lodingPassData}
+                onChange={handleChangePassword}
               />
             </Form.Item>
 
-            <Row className="btnDir">
+            <Row className="actionPass">
+              <div className="forgetPassword" onClick={handleGoToResetPassword}>
+                فراموشی رمز عبور
+              </div>
               <Button
                 type="primary"
                 htmlType="submit"
                 className="btnLogin"
-                // loading={loadingValideData}
+                loading={lodingPassData}
               >
-                {t(translations.pages.LoginPage.LoginForm.forgotPassword)}
+                ورود
               </Button>{' '}
             </Row>
           </Form>
+          <Row gutter={8} className="footer">
+            <Col>
+              <GoogleOutlined />
+            </Col>
+            <Col>
+              <FacebookOutlined />
+            </Col>
+            <Col>
+              <TwitterOutlined />
+            </Col>
+            <Col>ورود از طریق</Col>
+          </Row>
         </div>
       )}
 
       {showActive && (
         <div className="form">
-          <div className="logo">
+          <div className="logo" onClick={handleRoutToHome}>
             {/* {t(translations.global.placeholder.logoTitle)} */}
             <img
               alt="logo"
@@ -547,56 +438,74 @@ export function LoginPage({ className }: Props) {
         </div>
       )}
 
-      {/* <StyledLoginForm onFinish={handleSubmit}>
-        <div className="container">
-          <div className="header">
-            <h5 className="title">ورود به سیستم</h5>
-            <p className="description">ورود به سامانه فروشگاهی چیتا چیپ</p>
-
-            <div className="logo" />
+      {showValidationCode && (
+        <div className="form">
+          <div className="logo" onClick={handleRoutToHome}>
+            {/* {t(translations.global.placeholder.logoTitle)} */}
+            <img
+              alt="logo"
+              src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
+            />
           </div>
 
-          <StyledLoginForm.Item
-            name="username"
-            rules={[VALIDATION_REQUIRED_FIELD]}
-          >
-            <Input
-              size="large"
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="نام کاربری را وارد نمایید"
-            />
-          </StyledLoginForm.Item>
-          <StyledLoginForm.Item
-            name="password"
-            rules={[VALIDATION_REQUIRED_FIELD]}
-          >
-            <Input
-              size="large"
-              prefix={<KeyOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="گذرواژه را وارد نمایید"
-            />
-          </StyledLoginForm.Item>
+          <div className="titleLogin">فراموشی رمز عبور</div>
+          <div>لطفا کد پیامک شده به شماره همراه خود را وارد نمایید</div>
+          <Form onFinish={handleValidationCode}>
+            <Form.Item name="code" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.code)}
+                disabled={loadingValideData}
+              />
+            </Form.Item>
 
-          <StyledLoginForm.Item>
-            <Button
-              size="large"
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              // loading={LOGIN.loading}
-              block
-            >
-              ورود
-            </Button>
-
-            <div className="goToRegister" onClick={handleRoutToRegister}>
-              ثبت نام
-            </div>
-          </StyledLoginForm.Item>
+            <Row className="btnDir">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="btnLogin"
+                loading={loadingValideData}
+              >
+                {t(translations.pages.LoginPage.LoginForm.continue)}
+              </Button>{' '}
+            </Row>
+          </Form>
         </div>
-      </StyledLoginForm>
-      {showCodeModal && <CodeLoginModal onClose={handleCloseCodeModal} />} */}
+      )}
+      {showResetPassword && (
+        <div className="form">
+          <div className="logo" onClick={handleRoutToHome}>
+            {/* {t(translations.global.placeholder.logoTitle)} */}
+            <img
+              alt="logo"
+              src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
+            />
+          </div>
+
+          <div className="titleLogin">فراموشی رمز عبور</div>
+          <div>لطفا رمز عبور جدید را وارد نمایید</div>
+          <Form onFinish={handleResetPassword}>
+            <Form.Item name="password" rules={[{ required: true }]}>
+              <Input
+                className="inputLoginStyle"
+                placeholder={t(translations.global.placeholder.password)}
+                disabled={loadingResetPass}
+              />
+            </Form.Item>
+
+            <Row className="btnDir">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="btnLogin"
+                loading={loadingResetPass}
+              >
+                {t(translations.pages.LoginPage.LoginForm.forgotPassword)}
+              </Button>{' '}
+            </Row>
+          </Form>
+        </div>
+      )}
     </StyledLoginPage>
   );
 }

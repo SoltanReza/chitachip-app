@@ -181,7 +181,10 @@ export interface BrowseHomeListRequest {}
 export interface Banners {
   first_banner: string;
   second_banner: string;
+  third_background_color: string;
   third_banner: string;
+  third_description: string;
+  third_title: string;
   url_first: string;
   url_second: string;
   url_third: string;
@@ -384,8 +387,9 @@ export interface UserInfoResponse {
 
 export interface BrowseBasketRequest {}
 export interface BrowseBasketResponse {
-  value: BasketData;
+  data: BasketData;
   amount: number;
+  status: number;
 }
 // #endregion BrowseBasket
 
@@ -397,7 +401,8 @@ export interface AddToBasketRequest {
 }
 export interface AddToBasketResponse {
   data: BasketData;
-  response: string;
+  status: number;
+  quantity: number;
 }
 // #endregion AddToBasket
 
@@ -513,3 +518,60 @@ export interface DeleteLikeItemResponse {
   status: number;
 }
 // #endregion DeleteLikeItem
+
+// #region RegisterOrder
+export interface RegisterOrderRequest {
+  address_id: string;
+  basket: BasketData;
+  date: string;
+  date_id: string;
+  type: string;
+}
+export interface RegisterOrderResponse {
+  url: string;
+}
+// #endregion RegisterOrder
+
+// #region VerifyPayment
+export interface VerifyPaymentRequest {
+  bankid: string | null;
+  inv: string | null;
+}
+export interface VerifyPaymentResponse {
+  data: {
+    address_buyer: string;
+    address_seller: string;
+    amount_tax: number;
+    bank: number;
+    buyer: string;
+    code_posti_seller: string;
+    codeposti_buyer: string;
+    date: string;
+    delivery_type: string;
+    description: string;
+    invoiceNumber: string;
+    mobile_buyer: string;
+    payment_type: string;
+    phone_buyer: string;
+    phone_seller: string;
+    province: string;
+    province_buyer: string;
+    prs: Array<{
+      base_price: number;
+      code: string;
+      image: string;
+      name: string;
+      price: number;
+      qty: number;
+      total_price: number;
+    }>;
+    reference: string;
+    seller: string;
+    shipment: number;
+    total_amount: number;
+    total_amount_tax: number;
+    total_discount: number;
+  };
+  status: string;
+}
+// #endregion VerifyPayment

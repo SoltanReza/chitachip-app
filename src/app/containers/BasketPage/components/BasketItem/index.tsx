@@ -83,6 +83,9 @@ export const BasketItem = memo(({ className }: Props) => {
     [],
   );
   const handleContinueBuy = useCallback(() => {
+    redirect(Routes.home);
+  }, []);
+  const handleRouteToSendInfo = useCallback(() => {
     redirect(Routes.sendInfo);
   }, []);
 
@@ -125,8 +128,8 @@ export const BasketItem = memo(({ className }: Props) => {
 
         <Row gutter={{ xs: 8, sm: 16, md: 48, lg: 48 }}>
           <Col span={18}>
-            {basketData && basketData.data && basketData.data.value ? (
-              basketData.data.value.products.map(item => (
+            {basketData && basketData.data && basketData.data.data ? (
+              basketData.data.data.products.map(item => (
                 <Card className="cardListProduct">
                   <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
                     <Col span={5}>
@@ -246,6 +249,7 @@ export const BasketItem = memo(({ className }: Props) => {
                   block
                   icon={<ShoppingOutlined />}
                   className="finlaPayBtn"
+                  onClick={handleRouteToSendInfo}
                 >
                   پرداخت نهایی
                 </Button>

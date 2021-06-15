@@ -15,6 +15,7 @@ export enum Routes {
   resetPassword = '/resetpassword',
   productList = '/productlist/catId=:catId,subId=:subId,catName=:catName',
   sendInfo = '/sendinfo',
+  paymentCallback = '/payment-callback',
 
   dashboard = '/dashboard',
   profile = '/dashboard/profile',

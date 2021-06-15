@@ -3,25 +3,18 @@
  * BaseLayout
  *
  */
-import {
-  CustomerServiceOutlined,
-  InstagramOutlined,
-  WhatsAppOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, Input, Affix, Button } from 'antd';
-import React, { memo, ReactNode, useRef, useState } from 'react';
+import { Input, Layout, Menu } from 'antd';
+import React, { memo, ReactNode, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { MenuSider } from '../MenuSider';
-import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { Navbar } from './components/Navbar';
 import {
   StyledBaseLayout,
   StyledContent,
-  StyledHeader,
   StyledFooter,
+  StyledHeader,
   StyledMain,
 } from './styles';
-import { useEffect } from 'react';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -29,8 +22,8 @@ const { Search } = Input;
 interface Props {
   className?: string;
   children: ReactNode;
-  title?: string;
-  description?: string;
+  title?: string | undefined;
+  description?: string | undefined;
 }
 
 export const BaseLayout = memo(

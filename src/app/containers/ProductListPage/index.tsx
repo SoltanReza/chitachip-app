@@ -4,56 +4,29 @@
  *
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
 import {
-  CustomerServiceOutlined,
-  InstagramOutlined,
-  WhatsAppOutlined,
   AppstoreOutlined,
   MenuOutlined,
+  StarFilled,
   TableOutlined,
 } from '@ant-design/icons';
-import {
-  HeartFilled,
-  HeartOutlined,
-  MinusOutlined,
-  PlusOutlined,
-  ShoppingOutlined,
-  StarFilled,
-} from '@ant-design/icons';
-import {
-  Tabs,
-  Row,
-  Col,
-  Input,
-  Button,
-  Breadcrumb,
-  Checkbox,
-  Switch,
-  Form,
-  Radio,
-} from 'antd';
-import { useTranslation } from 'react-i18next';
+import { Breadcrumb, Checkbox, Col, Form, Radio, Row, Switch } from 'antd';
+import { CategorySider } from 'app/components/CategorySider';
 import { translations } from 'locales/i18n';
-
-import { useSelector, useDispatch } from 'react-redux';
-
-import { StyledProductListPage } from './styles';
-
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-
-import { reducer, sliceKey } from './slice';
-import { selectProductListPage } from './selectors';
-
-import { productListPageSaga } from './saga';
-import { MenuSider } from 'app/components/MenuSider';
-import { selectBrowseCategories } from '../App/selectors';
-import { appActions } from '../App/slice';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Routes } from '../App/Router/routes';
-import { CategorySider } from 'app/components/CategorySider';
+import { selectBrowseCategories } from '../App/selectors';
+import { appActions } from '../App/slice';
+import { productListPageSaga } from './saga';
+import { selectProductListPage } from './selectors';
+import { reducer, sliceKey } from './slice';
+import { StyledProductListPage } from './styles';
 
 interface Props {
   className?: string;

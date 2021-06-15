@@ -263,6 +263,10 @@
     "SendInfoPage": {
       "title": "اطلاعات ارسال",
       "description": "اطلاعات ارسال"
+    },
+    "PaymentCallbackPage": {
+      "title": "اطلاعات پرداخت",
+      "description": "اطلاعات پرداخت"
     }
   }
 }

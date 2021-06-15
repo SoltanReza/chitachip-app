@@ -27,6 +27,12 @@ export const UserFavorite = memo(({ className }: Props) => {
     (id: string) => () => redirect(Routes.productDetails, { id }),
     [],
   );
+  const handleDeleteItem = useCallback(
+    (id: string) => () => {
+      dispatch(appActions.deleteLikeItem({ id: id }));
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     dispatch(appActions.browseLikeList({}));
@@ -35,7 +41,9 @@ export const UserFavorite = memo(({ className }: Props) => {
   return (
     <StyledUserFavorite className={`UserFavorite ${className || ''}`}>
       <div className="userFavoriteTitle">لیست علاقه مندی ها</div>
-      {likeData && likeData.data && likeData.data.data.length > 0 ? (
+      {likeData && likeData.data && likeData.data.data.length === 0 ? (
+        'هنوز محصولی پسندیده نشده است'
+      ) : (
         <>
           <div className="userFavoriteDescription">
             در زیرمحصولاتی که شما آنها را به فهرست علاقه مندی های خود افزوده
@@ -49,37 +57,42 @@ export const UserFavorite = memo(({ className }: Props) => {
               <th>قیمت</th>
               <th>غیره</th>
             </tr>
-            {likeData.data.data.map(item => (
-              <tr>
-                <td>
-                  <img
-                    src={item.image_thumbnail}
-                    style={{ width: '70px', height: '70px' }}
-                  />{' '}
-                </td>
-                <td>{item.title}</td>
-                <td>{item.price} تومان</td>
-                <td>
-                  <div className="action">
-                    <div>
-                      <Button
-                        className="actionView"
-                        onClick={handleRouteToProductDetails(item.id)}
-                      >
-                        نمایش
-                      </Button>
+            {likeData &&
+              likeData.data &&
+              likeData.data.data.map(item => (
+                <tr>
+                  <td>
+                    <img
+                      src={item.image_thumbnail}
+                      style={{ width: '70px', height: '70px' }}
+                    />{' '}
+                  </td>
+                  <td>{item.title}</td>
+                  <td>{item.price} تومان</td>
+                  <td>
+                    <div className="action">
+                      <div>
+                        <Button
+                          className="actionView"
+                          onClick={handleRouteToProductDetails(item.id)}
+                        >
+                          نمایش
+                        </Button>
+                      </div>
+                      <div>
+                        <Button
+                          className="actionDelete"
+                          onClick={handleDeleteItem(item.id)}
+                        >
+                          حذف
+                        </Button>
+                      </div>
                     </div>
-                    <div>
-                      <Button className="actionDelete">حذف</Button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
           </table>
         </>
-      ) : (
-        'هنوز محصولی پسندیده نشده است'
       )}
     </StyledUserFavorite>
   );

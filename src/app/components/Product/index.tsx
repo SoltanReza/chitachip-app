@@ -12,12 +12,25 @@ import {
   HeartFilled,
 } from '@ant-design/icons';
 
-import { Breadcrumb, Button, Card, Col, Row, Typography, Modal } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Row,
+  Typography,
+  message,
+  Modal,
+} from 'antd';
 import { Routes } from 'app/containers/App/Router/routes';
-import { selectAuth, selectLikeProduct } from 'app/containers/App/selectors';
+import {
+  selectAddToBasket,
+  selectAuth,
+  selectLikeProduct,
+} from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
 import { ProductData } from 'app/containers/App/types';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { redirect } from 'utils/history';
@@ -36,6 +49,7 @@ export const Product = memo(({ className, data }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const authData = useSelector(selectAuth);
   const likeData = useSelector(selectLikeProduct);
+  const addToBasketData = useSelector(selectAddToBasket);
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -85,6 +99,11 @@ export const Product = memo(({ className, data }: Props) => {
     },
     [authData, dispatch],
   );
+  useEffect(() => {
+    if (addToBasketData.data?.status === 200) {
+      message.success('محصول با موفقیت به سبد خرید اضافه شد');
+    }
+  }, [addToBasketData.data]);
 
   return (
     <StyledProduct className={`Product ${className || ''}`}>
@@ -111,7 +130,7 @@ export const Product = memo(({ className, data }: Props) => {
             className="productInfoCard"
           >
             <Card className="productInfo">
-              <div className="productInfoTitle">ویژگی های محصولات</div>
+              <div className="productInfoTitle">ویژگی های محصول</div>
 
               <div dangerouslySetInnerHTML={{ __html: data.properties }}></div>
             </Card>

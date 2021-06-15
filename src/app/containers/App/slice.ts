@@ -522,16 +522,11 @@ const appSlice = createSlice({
       state.addToBasket.error = initialState.addToBasket.error;
     },
     addToBasketSuccess(state, action: PayloadAction<AddToBasketResponse>) {
-      // if (state.browseBasket.data) {
-      //   if (state.browseBasket.data.value) {
-      //     console.log(action.payload.data.products);
-      //     state.browseBasket.data.value.products =
-      //     state.browseBasket.data.value.products.map(item =>
-      //       item.product_id === )
-
-      //     action.payload.data.products.;
-      //   }
-      // }
+      if (state.browseBasket.data) {
+        if (state.browseBasket.data.data) {
+          state.browseBasket.data.data.products = action.payload.data.products;
+        }
+      }
 
       state.addToBasket.params = initialState.addToBasket.params;
       state.addToBasket.data = action.payload;
@@ -560,7 +555,7 @@ const appSlice = createSlice({
       action: PayloadAction<DeleteFromBasketItemResponse>,
     ) {
       if (state.browseBasket.data) {
-        state.browseBasket.data.value.products = state.browseBasket.data.value.products.filter(
+        state.browseBasket.data.data.products = state.browseBasket.data.data.products.filter(
           item =>
             item.product_id !== state.deleteFromBasketItem.params?.product_id,
         );

@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
 
 export const StyledHomePage = styled(BaseLayout)`
-
   .styleCarousel {
     height: '160px' !important;
     color: '#fff' !important;
@@ -13,7 +12,6 @@ export const StyledHomePage = styled(BaseLayout)`
   }
 
   .swiper-container {
-    /* margin: 1em 0em 2.2em 2em !important; */
     padding: 1em 1em 1em 1em !important;
   }
 
@@ -28,32 +26,28 @@ export const StyledHomePage = styled(BaseLayout)`
     display: inline-block;
     width: 100%;
     height: 100%;
-  background-position: 50% 50%;
-  background-size: cover;
-  border-radius: 50%;
-}
+    background-position: 50% 50%;
+    background-size: cover;
+    border-radius: 50%;
+  }
 
+  .rightBanner {
+    height: 214px;
+  }
 
+  .rightBannerImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+  }
 
+  .rightContactUs {
+    text-align: center;
+    font-weight: bold;
+  }
 
-.rightBanner{
-  height: 214px;
-}
-
-.rightBannerImg{
-width:100%;
-height: 100%;
-border-radius: 7px;
-}
-
-.rightContactUs{
-  text-align: center;
-  font-weight: bold;
- 
-}
-
-.newsInputStyle{
-  border-top: none;
+  .newsInputStyle {
+    border-top: none;
     border-left: none;
     border-right: none;
     border-bottom: 1px solid #000;
@@ -61,31 +55,37 @@ border-radius: 7px;
     > input {
       background: none;
     }
-}
+  }
 
-.rowWrraperRight{
-  margin-top :1.5em;
-}
+  .rowWrraperRight {
+    margin-top: 1.5em;
+  }
 
+  .titleBannerLeft {
+    font-size: 2.7em;
+    font-weight: bold;
+  }
 
-.titleBannerLeft{
-  font-size: 2.7em;
-  font-weight: bold;
-  /* margin: 0 !important;
-  margin-bottom: 1em; */
-  
-}
+  .sliceCard {
+    border-radius: 14px;
+  }
+  .sliceCardImg {
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+  }
 
-.sliceCard{
-  height: 233px;
-}
-.sliceCardImg{
-width:100%;
-height: 100%;
-border-radius: 14px;
-}
+  .thirdBanner {
+    width: fit-content;
+    padding: 9px;
+    margin-bottom: 1em;
+    block-size: fit-content;
+    font-size: 3em;
+    color: #fff;
+  }
 
-.offerCard {
+  .offerCard {
     display: flex;
     flex-direction: column;
     background: #fff;
@@ -215,36 +215,35 @@ border-radius: 14px;
     }
   }
 
-.productsCount{
-  background: #fff;
- 
-}
+  .productsCount {
+    background: #fff;
+  }
 
-.titleProductCount{
-  text-align: center;
-  color: #6F6F6F;
-  font-weight: bold;
-  margin-bottom: 1em;
-}
+  .titleProductCount {
+    text-align: center;
+    color: #6f6f6f;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
 
-.colProductCount{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .colProductCount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.ProductCount{
-  color: #F9AE4E;
-}
+  .ProductCount {
+    color: #f9ae4e;
+  }
 
-.allViewBannerLeft{
-  text-align: left;
-  padding: 0 0 .5em .8em !important;
-  color: #0275DB;
-  font-weight: bold;
-}
+  .allViewBannerLeft {
+    text-align: left;
+    padding: 0 0 0.5em 0.8em !important;
+    color: #0275db;
+    font-weight: bold;
+  }
 
-.contactUs {
+  .contactUs {
     flex-wrap: nowrap;
     display: flex;
     position: relative;
@@ -256,12 +255,11 @@ border-radius: 14px;
   }
   .socialMedia {
     line-height: 1em;
-    > a{
+    > a {
       color: inherit !important;
     }
   }
   .online {
-   
     background: #ff9800;
     padding: 0.2em 0.4em;
     color: #fff;
@@ -275,11 +273,11 @@ border-radius: 14px;
   .sticky {
     position: sticky;
     top: 0;
-    z-index: 100; /* this is optional and should be different for every project */
+    z-index: 100;
   }
   .sticky-wrapper {
     position: relative;
-    height: 3rem; /* We need to change this value */
+    height: 3rem;
   }
 
   .sticky .sticky-inner {
@@ -290,14 +288,8 @@ border-radius: 14px;
     z-index: 1;
   }
 
-  .firsListSecondList{
+  .firsListSecondList {
     display: flex;
     flex-direction: column;
   }
-
-  /* @media (max-width: ${sizes.small}px) {
-    .swiper-slide {
-      width: 100% !important;
-    }
-  } */
 `;

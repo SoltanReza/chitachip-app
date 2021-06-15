@@ -16,6 +16,9 @@ export const StyledRegisterPage = styled.section`
   justify-items: center;
   align-items: center;
 
+  .recaptcha {
+    margin-top: 2em !important;
+  }
   .form {
     /* position: absolute;
     top: 45%;
@@ -159,11 +162,6 @@ export const StyledRegisterForm = styled(Form)`
         left: 1em;
       }
     }
-  }
-
-  .recaptcha {
-    margin: auto;
-    margin-top: 2em;
   }
 
   @media (max-width: ${sizes.small}px) {

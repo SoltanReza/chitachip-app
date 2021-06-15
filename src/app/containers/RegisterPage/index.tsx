@@ -116,7 +116,6 @@ export function RegisterPage({ className }: Props) {
       {!showCodeSend ? (
         <div className="form">
           <div className="logo" onClick={handleRoutToHome}>
-            {/* {t(translations.global.placeholder.logoTitle)} */}
             <img
               alt="logo"
               src={process.env.PUBLIC_URL + '/assest/Chitachip.svg'}
@@ -125,20 +124,6 @@ export function RegisterPage({ className }: Props) {
 
           <div className="titleLogin">ثبت نام</div>
           <Form onFinish={handleRegister}>
-            {/* <Form.Item name="first_name" rules={[{ required: true }]}>
-              <Input
-                className="inputLoginStyle"
-                placeholder={t(translations.global.placeholder.firstName)}
-                disabled={loading}
-              />
-            </Form.Item>
-            <Form.Item name="last_name" rules={[{ required: true }]}>
-              <Input
-                className="inputLoginStyle"
-                placeholder={t(translations.global.placeholder.lastName)}
-                disabled={loading}
-              />
-            </Form.Item> */}
             <Form.Item name="mobile">
               <Input
                 className="inputLoginStyle"
@@ -147,13 +132,7 @@ export function RegisterPage({ className }: Props) {
                 disabled={true}
               />
             </Form.Item>
-            {/* <Form.Item name="national_code" rules={[{ required: true }]}>
-              <Input
-                className="inputLoginStyle"
-                placeholder={t(translations.global.placeholder.nationalCode)}
-                disabled={loading}
-              />
-            </Form.Item> */}
+
             <Form.Item
               name="password"
               rules={[
@@ -180,20 +159,20 @@ export function RegisterPage({ className }: Props) {
               >
                 {t(translations.pages.LoginPage.LoginForm.continue)}
               </Button>{' '}
-              <div className="recaptcha">
-                <Recaptcha
-                  sitekey="6LdjRe0aAAAAAL_CiGrh0ABjzgcRbtLIF6tJZEfr"
-                  render="explicit"
-                  verifyCallback={verifyRecaptcha}
-                  onloadCallback={onloadRecaptcha}
-                />
-              </div>
             </Row>
+            <div className="recaptcha">
+              <Recaptcha
+                sitekey="6LdjRe0aAAAAAL_CiGrh0ABjzgcRbtLIF6tJZEfr"
+                render="explicit"
+                verifyCallback={verifyRecaptcha}
+                onloadCallback={onloadRecaptcha}
+              />
+            </div>
           </Form>
         </div>
       ) : (
         <div className="form">
-          <div className="logo">
+          <div className="logo" onClick={handleRoutToHome}>
             {/* {t(translations.global.placeholder.logoTitle)} */}
             <img
               alt="logo"
