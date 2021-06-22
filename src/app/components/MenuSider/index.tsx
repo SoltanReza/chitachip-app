@@ -62,7 +62,7 @@ export const MenuSider = memo(({ className, categories }: Props) => {
         className="ulCategotry"
         style={{ height: '100%', borderRight: 0 }}
       >
-        <div className="categoryTitle">دسته بندی ها</div>
+        <h3 className="categoryTitle">دسته بندی ها</h3>
         {categories &&
           categories.map(menu => (
             <li className="rowCategory" key={menu.category.id}>
@@ -72,7 +72,6 @@ export const MenuSider = memo(({ className, categories }: Props) => {
                   data-cat-name={menu.category.name}
                   onClick={handleRoutToProductList}
                 >
-                  {' '}
                   <img
                     src={menu.category.icon}
                     className="iconCategory"

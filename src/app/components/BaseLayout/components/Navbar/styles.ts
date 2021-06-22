@@ -17,8 +17,9 @@ export const StyledNavbar = styled.section`
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100px;
-    width: 150px;
+    height: 70px;
+    width: 105px;
+    margin-top: 15px;
     cursor: pointer;
   }
 

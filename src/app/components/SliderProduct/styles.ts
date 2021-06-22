@@ -15,9 +15,7 @@ export const StyledSliderProduct = styled.section`
     white-space: nowrap;
     padding-top: 0.5em;
 
-    -webkit-box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
-    -moz-box-shadow: 0px 0px 18px -8px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
   .slideItem {
     display: inline-block;
@@ -34,9 +32,7 @@ export const StyledSliderProduct = styled.section`
     border-radius: 6px;
     min-width: 100%;
     cursor: pointer;
-    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
     height: 275px;
 
@@ -54,15 +50,15 @@ export const StyledSliderProduct = styled.section`
     display: flex;
     justify-content: center;
     height: 130px;
+    .imgProduct {
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
   }
 
-  .imgProduct {
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
   .titleProduct {
     font-weight: bold;
     margin-bottom: 0.7em;

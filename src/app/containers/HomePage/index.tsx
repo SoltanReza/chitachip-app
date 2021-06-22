@@ -188,7 +188,7 @@ export function HomePage({ className }: Props) {
         </div>
       )}
       <Row gutter={[16, 24]}>
-        <Col xs={4} sm={4} md={6} lg={6} xl={6}>
+        <Col xs={0} sm={0} md={5} lg={5} xl={5}>
           {BrowseHomeList && BrowseHomeList.data && (
             <MenuSider categories={BrowseHomeList.data.categories} />
           )}
@@ -225,7 +225,7 @@ export function HomePage({ className }: Props) {
             </div>
           </div>
         </Col>
-        <Col xs={20} sm={20} md={6} lg={18} xl={18}>
+        <Col xs={20} sm={20} md={18} lg={18} xl={18}>
           <div className="emptyBlocks"></div>
           {BrowseHomeList && BrowseHomeList.data && (
             <StoryProduct stories={BrowseHomeList.data.stories} />
@@ -262,8 +262,8 @@ export function HomePage({ className }: Props) {
         </Col>
       </Row>
 
-      <Row gutter={[48, 48]}>
-        <Col xs={24} sm={24} md={10} lg={6} xl={6}>
+      <Row gutter={[16, 24]}>
+        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
               <img
@@ -275,7 +275,6 @@ export function HomePage({ className }: Props) {
           </Row>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightContactUs">
-              {' '}
               <h2>با ما در تماس باشید</h2>
             </Col>
             <Col span={16}>
@@ -317,7 +316,7 @@ export function HomePage({ className }: Props) {
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.first_list.prs.map(item => (
-                  <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+                  <Col xs={24} sm={24} md={8} lg={8} xl={8}>
                     <div className="offerCard">
                       <div
                         data-id={item.id}
@@ -431,33 +430,25 @@ export function HomePage({ className }: Props) {
                 <a href={BrowseHomeList.data.banners.url_third} target="blank">
                   <Row>
                     <Col
-                      xs={14}
-                      sm={14}
+                      xs={18}
+                      sm={18}
                       md={18}
-                      lg={14}
-                      xl={14}
+                      lg={18}
+                      xl={18}
                       className="thirdBanner"
                     >
                       <Row>{BrowseHomeList.data.banners.third_title}</Row>
                       <Row>{BrowseHomeList.data.banners.third_description}</Row>
                     </Col>
-                    <Col
-                      xs={10}
-                      sm={10}
-                      md={6}
-                      lg={10}
-                      xl={10}
-                      style={{
-                        background: `url(${BrowseHomeList.data.banners.third_banner})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                      }}
-                    >
-                      {/* <img
+                    <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+                      <img
                         src={BrowseHomeList.data.banners.third_banner}
                         className="sliceCardImg"
                         alt=""
-                      /> */}
+                        style={{
+                          maxWidth: '250px',
+                        }}
+                      />
                     </Col>
                   </Row>
                 </a>

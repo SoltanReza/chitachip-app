@@ -132,7 +132,10 @@ export const Product = memo(({ className, data }: Props) => {
             <Card className="productInfo">
               <div className="productInfoTitle">ویژگی های محصول</div>
 
-              <div dangerouslySetInnerHTML={{ __html: data.properties }}></div>
+              <div
+                className="properties"
+                dangerouslySetInnerHTML={{ __html: data.properties }}
+              ></div>
             </Card>
           </Col>
           <Col xs={24} sm={24} md={6} lg={4} xl={4}>

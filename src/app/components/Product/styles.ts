@@ -27,11 +27,9 @@ export const StyledProduct = styled.section`
     background: #f6f6f6;
     border-radius: 9px;
     max-height: 76.8%;
-
     overflow-y: auto;
-    -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
+
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
   }
 
   .productInfoTitle {
@@ -45,9 +43,7 @@ export const StyledProduct = styled.section`
     background: #f6f6f6;
     border-radius: 9px;
     padding: 1em 0;
-    -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
   }
 
   .productTitle {
@@ -63,6 +59,13 @@ export const StyledProduct = styled.section`
     color: red;
   }
 
+  .addToCardBtn,
+  .addToFavorite,
+  .Share {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8em;
+  }
   .addToCardBtn {
     background-image: linear-gradient(
       to right,

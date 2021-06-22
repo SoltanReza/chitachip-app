@@ -8,9 +8,7 @@ export const StyledProductListPage = styled(ProductLayout)`
     margin-top: 1em;
     background: #fff;
     border-radius: 5px;
-    -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
-    -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
   }
 
   .titleCategoryItem {
@@ -67,9 +65,7 @@ export const StyledProductListPage = styled(ProductLayout)`
     border-radius: 6px;
     min-width: 100%;
     cursor: pointer;
-    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
     height: 275px;
 

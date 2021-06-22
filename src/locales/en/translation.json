@@ -267,6 +267,10 @@
     "PaymentCallbackPage": {
       "title": "اطلاعات پرداخت",
       "description": "اطلاعات پرداخت"
+    },
+    "AboutUsPage": {
+      "title": "درباره ما",
+      "description": "درباره ما"
     }
   }
 }

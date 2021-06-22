@@ -8,9 +8,7 @@ export const StyledCategorySider = styled.section`
   background: #fff;
   width: 100%;
   border-radius: 5px;
-  -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
-  -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
   max-height: 235px;
   .categoryTitle {

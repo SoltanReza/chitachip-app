@@ -112,7 +112,7 @@ export const StyledHomePage = styled(BaseLayout)`
   .imgProductWrapper {
     display: flex;
     justify-content: center;
-    height: 130px;
+    height: 120px;
   }
 
   .imgProduct {
@@ -120,7 +120,7 @@ export const StyledHomePage = styled(BaseLayout)`
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
   .titleProduct {
     font-weight: bold;

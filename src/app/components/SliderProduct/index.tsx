@@ -184,7 +184,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
               </div>
               <div className="buyProduct" id={`buyProduct${item.id}`}>
                 <div>
-                  <StarFilled style={{ color: '#ffc107', fontSize: '1.5em' }} />{' '}
+                  <StarFilled style={{ color: '#ffc107', fontSize: '1.5em' }} />
                   1.3
                 </div>
                 <div className="priceStyle">

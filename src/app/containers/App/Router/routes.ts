@@ -1,4 +1,6 @@
 export enum Routes {
+  about = '/about',
+
   login = '/login',
   register = '/register/mobile=:mobile',
   logout = '/logout',

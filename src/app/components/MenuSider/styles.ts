@@ -7,13 +7,12 @@ export const StyledMenuSider = styled.section`
   background: ${theme.LAYOUT_HEADER_COLOR};
   background: #fff;
   width: 100%;
-  border-radius: 5px;
-  -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
-  -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
   .categoryTitle {
     padding: 1em 1em 0.6em 0em;
     font-weight: bold;
+    color: black;
   }
 
   .iconCategory {
@@ -21,6 +20,7 @@ export const StyledMenuSider = styled.section`
   }
 
   .rowCategory {
+    cursor: pointer;
     margin-bottom: 1em;
     list-style-type: none;
     &:hover {

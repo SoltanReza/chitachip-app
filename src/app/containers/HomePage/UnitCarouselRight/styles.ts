@@ -61,7 +61,7 @@ export const StyledUnitCarouselRight = styled.section`
     background-repeat: no-repeat;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
   .titleProduct {
     font-weight: bold;
