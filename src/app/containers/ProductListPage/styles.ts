@@ -7,8 +7,9 @@ export const StyledProductListPage = styled(ProductLayout)`
   .filter {
     margin-top: 1em;
     background: #fff;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
+    padding: 1em;
   }
 
   .titleCategoryItem {
@@ -190,14 +191,18 @@ export const StyledProductListPage = styled(ProductLayout)`
     font-size: 1.5em;
     font-weight: bold;
     padding: 0.1em;
+    margin-bottom: 0.5em;
   }
 
   .subList {
     color: #000;
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: bold;
     padding-right: 0.5em;
     padding-bottom: 0.5em;
     cursor: pointer;
+    &:hover {
+      background: rgba(249, 174, 59, 0.5);
+    }
   }
 `;

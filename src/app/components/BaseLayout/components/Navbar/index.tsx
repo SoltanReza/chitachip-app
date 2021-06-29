@@ -7,11 +7,18 @@ import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, message } from 'antd';
 import { BasketHeader } from 'app/components/BasketHeader';
 import { Routes } from 'app/containers/App/Router/routes';
-import { selectAuth } from 'app/containers/App/selectors';
+import { browseListProductsSaga } from 'app/containers/App/saga';
+import {
+  selectAuth,
+  selectBrowseListProducts,
+  selectSearchProduct,
+} from 'app/containers/App/selectors';
+import { appActions } from 'app/containers/App/slice';
 import { translations } from 'locales/i18n';
 import React, { memo, useCallback, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { StyledNavbar } from './styles';
 
@@ -25,7 +32,14 @@ export const Navbar = memo(({ className }: Props) => {
   const history = useHistory();
   const location = useLocation();
   const authData = useSelector(selectAuth);
+  const searchData = useSelector(selectSearchProduct);
   const [showBasket, setShowBasket] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(appActions.searchProduct({ query: searchText }));
+    console.log(searchData);
+  }, [dispatch, searchData, searchText]);
 
   const handleRedirect = useCallback(
     e => {
@@ -40,21 +54,23 @@ export const Navbar = memo(({ className }: Props) => {
   const handleRoutToHome = useCallback(() => history.push(Routes.home), [
     history,
   ]);
-
   const handleRedirectToLogoutPage = useCallback(
     () => history.push(Routes.logout),
     [history],
   );
-  const handleRedirectToBasketPage = useCallback(
-    () => setShowBasket(true),
-    //  history.push(Routes.basket),
-    [],
-  );
+  const handleRedirectToBasketPage = useCallback(() => setShowBasket(true), []);
 
   const handleRedirectToUserProfilePage = useCallback(
     () => history.push(Routes.userProfile),
     [history],
   );
+
+  const handleSearch = useCallback(e => {
+    if (e.target.value.length > 3) {
+      setSearchText(e.target.value);
+    }
+  }, []);
+
   const handleshowEmptyBasket = useCallback(() => {
     if (!authData.data) {
       message.info('برای دیدن سبد خرید لطفا ابتدا وارد سامانه شوید');
@@ -68,7 +84,6 @@ export const Navbar = memo(({ className }: Props) => {
         <ul>
           <li>
             <a onClick={handleRedirectToUserProfilePage}>
-              {' '}
               <UserOutlined /> پروفایل
             </a>
           </li>
@@ -90,6 +105,7 @@ export const Navbar = memo(({ className }: Props) => {
                 marginTop: '2.4em',
               }}
               className="searchStyle"
+              onChange={handleSearch}
             />
           </li>
           <li style={{ float: 'left' }}>
@@ -123,15 +139,13 @@ export const Navbar = memo(({ className }: Props) => {
                 opacity: '1',
                 direction: 'ltr',
                 marginTop: '2.4em',
+                outline: 'none',
               }}
               className="searchStyle"
             />
           </li>
           <li style={{ float: 'left' }}>
             <div className="logo" onClick={handleRoutToHome} />
-            {/* <a className="active" href="#about">
-            About
-          </a> */}
           </li>
         </ul>
       )}

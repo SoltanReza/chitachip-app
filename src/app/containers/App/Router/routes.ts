@@ -1,6 +1,6 @@
 export enum Routes {
   about = '/about',
-
+  rules = '/rules',
   login = '/login',
   register = '/register/mobile=:mobile',
   logout = '/logout',

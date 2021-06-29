@@ -39,11 +39,12 @@ import { StyledProduct } from './styles';
 interface Props {
   className?: string;
   data: ProductData;
+  similar: Array<ProductData>;
 }
 
 const { Title, Paragraph, Text, Link } = Typography;
 
-export const Product = memo(({ className, data }: Props) => {
+export const Product = memo(({ className, data, similar }: Props) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -105,6 +106,7 @@ export const Product = memo(({ className, data }: Props) => {
     }
   }, [addToBasketData.data]);
 
+  console.log(similar);
   return (
     <StyledProduct className={`Product ${className || ''}`}>
       <Card className="cardProduct">
@@ -202,10 +204,14 @@ export const Product = memo(({ className, data }: Props) => {
         </Row>
         <Row justify="end" className="productAlert">
           <Col xs={24} sm={24} md={16} lg={16} xl={16}>
-            <h3 className="alertText">
-              {' '}
-              <WarningOutlined color="red" /> هشدار
-            </h3>
+            {data.state && data.state === 'warning' ? (
+              <>
+                <h3 className="alertText">
+                  <WarningOutlined color="red" /> هشدار
+                </h3>
+                <p>{data.state_text}</p>
+              </>
+            ) : null}
             {/* <div dangerouslySetInnerHTML={{ __html: data.description }}></div> */}
           </Col>
         </Row>

@@ -1,40 +1,43 @@
 /**
  *
- * AboutUsPage
+ * RulesPage
  *
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { translations } from 'locales/i18n';
 
-import { StyledAboutUsPage, Wrapper, Container } from './styles';
+import { StyledRulesPage, Container, Wrapper } from './styles';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { appActions } from '../App/slice';
 import { getAboutusApi } from '../App/api';
 
 interface Props {
   className?: string;
 }
-
 interface Data {
   type: string;
   text: string;
 }
-export function AboutUsPage({ className }: Props) {
+export function RulesPage({ className }: Props) {
   const [data, setData] = useState<Data>();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getAboutusApi().then(res => {
       res.data.forEach(i => {
-        if (i.type === 'بخش ها') {
+        if (i.type === 'قوانین') {
           setData(i);
         }
       });
     });
   }, []);
   return (
-    <StyledAboutUsPage
+    <StyledRulesPage
       className={`RulesPage ${className || ''}`}
       title={t(translations.pages.RulesPage.title)}
       description={t(translations.pages.RulesPage.description)}
@@ -46,6 +49,6 @@ export function AboutUsPage({ className }: Props) {
           {data && <div dangerouslySetInnerHTML={{ __html: data?.text }}></div>}
         </Container>
       </Wrapper>
-    </StyledAboutUsPage>
+    </StyledRulesPage>
   );
 }

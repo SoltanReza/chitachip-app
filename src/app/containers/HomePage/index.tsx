@@ -212,7 +212,7 @@ export function HomePage({ className }: Props) {
                 <CustomerServiceOutlined />
               </span>
             </div>
-            <div>تماس با ما</div>
+            <h4>تماس با ما</h4>
             <div className="socialMedia">
               <a href="https://wa.me/+982632211001?text=I'm%20interested%20in%20your%20car%20for%20sale">
                 <WhatsAppOutlined />
@@ -225,7 +225,7 @@ export function HomePage({ className }: Props) {
             </div>
           </div>
         </Col>
-        <Col xs={20} sm={20} md={18} lg={18} xl={18}>
+        <Col xs={20} sm={20} md={19} lg={19} xl={19}>
           <div className="emptyBlocks"></div>
           {BrowseHomeList && BrowseHomeList.data && (
             <StoryProduct stories={BrowseHomeList.data.stories} />
@@ -316,12 +316,15 @@ export function HomePage({ className }: Props) {
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.first_list.prs.map(item => (
-                  <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                  <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
                     <div className="offerCard">
                       <div
                         data-id={item.id}
                         onClick={handleRouteToProductDetails(item.id)}
                       >
+                        <div className="titleProduct">
+                          {ellipseString(`${item.title}`, 25)}
+                        </div>
                         <div className="imgProductWrapper">
                           <img
                             src={item.image}
@@ -329,15 +332,12 @@ export function HomePage({ className }: Props) {
                             alt={item.title}
                           />
                         </div>
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 20)}
-                        </div>
                       </div>
                       <div className="buyProduct" id={`buyProduct${item.id}`}>
                         <div>
                           <StarFilled
                             style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />{' '}
+                          />
                           1.3
                         </div>
                         <div className="priceStyle">
@@ -465,21 +465,21 @@ export function HomePage({ className }: Props) {
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.second_list.prs.map(item => (
-                  <Col xs={24} sm={24} md={12} lg={8} xl={8}>
+                  <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
                     <div className="offerCard">
                       <div
                         data-id={item.id}
                         onClick={handleRouteToProductDetails(item.id)}
                       >
+                        <div className="titleProduct">
+                          {ellipseString(`${item.title}`, 25)}
+                        </div>
                         <div className="imgProductWrapper">
                           <img
                             src={item.image}
                             className="imgProduct"
                             alt={item.title}
                           />
-                        </div>
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 20)}
                         </div>
                       </div>
                       <div className="buyProduct" id={`buyProduct${item.id}`}>

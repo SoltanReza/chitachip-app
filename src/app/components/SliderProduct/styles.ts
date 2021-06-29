@@ -35,7 +35,7 @@ export const StyledSliderProduct = styled.section`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
     height: 275px;
-
+    justify-content: space-between;
     &:hover {
       .buyProduct {
         display: none;
@@ -46,10 +46,11 @@ export const StyledSliderProduct = styled.section`
     }
   }
 
-  .imgProductWrapper {
+  .imgProductWrapper-slider {
     display: flex;
     justify-content: center;
-    height: 130px;
+    align-items: center;
+    height: 150px;
     .imgProduct {
       background-position: center;
       background-repeat: no-repeat;
@@ -67,7 +68,7 @@ export const StyledSliderProduct = styled.section`
     display: flex;
     flex-direction: row;
     justify-content: space-between !important;
-    margin-top: 0.7em;
+    margin-top: 0.5em;
   }
   .price {
     display: flex;
@@ -140,6 +141,10 @@ export const StyledSliderProduct = styled.section`
     color: #fff;
     background: #ff9800;
     border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 0px 0.5em 0px 0.5em;
   }
 

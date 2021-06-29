@@ -220,7 +220,7 @@ export function SendInfoPage({ className }: Props) {
       <Card className="cardInfo">
         <div className="cardInfoTitle">اطلاعات ارسال</div>
         <Row gutter={32}>
-          <Col xs={24} sm={24} md={18} lg={18} xl={18}>
+          <Col xs={24} sm={24} md={19} lg={19} xl={19}>
             <div className="userAddressAdd" onClick={handleShowModal}>
               <PlusOutlined className="userAddressAddIcon" size={3} />
               افزودن آدرس جدید
@@ -231,7 +231,7 @@ export function SendInfoPage({ className }: Props) {
                 addressData.data &&
                 addressData.data.data.map(item => (
                   <>
-                    <Row gutter={16}>
+                    <Row className="userAdressItem" gutter={16}>
                       <Col
                         xs={24}
                         sm={24}
@@ -294,19 +294,25 @@ export function SendInfoPage({ className }: Props) {
                         className="moreVeiw"
                       >
                         {currentElement === item.id ? (
-                          <div onClick={handleCloseMoreView}>
+                          <p
+                            className="clickable"
+                            onClick={handleCloseMoreView}
+                          >
                             مشاهده کمتر
-                            <DownOutlined />
-                          </div>
-                        ) : (
-                          <div data-id={item.id} onClick={handleShowMoreView}>
-                            مشاهده بیشتر
                             <UpOutlined />
-                          </div>
+                          </p>
+                        ) : (
+                          <p
+                            className="clickable"
+                            data-id={item.id}
+                            onClick={handleShowMoreView}
+                          >
+                            مشاهده بیشتر
+                            <DownOutlined />
+                          </p>
                         )}
                       </Col>
                     </Row>
-                    <hr className="solid" />
                   </>
                 ))}
             </Card>
@@ -326,8 +332,7 @@ export function SendInfoPage({ className }: Props) {
               // navigation
               // pagination={{ clickable: true }}
               // scrollbar={{ draggable: true }}
-              onSwiper={swiper => console.log(swiper)}
-              onSlideChange={() => console.log('slide change')}
+              style={{ padding: '20px' }}
             >
               {BasketData &&
                 BasketData.data &&
@@ -389,7 +394,7 @@ export function SendInfoPage({ className }: Props) {
             <Card className="userAddressDetaileCard">
               {sendDate &&
                 sendDate.shipment.map(item => (
-                  <Row gutter={16}>
+                  <Row className="userAdressItem" gutter={16}>
                     <Col
                       xs={24}
                       sm={24}
@@ -427,7 +432,6 @@ export function SendInfoPage({ className }: Props) {
                   </Row>
                 ))}
 
-              <hr className="solid" />
               {/* <Row gutter={16}>
                 <Col xs={24} sm={24} md={4} lg={4} xl={4} className="selected">
                   <Button className="selectBtn">انتخاب</Button>
@@ -484,14 +488,14 @@ export function SendInfoPage({ className }: Props) {
               // onChange={this.onChange}
               />
 
-              <div className="roleTitle">
+              <a href="/rules" className="roleTitle">
                 (خواندن شرایط خدمات)شرایط خدمات را مطالعه کرده و بدون قید و شرط
                 با آن موافقم.
-              </div>
+              </a>
             </div>
             <div className="cardInfoTitle">درگاه پرداخت</div>
           </Col>
-          <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+          <Col xs={24} sm={24} md={5} lg={5} xl={5}>
             <Card className="productInfo">
               <div className="price">
                 <div className="priceTitleDiv">قیمت محصولات</div>

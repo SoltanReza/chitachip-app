@@ -21,9 +21,11 @@ export const StyledCategorySider = styled.section`
   }
 
   .rowCategory {
+    display: flex;
+    align-items: center;
     margin-bottom: 1em !important;
     list-style-type: none;
-    padding: 0 0.3em;
+    padding: 0.2em 0.3em;
 
     margin: 0 0.3em;
 
@@ -31,6 +33,7 @@ export const StyledCategorySider = styled.section`
       .hoverCategory {
         display: inline;
       }
+      background: rgba(249, 174, 59, 0.5);
     }
   }
 

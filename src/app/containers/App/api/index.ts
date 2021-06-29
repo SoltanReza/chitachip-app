@@ -29,6 +29,8 @@ import {
   DeleteFromBasketItemResponse,
   DeleteLikeItemRequest,
   DeleteLikeItemResponse,
+  GetAboutusRequest,
+  GetAboutusResponse,
   GetCodeRequest,
   GetCodeResponse,
   GetProductSliderRequest,
@@ -47,6 +49,8 @@ import {
   RegisterResponse,
   ResetPasswordCodeRequest,
   ResetPasswordCodeResponse,
+  SearchProductRequest,
+  SearchProductResponse,
   SendEmailNewsRequest,
   SendEmailNewsResponse,
   UserInfoRequest,
@@ -245,4 +249,15 @@ export function verifyPaymentApi(
   return http
     .post('v1/verify-payment/', params)
     .then(response => response.data);
+}
+
+export function searchProductApi(
+  params: SearchProductRequest,
+): Promise<SearchProductResponse> {
+  return http.post('v1/search/', params).then(response => response.data);
+}
+
+export function getAboutusApi(): Promise<GetAboutusResponse> {
+  // params: GetAboutusRequest,
+  return http.get('v1/about-us/').then(response => response.data);
 }

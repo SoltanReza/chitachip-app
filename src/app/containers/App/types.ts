@@ -94,7 +94,11 @@ export interface AppState {
     data?: DeleteLikeItemResponse;
     error?: ErrorResponse;
   };
-
+  searchProduct: {
+    params?: SearchProductRequest;
+    data?: SearchProductResponse;
+    error?: ErrorResponse;
+  };
   auth?: AuthData;
 }
 
@@ -154,6 +158,9 @@ export interface ProductData {
   sub_category: Array<string>;
   title: string;
   like_number: number;
+  state: string;
+  state_text: string;
+  state_icon: string;
 }
 
 export interface SliderData {
@@ -575,3 +582,26 @@ export interface VerifyPaymentResponse {
   status: string;
 }
 // #endregion VerifyPayment
+
+// #region SearchProdcut
+export interface SearchProductRequest {
+  query: string;
+}
+export interface SearchProductResponse {
+  data: Array<{
+    image_thumbnail: string;
+    title: string;
+    id: string;
+  }>;
+}
+// #endregion SearchProdcut
+
+// #region SearchProdcut
+export interface GetAboutusRequest {}
+export interface GetAboutusResponse {
+  data: Array<{
+    type: string;
+    text: string;
+  }>;
+}
+// #endregion SearchProdcut

@@ -32,11 +32,9 @@ export const StyledUnitCarouselRight = styled.section`
     background: #fff;
     padding: 1em;
     border-radius: 6px;
-    min-width: 100%;
+    max-width: 80%;
     cursor: pointer;
-    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;
     height: 275px;
 
@@ -53,7 +51,7 @@ export const StyledUnitCarouselRight = styled.section`
   .imgProductWrapper {
     display: flex;
     justify-content: center;
-    height: 130px;
+    height: 150px;
   }
 
   .imgProduct {

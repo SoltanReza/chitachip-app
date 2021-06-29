@@ -32,12 +32,19 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     font-weight: bolder;
     margin-left: 0.2em;
   }
-
+  .clickable {
+    cursor: pointer;
+    font-size: 0.9em;
+  }
   .userAddressDetaileCard {
     background: #f6f6f6;
     border-radius: 9px;
     padding: 0;
     margin: 1em 0;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
+    .userAdressItem {
+      border-bottom: 1px solid #707070;
+    }
 
     .addressName {
       color: #000;
@@ -124,8 +131,12 @@ export const StyledSendInfoPage = styled(BasketLayout)`
   .selectBtn {
     color: #fff;
     background: #ffb14d;
+    text-align: center;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
     border-radius: 15px;
-    font-size: 1em;
+    font-size: 0.9em;
     font-weight: bolder;
     width: 106px;
   }
@@ -139,11 +150,9 @@ export const StyledSendInfoPage = styled(BasketLayout)`
   }
 
   .productInfo {
-    background: #ece8e8;
+    background: #f6f6f6;
     border-radius: 9px;
-    -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
   }
 
   .productTitle {
@@ -233,9 +242,7 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     border-radius: 6px;
     min-width: 100%;
     cursor: pointer;
-    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
     position: relative;
     height: 275px;
   }

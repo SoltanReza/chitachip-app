@@ -23,6 +23,7 @@ import {
   likeProductApi,
   loginApi,
   registerApi,
+  searchProductApi,
   sendEmailNewsApi,
   userInfoApi,
 } from './api';
@@ -45,6 +46,7 @@ import {
   LikeProductRequest,
   LoginRequest,
   RegisterRequest,
+  SearchProductRequest,
   SendEmailNewsRequest,
   UserInfoRequest,
 } from './types';
@@ -311,6 +313,17 @@ export function* deleteLikeItemSaga(
   }
 }
 
+export function* serachProductSaga(
+  action: PayloadAction<SearchProductRequest>,
+) {
+  try {
+    const response = yield call(searchProductApi, action.payload);
+    yield put(appActions.searchProduct(response));
+  } catch (error) {
+    yield put(appActions.deleteLikeItemError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);

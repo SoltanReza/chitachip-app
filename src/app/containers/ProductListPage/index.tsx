@@ -116,9 +116,11 @@ export function ProductListPage({ className }: Props) {
         <Col xs={20} sm={20} md={6} lg={18} xl={18}>
           <div className="titleCategoryItem">{params.catName}</div>
           <Breadcrumb className="breadcrumb">
-            <Breadcrumb.Item>صفحه اصلی</Breadcrumb.Item>
             <Breadcrumb.Item>
-              <a>آردوینو و قطعات جانبی</a>
+              <a href="/">صفحه اصلی</a>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <a>{params.catName}</a>
             </Breadcrumb.Item>
           </Breadcrumb>
           <Row gutter={16} className="rowFilterAction">

@@ -51,8 +51,11 @@ export function ProductDetailsPage({ className }: Props) {
       title={t(translations.pages.ProductDetailsPage.title)}
       description={t(translations.pages.ProductDetailsPage.description)}
     >
-      {BrowseProduct && BrowseProduct.data && (
-        <Product data={BrowseProduct.data.product} />
+      {BrowseProduct && BrowseProduct.data && BrowseProduct.data.product && (
+        <Product
+          similar={BrowseProduct.data.similar}
+          data={BrowseProduct.data.product}
+        />
       )}
     </StyledProductDetailsPage>
   );

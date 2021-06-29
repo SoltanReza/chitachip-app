@@ -57,18 +57,24 @@ export function UserProfilePage({ className }: Props) {
     >
       <div className="cardUserProfile">
         <div className="titleCardProfile">
-          <div>
-            <Avatar size="large" icon={<UserOutlined />} />
-            <span className="profileName">
-              {userData &&
-              userData.data &&
-              (userData.data.user.first_name || userData.data.user.first_name)
-                ? userData.data.user.first_name +
-                  ' ' +
-                  userData.data.user.last_name
-                : userData.data && userData.data.mobile}
-            </span>
-          </div>
+          <Avatar
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            size="large"
+            icon={<UserOutlined />}
+          />
+          <span className="profileName">
+            {userData &&
+            userData.data &&
+            (userData.data.user.first_name || userData.data.user.first_name)
+              ? userData.data.user.first_name +
+                ' ' +
+                userData.data.user.last_name
+              : userData.data && userData.data.mobile}
+          </span>
         </div>
         <UserProfileItem />
       </div>

@@ -59,7 +59,7 @@ export function LoginPage({ className }: Props) {
   const [showCheckPassword, setShowCheckPassword] = useState(false);
   const [showValidationCode, setShowValidationCode] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
-
+  const [invalidPassword, setInvalidPassword] = useState(false);
   const [showActive, setShowActive] = useState(false);
   const [lodingData, setLodingData] = useState(false);
   const [lodingPassData, setLodingPassData] = useState(false);
@@ -146,16 +146,12 @@ export function LoginPage({ className }: Props) {
               .catch(() => {
                 setShowCheckPassword(false);
               });
-          } else if (data.status === 100) {
-            message.warning(' کاربر گرامی اکانت شما فعال نمی باشد');
-            message.warning(
-              'تا لحظاتی دیگر کد فعال سازی برای شما ارسال می شود',
-            );
-            setShowCheckPassword(false);
-            setShowActive(true);
           } else {
-            setShowCheckPassword(false);
-            setShowCheckUsername(true);
+            message.warning('اطلاعات وارد شده نادرست است');
+            setLodingData(false);
+            setLodingPassData(false);
+
+            setShowCheckPassword(true);
           }
         })
 
@@ -331,7 +327,7 @@ export function LoginPage({ className }: Props) {
                 loading={lodingData}
               >
                 ادامه
-              </Button>{' '}
+              </Button>
             </Row>
           </Form>
           <Row gutter={8} className="footer">
@@ -362,6 +358,9 @@ export function LoginPage({ className }: Props) {
           <div className="titleLogin">رمز عبور</div>
           <div className="descPassowrd">
             جهت ورود به حساب کاربری لطفا رمز عبور خود را وارد نمایید.
+            {invalidPassword && (
+              <p className="invalidPass">اطلاعات وارد شده نادرست است</p>
+            )}
           </div>
           <Form onFinish={handlePasswordSubmit}>
             <Form.Item name="password" rules={[{ required: true }]}>
@@ -385,7 +384,7 @@ export function LoginPage({ className }: Props) {
                 loading={lodingPassData}
               >
                 ورود
-              </Button>{' '}
+              </Button>
             </Row>
           </Form>
           <Row gutter={8} className="footer">

@@ -210,7 +210,6 @@
     "HomePage": {
       "title": "صفحه اصلی",
       "description": "صفحه اصلی",
-      "chartTitle": "نمودار های تغییر وضعیت ارزش سهام",
       "NewsCards": {
         "title": "اخبار سهام اردبیت"
       }
@@ -271,6 +270,10 @@
     "AboutUsPage": {
       "title": "درباره ما",
       "description": "درباره ما"
+    },
+    "RulesPage": {
+      "title": "قوانین و مقررات چیتاچیپ",
+      "description": "قوانین و مقررات چیتاچیپ"
     }
   }
 }

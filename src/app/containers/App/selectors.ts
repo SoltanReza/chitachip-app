@@ -106,3 +106,8 @@ export const selectBrowseLikeList = createSelector(
   [selectDomain],
   state => state.browseLikeList,
 );
+
+export const selectSearchProduct = createSelector(
+  [selectDomain],
+  state => state.searchProduct,
+);

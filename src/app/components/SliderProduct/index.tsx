@@ -135,6 +135,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
     }
   }, [addToBasketData, quantity]);
 
+  console.log(product);
   return (
     <StyledSliderProduct className={`SliderProduct ${className || ''}`}>
       {likeData.params && (
@@ -172,9 +173,9 @@ export const SliderProduct = memo(({ className, product }: Props) => {
                 onClick={handleRouteToProductDetails(item.id)}
               >
                 <div className="titleProduct">
-                  {ellipseString(`${item.title}`, 20)}
+                  {ellipseString(`${item.title}`, 26)}
                 </div>
-                <div className="imgProductWrapper">
+                <div className="imgProductWrapper-slider">
                   <img
                     src={item.image}
                     className="imgProduct"
@@ -245,7 +246,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
                     />
                     {currentElement === item.id ? (
                       addToBasketData.data?.status === 402 ? (
-                        0
+                        <span>0</span>
                       ) : (
                         <span>{addToBasketData.data?.quantity}</span>
                       )

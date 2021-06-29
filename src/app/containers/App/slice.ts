@@ -38,6 +38,7 @@ import {
   NotifType,
   RegisterRequest,
   RegisterResponse,
+  SearchProductRequest,
   SendEmailNewsRequest,
   SendEmailNewsResponse,
   UserInfoRequest,
@@ -47,7 +48,11 @@ import {
 // The initial state of the App container
 export const initialState: ContainerState = {
   notifications: [],
-
+  searchProduct: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
   login: {
     params: undefined,
     data: undefined,
@@ -583,6 +588,16 @@ const appSlice = createSlice({
       state.auth = undefined;
     },
     //#endregion auth
+
+    //#region SearchProduct
+
+    searchProduct(state, action: PayloadAction<SearchProductRequest>) {
+      state.searchProduct.params = action.payload;
+      state.searchProduct.data = initialState.searchProduct.data;
+      state.searchProduct.error = initialState.searchProduct.error;
+    },
+
+    // #endregion SearchProduct
   },
 });
 

@@ -69,16 +69,8 @@ export const UserProfileItem = memo(({ className }: Props) => {
   return (
     <StyledUserProfileItem className={`UserProfileItem ${className || ''}`}>
       <Row gutter={[32, { xs: 8, sm: 16, md: 32, lg: 32 }]}>
-        <Col xs={24} sm={24} md={7} lg={7} xl={7}>
-          <Card
-            className="profileTitleItem"
-            actions={[
-              <div className="logout" onClick={handleRoutToLogout}>
-                <img src="images/logout.svg" alt="خروج" className="imgLogout" />
-                <span> خروج</span>
-              </div>,
-            ]}
-          >
+        <Col xs={19} sm={19} md={5} lg={5} xl={5}>
+          <Card className="profileTitleItem">
             <div
               className={`profileTitleText ${showUserInfo ? 'activeItem' : ''}`}
               onClick={handleShowUserInfo}
@@ -114,6 +106,10 @@ export const UserProfileItem = memo(({ className }: Props) => {
             <div className="profileTitleText">
               <img src={mailIcon} className="profileIcon" />
               اعلان های من
+            </div>
+            <div className="logout" onClick={handleRoutToLogout}>
+              <img src="images/logout.svg" alt="خروج" className="imgLogout" />
+              <span> خروج</span>
             </div>
           </Card>
         </Col>
