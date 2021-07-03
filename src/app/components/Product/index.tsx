@@ -106,7 +106,7 @@ export const Product = memo(({ className, data, similar }: Props) => {
     }
   }, [addToBasketData.data]);
 
-  console.log(similar);
+  console.log(data.properties);
   return (
     <StyledProduct className={`Product ${className || ''}`}>
       <Card className="cardProduct">
@@ -132,12 +132,15 @@ export const Product = memo(({ className, data, similar }: Props) => {
             className="productInfoCard"
           >
             <Card className="productInfo">
-              <div className="productInfoTitle">ویژگی های محصول</div>
-
-              <div
-                className="properties"
-                dangerouslySetInnerHTML={{ __html: data.properties }}
-              ></div>
+              {data.properties && (
+                <>
+                  <div className="productInfoTitle">ویژگی های محصول</div>
+                  <div
+                    className="properties"
+                    dangerouslySetInnerHTML={{ __html: data.properties }}
+                  ></div>
+                </>
+              )}
             </Card>
           </Col>
           <Col xs={24} sm={24} md={6} lg={4} xl={4}>

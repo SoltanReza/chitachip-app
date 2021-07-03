@@ -9,6 +9,12 @@ export const StyledMenuSider = styled.section`
   width: 100%;
   border-radius: 10px;
   box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
+  &.collapsed {
+    overflow: hidden;
+  }
+  h3 {
+    cursor: pointer;
+  }
   .categoryTitle {
     padding: 1em 1em 0.6em 0em;
     font-weight: bold;
@@ -71,7 +77,7 @@ export const StyledMenuSider = styled.section`
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     max-height: 250px;
-    height: 100%;
+    height: 110%;
     overflow-y: auto;
     margin-top: -2.78em;
     -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
@@ -84,8 +90,8 @@ export const StyledMenuSider = styled.section`
   }
 
   .imgCategoryList {
-    width: 60px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
   }
 
   .rowImgCategoryList {

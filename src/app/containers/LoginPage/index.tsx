@@ -77,22 +77,30 @@ export function LoginPage({ className }: Props) {
   }, []);
   const handleUsernameSubmit = useCallback(
     values => {
-      setLodingData(true);
+      if (username.length === 11) {
+        if (username.includes('09')) {
+          setLodingData(true);
 
-      checkUserApi({
-        username: username,
-      })
-        .then(data => {
-          if (data.status === 200) {
-            setLodingData(false);
-            setShowCheckUsername(false);
-            setShowCheckPassword(true);
-          } else if (data.status === 201) {
-            message.info('لطفا ابتدا ثبت نام کنید');
-            redirect(Routes.register, { mobile: username });
-          }
-        })
-        .catch(() => {});
+          checkUserApi({
+            username: username,
+          })
+            .then(data => {
+              if (data.status === 200) {
+                setLodingData(false);
+                setShowCheckUsername(false);
+                setShowCheckPassword(true);
+              } else if (data.status === 201) {
+                message.info('لطفا ابتدا ثبت نام کنید');
+                redirect(Routes.register, { mobile: username });
+              }
+            })
+            .catch(() => {});
+        } else {
+          message.warn('لطفا شماره را به صورت 09... .وارد نمایید');
+        }
+      } else {
+        message.warn('شماره تلفن باید شامل 11 عدد باشد');
+      }
     },
     [username],
   );
@@ -269,6 +277,7 @@ export function LoginPage({ className }: Props) {
                     })
                     .catch(() => {});
                 } else {
+                  console.log('errrr ');
                 }
               })
               .catch(() => {});

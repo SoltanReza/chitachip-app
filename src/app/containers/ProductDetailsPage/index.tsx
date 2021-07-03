@@ -44,7 +44,7 @@ export function ProductDetailsPage({ className }: Props) {
   useEffect(() => {
     dispatch(appActions.browseProduct({ product_id: params.id }));
   }, [dispatch, params.id]);
-
+  console.log(BrowseProduct.data);
   return (
     <StyledProductDetailsPage
       className={`ProductDetailsPage ${className || ''}`}

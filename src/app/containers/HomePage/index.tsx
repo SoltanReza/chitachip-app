@@ -190,7 +190,10 @@ export function HomePage({ className }: Props) {
       <Row gutter={[16, 24]}>
         <Col xs={0} sm={0} md={5} lg={5} xl={5}>
           {BrowseHomeList && BrowseHomeList.data && (
-            <MenuSider categories={BrowseHomeList.data.categories} />
+            <MenuSider
+              collapse={false}
+              categories={BrowseHomeList.data.categories}
+            />
           )}
           {/* {changeAffixed ? (
             <Affix offsetTop={20} onChange={handleChangeAffixed}>

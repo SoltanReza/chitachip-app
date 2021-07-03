@@ -21,13 +21,13 @@ import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { Routes } from '../App/Router/routes';
-import { selectBrowseCategories } from '../App/selectors';
+import { selectBrowseCategories, selectBrowseHomeList } from '../App/selectors';
 import { appActions } from '../App/slice';
 import { productListPageSaga } from './saga';
 import { selectProductListPage } from './selectors';
 import { reducer, sliceKey } from './slice';
 import { StyledProductListPage } from './styles';
-
+import { MenuSider } from 'app/components/MenuSider';
 interface Props {
   className?: string;
 }
@@ -42,7 +42,9 @@ export function ProductListPage({ className }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useDispatch();
 
+  const BrowseHomeList = useSelector(selectBrowseHomeList);
   const BrowseCategories = useSelector(selectBrowseCategories);
+
   const { t } = useTranslation();
   const params = useParams<{ catId: string; subId: string; catName: string }>();
 
@@ -84,10 +86,13 @@ export function ProductListPage({ className }: Props) {
     >
       <Row gutter={32}>
         <Col xs={4} sm={4} md={6} lg={6} xl={6}>
-          {BrowseCategories && BrowseCategories.data && (
+          {BrowseHomeList && BrowseHomeList.data && (
             <>
               <Row gutter={16}>
-                <CategorySider categories={BrowseCategories.data.cats} />
+                <MenuSider
+                  collapse
+                  categories={BrowseHomeList.data.categories}
+                />
               </Row>
               <Row gutter={16}>
                 <Col span={24} className="categoryList">
