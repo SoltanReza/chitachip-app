@@ -36,7 +36,7 @@ import { appActions } from '../App/slice';
 import { Offer } from './components/Offer';
 import { homePageSaga } from './saga';
 import { reducer, sliceKey } from './slice';
-import { StyledHomePage } from './styles';
+import { StyledHomePage, Tab } from './styles';
 import { UnitCarouselRight } from './UnitCarouselRight';
 import { useCallback } from 'react';
 import { useState } from 'react';
@@ -45,6 +45,7 @@ import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
 import { Routes } from '../App/Router/routes';
 import { useWindowWidth } from '@react-hook/window-size';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface Props {
   className?: string;
@@ -63,6 +64,7 @@ export function HomePage({ className }: Props) {
   const dispatch = useDispatch();
   const [changeAffixed, setChangeAffixed] = useState(false);
   const [changeMail, setChangeMail] = useState('');
+  const [tab, setTab] = useState('best');
   const onlyWidth = useWindowWidth();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -237,29 +239,44 @@ export function HomePage({ className }: Props) {
           {BrowseHomeList && BrowseHomeList.data && (
             <>
               <TopPackagesCarousel banners={BrowseHomeList.data.banners} />
-              <Tabs defaultActiveKey="1">
-                <TabPane tab={<span>پرفروش ترین ها</span>} key="1">
-                  <SliderProduct product={BrowseHomeList.data.most_sold} />
-                </TabPane>
-                <TabPane tab={<span>جدیدترین</span>} key="2">
-                  <SliderProduct product={BrowseHomeList.data.new_products} />
-                </TabPane>
+              <Row gutter={16}>
+                <Tab
+                  onClick={() => setTab('best')}
+                  active={tab === 'best'}
+                  className="tab"
+                >
+                  <span>پرفروش ترین ها</span>
+                </Tab>
+                <Tab
+                  active={tab === 'new'}
+                  onClick={() => setTab('new')}
+                  className="tab"
+                >
+                  <span>جدیدترین ها</span>
+                </Tab>
+
                 {BrowseHomeList.data.offers && (
-                  <TabPane
-                    tab={
-                      <span>
-                        پیشنهاد های ویژه
-                        {BrowseHomeList.data.offers_time > 0 && (
-                          <DateTimeViewer />
-                        )}
-                      </span>
-                    }
-                    key="3"
-                  >
-                    <SliderProduct product={BrowseHomeList.data.offers} />
-                  </TabPane>
+                  <Tab active={tab === 'sugg'} onClick={() => setTab('sugg')}>
+                    <span>
+                      پیشنهاد های ویژه
+                      {BrowseHomeList.data.offers_time > 0 && (
+                        <DateTimeViewer />
+                      )}
+                    </span>
+                  </Tab>
                 )}
-              </Tabs>
+              </Row>
+              {tab === 'best' && (
+                <SliderProduct product={BrowseHomeList.data.most_sold} />
+              )}
+
+              {tab === 'new' && (
+                <SliderProduct product={BrowseHomeList.data.new_products} />
+              )}
+
+              {tab === 'sugg' && (
+                <SliderProduct product={BrowseHomeList.data.offers} />
+              )}
             </>
           )}
         </Col>
@@ -280,14 +297,14 @@ export function HomePage({ className }: Props) {
             <Col span={24} className="rightContactUs">
               <h2>با ما در تماس باشید</h2>
             </Col>
-            <Col span={16}>
+            <Col span={19}>
               <Input
                 placeholder="ایمیل خود را وارد نمایید"
                 className="newsInputStyle"
                 onChange={handleChangeMail}
               />
             </Col>
-            <Col span={8}>
+            <Col span={5}>
               <Button type="primary" shape="round" onClick={handleSendMail}>
                 تایید
               </Button>
@@ -578,114 +595,46 @@ export function HomePage({ className }: Props) {
                 بیش از 10000 محصول در 100 بسته بندی مختلف
               </div>
               <Row gutter={16}>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
+                <Swiper
+                  // slidesPerView={4}
+                  // spaceBetween={30}
+                  navigation={true}
+                  // className="mySwiper"
+                  spaceBetween={20}
+                  slidesPerView={onlyWidth > 960 ? 4 : 1}
+                  // autoplay={{
+                  //   delay: 1000,
+                  // }}
+                  // navigation
+                  // pagination={{ clickable: true }}
+                  // scrollbar={{ draggable: true }}
+                  onSwiper={swiper => console.log(swiper)}
+                  onSlideChange={() => console.log('slide change')}
                 >
-                  <Row>
-                    <img src="images/icons-chitachip/Group 25.png" />
-                  </Row>
-                  <Row>
-                    <Col span={24}>تجهیزات بیسیم</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 23.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>سنسور</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 24.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>موتور</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 21.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>ماژول / مبدل</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={4}
-                  xl={4}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 23.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>بردهای توسعه</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
+                  {BrowseHomeList &&
+                    BrowseHomeList.data &&
+                    BrowseHomeList.data.categories.map(i => {
+                      return (
+                        <SwiperSlide>
+                          <Col className="colProductCount">
+                            <Row>
+                              <Col span={24}>
+                                <img src={i.category.icon} />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col span={24}>{i.category.name}</Col>
+                            </Row>
+                            <Row>
+                              <Col span={24} className="ProductCount">
+                                {/* +1000 کالا */}
+                              </Col>
+                            </Row>
+                          </Col>
+                        </SwiperSlide>
+                      );
+                    })}
+                </Swiper>
               </Row>
             </Col>
           </Row>

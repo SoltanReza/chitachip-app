@@ -135,7 +135,6 @@ export const SliderProduct = memo(({ className, product }: Props) => {
     }
   }, [addToBasketData, quantity]);
 
-  console.log(product);
   return (
     <StyledSliderProduct className={`SliderProduct ${className || ''}`}>
       {likeData.params && (
@@ -233,7 +232,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
                     />
                   )}
                 </div>
-                <div>
+                <div className="count-wrapper">
                   {/* <ShoppingOutlined
                     style={{ color: '#ffc107', fontSize: '1.5em' }}
                     data-product_id={item.id}

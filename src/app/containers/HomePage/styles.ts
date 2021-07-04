@@ -1,8 +1,33 @@
+import { Col } from 'antd';
 import { BaseLayout } from 'app/components/BaseLayout';
 import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
+interface TabProps {
+  active?: boolean;
+}
+export const Tab = styled(Col)<TabProps>`
+  cursor: pointer;
+  color: ${props => (props.active ? 'black' : '#cbcbcb')};
+
+  span {
+    font-size: 1.6em;
+  }
+`;
 
 export const StyledHomePage = styled(BaseLayout)`
+  .swiper-button-next {
+    left: 20px !important;
+  }
+  .swiper-button-prev {
+    right: 20px !important;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 27px !important;
+    height: 20px !important;
+    overflow: hidden;
+  }
+
   .styleCarousel {
     height: '160px' !important;
     color: '#fff' !important;

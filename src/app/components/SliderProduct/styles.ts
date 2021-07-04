@@ -136,11 +136,12 @@ export const StyledSliderProduct = styled.section`
     justify-content: space-between !important;
     margin-top: 1.6em;
   }
-
+  .count-wrapper {
+    border: 1px solid #ff9800;
+  }
   .count {
-    color: #fff;
-    background: #ff9800;
-    border-radius: 15px;
+    color: black;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;

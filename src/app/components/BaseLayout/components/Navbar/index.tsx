@@ -36,10 +36,9 @@ export const Navbar = memo(({ className }: Props) => {
   const [showBasket, setShowBasket] = useState(false);
   const [searchText, setSearchText] = useState('');
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(appActions.searchProduct({ query: searchText }));
-    console.log(searchData);
-  }, [dispatch, searchData, searchText]);
+  // useEffect(() => {
+  //   dispatch(appActions.searchProduct({ query: searchText }));
+  // }, [dispatch, searchData, searchText]);
 
   const handleRedirect = useCallback(
     e => {
