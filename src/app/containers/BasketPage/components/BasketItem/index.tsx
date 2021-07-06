@@ -129,7 +129,7 @@ export const BasketItem = memo(({ className }: Props) => {
         <h3>لیست محصولات</h3>
 
         <Row gutter={{ xs: 8, sm: 16, md: 48, lg: 48 }}>
-          <Col span={18}>
+          <Col xs={24} sm={24} md={19} lg={19} xl={19}>
             {basketData && basketData.data && basketData.data.data ? (
               basketData.data.data.products.map(item => {
                 allPricesSum += Number(
@@ -220,7 +220,7 @@ export const BasketItem = memo(({ className }: Props) => {
               <div>سبد خرید شما خالی می باشد.</div>
             )}
           </Col>
-          <Col className="actionItem" span={6}>
+          <Col className="actionItem" xs={24} sm={24} md={5} lg={5} xl={5}>
             <Card className="basketItemAction">
               <Row>
                 <Col span={12}>قیمت محصولات</Col>

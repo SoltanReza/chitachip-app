@@ -78,6 +78,7 @@ export function ProductListPage({ className }: Props) {
     }
   }, [dispatch, params.catId, params.subId]);
 
+  console.log(BrowseCategories.data);
   return (
     <StyledProductListPage
       className={`ProductListPage ${className || ''}`}

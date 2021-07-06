@@ -17,6 +17,8 @@ import {
 import { Tabs, Row, Col, Input, Button, message } from 'antd';
 import { DateTimeViewer } from 'app/components/DateTimeViewer';
 import { SliderProduct } from 'app/components/SliderProduct';
+import { ProductCard } from 'app/components/ProductCard';
+
 import { MenuSider } from 'app/components/MenuSider';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
@@ -337,98 +339,7 @@ export function HomePage({ className }: Props) {
               {BrowseHomeList.data &&
                 BrowseHomeList.data.first_list.prs.map(item => (
                   <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
-                    <div className="offerCard">
-                      <div
-                        data-id={item.id}
-                        onClick={handleRouteToProductDetails(item.id)}
-                      >
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 25)}
-                        </div>
-                        <div className="imgProductWrapper">
-                          <img
-                            src={item.image}
-                            className="imgProduct"
-                            alt={item.title}
-                          />
-                        </div>
-                      </div>
-                      <div className="buyProduct" id={`buyProduct${item.id}`}>
-                        <div>
-                          <StarFilled
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />
-                          1.3
-                        </div>
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="voteStyle">
-                        <div>
-                          {likeData && likeData.data ? (
-                            likeData.data.status === 201 ? (
-                              <HeartOutlined
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            ) : (
-                              <HeartFilled
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            )
-                          ) : (
-                            <HeartOutlined
-                              style={{ color: '#ffc107', fontSize: '1.7em' }}
-                              data-id={item.id}
-                              onClick={handleVoteLike}
-                            />
-                          )}
-                        </div>
-                        <div>
-                          {/* <ShoppingOutlined
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                            data-product_id={item.id}
-                            onClick={handleAddToBasket}
-                          />{' '} */}
-                          <span className="count">
-                            <PlusOutlined
-                              data-id={item.id}
-                              onClick={handlePlusQuantity}
-                            />
-                            {currentElement === item.id ? (
-                              <span>{addToBasketData.data?.quantity}</span>
-                            ) : (
-                              <span>0</span>
-                            )}
-                            <MinusOutlined
-                              data-id={item.id}
-                              onClick={handleMinusQuantity}
-                            />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <ProductCard data={item} />
                   </Col>
                 ))}
             </Row>
@@ -486,98 +397,7 @@ export function HomePage({ className }: Props) {
               {BrowseHomeList.data &&
                 BrowseHomeList.data.second_list.prs.map(item => (
                   <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
-                    <div className="offerCard">
-                      <div
-                        data-id={item.id}
-                        onClick={handleRouteToProductDetails(item.id)}
-                      >
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 25)}
-                        </div>
-                        <div className="imgProductWrapper">
-                          <img
-                            src={item.image}
-                            className="imgProduct"
-                            alt={item.title}
-                          />
-                        </div>
-                      </div>
-                      <div className="buyProduct" id={`buyProduct${item.id}`}>
-                        <div>
-                          <StarFilled
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />{' '}
-                          1.3
-                        </div>
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="voteStyle">
-                        <div>
-                          {likeData && likeData.data ? (
-                            likeData.data.status === 201 ? (
-                              <HeartOutlined
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            ) : (
-                              <HeartFilled
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            )
-                          ) : (
-                            <HeartOutlined
-                              style={{ color: '#ffc107', fontSize: '1.7em' }}
-                              data-id={item.id}
-                              onClick={handleVoteLike}
-                            />
-                          )}
-                        </div>
-                        <div>
-                          {/* <ShoppingOutlined
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                            data-product_id={item.id}
-                            onClick={handleAddToBasket}
-                          />{' '} */}
-                          <span className="count">
-                            <PlusOutlined
-                              data-id={item.id}
-                              onClick={handlePlusQuantity}
-                            />
-                            {currentElement === item.id ? (
-                              <span>{addToBasketData.data?.quantity}</span>
-                            ) : (
-                              <span>0</span>
-                            )}
-                            <MinusOutlined
-                              data-id={item.id}
-                              onClick={handleMinusQuantity}
-                            />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <ProductCard data={item} />
                   </Col>
                 ))}
             </Row>

@@ -495,7 +495,14 @@ export function SendInfoPage({ className }: Props) {
             </div>
             <div className="cardInfoTitle">درگاه پرداخت</div>
           </Col>
-          <Col xs={24} sm={24} md={5} lg={5} xl={5}>
+          <Col
+            className="productInfoWrapper"
+            xs={24}
+            sm={24}
+            md={5}
+            lg={5}
+            xl={5}
+          >
             <Card className="productInfo">
               <div className="price">
                 <div className="priceTitleDiv">قیمت محصولات</div>

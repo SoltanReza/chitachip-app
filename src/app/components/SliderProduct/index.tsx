@@ -8,7 +8,6 @@ import {
   HeartOutlined,
   MinusOutlined,
   PlusOutlined,
-  ShoppingOutlined,
   StarFilled,
 } from '@ant-design/icons';
 import { useWindowWidth } from '@react-hook/window-size';
@@ -34,6 +33,7 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
+import { ProductCard } from '../ProductCard';
 import { StyledSliderProduct } from './styles';
 
 interface Props {
@@ -166,100 +166,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
       >
         {product.map(item => (
           <SwiperSlide>
-            <div className="offerCard">
-              <div
-                data-id={item.id}
-                onClick={handleRouteToProductDetails(item.id)}
-              >
-                <div className="titleProduct">
-                  {ellipseString(`${item.title}`, 26)}
-                </div>
-                <div className="imgProductWrapper-slider">
-                  <img
-                    src={item.image}
-                    className="imgProduct"
-                    alt={item.title}
-                  />
-                </div>
-              </div>
-              <div className="buyProduct" id={`buyProduct${item.id}`}>
-                <div>
-                  <StarFilled style={{ color: '#ffc107', fontSize: '1.5em' }} />
-                  1.3
-                </div>
-                <div className="priceStyle">
-                  <div className="price">
-                    <div className="discount">
-                      {item.discount > 0 && item.discount}
-                    </div>
-                    <s className="priceDiscount">
-                      {item.price
-                        .toFixed()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </s>
-                  </div>
-                  <div className="price">
-                    <div className="currency">تومان</div>
-                    <div>
-                      {item.price
-                        .toFixed()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="voteStyle">
-                <div>
-                  {likeData && likeData.data ? (
-                    likeData.data.status === 201 ? (
-                      <HeartOutlined
-                        style={{ color: '#ffc107', fontSize: '1.7em' }}
-                        data-id={item.id}
-                        onClick={handleVoteLike}
-                      />
-                    ) : (
-                      <HeartFilled
-                        style={{ color: '#ffc107', fontSize: '1.7em' }}
-                        data-id={item.id}
-                        onClick={handleVoteLike}
-                      />
-                    )
-                  ) : (
-                    <HeartOutlined
-                      style={{ color: '#ffc107', fontSize: '1.7em' }}
-                      data-id={item.id}
-                      onClick={handleVoteLike}
-                    />
-                  )}
-                </div>
-                <div className="count-wrapper">
-                  {/* <ShoppingOutlined
-                    style={{ color: '#ffc107', fontSize: '1.5em' }}
-                    data-product_id={item.id}
-                    onClick={handleAddToBasket}
-                  />{' '} */}
-                  <span className="count">
-                    <PlusOutlined
-                      data-id={item.id}
-                      onClick={handlePlusQuantity}
-                    />
-                    {currentElement === item.id ? (
-                      addToBasketData.data?.status === 402 ? (
-                        <span>0</span>
-                      ) : (
-                        <span>{addToBasketData.data?.quantity}</span>
-                      )
-                    ) : (
-                      <span>0</span>
-                    )}
-                    <MinusOutlined
-                      data-id={item.id}
-                      onClick={handleMinusQuantity}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
+            <ProductCard data={item} />
           </SwiperSlide>
         ))}
       </Swiper>

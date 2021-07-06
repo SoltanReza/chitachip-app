@@ -149,7 +149,12 @@ export const StyledSendInfoPage = styled(BasketLayout)`
     padding-left: 5.8em;
   }
 
+  .productInfoWrapper {
+    position: relative;
+  }
   .productInfo {
+    position: sticky;
+    top: 10px;
     background: #f6f6f6;
     border-radius: 9px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
