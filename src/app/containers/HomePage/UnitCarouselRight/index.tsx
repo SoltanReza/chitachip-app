@@ -144,14 +144,6 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
         // className="mySwiper"
         spaceBetween={20}
         slidesPerView={1}
-        // autoplay={{
-        //   delay: 2000,
-        // }}
-        // navigation
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        onSwiper={swiper => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
       >
         {product.prs.map(item => (
           <SwiperSlide>

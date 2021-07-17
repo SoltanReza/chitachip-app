@@ -33,12 +33,20 @@ export const StyledProduct = styled.section`
   }
 
   .productInfoTitle {
+    position: absolute;
+    z-index: 5;
     font-weight: bold;
     font-size: 1.5em;
     color: #000;
     margin-bottom: 1em;
+    padding: 10px 20px;
+    background-color: #f6f6f6;
+    width: 85%;
   }
 
+  .properties {
+    padding-top: 50px;
+  }
   .priceInfoCard {
     background: #f6f6f6;
     border-radius: 9px;

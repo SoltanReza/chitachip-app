@@ -17,6 +17,7 @@ import {
   deleteFromBasketItemApi,
   deleteLikeItemApi,
   getCodeApi,
+  getHomeListProductsApi,
   getProductSliderApi,
   getTokenApi,
   hisrtoryOfPurchaseApi,
@@ -41,6 +42,7 @@ import {
   BrowseProductRequest,
   DeleteFromBasketItemRequest,
   DeleteLikeItemRequest,
+  GetHomeListProductsRequest,
   GetProductSliderRequest,
   HisrtoryOfPurchaseRequest,
   LikeProductRequest,
@@ -318,12 +320,35 @@ export function* serachProductSaga(
 ) {
   try {
     const response = yield call(searchProductApi, action.payload);
-    yield put(appActions.searchProduct(response));
+    yield put(appActions.searchProductSuccess(response));
   } catch (error) {
-    yield put(appActions.deleteLikeItemError(error));
     yield put(appActions.notifyError(error.message));
   }
 }
+
+export function* getHomeListProductsSaga(
+  action: PayloadAction<GetHomeListProductsRequest>,
+) {
+  try {
+    const response = yield call(getHomeListProductsApi, action.payload);
+    yield put(appActions.getHomeListProductsSuccess({ data: response }));
+  } catch (error) {
+    yield put(appActions.getHomeListProductsError(error.message));
+  }
+}
+
+// export function* browseCategoriesSaga(
+//   action: PayloadAction<BrowseCategoriesRequest>,
+// ) {
+//   try {
+//     const response = yield call(browseCategoriesApi, action.payload);
+//     yield put(appActions.browseCategoriesSuccess(response));
+//   } catch (error) {
+//     yield put(appActions.browseCategoriesError(error));
+//     yield put(appActions.notifyError(error.message));
+//   }
+// }
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -342,8 +367,14 @@ export function* appSaga() {
   yield takeLatest(appActions.addAddress.type, addAddressSaga);
   yield takeLatest(appActions.browseLikeList.type, browseLikeListSaga);
   yield takeLatest(appActions.deleteLikeItem.type, deleteLikeItemSaga);
+  yield takeLatest(appActions.searchProduct.type, serachProductSaga);
+
   yield takeLatest(
     appActions.deleteFromBasketItem.type,
     deleteFromBasketItemSaga,
+  );
+  yield takeLatest(
+    appActions.getHomeListProducts.type,
+    getHomeListProductsSaga,
   );
 }

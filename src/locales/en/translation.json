@@ -225,7 +225,7 @@
       "loginErrorMessage": "نام کاربری یا رمز عبور اشتباه میباشد",
       "LoginForm": {
         "rememberMe": "مرا به خاطر بسپار",
-        "forgotPassword": "فراموشی رمز عبور",
+        "forgotPassword": "تایید رمزعبور جدید",
         "continue": "ادامه",
         "login": "ورود",
         "or": "یا",

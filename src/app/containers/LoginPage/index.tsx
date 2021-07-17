@@ -246,6 +246,8 @@ export function LoginPage({ className }: Props) {
         .then(data => {
           if (data.status === 200) {
             setLoadingResetPass(false);
+            setShowCheckPassword(true);
+            setShowResetPassword(false);
             setShowValidationCode(false);
             message.info('رمز عبور شما با موفقیت تغغیر کرد');
 
@@ -490,7 +492,7 @@ export function LoginPage({ className }: Props) {
             />
           </div>
 
-          <div className="titleLogin">فراموشی رمز عبور</div>
+          <div className="titleLogin">رمز عبور جدید</div>
           <div>لطفا رمز عبور جدید را وارد نمایید</div>
           <Form onFinish={handleResetPassword}>
             <Form.Item name="password" rules={[{ required: true }]}>

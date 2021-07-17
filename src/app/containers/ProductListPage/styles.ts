@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 import { BaseLayout } from 'app/components/BaseLayout';
 import { ProductLayout } from 'app/components/ProductLayout';
 
-export const StyledProductListPage = styled(ProductLayout)`
+export const StyledProductListPage = styled(BaseLayout)`
   .categoryList,
   .filter {
     margin-top: 1em;
@@ -168,13 +168,6 @@ export const StyledProductListPage = styled(ProductLayout)`
     flex-direction: row;
     justify-content: space-between !important;
     margin-top: 1.6em;
-  }
-
-  .count {
-    color: #fff;
-    background: #ff9800;
-    border-radius: 15px;
-    padding: 0px 0.5em 0px 0.5em;
   }
 
   .btnLogin {

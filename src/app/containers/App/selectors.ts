@@ -111,3 +111,8 @@ export const selectSearchProduct = createSelector(
   [selectDomain],
   state => state.searchProduct,
 );
+
+export const selectHomeListProducts = createSelector(
+  [selectDomain],
+  state => state.homeListProducts,
+);

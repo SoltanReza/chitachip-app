@@ -127,12 +127,24 @@ export const StyledHomePage = styled(BaseLayout)`
     margin-bottom: 1em;
   }
 
+  .colProductCountWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 10px;
+    &:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+  }
   .colProductCount {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
-
   .ProductCount {
     color: #f9ae4e;
   }
@@ -142,6 +154,10 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 0 0 0.5em 0.8em !important;
     color: #0275db;
     font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      text-shadow: 1px 1px 1px rgba(2, 117, 219, 0.2);
+    }
   }
 
   .contactUs {

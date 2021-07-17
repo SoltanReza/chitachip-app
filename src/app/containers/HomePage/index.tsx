@@ -58,7 +58,6 @@ const { TabPane } = Tabs;
  *
  * @example ./extra.examples.md
 //  */
-
 export function HomePage({ className }: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: homePageSaga });
@@ -174,6 +173,15 @@ export function HomePage({ className }: Props) {
       // message.info('ظرفیت این محصول به اتمام رسیده است');
     }
   }, [addToBasketData]);
+
+  const handleRoutToProductList = useCallback(data => {
+    redirect(Routes.productList, {
+      item: data,
+      catId: undefined,
+      subId: undefined,
+      catName: undefined,
+    });
+  }, []);
 
   return (
     <StyledHomePage
@@ -332,7 +340,11 @@ export function HomePage({ className }: Props) {
             {BrowseHomeList.data?.first_list.text}
           </h1>
           <div className="firsListSecondList">
-            <Col className="allViewBannerLeft" span={24}>
+            <Col
+              className="allViewBannerLeft"
+              span={24}
+              onClick={() => handleRoutToProductList(1)}
+            >
               مشاهده همه
             </Col>
             <Row gutter={[16, 24]}>
@@ -345,52 +357,64 @@ export function HomePage({ className }: Props) {
             </Row>
           </div>
           <Row gutter={[16, 24]}>
-            {BrowseHomeList && BrowseHomeList.data && (
-              <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={24}
-                xl={24}
-                className="sliceCard"
-                style={{
-                  background:
-                    BrowseHomeList.data.banners.third_background_color,
-                }}
-              >
-                <a href={BrowseHomeList.data.banners.url_third} target="blank">
-                  <Row>
-                    <Col
-                      xs={18}
-                      sm={18}
-                      md={18}
-                      lg={18}
-                      xl={18}
-                      className="thirdBanner"
-                    >
-                      <Row>{BrowseHomeList.data.banners.third_title}</Row>
-                      <Row>{BrowseHomeList.data.banners.third_description}</Row>
-                    </Col>
-                    <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-                      <img
-                        src={BrowseHomeList.data.banners.third_banner}
-                        className="sliceCardImg"
-                        alt=""
-                        style={{
-                          maxWidth: '250px',
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                </a>
-              </Col>
-            )}
+            {BrowseHomeList &&
+              BrowseHomeList.data &&
+              BrowseHomeList.data.banners &&
+              BrowseHomeList.data.banners.url_third && (
+                <Col
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={24}
+                  xl={24}
+                  className="sliceCard"
+                  style={{
+                    background:
+                      BrowseHomeList.data.banners.third_background_color,
+                  }}
+                >
+                  <a
+                    href={BrowseHomeList.data.banners.url_third}
+                    target="blank"
+                  >
+                    <Row>
+                      <Col
+                        xs={18}
+                        sm={18}
+                        md={18}
+                        lg={18}
+                        xl={18}
+                        className="thirdBanner"
+                      >
+                        <Row>{BrowseHomeList.data.banners.third_title}</Row>
+                        <Row>
+                          {BrowseHomeList.data.banners.third_description}
+                        </Row>
+                      </Col>
+                      <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+                        <img
+                          src={BrowseHomeList.data.banners.third_banner}
+                          className="sliceCardImg"
+                          alt=""
+                          style={{
+                            maxWidth: '250px',
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                  </a>
+                </Col>
+              )}
           </Row>
           <h1 className="titleBannerLeft">
             {BrowseHomeList.data?.second_list.text}
           </h1>
           <div className="firsListSecondList">
-            <Col className="allViewBannerLeft" span={24}>
+            <Col
+              onClick={() => handleRoutToProductList(1)}
+              className="allViewBannerLeft"
+              span={24}
+            >
               مشاهده همه
             </Col>
             <Row gutter={[16, 24]}>
@@ -428,15 +452,18 @@ export function HomePage({ className }: Props) {
                   // navigation
                   // pagination={{ clickable: true }}
                   // scrollbar={{ draggable: true }}
-                  onSwiper={swiper => console.log(swiper)}
-                  onSlideChange={() => console.log('slide change')}
                 >
                   {BrowseHomeList &&
                     BrowseHomeList.data &&
                     BrowseHomeList.data.categories.map(i => {
                       return (
-                        <SwiperSlide>
-                          <Col className="colProductCount">
+                        <SwiperSlide className="colProductCountWrapper">
+                          <Col
+                            data-cat-id={i.category.id}
+                            data-cat-name={i.category.name}
+                            onClick={handleRoutToProductList}
+                            className="colProductCount"
+                          >
                             <Row>
                               <Col span={24}>
                                 <img src={i.category.icon} />
@@ -445,11 +472,11 @@ export function HomePage({ className }: Props) {
                             <Row>
                               <Col span={24}>{i.category.name}</Col>
                             </Row>
-                            <Row>
+                            {/* <Row>
                               <Col span={24} className="ProductCount">
-                                {/* +1000 کالا */}
+                                +1000 کالا
                               </Col>
-                            </Row>
+                            </Row> */}
                           </Col>
                         </SwiperSlide>
                       );

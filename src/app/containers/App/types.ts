@@ -99,6 +99,11 @@ export interface AppState {
     data?: SearchProductResponse;
     error?: ErrorResponse;
   };
+  homeListProducts: {
+    params?: GetHomeListProductsRequest;
+    data?: GetHomeListProductsResponse;
+    error?: ErrorResponse;
+  };
   auth?: AuthData;
 }
 
@@ -544,6 +549,14 @@ export interface VerifyPaymentRequest {
   bankid: string | null;
   inv: string | null;
 }
+// #region GetHomeListProducts
+export interface GetHomeListProductsRequest {
+  item: string;
+}
+export interface GetHomeListProductsResponse {
+  data: Array<ProductData>;
+}
+// #endregion GetHomeListProducts
 export interface VerifyPaymentResponse {
   data: {
     address_buyer: string;
@@ -585,7 +598,7 @@ export interface VerifyPaymentResponse {
 
 // #region SearchProdcut
 export interface SearchProductRequest {
-  query: string;
+  q: string;
 }
 export interface SearchProductResponse {
   data: Array<{

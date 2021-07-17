@@ -33,6 +33,8 @@ import {
   GetAboutusResponse,
   GetCodeRequest,
   GetCodeResponse,
+  GetHomeListProductsRequest,
+  GetHomeListProductsResponse,
   GetProductSliderRequest,
   GetProductSliderResponse,
   GetTokenRequest,
@@ -254,10 +256,19 @@ export function verifyPaymentApi(
 export function searchProductApi(
   params: SearchProductRequest,
 ): Promise<SearchProductResponse> {
-  return http.post('v1/search/', params).then(response => response.data);
+  return http.get('v1/search/', { params }).then(response => response.data);
 }
 
 export function getAboutusApi(): Promise<GetAboutusResponse> {
   // params: GetAboutusRequest,
   return http.get('v1/about-us/').then(response => response.data);
+}
+
+export function getHomeListProductsApi(
+  params: GetHomeListProductsRequest,
+): Promise<GetHomeListProductsResponse> {
+  // params: GetAboutusRequest,
+  return http
+    .get('v1/get-products-slider/', { params })
+    .then(response => response.data);
 }

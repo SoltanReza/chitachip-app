@@ -2,7 +2,24 @@ import styled from 'styled-components/macro';
 import { theme } from 'styles/theme';
 import Logo from '../../image/Chitachip.svg';
 import background from '../../image/back_img.png';
-export const StyledNavbar = styled.section`
+
+interface HeaderProps {
+  black?: boolean;
+}
+export const StyledNavbar = styled.section<HeaderProps>`
+  padding: 0px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* .navCostum {
+    background-size: cover;
+  } */
+  background: ${props => (props.black ? 'rgba(0,0,0,0.85)' : 'transparent')};
+  background-size: cover;
+  height: 55px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
   .basket {
     &:hover {
       .basketItem {
@@ -12,19 +29,20 @@ export const StyledNavbar = styled.section`
   }
 
   .logo {
-    /* display: inline-block; */
+    margin-left: 2em;
     background-image: url(${Logo});
+    -webkit-filter: ${props => (props.black ? 'invert(100%)' : null)};
+    filter: ${props => (props.black ? ' invert(100%)' : null)};
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    height: 70px;
+    height: 80px;
     width: 105px;
-    margin-top: 15px;
     cursor: pointer;
   }
 
   .ant-input::placeholder {
-    color: #000;
+    color: ${props => (props.black ? 'white' : 'black')};
   }
 
   .searchStyle {
@@ -32,34 +50,38 @@ export const StyledNavbar = styled.section`
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid ${props => (props.black ? 'white' : 'black')};
     background: none;
+    color: black;
     > input {
       background: none;
       text-align: right;
     }
   }
+
   .ant-input-search-rtl .ant-input-search-icon::after {
     border-right: none;
   }
 
+  .ant-input-search-icon {
+    svg {
+      fill: ${props => (props.black ? 'white' : 'black')};
+    }
+  }
+
   ul {
-    margin: 0em 0em 0em 2em !important;
+    display: flex;
+    align-items: center;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background: transparent;
-  }
-  li {
-    float: right;
+    margin: 0;
   }
 
   li a {
-    display: block;
-    color: #000;
+    color: ${props => (props.black ? 'white' : 'black')};
     text-align: center;
-    padding: 14px 16px;
+    padding: 0 16px;
     text-decoration: none;
   }
 
@@ -72,6 +94,6 @@ export const StyledNavbar = styled.section`
   }
 
   .searchBar {
-    padding: 0.3em 0.7em;
+    /* padding: 0.3em e; */
   }
 `;

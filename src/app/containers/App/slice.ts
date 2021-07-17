@@ -26,6 +26,8 @@ import {
   DeleteFromBasketItemResponse,
   DeleteLikeItemRequest,
   DeleteLikeItemResponse,
+  GetHomeListProductsRequest,
+  GetHomeListProductsResponse,
   GetProductSliderRequest,
   GetProductSliderResponse,
   HisrtoryOfPurchaseRequest,
@@ -39,6 +41,7 @@ import {
   RegisterRequest,
   RegisterResponse,
   SearchProductRequest,
+  SearchProductResponse,
   SendEmailNewsRequest,
   SendEmailNewsResponse,
   UserInfoRequest,
@@ -49,6 +52,11 @@ import {
 export const initialState: ContainerState = {
   notifications: [],
   searchProduct: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  homeListProducts: {
     params: undefined,
     data: undefined,
     error: undefined,
@@ -596,7 +604,38 @@ const appSlice = createSlice({
       state.searchProduct.data = initialState.searchProduct.data;
       state.searchProduct.error = initialState.searchProduct.error;
     },
+    searchProductSuccess(state, action: PayloadAction<SearchProductResponse>) {
+      state.searchProduct.params = initialState.searchProduct.params;
+      state.searchProduct.data = action.payload;
+    },
+    searchProductError(state, action: PayloadAction<ErrorResponse>) {
+      state.searchProduct.params = initialState.searchProduct.params;
+      state.searchProduct.error = action.payload;
+    },
+    // #endregion SearchProduct
 
+    //#region SearchProduct
+
+    getHomeListProducts(
+      state,
+      action: PayloadAction<GetHomeListProductsRequest>,
+    ) {
+      state.homeListProducts.params = action.payload;
+      state.homeListProducts.data = initialState.homeListProducts.data;
+      state.homeListProducts.error = initialState.homeListProducts.error;
+    },
+    getHomeListProductsSuccess(
+      state,
+      action: PayloadAction<GetHomeListProductsResponse>,
+    ) {
+      state.homeListProducts.params = initialState.homeListProducts.params;
+
+      state.homeListProducts.data = action.payload;
+    },
+    getHomeListProductsError(state, action: PayloadAction<ErrorResponse>) {
+      state.homeListProducts.params = initialState.homeListProducts.params;
+      state.homeListProducts.error = action.payload;
+    },
     // #endregion SearchProduct
   },
 });

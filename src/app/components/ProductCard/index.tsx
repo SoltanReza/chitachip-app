@@ -103,7 +103,7 @@ export const ProductCard = memo(({ className, data }: Props) => {
       <div className="offerCard">
         <div data-id={item.id} onClick={handleRouteToProductDetails(item.id)}>
           <div className="titleProduct">
-            {ellipseString(`${item.title}`, 26)}
+            {ellipseString(`${item.title}`, 24)}
           </div>
           <div className="imgProductWrapper-slider">
             <img src={item.image} className="imgProduct" alt={item.title} />
@@ -112,7 +112,7 @@ export const ProductCard = memo(({ className, data }: Props) => {
         <div className="buyProduct" id={`buyProduct${item.id}`}>
           <div>
             <StarFilled style={{ color: '#ffc107', fontSize: '1.5em' }} />
-            1.3
+            {item.avg_stars}
           </div>
           <div className="priceStyle">
             <div className="price">
@@ -120,7 +120,8 @@ export const ProductCard = memo(({ className, data }: Props) => {
                 {item.discount > 0 && item.discount}
               </div>
               <s className="priceDiscount">
-                {item.price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                {item.discount > 0 &&
+                  item.price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </s>
             </div>
             <div className="price">
@@ -181,7 +182,7 @@ export const ProductCard = memo(({ className, data }: Props) => {
               <span
                 className="icon"
                 data-id={item.id}
-                onClick={handlePlusQuantity}
+                onClick={handleMinusQuantity}
               >
                 -
               </span>

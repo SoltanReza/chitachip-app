@@ -138,13 +138,6 @@ export const StyledUnitCarouselRight = styled.section`
     margin-top: 1.6em;
   }
 
-  .count {
-    color: #fff;
-    background: #ff9800;
-    border-radius: 15px;
-    padding: 0px 0.5em 0px 0.5em;
-  }
-
   .btnLogin {
   }
 

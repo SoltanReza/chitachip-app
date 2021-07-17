@@ -29,14 +29,7 @@ export const BasketLayout = memo(
           {description && <meta name="description" content={description} />}
         </Helmet>
 
-        <StyledHeader>
-          <Navbar />
-        </StyledHeader>
         <StyledContent>{children}</StyledContent>
-        <StyledFooter>
-          {' '}
-          <Footer />
-        </StyledFooter>
       </StyledBasketLayout>
     );
   },

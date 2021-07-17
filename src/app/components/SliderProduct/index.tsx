@@ -161,8 +161,6 @@ export const SliderProduct = memo(({ className, product }: Props) => {
         // navigation
         // pagination={{ clickable: true }}
         // scrollbar={{ draggable: true }}
-        onSwiper={swiper => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
       >
         {product.map(item => (
           <SwiperSlide>
