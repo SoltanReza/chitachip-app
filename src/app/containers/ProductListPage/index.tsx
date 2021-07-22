@@ -42,9 +42,6 @@ export function ProductListPage({ className }: Props) {
 
   useInjectSaga({ key: sliceKey, saga: productListPageSaga });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const productListPage = useSelector(selectProductListPage);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const dispatch = useDispatch();
 
   const BrowseHomeList = useSelector(selectBrowseHomeList);
@@ -86,7 +83,6 @@ export function ProductListPage({ className }: Props) {
     }
   }, [dispatch, params.catId, params.item, params.subId]);
 
-  // console.log(params);
   return (
     <StyledProductListPage
       className={`ProductListPage ${className || ''}`}
@@ -173,37 +169,35 @@ export function ProductListPage({ className }: Props) {
             </Col>
           </Row>
           <Row gutter={32} className="rowOfferCard">
-            {HomelistProducts &&
-              HomelistProducts.data &&
-              HomelistProducts.data.data.map(item => (
-                <Col
-                  xs={24}
-                  sm={24}
-                  md={12}
-                  lg={6}
-                  xl={6}
-                  className="colOfferCard"
-                >
-                  <ProductCard data={item} />
-                </Col>
-              ))}
-
-            {
-              // : BrowseCategories &&
-              //   BrowseCategories.data &&
-              //   BrowseCategories.data.data.map(item => (
-              //     <Col
-              //       xs={24}
-              //       sm={24}
-              //       md={12}
-              //       lg={6}
-              //       xl={6}
-              //       className="colOfferCard"
-              //     >
-              //       <ProductCard data={item} />
-              //     </Col>
-              //   ))
-            }
+            {HomelistProducts.data
+              ? HomelistProducts &&
+                HomelistProducts.data &&
+                HomelistProducts.data.data.map(item => (
+                  <Col
+                    xs={24}
+                    sm={24}
+                    md={12}
+                    lg={6}
+                    xl={6}
+                    className="colOfferCard"
+                  >
+                    <ProductCard data={item} />
+                  </Col>
+                ))
+              : BrowseCategories &&
+                BrowseCategories.data &&
+                BrowseCategories.data.data.map(item => (
+                  <Col
+                    xs={24}
+                    sm={24}
+                    md={12}
+                    lg={6}
+                    xl={6}
+                    className="colOfferCard"
+                  >
+                    <ProductCard data={item} />
+                  </Col>
+                ))}
           </Row>
         </Col>
       </Row>

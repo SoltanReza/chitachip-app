@@ -45,16 +45,12 @@ export const BaseLayout = memo(
       return () => window.removeEventListener('scroll', onScroll);
     }, [scrollTop, scrolling]);
 
-    const changeBackground = () => {
-      if (window.scrollY > 10) {
+    useEffect(() => {
+      if (window.scrollY > 20) {
         setBlackColor(true);
       } else {
         setBlackColor(false);
       }
-    };
-
-    useEffect(() => {
-      changeBackground();
     }, []);
 
     return (
