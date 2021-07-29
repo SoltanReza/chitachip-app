@@ -34,6 +34,8 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { redirect } from 'utils/history';
+import { Comments } from './components/Comments';
+import { Files } from './components/Files';
 import { StyledProduct } from './styles';
 
 interface Props {
@@ -258,14 +260,13 @@ export const Product = memo(({ className, data, similar }: Props) => {
         </div>
 
         <div id="question" className="tabcontent">
-          <h3>چیتا چیپ</h3>
-          <p> سوالات / نظرات</p>
+          <Comments />
         </div>
         <div id="file" className="tabcontent">
-          <h3>چیتا چیپ</h3>
-          <p> فایل های ضمیمه</p>
+          <Files />
         </div>
       </Card>
+
       {isModalVisible && (
         <Modal
           title="ورود به سامانه"

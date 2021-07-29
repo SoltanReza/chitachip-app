@@ -601,10 +601,11 @@ export interface SearchProductRequest {
   q: string;
 }
 export interface SearchProductResponse {
-  data: Array<{
+  products: Array<{
     image_thumbnail: string;
     title: string;
     id: string;
+    image: string;
   }>;
 }
 // #endregion SearchProdcut

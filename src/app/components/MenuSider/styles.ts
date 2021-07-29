@@ -69,7 +69,7 @@ export const StyledMenuSider = styled.section`
     position: absolute;
     right: calc(100% - 7px);
     background: #fff;
-    z-index: 333;
+    z-index: 4;
     width: 150%;
     padding: 1em;
     border: solid 1px #f2ab4f;

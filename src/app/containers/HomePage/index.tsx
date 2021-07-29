@@ -293,7 +293,7 @@ export function HomePage({ className }: Props) {
       </Row>
 
       <Row gutter={[16, 24]}>
-        <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+        <Col xs={0} sm={0} md={5} lg={5} xl={5}>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
               <img

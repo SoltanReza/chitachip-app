@@ -58,16 +58,16 @@ const btnGlobalStyles = css`
     }
   }
 `;
-const noSelectStyles = css`
-  * {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-`;
+// const noSelectStyles = css`
+//   * {
+//     -webkit-touch-callout: none;
+//     -webkit-user-select: none;
+//     -khtml-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     user-select: none;
+//   }
+// `;
 const loadingStyles = css`
   #preloader {
     position: fixed;
@@ -245,7 +245,6 @@ const scrollStyles = css`
 export const GlobalStyle = createGlobalStyle`
   ${initialProjectStyles};
   ${btnGlobalStyles};
-  ${noSelectStyles};
   ${tableStyles};
   ${notificationMessageStyles};
   ${scrollStyles};

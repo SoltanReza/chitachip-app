@@ -20,7 +20,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { StyledNavbar } from './styles';
+import { SearchDataWrapper, StyledNavbar } from './styles';
 
 interface Props {
   className?: string;
@@ -39,6 +39,7 @@ export const Navbar = memo(({ className, black }: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(appActions.searchProduct({ q: searchText }));
+    console.log(searchData);
   }, [dispatch, searchText]);
 
   const handleRedirect = useCallback(
@@ -107,6 +108,25 @@ export const Navbar = memo(({ className, black }: Props) => {
                 className="searchStyle"
                 onChange={handleSearch}
               />
+
+              {searchData &&
+                searchData.data &&
+                searchData.data.products &&
+                searchData.data.products.map(i => (
+                  <SearchDataWrapper>
+                    <div className="item-wrapper">
+                      <div className="img-wrapper">
+                        <img src={i.image} alt={i.title} />
+                      </div>
+
+                      <div className="info-wrapper">
+                        <h4>{i.title}</h4>
+
+                        <div className="icon-wrapper"></div>
+                      </div>
+                    </div>
+                  </SearchDataWrapper>
+                ))}
             </li>
             {/* <a className="active" href="#about">
              About
@@ -132,14 +152,8 @@ export const Navbar = memo(({ className, black }: Props) => {
             </li>
             <li>
               <Search
+                color={black ? '#fff' : '#000'}
                 placeholder="جستجو"
-                style={{
-                  width: 400,
-                  color: '#ff2222fsd1',
-                  opacity: '1',
-                  direction: 'ltr',
-                  outline: 'none',
-                }}
                 className="searchStyle"
               />
             </li>

@@ -6,6 +6,46 @@ import background from '../../image/back_img.png';
 interface HeaderProps {
   black?: boolean;
 }
+
+export const SearchDataWrapper = styled.div`
+  background-color: white;
+  height: 400px;
+  width: 600px;
+  position: absolute;
+  top: 50px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.061);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  .item-wrapper {
+    border-bottom: solid 1px #c7c7c7;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .img-wrapper {
+      width: 100px;
+      img {
+        width: 100%;
+      }
+    }
+    .info-wrapper {
+      display: flex;
+      align-items: center;
+
+      .icons-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: right;
+        padding-right: 10px;
+      }
+    }
+  }
+`;
+
 export const StyledNavbar = styled.section<HeaderProps>`
   padding: 0px !important;
   display: flex;
@@ -20,6 +60,8 @@ export const StyledNavbar = styled.section<HeaderProps>`
   position: sticky;
   top: 0;
   z-index: 10;
+  color: ${props => (props.black ? 'white' : 'black')};
+
   .basket {
     &:hover {
       .basketItem {
@@ -41,10 +83,12 @@ export const StyledNavbar = styled.section<HeaderProps>`
     cursor: pointer;
   }
 
-  .ant-input::placeholder {
+  .ant-input {
     color: ${props => (props.black ? 'white' : 'black')};
+    &::placeholder {
+      color: ${props => (props.black ? 'white' : 'black')};
+    }
   }
-
   .searchStyle {
     width: 500px;
     border-top: none;
