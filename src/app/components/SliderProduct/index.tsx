@@ -154,7 +154,7 @@ export const SliderProduct = memo(({ className, product }: Props) => {
         navigation={true}
         // className="mySwiper"
         spaceBetween={20}
-        slidesPerView={onlyWidth > 960 ? 4 : 1}
+        slidesPerView={onlyWidth > 640 ? 4 : 2}
         // autoplay={{
         //   delay: 1000,
         // }}

@@ -10,6 +10,8 @@ import {
   WarningOutlined,
   StarFilled,
   HeartFilled,
+  LeftOutlined,
+  RightOutlined,
 } from '@ant-design/icons';
 
 import {
@@ -29,30 +31,36 @@ import {
   selectLikeProduct,
 } from 'app/containers/App/selectors';
 import { appActions } from 'app/containers/App/slice';
-import { ProductData } from 'app/containers/App/types';
+import { ProductData, ProductGallery } from 'app/containers/App/types';
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { redirect } from 'utils/history';
+import { ProductCard } from '../ProductCard';
 import { Comments } from './components/Comments';
 import { Files } from './components/Files';
 import { StyledProduct } from './styles';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { useWindowWidth } from '@react-hook/window-size';
 
 interface Props {
   className?: string;
   data: ProductData;
   similar: Array<ProductData>;
+  gallery: Array<ProductGallery>;
 }
 
 const { Title, Paragraph, Text, Link } = Typography;
 
-export const Product = memo(({ className, data, similar }: Props) => {
+export const Product = memo(({ className, data, similar, gallery }: Props) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const authData = useSelector(selectAuth);
   const likeData = useSelector(selectLikeProduct);
   const addToBasketData = useSelector(selectAddToBasket);
+
+  const onlyWidth = useWindowWidth();
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -108,6 +116,7 @@ export const Product = memo(({ className, data, similar }: Props) => {
     }
   }, [addToBasketData.data]);
 
+  console.log(data);
   return (
     <StyledProduct className={`Product ${className || ''}`}>
       <Card className="cardProduct">
@@ -122,7 +131,23 @@ export const Product = memo(({ className, data, similar }: Props) => {
         </div>
         <Row gutter={[16, { xs: 8, sm: 16, md: 48, lg: 48 }]}>
           <Col xs={24} sm={24} md={7} lg={8} xl={8}>
-            <img src={data.image} alt={data.title} className="imgProduct" />
+            <Row>
+              <Col
+                className="gallery-container"
+                xs={24}
+                sm={24}
+                md={3}
+                lg={3}
+                xl={3}
+                // style={{ justifyContent: 'flex-end' }}
+              >
+                <LeftOutlined />
+                <RightOutlined />
+              </Col>
+              <Col xs={24} sm={24} md={21} lg={21} xl={21}>
+                <img src={data.image} alt={data.title} className="imgProduct" />
+              </Col>
+            </Row>
           </Col>
           <Col
             xs={24}
@@ -132,17 +157,16 @@ export const Product = memo(({ className, data, similar }: Props) => {
             xl={12}
             className="productInfoCard"
           >
-            <div className="productInfoTitle">ویژگی های محصول</div>
-
             {data.properties && (
-              <Card className="productInfo">
-                <>
+              <>
+                <div className="productInfoTitle">ویژگی های محصول</div>
+                <Card className="productInfo">
                   <div
                     className="properties"
                     dangerouslySetInnerHTML={{ __html: data.properties }}
                   ></div>
-                </>
-              </Card>
+                </Card>
+              </>
             )}
           </Col>
           <Col xs={24} sm={24} md={6} lg={4} xl={4}>
@@ -158,10 +182,11 @@ export const Product = memo(({ className, data, similar }: Props) => {
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                   <div className="priceInfo">
-                    <div className="discount"></div>
-                    <div>2235255</div>
+                    {data.discount !== 0 && (
+                      <div className="discount"> {data.discount}</div>
+                    )}
                   </div>
-                  <p className="showPrice">235.325 تومان</p>
+                  <p className="showPrice">{data.price} تومان</p>
                 </Col>
               </Row>
               <Row>
@@ -226,7 +251,20 @@ export const Product = memo(({ className, data, similar }: Props) => {
         <div className="relatedProductTitle">محصولات مرتبط</div>
       </Row>
 
-      <Card className="cardrelatedProduc"></Card>
+      <Card className="cardrelatedProduc">
+        <Swiper
+          navigation={true}
+          spaceBetween={20}
+          slidesPerView={onlyWidth > 960 ? 4 : 1}
+          style={{ padding: '1em' }}
+        >
+          {similar.map(item => (
+            <SwiperSlide>
+              <ProductCard data={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Card>
       <Card className="cardTabProduct">
         <div className="tab">
           <button

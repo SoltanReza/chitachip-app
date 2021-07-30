@@ -167,7 +167,11 @@ export interface ProductData {
   state_text: string;
   state_icon: string;
 }
-
+export interface ProductGallery {
+  id: number;
+  image: string;
+  title: string;
+}
 export interface SliderData {
   title: string;
   image: string;
@@ -244,6 +248,7 @@ export interface BrowseProductRequest {
 export interface BrowseProductResponse {
   product: ProductData;
   similar: Array<ProductData>;
+  gallery: Array<ProductGallery>;
   status: number;
 }
 // #endregion BrowseProduct

@@ -20,6 +20,15 @@ export const StyledProductCard = styled.section`
         display: flex;
       }
     }
+
+    @media screen and (max-width: 640px) {
+      .buyProduct {
+        font-size: 0.9em;
+      }
+      .anticon {
+        transform: scale(0.9);
+      }
+    }
   }
 
   .imgProductWrapper-slider {
@@ -40,19 +49,25 @@ export const StyledProductCard = styled.section`
 
   .titleProduct {
     font-weight: bold;
+
     margin-bottom: 0.7em;
     cursor: pointer;
+    @media screen and (max-width: 640px) {
+      font-size: 0.9em;
+    }
   }
   .buyProduct {
     display: flex;
     flex-direction: row;
     justify-content: space-between !important;
+    align-items: center;
     margin-top: 0.5em;
   }
   .price {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
+    font-size: 0.9em;
   }
   .priceBtn {
     display: flex;
@@ -84,7 +99,6 @@ export const StyledProductCard = styled.section`
   }
 
   .priceDiscount {
-    font-size: 0.8em;
     line-height: 1.9em;
   }
 
@@ -102,7 +116,7 @@ export const StyledProductCard = styled.section`
     flex-direction: column;
     align-items: center;
     color: #ff0000;
-    font-size: 1.5em;
+    font-size: 1em;
     font-weight: bold;
   }
   .voteLikeNone {
@@ -132,7 +146,7 @@ export const StyledProductCard = styled.section`
     font-size: 1.2em;
     text-align: center;
     .icon {
-      font-size: 1.5em;
+      font-size: 0.9em;
       margin-top: -10px;
       cursor: pointer;
       color: #f2ab4f;
@@ -141,7 +155,7 @@ export const StyledProductCard = styled.section`
       margin-top: -7px;
       flex: none;
       padding: 0 2px;
-      font-size: 1.2em;
+      font-size: 0.9em;
     }
   }
 `;

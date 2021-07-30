@@ -39,7 +39,6 @@ export const Navbar = memo(({ className, black }: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(appActions.searchProduct({ q: searchText }));
-    console.log(searchData);
   }, [dispatch, searchText]);
 
   const handleRedirect = useCallback(
@@ -86,13 +85,15 @@ export const Navbar = memo(({ className, black }: Props) => {
           <ul>
             <li>
               <a onClick={handleRedirectToUserProfilePage}>
-                <UserOutlined /> پروفایل
+                <UserOutlined className="icon" />
+                <span className="text"> پروفایل</span>
               </a>
             </li>
 
             <li className="basket">
               <a>
-                <ShoppingOutlined /> سبد خرید
+                <ShoppingOutlined className="icon" />
+                <span className="text"> سبد خرید</span>
               </a>
               <BasketHeader />
             </li>
@@ -100,7 +101,6 @@ export const Navbar = memo(({ className, black }: Props) => {
               <Search
                 placeholder="جستجو"
                 style={{
-                  width: 400,
                   color: black ? 'white' : 'black',
                   opacity: '1',
                   direction: 'ltr',
@@ -128,9 +128,6 @@ export const Navbar = memo(({ className, black }: Props) => {
                   </SearchDataWrapper>
                 ))}
             </li>
-            {/* <a className="active" href="#about">
-             About
-           </a> */}
           </ul>
           <div className="logo" onClick={handleRoutToHome} />
         </>

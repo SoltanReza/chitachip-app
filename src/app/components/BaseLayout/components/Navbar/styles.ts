@@ -2,6 +2,7 @@ import styled from 'styled-components/macro';
 import { theme } from 'styles/theme';
 import Logo from '../../image/Chitachip.svg';
 import background from '../../image/back_img.png';
+import { StyledBasketHeader } from 'app/components/BasketHeader/styles';
 
 interface HeaderProps {
   black?: boolean;
@@ -63,10 +64,8 @@ export const StyledNavbar = styled.section<HeaderProps>`
   color: ${props => (props.black ? 'white' : 'black')};
 
   .basket {
-    &:hover {
-      .basketItem {
-        display: flex;
-      }
+    &:hover ${StyledBasketHeader} {
+      display: flex;
     }
   }
 
@@ -81,6 +80,12 @@ export const StyledNavbar = styled.section<HeaderProps>`
     height: 80px;
     width: 105px;
     cursor: pointer;
+
+    @media screen and (max-width: 640px) {
+      transform: scale(0.8);
+      margin-top: 1em;
+      margin-left: 1em;
+    }
   }
 
   .ant-input {
@@ -90,7 +95,6 @@ export const StyledNavbar = styled.section<HeaderProps>`
     }
   }
   .searchStyle {
-    width: 500px;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -107,6 +111,9 @@ export const StyledNavbar = styled.section<HeaderProps>`
     border-right: none;
   }
 
+  .ant-input-search {
+    /* width: 400, */
+  }
   .ant-input-search-icon {
     svg {
       fill: ${props => (props.black ? 'white' : 'black')};
@@ -120,13 +127,35 @@ export const StyledNavbar = styled.section<HeaderProps>`
     overflow: hidden;
     background: transparent;
     margin: 0;
+    padding: 0;
+    @media screen and (max-width: 720px) {
+      max-width: 400px;
+    }
   }
-
+  li {
+    width: fit-content;
+    display: grid;
+    place-items: center;
+  }
   li a {
     color: ${props => (props.black ? 'white' : 'black')};
     text-align: center;
     padding: 0 16px;
     text-decoration: none;
+    width: fit-content;
+    .text {
+    }
+    @media screen and (max-width: 640px) {
+      font-size: 0.8em;
+
+      .text {
+        display: none;
+      }
+
+      .icon > svg {
+        transform: scale(1.5);
+      }
+    }
   }
 
   li a:hover:not(.active) {
@@ -135,9 +164,5 @@ export const StyledNavbar = styled.section<HeaderProps>`
 
   .active {
     background: transparent;
-  }
-
-  .searchBar {
-    /* padding: 0.3em e; */
   }
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-
+import DownloadIcon from '../images/download.svg';
 export const StyledFiles = styled.section`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -16,7 +16,10 @@ export const StyledFiles = styled.section`
     margin: 1em;
     text-align: center;
     .icon-box {
-      background: #ffffff;
+      cursor: pointer;
+      background: url(${DownloadIcon});
+      background-repeat: no-repeat;
+      background-position: center;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       display: grid;

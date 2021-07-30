@@ -12,6 +12,12 @@ export const Tab = styled(Col)<TabProps>`
   span {
     font-size: 1.6em;
   }
+
+  @media screen and (max-width: 640px) {
+    span {
+      font-size: 1.1em;
+    }
+  }
 `;
 
 export const StyledHomePage = styled(BaseLayout)`
@@ -89,6 +95,9 @@ export const StyledHomePage = styled(BaseLayout)`
   .titleBannerLeft {
     font-size: 2.7em;
     font-weight: bold;
+    @media screen and (max-width: 640px) {
+      font-size: 1.2em;
+    }
   }
 
   .sliceCard {
@@ -106,7 +115,7 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 9px;
     margin-bottom: 1em;
     block-size: fit-content;
-    font-size: 3em;
+    font-size: 1.1em;
     color: #fff;
   }
 

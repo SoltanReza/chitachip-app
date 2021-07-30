@@ -14,9 +14,9 @@ export const StyledSliderProduct = styled.section`
     overflow: auto;
     white-space: nowrap;
     padding-top: 0.5em;
-
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
+
   .slideItem {
     display: inline-block;
     vertical-align: top;
@@ -47,8 +47,13 @@ export const StyledSliderProduct = styled.section`
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 17px;
-
     padding: 0.4em;
     font-weight: bold;
+  }
+
+  .swiper-slide {
+    @media screen and (max-width: 640px) {
+      width: 60%;
+    }
   }
 `;

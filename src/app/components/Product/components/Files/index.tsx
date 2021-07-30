@@ -19,15 +19,15 @@ export function Files({ className }: Props) {
     <StyledFiles className={`Files ${className || ''}`}>
       <div className="file-component">
         <span>file name</span>
-        <div className="icon-box">hi</div>
+        <div className="icon-box"></div>
       </div>
       <div className="file-component">
         <span>file name</span>
-        <div className="icon-box">hi</div>
+        <div className="icon-box"></div>
       </div>
       <div className="file-component">
         <span>file name</span>
-        <div className="icon-box">hi</div>
+        <div className="icon-box"></div>
       </div>
     </StyledFiles>
   );

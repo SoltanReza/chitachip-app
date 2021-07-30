@@ -11,7 +11,9 @@ export const StyledProduct = styled.section`
     -moz-box-shadow: 0px 0px 18px -8px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
   }
-
+  .cardrelatedProduc {
+    padding: 2em;
+  }
   .relatedProductTitle {
     font-size: 2em;
     font-weight: bold;
@@ -193,5 +195,12 @@ export const StyledProduct = styled.section`
     .productInfoCard {
       padding-left: 0px !important;
     }
+  }
+
+  .gallery-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
   }
 `;

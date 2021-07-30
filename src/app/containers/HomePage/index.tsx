@@ -240,7 +240,7 @@ export function HomePage({ className }: Props) {
             </div>
           </div>
         </Col>
-        <Col xs={20} sm={20} md={19} lg={19} xl={19}>
+        <Col xs={24} sm={24} md={19} lg={19} xl={19}>
           <div className="emptyBlocks"></div>
           {BrowseHomeList && BrowseHomeList.data && (
             <StoryProduct stories={BrowseHomeList.data.stories} />
@@ -350,7 +350,7 @@ export function HomePage({ className }: Props) {
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.first_list.prs.map(item => (
-                  <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
+                  <Col span={6} xs={12} sm={12} md={6} lg={6} xl={6}>
                     <ProductCard data={item} />
                   </Col>
                 ))}
@@ -386,7 +386,7 @@ export function HomePage({ className }: Props) {
                         xl={18}
                         className="thirdBanner"
                       >
-                        <Row>{BrowseHomeList.data.banners.third_title}</Row>
+                        <Row>{BrowseHomeList.data.banners.third_title} </Row>
                         <Row>
                           {BrowseHomeList.data.banners.third_description}
                         </Row>
@@ -420,7 +420,7 @@ export function HomePage({ className }: Props) {
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.second_list.prs.map(item => (
-                  <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
+                  <Col span={6} xs={12} sm={12} md={6} lg={6} xl={6}>
                     <ProductCard data={item} />
                   </Col>
                 ))}
@@ -445,7 +445,7 @@ export function HomePage({ className }: Props) {
                   navigation={true}
                   // className="mySwiper"
                   spaceBetween={20}
-                  slidesPerView={onlyWidth > 960 ? 4 : 1}
+                  slidesPerView={onlyWidth > 640 ? 4 : 2}
                   // autoplay={{
                   //   delay: 1000,
                   // }}
