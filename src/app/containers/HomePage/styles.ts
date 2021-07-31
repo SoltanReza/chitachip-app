@@ -115,8 +115,11 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 9px;
     margin-bottom: 1em;
     block-size: fit-content;
-    font-size: 1.1em;
+    font-size: 2.5em;
     color: #fff;
+    @media screen and (max-width: 640px) {
+      font-size: 1.1em;
+    }
   }
 
   .alertLogin {
@@ -178,6 +181,10 @@ export const StyledHomePage = styled(BaseLayout)`
     > div {
       margin-left: 0.5em;
     }
+    h4 {
+      margin-right: 1em;
+      margin-left: 5px;
+    }
   }
   .socialMedia {
     line-height: 1em;
@@ -190,10 +197,14 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 0.2em 0.4em;
     color: #fff;
     border-radius: 10px;
-    font-size: 0.8em;
+    font-size: 0.7em;
+
     > span {
       margin-right: 0.2em;
     }
+    /* @media screen and (max-width: 1px) {
+      font-size: 0.6em;
+    } */
   }
 
   .sticky {

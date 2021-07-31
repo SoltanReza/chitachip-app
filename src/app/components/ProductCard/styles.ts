@@ -155,7 +155,19 @@ export const StyledProductCard = styled.section`
       margin-top: -7px;
       flex: none;
       padding: 0 2px;
-      font-size: 0.9em;
+      font-size: 1.2em;
+    }
+
+    @media screen and (max-width) {
+      .icon {
+        font-size: 0.9em;
+        margin-top: -10px;
+        cursor: pointer;
+        color: #f2ab4f;
+      }
+      .text {
+        font-size: 0.9em;
+      }
     }
   }
 `;

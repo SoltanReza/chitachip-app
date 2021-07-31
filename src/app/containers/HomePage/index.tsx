@@ -307,7 +307,7 @@ export function HomePage({ className }: Props) {
             <Col span={24} className="rightContactUs">
               <h2>با ما در تماس باشید</h2>
             </Col>
-            <Col span={19}>
+            <Col span={17}>
               <Input
                 placeholder="ایمیل خود را وارد نمایید"
                 className="newsInputStyle"
