@@ -24,6 +24,7 @@ import {
 import { appActions } from 'app/containers/App/slice';
 import { redirect } from 'utils/history';
 import { Routes } from 'app/containers/App/Router/routes';
+import { ProductCard } from 'app/components/ProductCard';
 
 interface Props {
   className?: string;
@@ -139,82 +140,7 @@ export const BasketItem = memo(({ className }: Props) => {
                 allِDiscountsSum += Number(
                   item.discount.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''),
                 );
-                return (
-                  <Card className="cardListProduct">
-                    <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
-                      <Col span={5}>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="imgProduct"
-                        />
-                      </Col>
-                      <Col span={14}>
-                        <Row
-                          className="titleProduct"
-                          onClick={handleRouteToProductDetails(item.product_id)}
-                        >
-                          {item.title}
-                        </Row>
-                        <Row gutter={8}>
-                          <Col>
-                            <PlusOutlined
-                              style={{ color: '#ff9800' }}
-                              data-product_id={item.product_id}
-                              data-quantity={item.quantity}
-                              onClick={handlePlusQuantity}
-                            />
-                          </Col>
-                          <Col>
-                            <span className="quantity">{item.quantity}</span>
-                          </Col>
-                          <Col>
-                            <MinusOutlined
-                              style={{ color: '#ff9800' }}
-                              data-product_id={item.product_id}
-                              data-quantity={item.quantity}
-                              onClick={handleMinusQuantity}
-                            />
-                          </Col>
-
-                          <Col>
-                            <DeleteOutlined
-                              style={{ color: 'red', fontSize: '1.5em' }}
-                              data-product_id={item.product_id}
-                              onClick={handleDeleteItem}
-                            />
-                            حذف
-                          </Col>
-                        </Row>
-                      </Col>
-                      <Col span={5}>
-                        <div className="buyProduct">
-                          <div className="priceStyle">
-                            <div className="price">
-                              <div className="discount">
-                                {item.discount > 0 && item.discount}
-                              </div>
-
-                              <s className="priceDiscount">
-                                {item.price
-                                  .toFixed()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                              </s>
-                            </div>
-                            <div className="price">
-                              <div className="currency">تومان</div>
-                              <div>
-                                {item.price
-                                  .toFixed()
-                                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Card>
-                );
+                return <ProductCard data={item} />;
               })
             ) : (
               <div>سبد خرید شما خالی می باشد.</div>

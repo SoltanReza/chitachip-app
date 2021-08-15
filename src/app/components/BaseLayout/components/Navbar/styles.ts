@@ -15,6 +15,7 @@ export const SearchDataWrapper = styled.div`
   position: absolute;
   top: 50px;
   border-radius: 15px;
+  overflow-y: auto;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.061);
   padding: 15px;
   display: flex;
@@ -24,7 +25,7 @@ export const SearchDataWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
+    cursor: pointer;
     .img-wrapper {
       width: 100px;
       img {
@@ -93,6 +94,9 @@ export const StyledNavbar = styled.section<HeaderProps>`
     &::placeholder {
       color: ${props => (props.black ? 'white' : 'black')};
     }
+    /* &:focus-visible ${SearchDataWrapper} {
+      display: flex;
+    } */
   }
   .searchStyle {
     border-top: none;
@@ -111,8 +115,7 @@ export const StyledNavbar = styled.section<HeaderProps>`
     border-right: none;
   }
 
-  .ant-input-search {
-    /* width: 400, */
+  .ant-input {
   }
   .ant-input-search-icon {
     svg {

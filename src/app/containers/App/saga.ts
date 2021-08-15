@@ -6,6 +6,7 @@ import { redirect } from 'utils/history';
 import { Storage } from 'utils/storage';
 import {
   addAddressApi,
+  addProductRateApi,
   addToBasketApi,
   browseAddressApi,
   browseBasketApi,
@@ -18,11 +19,13 @@ import {
   deleteLikeItemApi,
   getCodeApi,
   getHomeListProductsApi,
+  getProductFilesApi,
   getProductSliderApi,
   getTokenApi,
   hisrtoryOfPurchaseApi,
   likeProductApi,
   loginApi,
+  postNewCommentApi,
   registerApi,
   searchProductApi,
   sendEmailNewsApi,
@@ -43,10 +46,13 @@ import {
   DeleteFromBasketItemRequest,
   DeleteLikeItemRequest,
   GetHomeListProductsRequest,
+  GetProductFilesRequest,
   GetProductSliderRequest,
   HisrtoryOfPurchaseRequest,
   LikeProductRequest,
   LoginRequest,
+  PostNewCommentRequest,
+  ProductRateRequest,
   RegisterRequest,
   SearchProductRequest,
   SendEmailNewsRequest,
@@ -337,6 +343,49 @@ export function* getHomeListProductsSaga(
   }
 }
 
+export function* addCommentSaga(action: PayloadAction<PostNewCommentRequest>) {
+  try {
+    const response = yield call(postNewCommentApi, action.payload);
+    yield put(appActions.addCommentSuccess(response));
+    if (response.status === 201) {
+      yield put(appActions.notifySuccess('کامنت شما با موفقیت اضافه شد'));
+    }
+  } catch (error) {
+    yield put(appActions.addCommentError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* getProductFilesSaga(
+  action: PayloadAction<GetProductFilesRequest>,
+) {
+  try {
+    const response = yield call(getProductFilesApi, action.payload);
+    yield put(appActions.getProductFilesSuccess(response));
+    if (response.status === 201) {
+      yield put(appActions.notifySuccess('کامنت شما با موفقیت اضافه شد'));
+    }
+  } catch (error) {
+    yield put(appActions.getProductFilesError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* addProductRateSaga(action: PayloadAction<ProductRateRequest>) {
+  try {
+    const response = yield call(addProductRateApi, action.payload);
+    yield put(appActions.addProductRateSuccess(response));
+    if (response.status === 200) {
+      yield put(appActions.notifySuccess('نظر شما با موفقیت اضافه شد'));
+    }
+    if (response.status === 400) {
+      yield put(appActions.notifyError('شما قبلا به این محصول نظر دادید!'));
+    }
+  } catch (error) {
+    yield put(appActions.addProductRateError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
 // export function* browseCategoriesSaga(
 //   action: PayloadAction<BrowseCategoriesRequest>,
 // ) {
@@ -368,6 +417,9 @@ export function* appSaga() {
   yield takeLatest(appActions.browseLikeList.type, browseLikeListSaga);
   yield takeLatest(appActions.deleteLikeItem.type, deleteLikeItemSaga);
   yield takeLatest(appActions.searchProduct.type, serachProductSaga);
+  yield takeLatest(appActions.addComment.type, addCommentSaga);
+  yield takeLatest(appActions.getProductFiles.type, getProductFilesSaga);
+  yield takeLatest(appActions.addProductRate.type, addProductRateSaga);
 
   yield takeLatest(
     appActions.deleteFromBasketItem.type,

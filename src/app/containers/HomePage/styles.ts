@@ -63,13 +63,14 @@ export const StyledHomePage = styled(BaseLayout)`
   }
 
   .rightBanner {
-    height: 214px;
   }
 
   .rightBannerImg {
     width: 100%;
     height: 100%;
     border-radius: 7px;
+
+    object-fit: contain;
   }
 
   .rightContactUs {

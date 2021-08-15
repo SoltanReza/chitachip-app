@@ -35,6 +35,8 @@ import {
   GetCodeResponse,
   GetHomeListProductsRequest,
   GetHomeListProductsResponse,
+  GetProductFilesRequest,
+  GetProductFilesResponse,
   GetProductSliderRequest,
   GetProductSliderResponse,
   GetTokenRequest,
@@ -45,6 +47,10 @@ import {
   LikeProductResponse,
   LoginRequest,
   LoginResponse,
+  PostNewCommentRequest,
+  PostNewCommentResponse,
+  ProductRateRequest,
+  ProductRateResponse,
   RegisterOrderRequest,
   RegisterOrderResponse,
   RegisterRequest,
@@ -271,4 +277,22 @@ export function getHomeListProductsApi(
   return http
     .get('v1/get-products-slider/', { params })
     .then(response => response.data);
+}
+
+export function postNewCommentApi(
+  params: PostNewCommentRequest,
+): Promise<PostNewCommentResponse> {
+  return http.post('v1/comment/', params).then(response => response.data);
+}
+
+export function getProductFilesApi(
+  params: GetProductFilesRequest,
+): Promise<GetProductFilesResponse> {
+  return http.get('v1/file/', { params }).then(response => response.data);
+}
+
+export function addProductRateApi(
+  params: ProductRateRequest,
+): Promise<ProductRateResponse> {
+  return http.get('v1/rate/', { params }).then(response => response.data);
 }

@@ -28,6 +28,8 @@ import {
   DeleteLikeItemResponse,
   GetHomeListProductsRequest,
   GetHomeListProductsResponse,
+  GetProductFilesRequest,
+  GetProductFilesResponse,
   GetProductSliderRequest,
   GetProductSliderResponse,
   HisrtoryOfPurchaseRequest,
@@ -38,6 +40,9 @@ import {
   LoginResponse,
   Notif,
   NotifType,
+  PostNewCommentRequest,
+  ProductRateRequest,
+  ProductRateResponse,
   RegisterRequest,
   RegisterResponse,
   SearchProductRequest,
@@ -151,7 +156,21 @@ export const initialState: ContainerState = {
     data: undefined,
     error: undefined,
   },
-
+  addComment: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  productFiles: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
+  addProductRate: {
+    params: undefined,
+    data: undefined,
+    error: undefined,
+  },
   auth: Storage.read<AuthData>('auth', undefined),
 };
 
@@ -637,6 +656,68 @@ const appSlice = createSlice({
       state.homeListProducts.error = action.payload;
     },
     // #endregion SearchProduct
+
+    //#region AddComment
+
+    addComment(state, action: PayloadAction<PostNewCommentRequest>) {
+      state.addComment.params = action.payload;
+      state.addComment.data = initialState.addComment.data;
+      state.addComment.error = initialState.addComment.error;
+    },
+    addCommentSuccess(state, action: PayloadAction<AddAddressResponse>) {
+      state.addComment.params = initialState.addComment.params;
+      state.addComment.data = action.payload;
+    },
+    addCommentError(state, action: PayloadAction<ErrorResponse>) {
+      state.addComment.params = initialState.addComment.params;
+      state.addComment.error = action.payload;
+    },
+    addCommentClear(state) {
+      state.addComment = initialState.addComment;
+    },
+    //#endregion AddComment
+
+    //#region AddComment
+
+    getProductFiles(state, action: PayloadAction<GetProductFilesRequest>) {
+      state.productFiles.params = action.payload;
+      state.productFiles.data = initialState.productFiles.data;
+      state.productFiles.error = initialState.productFiles.error;
+    },
+    getProductFilesSuccess(
+      state,
+      action: PayloadAction<GetProductFilesResponse>,
+    ) {
+      state.productFiles.params = initialState.productFiles.params;
+      state.productFiles.data = action.payload;
+    },
+    getProductFilesError(state, action: PayloadAction<ErrorResponse>) {
+      state.productFiles.params = initialState.productFiles.params;
+      state.productFiles.error = action.payload;
+    },
+    getProductFilesClear(state) {
+      state.productFiles = initialState.productFiles;
+    },
+    //#endregion AddComment
+    //#region AddComment
+
+    addProductRate(state, action: PayloadAction<ProductRateRequest>) {
+      state.addProductRate.params = action.payload;
+      state.addProductRate.data = initialState.addProductRate.data;
+      state.addProductRate.error = initialState.addProductRate.error;
+    },
+    addProductRateSuccess(state, action: PayloadAction<ProductRateResponse>) {
+      state.addProductRate.params = initialState.addProductRate.params;
+      state.addProductRate.data = action.payload;
+    },
+    addProductRateError(state, action: PayloadAction<ErrorResponse>) {
+      state.addProductRate.params = initialState.addProductRate.params;
+      state.addProductRate.error = action.payload;
+    },
+    addProductRateClear(state) {
+      state.addProductRate = initialState.addProductRate;
+    },
+    //#endregion AddComment
   },
 });
 

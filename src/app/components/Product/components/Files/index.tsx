@@ -10,6 +10,7 @@ import { StyledFiles } from './styles';
 import { useTranslation } from 'react-i18next';
 interface Props {
   className?: string;
+  files: any;
 }
 
 export function Files({ className }: Props) {

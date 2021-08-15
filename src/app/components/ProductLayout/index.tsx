@@ -3,7 +3,7 @@
  * ProductLayout
  *
  */
-import React, { memo, ReactNode } from 'react';
+import React, { memo, ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { StyledFooter } from '../BaseLayout/styles';
@@ -20,6 +20,24 @@ interface Props {
 
 export const ProductLayout = memo(
   ({ className, children, title, description }: Props) => {
+    const [scrolling, setScrolling] = useState(false);
+    const [scrollTop, setScrollTop] = useState(0);
+    const [blackColor, setBlackColor] = useState(false);
+
+    useEffect(() => {
+      const onScroll = e => {
+        setScrollTop(e.target.documentElement.scrollTop);
+        setScrolling(e.target.documentElement.scrollTop < scrollTop);
+      };
+      window.addEventListener('scroll', onScroll);
+
+      if (window.pageYOffset > 20) {
+        setBlackColor(true);
+      } else {
+        setBlackColor(false);
+      }
+      return () => window.removeEventListener('scroll', onScroll);
+    }, [scrollTop, scrolling]);
     const { t } = useTranslation();
 
     return (
@@ -29,9 +47,9 @@ export const ProductLayout = memo(
           {description && <meta name="description" content={description} />}
         </Helmet>
 
-        <StyledHeader>
-          <Navbar />
-        </StyledHeader>
+        {/* <StyledHeader> */}
+        <Navbar black={blackColor} />
+        {/* </StyledHeader> */}
         <StyledContent>{children}</StyledContent>
         <StyledFooter>
           {' '}

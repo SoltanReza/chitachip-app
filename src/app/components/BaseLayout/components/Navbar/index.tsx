@@ -20,6 +20,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
+import { redirect } from 'utils/history';
 import { SearchDataWrapper, StyledNavbar } from './styles';
 
 interface Props {
@@ -39,6 +40,7 @@ export const Navbar = memo(({ className, black }: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(appActions.searchProduct({ q: searchText }));
+    console.log(searchData);
   }, [dispatch, searchText]);
 
   const handleRedirect = useCallback(
@@ -77,6 +79,11 @@ export const Navbar = memo(({ className, black }: Props) => {
     }
   }, [authData]);
 
+  const handleRouteToProductDetails = useCallback(
+    (id: string) => () => redirect(Routes.productDetails, { id }),
+    [],
+  );
+
   return (
     <StyledNavbar black={black} className={`Navbar ${className || ''}`}>
       {/* <div className="logo" onClick={handleRoutToHome} /> */}
@@ -109,12 +116,13 @@ export const Navbar = memo(({ className, black }: Props) => {
                 onChange={handleSearch}
               />
 
-              {searchData &&
-                searchData.data &&
-                searchData.data.products &&
-                searchData.data.products.map(i => (
-                  <SearchDataWrapper>
-                    <div className="item-wrapper">
+              {searchData && searchData.data && searchData.data.products && (
+                <SearchDataWrapper>
+                  {searchData.data.products.map(i => (
+                    <div
+                      className="item-wrapper"
+                      onClick={handleRouteToProductDetails(i.id)}
+                    >
                       <div className="img-wrapper">
                         <img src={i.image} alt={i.title} />
                       </div>
@@ -125,8 +133,9 @@ export const Navbar = memo(({ className, black }: Props) => {
                         <div className="icon-wrapper"></div>
                       </div>
                     </div>
-                  </SearchDataWrapper>
-                ))}
+                  ))}
+                </SearchDataWrapper>
+              )}
             </li>
           </ul>
           <div className="logo" onClick={handleRoutToHome} />

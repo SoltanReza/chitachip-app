@@ -56,6 +56,7 @@ export function ProductDetailsPage({ className }: Props) {
           similar={BrowseProduct.data.similar}
           data={BrowseProduct.data.product}
           gallery={BrowseProduct.data.gallery}
+          comments={BrowseProduct.data.comments}
         />
       )}
     </StyledProductDetailsPage>

@@ -116,3 +116,18 @@ export const selectHomeListProducts = createSelector(
   [selectDomain],
   state => state.homeListProducts,
 );
+
+export const selectAddComment = createSelector(
+  [selectDomain],
+  state => state.addComment,
+);
+
+export const selectProductFile = createSelector(
+  [selectDomain],
+  state => state.productFiles,
+);
+
+export const selectProductRate = createSelector(
+  [selectDomain],
+  state => state.addProductRate,
+);

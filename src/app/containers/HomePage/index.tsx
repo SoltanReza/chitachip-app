@@ -297,7 +297,7 @@ export function HomePage({ className }: Props) {
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
               <img
-                src="images/bazargani.PNG"
+                src="images/bazargani.png"
                 className="rightBannerImg"
                 alt=""
               />
@@ -322,7 +322,11 @@ export function HomePage({ className }: Props) {
           </Row>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
-              <img src="images/aboutus.PNG" className="rightBannerImg" alt="" />
+              <img
+                src="images/chitachip.png"
+                className="rightBannerImg"
+                alt=""
+              />
             </Col>
           </Row>
           <Row gutter={16} className="rowWrraperRight">

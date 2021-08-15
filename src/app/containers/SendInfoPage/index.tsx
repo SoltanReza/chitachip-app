@@ -63,6 +63,7 @@ import { useWindowWidth } from '@react-hook/window-size';
 import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
 import { Routes } from '../App/Router/routes';
+import { ProductCard } from 'app/components/ProductCard';
 
 interface Props {
   className?: string;
@@ -93,7 +94,7 @@ export function SendInfoPage({ className }: Props) {
   const [selectTypeSend, setSelectTypeSend] = useState('');
   const [sendDate, setSendDate] = useState<SendDateResponse>();
   const onlyWidth = useWindowWidth();
-
+  let price = 0;
   const addAddressData = useSelector(selectAddAddress);
   const addressData = useSelector(selectBrowseAddress);
   const BasketData = useSelector(selectBrowseBasket);
@@ -210,7 +211,7 @@ export function SendInfoPage({ className }: Props) {
       })
       .catch(() => {});
   }, []);
-
+  console.log(addressData && addressData.data && addressData.data.data);
   return (
     <StyledSendInfoPage
       className={`SendInfoPage ${className || ''}`}
@@ -263,12 +264,7 @@ export function SendInfoPage({ className }: Props) {
                         {currentElement === item.id && (
                           <p>
                             <span className="addressTitle">آدرس: </span>
-                            <span>
-                              {' '}
-                              ،طبقه اول شرکت آما180تهران، طرشت شمالی، بلوار شهید
-                              تیموری، پژوهشکده علوم و فناوری انرژی شریف ،پلاک
-                              1459777611 تهران - تهران
-                            </span>
+                            <span>{item.address}</span>
                           </p>
                         )}
 
@@ -336,58 +332,16 @@ export function SendInfoPage({ className }: Props) {
             >
               {BasketData &&
                 BasketData.data &&
-                BasketData.data.data.products.map(item => (
-                  <SwiperSlide>
-                    <div className="offerCard">
-                      <div
-                        data-id={item.product_id}
-                        onClick={handleRouteToProductDetails(item.product_id)}
-                      >
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 20)}
-                        </div>
-                        <div className="imgProductWrapper">
-                          <img
-                            src={item.image}
-                            className="imgProduct"
-                            alt={item.title}
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className="buyProduct"
-                        id={`buyProduct${item.product_id}`}
-                      >
-                        <div>
-                          <StarFilled
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />{' '}
-                          1.3
-                        </div>
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
+                BasketData.data.data.products.map(item => {
+                  price += Number(
+                    item.price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''),
+                  );
+                  return (
+                    <SwiperSlide>
+                      <ProductCard data={item} />
+                    </SwiperSlide>
+                  );
+                })}
             </Swiper>
 
             <div className="cardInfoTitle">روش ارسال</div>
@@ -515,7 +469,7 @@ export function SendInfoPage({ className }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    250.000
+                    {price}
                   </span>
                 </div>
               </div>
@@ -530,8 +484,7 @@ export function SendInfoPage({ className }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    {' '}
-                    250.000
+                    {price}
                   </span>
                 </div>
               </div>
@@ -564,8 +517,7 @@ export function SendInfoPage({ className }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    {' '}
-                    250.000
+                    {price}
                   </span>
                 </div>
               </div>
