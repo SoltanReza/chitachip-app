@@ -116,8 +116,8 @@ export interface AppState {
     error?: ErrorResponse;
   };
   addProductRate: {
-    params?: GetProductFilesRequest;
-    data?: GetProductFilesResponse;
+    params?: ProductRateRequest;
+    data?: ProductRateResponse;
     error?: ErrorResponse;
   };
   auth?: AuthData;
@@ -214,6 +214,15 @@ export interface categoryBanner {
 
 // #endregion ProductData
 
+// #region ProductFile
+
+export interface ProductFile {
+  title: string;
+  product: string;
+  file: string;
+}
+
+// #endregion ProductFile
 // #region BrowseHomeList
 export interface BrowseHomeListRequest {}
 
@@ -661,12 +670,18 @@ export interface GetProductFilesRequest {
   product_id: string;
 }
 
-export interface GetProductFilesResponse {}
+export interface GetProductFilesResponse {
+  response: Array<ProductFile>;
+}
 // #endregion GetProductFiles
+
+// #region ProductRate
 export interface ProductRateRequest {
   product_id: string;
   rate: string;
 }
 
-export interface ProductRateResponse {}
-// #endregion GetProductFiles
+export interface ProductRateResponse {
+  data: any;
+}
+// #endregion ProductRate

@@ -288,7 +288,7 @@ export function postNewCommentApi(
 export function getProductFilesApi(
   params: GetProductFilesRequest,
 ): Promise<GetProductFilesResponse> {
-  return http.get('v1/file/', { params }).then(response => response.data);
+  return http.post('v1/file/', params).then(response => response.data);
 }
 
 export function addProductRateApi(

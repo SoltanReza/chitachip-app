@@ -7,12 +7,11 @@ export const StyledProduct = styled.section`
   .cardTabProduct {
     margin: 20px 20px;
     border-radius: 7px;
-    -webkit-box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
-    -moz-box-shadow: 0px 0px 18px -8px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
+
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
   }
   .cardrelatedProduc {
-    padding: 2em;
+    padding: 1em;
   }
   .relatedProductTitle {
     font-size: 2em;
@@ -205,7 +204,7 @@ export const StyledProduct = styled.section`
     height: 60px;
     cursor: pointer;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
-
+    margin-bottom: 0.5em;
     &:hover {
       box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
     }
@@ -265,5 +264,9 @@ export const StyledProduct = styled.section`
     .productInfoCard {
       padding-left: 0px !important;
     }
+  }
+
+  .swiper-slide {
+    margin-top: 20px;
   }
 `;

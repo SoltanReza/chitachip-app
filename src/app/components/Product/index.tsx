@@ -64,21 +64,28 @@ interface Props {
 export const Product = memo(
   ({ className, data, similar, gallery, comments }: Props) => {
     // const { t } = useTranslation();
+    // const galleryImages
+
+    type MainPic = string;
+
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [mainPic, setMainPic] = useState(data.image);
+    const [galleryArr, setgalleryArr] = useState([data, ...gallery]);
+
+    const [mainPic, setMainPic] = useState<MainPic>(data.image);
     const [text, setText] = useState('');
-    const [galleryArr, setgalleryArr] = useState(gallery);
     const [rating, setRating] = useState(data.avg_stars);
     const authData = useSelector(selectAuth);
     const likeData = useSelector(selectLikeProduct);
     const addToBasketData = useSelector(selectAddToBasket);
     const files = useSelector(selectProductFile);
-    const rate = useSelector(selectProductRate);
 
-    // useEffect(() => {
-    //   dispatch(appActions.getProductFiles({ product_id: data.id }));
-    // }, [dispatch, data.id]);
+    const picObj = galleryArr.filter(i => i.image === mainPic);
+    const picIndex = galleryArr.indexOf(picObj[0]);
+    // const rate = useSelector(selectProductRate);
+    useEffect(() => {
+      dispatch(appActions.getProductFiles({ product_id: data.id }));
+    }, [dispatch, data.id]);
 
     useEffect(() => {
       dispatch(
@@ -87,9 +94,23 @@ export const Product = memo(
           rate: String(rating),
         }),
       );
-      console.log(rate);
-    }, [dispatch, rating]);
+    }, [dispatch, rating, data.id]);
 
+    const handlePriviousImage = () => {
+      if (picIndex === 0) {
+        //pass
+      } else {
+        setMainPic(galleryArr[picIndex - 1].image);
+      }
+    };
+
+    const handleNextImage = () => {
+      if (picIndex + 1 === galleryArr.length) {
+        //pass
+      } else {
+        setMainPic(galleryArr[picIndex + 1].image);
+      }
+    };
     const onlyWidth = useWindowWidth();
 
     const handleOk = () => {
@@ -128,27 +149,15 @@ export const Product = memo(
         }),
       );
     }, [data.id, dispatch]);
-    const handleVoteLike = useCallback(
-      e => {
-        const data = e.currentTarget.dataset as any;
-        if (authData) {
-          if (authData.data) {
-            dispatch(appActions.likeProduct({ product_id: data.id }));
-          } else {
-            setIsModalVisible(true);
-          }
-        }
-      },
-      [authData, dispatch],
-    );
+
     useEffect(() => {
       if (addToBasketData.data?.status === 200) {
         message.success('محصول با موفقیت به سبد خرید اضافه شد');
       }
     }, [addToBasketData.data]);
 
-    const changeMainPic = img => {
-      setMainPic(img);
+    const changeMainPic = item => {
+      setMainPic(item.image);
 
       // if (mainPic === data.image) {
       //   let obj: ProductGallery = {
@@ -166,6 +175,20 @@ export const Product = memo(
     const handleAddComment = () => {
       dispatch(appActions.addComment({ product_id: data.id, text: text }));
     };
+
+    const handleVoteLike = useCallback(
+      e => {
+        const data = e.currentTarget.dataset as any;
+        if (authData) {
+          if (authData.data) {
+            dispatch(appActions.likeProduct({ product_id: data.id }));
+          } else {
+            setIsModalVisible(true);
+          }
+        }
+      },
+      [authData, dispatch],
+    );
     return (
       <StyledProduct className={`Product ${className || ''}`}>
         <Card className="cardProduct">
@@ -196,14 +219,14 @@ export const Product = memo(
                           src={i.image}
                           alt={i.title}
                           className="gallery-item"
-                          onClick={() => changeMainPic(i.image)}
+                          onClick={() => changeMainPic(i)}
                         />
                       );
                     })}
                     <div className="icons">
-                      <RightOutlined />
-                      {galleryArr.length + 1}
-                      <LeftOutlined />
+                      <RightOutlined onClick={handleNextImage} />
+                      {` ${galleryArr.length} / ${picIndex + 1} `}
+                      <LeftOutlined onClick={handlePriviousImage} />
                     </div>
                   </Col>
                 )}
@@ -284,9 +307,15 @@ export const Product = memo(
                       <Button
                         icon={
                           likeData.data && likeData.data.status === 201 ? (
-                            <HeartOutlined />
+                            <HeartOutlined
+                              data-id={data.id}
+                              onClick={handleVoteLike}
+                            />
                           ) : (
-                            <HeartFilled />
+                            <HeartFilled
+                              data-id={data.id}
+                              onClick={handleVoteLike}
+                            />
                           )
                         }
                         block
@@ -348,10 +377,9 @@ export const Product = memo(
             navigation={true}
             spaceBetween={20}
             slidesPerView={onlyWidth > 960 ? 4 : 1}
-            style={{ padding: '1em' }}
           >
             {similar.map(item => (
-              <SwiperSlide>
+              <SwiperSlide style={{ margin: '30px' }}>
                 <ProductCard data={item} />
               </SwiperSlide>
             ))}
@@ -409,7 +437,7 @@ export const Product = memo(
             </div>
           </div>
           <div id="file" className="tabcontent">
-            <Files files={files} />
+            <Files files={files.data?.response} />
           </div>
         </Card>
 

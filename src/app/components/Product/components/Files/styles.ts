@@ -15,6 +15,7 @@ export const StyledFiles = styled.section`
     padding: 1em;
     margin: 1em;
     text-align: center;
+
     .icon-box {
       cursor: pointer;
       background: url(${DownloadIcon});
@@ -27,6 +28,9 @@ export const StyledFiles = styled.section`
       padding: 1em;
       width: 3em;
       height: 3em;
+      &:hover {
+        box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
+      }
     }
   }
 `;
