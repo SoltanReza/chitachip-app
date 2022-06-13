@@ -5,6 +5,8 @@
  */
 import { useWindowWidth } from '@react-hook/window-size';
 import { Col, Layout, Row } from 'antd';
+import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
+
 import { Routes } from 'app/containers/App/Router/routes';
 import { Categories } from 'app/containers/App/types';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
@@ -17,16 +19,17 @@ import { StyledMenuSider } from './styles';
 interface Props {
   className?: string;
   categories: Array<Categories>;
+  collapse: boolean;
 }
 const { Sider } = Layout;
 
-export const MenuSider = memo(({ className, categories }: Props) => {
+export const MenuSider = memo(({ className, categories, collapse }: Props) => {
   const { t } = useTranslation();
   const refMenu = useRef<HTMLSpanElement>(null);
 
   const dispatch = useDispatch();
   const onlyWidth = useWindowWidth();
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(collapse);
 
   const handleRoutToProductList = useCallback(
     (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
@@ -40,20 +43,18 @@ export const MenuSider = memo(({ className, categories }: Props) => {
     [],
   );
 
-  useEffect(() => {
-    setCollapsed(onlyWidth < sizes.medium);
-  }, [onlyWidth, setCollapsed]);
+  // useEffect(() => {
+  //   setCollapsed(onlyWidth < sizes.medium);
+  // }, [onlyWidth, setCollapsed]);
 
   return (
     <StyledMenuSider
-      className={`MenuSider ${className || ''}`}
+      className={`MenuSider ${collapsed && 'collapsed'} ${className || ''}`}
       style={{
         // overflowY: 'auto',
         overflowX: 'hidden',
         // height: '73vh',
       }}
-      // collapsed={collapsed}
-      // onCollapse={setCollapsed}
     >
       <ul
         // defaultSelectedKeys={[
@@ -62,8 +63,16 @@ export const MenuSider = memo(({ className, categories }: Props) => {
         className="ulCategotry"
         style={{ height: '100%', borderRight: 0 }}
       >
-        <div className="categoryTitle">دسته بندی ها</div>
+        <h3 className="categoryTitle" onClick={() => setCollapsed(!collapsed)}>
+          دسته بندی ها
+          {collapsed ? (
+            <CaretDownOutlined style={{ marginRight: '20px' }} />
+          ) : (
+            <CaretUpOutlined style={{ marginRight: '20px' }} />
+          )}
+        </h3>
         {categories &&
+          !collapsed &&
           categories.map(menu => (
             <li className="rowCategory" key={menu.category.id}>
               <div className="rowCategoryItem">
@@ -72,7 +81,6 @@ export const MenuSider = memo(({ className, categories }: Props) => {
                   data-cat-name={menu.category.name}
                   onClick={handleRoutToProductList}
                 >
-                  {' '}
                   <img
                     src={menu.category.icon}
                     className="iconCategory"

@@ -15,17 +15,7 @@ export const StyledHeader = styled(Layout.Header)`
   background:transparent;
   line-height: 79px;
   height: 90px;
-  .logo {
-    /* display: inline-block; */
-    background-image: url(${Logo});
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100px;
-    width: 150px;
-    margin: 0.2em -2em 0em 2em;
-    float: left;
-  }
+  
 `;
 export const StyledContent = styled(Layout.Content)`
   min-height: 100vh;

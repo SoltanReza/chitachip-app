@@ -6,6 +6,7 @@ import { redirect } from 'utils/history';
 import { Storage } from 'utils/storage';
 import {
   addAddressApi,
+  addProductRateApi,
   addToBasketApi,
   browseAddressApi,
   browseBasketApi,
@@ -17,12 +18,16 @@ import {
   deleteFromBasketItemApi,
   deleteLikeItemApi,
   getCodeApi,
+  getHomeListProductsApi,
+  getProductFilesApi,
   getProductSliderApi,
   getTokenApi,
   hisrtoryOfPurchaseApi,
   likeProductApi,
   loginApi,
+  postNewCommentApi,
   registerApi,
+  searchProductApi,
   sendEmailNewsApi,
   userInfoApi,
 } from './api';
@@ -40,11 +45,16 @@ import {
   BrowseProductRequest,
   DeleteFromBasketItemRequest,
   DeleteLikeItemRequest,
+  GetHomeListProductsRequest,
+  GetProductFilesRequest,
   GetProductSliderRequest,
   HisrtoryOfPurchaseRequest,
   LikeProductRequest,
   LoginRequest,
+  PostNewCommentRequest,
+  ProductRateRequest,
   RegisterRequest,
+  SearchProductRequest,
   SendEmailNewsRequest,
   UserInfoRequest,
 } from './types';
@@ -311,6 +321,83 @@ export function* deleteLikeItemSaga(
   }
 }
 
+export function* serachProductSaga(
+  action: PayloadAction<SearchProductRequest>,
+) {
+  try {
+    const response = yield call(searchProductApi, action.payload);
+    yield put(appActions.searchProductSuccess(response));
+  } catch (error) {
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* getHomeListProductsSaga(
+  action: PayloadAction<GetHomeListProductsRequest>,
+) {
+  try {
+    const response = yield call(getHomeListProductsApi, action.payload);
+    yield put(appActions.getHomeListProductsSuccess({ data: response }));
+  } catch (error) {
+    yield put(appActions.getHomeListProductsError(error.message));
+  }
+}
+
+export function* addCommentSaga(action: PayloadAction<PostNewCommentRequest>) {
+  try {
+    const response = yield call(postNewCommentApi, action.payload);
+    yield put(appActions.addCommentSuccess(response));
+    if (response.status === 201) {
+      yield put(appActions.notifySuccess('کامنت شما با موفقیت اضافه شد'));
+    }
+  } catch (error) {
+    yield put(appActions.addCommentError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* getProductFilesSaga(
+  action: PayloadAction<GetProductFilesRequest>,
+) {
+  try {
+    const response = yield call(getProductFilesApi, action.payload);
+    yield put(appActions.getProductFilesSuccess(response));
+    if (response.status === 201) {
+      yield put(appActions.notifySuccess('کامنت شما با موفقیت اضافه شد'));
+    }
+  } catch (error) {
+    yield put(appActions.getProductFilesError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+
+export function* addProductRateSaga(action: PayloadAction<ProductRateRequest>) {
+  try {
+    const response = yield call(addProductRateApi, action.payload);
+    yield put(appActions.addProductRateSuccess(response));
+    if (response.status === 200) {
+      yield put(appActions.notifySuccess('نظر شما با موفقیت اضافه شد'));
+    }
+    if (response.status === 400) {
+      yield put(appActions.notifyError('شما قبلا به این محصول نظر دادید!'));
+    }
+  } catch (error) {
+    yield put(appActions.addProductRateError(error));
+    yield put(appActions.notifyError(error.message));
+  }
+}
+// export function* browseCategoriesSaga(
+//   action: PayloadAction<BrowseCategoriesRequest>,
+// ) {
+//   try {
+//     const response = yield call(browseCategoriesApi, action.payload);
+//     yield put(appActions.browseCategoriesSuccess(response));
+//   } catch (error) {
+//     yield put(appActions.browseCategoriesError(error));
+//     yield put(appActions.notifyError(error.message));
+//   }
+// }
+
 export function* appSaga() {
   yield takeLatest(appActions.clearAuth.type, logoutSaga);
   yield takeLatest(appActions.login.type, loginSaga);
@@ -329,8 +416,17 @@ export function* appSaga() {
   yield takeLatest(appActions.addAddress.type, addAddressSaga);
   yield takeLatest(appActions.browseLikeList.type, browseLikeListSaga);
   yield takeLatest(appActions.deleteLikeItem.type, deleteLikeItemSaga);
+  yield takeLatest(appActions.searchProduct.type, serachProductSaga);
+  yield takeLatest(appActions.addComment.type, addCommentSaga);
+  yield takeLatest(appActions.getProductFiles.type, getProductFilesSaga);
+  yield takeLatest(appActions.addProductRate.type, addProductRateSaga);
+
   yield takeLatest(
     appActions.deleteFromBasketItem.type,
     deleteFromBasketItemSaga,
+  );
+  yield takeLatest(
+    appActions.getHomeListProducts.type,
+    getHomeListProductsSaga,
   );
 }

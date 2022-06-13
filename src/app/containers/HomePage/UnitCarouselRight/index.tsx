@@ -37,7 +37,7 @@ import 'swiper/swiper-bundle.css';
 import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
 import { StyledUnitCarouselRight } from './styles';
-
+import { ProductCard } from 'app/components/ProductCard';
 interface Props {
   className?: string;
   product: ProductsDataWithText;
@@ -136,114 +136,18 @@ export const UnitCarouselRight = memo(({ className, product }: Props) => {
 
   return (
     <StyledUnitCarouselRight className={`UnitCarouselRight ${className || ''}`}>
+      <h3>{product.text}</h3>
+
       <Swiper
         // spaceBetween={30}
         navigation={true}
         // className="mySwiper"
         spaceBetween={20}
         slidesPerView={1}
-        // autoplay={{
-        //   delay: 2000,
-        // }}
-        // navigation
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        onSwiper={swiper => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
       >
         {product.prs.map(item => (
           <SwiperSlide>
-            <div className="offerCard">
-              <div>{product.text}</div>
-              <div
-                data-id={item.id}
-                onClick={handleRouteToProductDetails(item.id)}
-              >
-                <div className="imgProductWrapper">
-                  <img
-                    src={item.image}
-                    className="imgProduct"
-                    alt={item.title}
-                  />
-                </div>
-                <div className="titleProduct">
-                  {ellipseString(`${item.title}`, 20)}
-                </div>
-              </div>
-              <div className="buyProduct" id={`buyProduct${item.id}`}>
-                <div>
-                  <StarFilled style={{ color: '#ffc107', fontSize: '1.5em' }} />{' '}
-                  1.3
-                </div>
-                <div className="priceStyle">
-                  <div className="price">
-                    <div className="discount">
-                      {item.discount > 0 && item.discount}
-                    </div>
-                    <s className="priceDiscount">
-                      {item.price
-                        .toFixed()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </s>
-                  </div>
-                  <div className="price">
-                    <div className="currency">تومان</div>
-                    <div>
-                      {item.price
-                        .toFixed()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="voteStyle">
-                <div>
-                  {likeData && likeData.data ? (
-                    likeData.data.status === 201 ? (
-                      <HeartOutlined
-                        style={{ color: '#ffc107', fontSize: '1.7em' }}
-                        data-id={item.id}
-                        onClick={handleVoteLike}
-                      />
-                    ) : (
-                      <HeartFilled
-                        style={{ color: '#ffc107', fontSize: '1.7em' }}
-                        data-id={item.id}
-                        onClick={handleVoteLike}
-                      />
-                    )
-                  ) : (
-                    <HeartOutlined
-                      style={{ color: '#ffc107', fontSize: '1.7em' }}
-                      data-id={item.id}
-                      onClick={handleVoteLike}
-                    />
-                  )}
-                </div>
-                <div>
-                  {/* <ShoppingOutlined
-                    style={{ color: '#ffc107', fontSize: '1.5em' }}
-                    data-product_id={item.id}
-                    onClick={handleAddToBasket}
-                  />{' '} */}
-                  <span className="count">
-                    <PlusOutlined
-                      data-id={item.id}
-                      onClick={handlePlusQuantity}
-                    />
-                    {currentElement === item.id ? (
-                      <span>{addToBasketData.data?.quantity}</span>
-                    ) : (
-                      <span>0</span>
-                    )}
-                    <MinusOutlined
-                      data-id={item.id}
-                      onClick={handleMinusQuantity}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
+            <ProductCard data={item} />
           </SwiperSlide>
         ))}
       </Swiper>

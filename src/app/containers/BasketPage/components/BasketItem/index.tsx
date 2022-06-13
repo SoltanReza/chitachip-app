@@ -24,6 +24,7 @@ import {
 import { appActions } from 'app/containers/App/slice';
 import { redirect } from 'utils/history';
 import { Routes } from 'app/containers/App/Router/routes';
+import { ProductCard } from 'app/components/ProductCard';
 
 interface Props {
   className?: string;
@@ -106,6 +107,8 @@ export const BasketItem = memo(({ className }: Props) => {
   //     }
   //   }
   // }, [addToBasketData, currentElement]);
+  let allPricesSum: number = 0;
+  let allِDiscountsSum: number = 0;
 
   return (
     <StyledBasketItem className={`BasketItem ${className || ''}`}>
@@ -127,100 +130,34 @@ export const BasketItem = memo(({ className }: Props) => {
         <h3>لیست محصولات</h3>
 
         <Row gutter={{ xs: 8, sm: 16, md: 48, lg: 48 }}>
-          <Col span={18}>
+          <Col xs={24} sm={24} md={19} lg={19} xl={19}>
             {basketData && basketData.data && basketData.data.data ? (
-              basketData.data.data.products.map(item => (
-                <Card className="cardListProduct">
-                  <Row gutter={{ xs: 8, sm: 16, md: 40, lg: 40 }}>
-                    <Col span={5}>
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="imgProduct"
-                      />
-                    </Col>
-                    <Col span={14}>
-                      <Row
-                        className="titleProduct"
-                        onClick={handleRouteToProductDetails(item.product_id)}
-                      >
-                        {item.title}
-                      </Row>
-                      <Row gutter={8}>
-                        <Col>
-                          <PlusOutlined
-                            style={{ color: '#ff9800' }}
-                            data-product_id={item.product_id}
-                            data-quantity={item.quantity}
-                            onClick={handlePlusQuantity}
-                          />
-                        </Col>
-                        <Col>
-                          <span className="quantity">{item.quantity}</span>
-                        </Col>
-                        <Col>
-                          <MinusOutlined
-                            style={{ color: '#ff9800' }}
-                            data-product_id={item.product_id}
-                            data-quantity={item.quantity}
-                            onClick={handleMinusQuantity}
-                          />
-                        </Col>
+              basketData.data.data.products.map(item => {
+                allPricesSum += Number(
+                  item.price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''),
+                );
 
-                        <Col>
-                          <DeleteOutlined
-                            style={{ color: 'red', fontSize: '1.5em' }}
-                            data-product_id={item.product_id}
-                            onClick={handleDeleteItem}
-                          />
-                          حذف
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col span={5}>
-                      <div className="buyProduct">
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              ))
+                allِDiscountsSum += Number(
+                  item.discount.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''),
+                );
+                return <ProductCard data={item} />;
+              })
             ) : (
               <div>سبد خرید شما خالی می باشد.</div>
             )}
           </Col>
-          <Col className="actionItem" span={6}>
+          <Col className="actionItem" xs={24} sm={24} md={5} lg={5} xl={5}>
             <Card className="basketItemAction">
               <Row>
                 <Col span={12}>قیمت محصولات</Col>
                 <Col span={12} className="leftItem">
-                  250/000 تومان
+                  {allPricesSum}
                 </Col>
               </Row>
               <Row>
                 <Col span={12}>مجموع تخفیف</Col>
                 <Col span={12} className="leftItem">
-                  250/000 تومان
+                  {allِDiscountsSum}
                 </Col>
               </Row>
               <Row>

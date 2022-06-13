@@ -94,7 +94,32 @@ export interface AppState {
     data?: DeleteLikeItemResponse;
     error?: ErrorResponse;
   };
+  searchProduct: {
+    params?: SearchProductRequest;
+    data?: SearchProductResponse;
+    error?: ErrorResponse;
+  };
+  homeListProducts: {
+    params?: GetHomeListProductsRequest;
+    data?: GetHomeListProductsResponse;
+    error?: ErrorResponse;
+  };
 
+  addComment: {
+    params?: PostNewCommentRequest;
+    data?: PostNewCommentResponse;
+    error?: ErrorResponse;
+  };
+  productFiles: {
+    params?: GetProductFilesRequest;
+    data?: GetProductFilesResponse;
+    error?: ErrorResponse;
+  };
+  addProductRate: {
+    params?: ProductRateRequest;
+    data?: ProductRateResponse;
+    error?: ErrorResponse;
+  };
   auth?: AuthData;
 }
 
@@ -136,6 +161,13 @@ export interface GetTokenRequest {
 export interface GetTokenResponse extends AuthData {}
 // #endregion GetToken
 
+// #region Comment
+export interface CommentData {
+  user_name: string;
+  text: string;
+  reply?: CommentData;
+}
+
 // #region ProductData
 export interface ProductData {
   id: string;
@@ -154,8 +186,15 @@ export interface ProductData {
   sub_category: Array<string>;
   title: string;
   like_number: number;
+  state: string;
+  state_text: string;
+  state_icon: string;
 }
-
+export interface ProductGallery {
+  id: number;
+  image: string;
+  title: string;
+}
 export interface SliderData {
   title: string;
   image: string;
@@ -175,6 +214,15 @@ export interface categoryBanner {
 
 // #endregion ProductData
 
+// #region ProductFile
+
+export interface ProductFile {
+  title: string;
+  product: string;
+  file: string;
+}
+
+// #endregion ProductFile
 // #region BrowseHomeList
 export interface BrowseHomeListRequest {}
 
@@ -232,6 +280,8 @@ export interface BrowseProductRequest {
 export interface BrowseProductResponse {
   product: ProductData;
   similar: Array<ProductData>;
+  gallery: Array<ProductGallery>;
+  comments: Array<CommentData>;
   status: number;
 }
 // #endregion BrowseProduct
@@ -537,6 +587,14 @@ export interface VerifyPaymentRequest {
   bankid: string | null;
   inv: string | null;
 }
+// #region GetHomeListProducts
+export interface GetHomeListProductsRequest {
+  item: string;
+}
+export interface GetHomeListProductsResponse {
+  data: Array<ProductData>;
+}
+// #endregion GetHomeListProducts
 export interface VerifyPaymentResponse {
   data: {
     address_buyer: string;
@@ -575,3 +633,55 @@ export interface VerifyPaymentResponse {
   status: string;
 }
 // #endregion VerifyPayment
+
+// #region SearchProdcut
+export interface SearchProductRequest {
+  q: string;
+}
+export interface SearchProductResponse {
+  products: Array<{
+    image_thumbnail: string;
+    title: string;
+    id: string;
+    image: string;
+  }>;
+}
+// #endregion SearchProdcut
+
+// #region SearchProdcut
+export interface GetAboutusRequest {}
+export interface GetAboutusResponse {
+  data: Array<{
+    type: string;
+    text: string;
+  }>;
+}
+// #endregion SearchProdcut
+
+// #region SearchProdcut
+export interface PostNewCommentRequest {
+  product_id: string;
+  text: string;
+}
+export interface PostNewCommentResponse {}
+// #endregion SearchProdcut
+// #region GetProductFiles
+export interface GetProductFilesRequest {
+  product_id: string;
+}
+
+export interface GetProductFilesResponse {
+  response: Array<ProductFile>;
+}
+// #endregion GetProductFiles
+
+// #region ProductRate
+export interface ProductRateRequest {
+  product_id: string;
+  rate: string;
+}
+
+export interface ProductRateResponse {
+  data: any;
+}
+// #endregion ProductRate

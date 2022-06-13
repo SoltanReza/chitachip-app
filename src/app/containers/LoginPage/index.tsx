@@ -59,7 +59,7 @@ export function LoginPage({ className }: Props) {
   const [showCheckPassword, setShowCheckPassword] = useState(false);
   const [showValidationCode, setShowValidationCode] = useState(false);
   const [showResetPassword, setShowResetPassword] = useState(false);
-
+  const [invalidPassword, setInvalidPassword] = useState(false);
   const [showActive, setShowActive] = useState(false);
   const [lodingData, setLodingData] = useState(false);
   const [lodingPassData, setLodingPassData] = useState(false);
@@ -77,22 +77,30 @@ export function LoginPage({ className }: Props) {
   }, []);
   const handleUsernameSubmit = useCallback(
     values => {
-      setLodingData(true);
+      if (username.length === 11) {
+        if (username.includes('09')) {
+          setLodingData(true);
 
-      checkUserApi({
-        username: username,
-      })
-        .then(data => {
-          if (data.status === 200) {
-            setLodingData(false);
-            setShowCheckUsername(false);
-            setShowCheckPassword(true);
-          } else if (data.status === 201) {
-            message.info('لطفا ابتدا ثبت نام کنید');
-            redirect(Routes.register, { mobile: username });
-          }
-        })
-        .catch(() => {});
+          checkUserApi({
+            username: username,
+          })
+            .then(data => {
+              if (data.status === 200) {
+                setLodingData(false);
+                setShowCheckUsername(false);
+                setShowCheckPassword(true);
+              } else if (data.status === 201) {
+                message.info('لطفا ابتدا ثبت نام کنید');
+                redirect(Routes.register, { mobile: username });
+              }
+            })
+            .catch(() => {});
+        } else {
+          message.warn('لطفا شماره را به صورت 09... .وارد نمایید');
+        }
+      } else {
+        message.warn('شماره تلفن باید شامل 11 عدد باشد');
+      }
     },
     [username],
   );
@@ -146,16 +154,12 @@ export function LoginPage({ className }: Props) {
               .catch(() => {
                 setShowCheckPassword(false);
               });
-          } else if (data.status === 100) {
-            message.warning(' کاربر گرامی اکانت شما فعال نمی باشد');
-            message.warning(
-              'تا لحظاتی دیگر کد فعال سازی برای شما ارسال می شود',
-            );
-            setShowCheckPassword(false);
-            setShowActive(true);
           } else {
-            setShowCheckPassword(false);
-            setShowCheckUsername(true);
+            message.warning('اطلاعات وارد شده نادرست است');
+            setLodingData(false);
+            setLodingPassData(false);
+
+            setShowCheckPassword(true);
           }
         })
 
@@ -242,6 +246,8 @@ export function LoginPage({ className }: Props) {
         .then(data => {
           if (data.status === 200) {
             setLoadingResetPass(false);
+            setShowCheckPassword(true);
+            setShowResetPassword(false);
             setShowValidationCode(false);
             message.info('رمز عبور شما با موفقیت تغغیر کرد');
 
@@ -273,6 +279,7 @@ export function LoginPage({ className }: Props) {
                     })
                     .catch(() => {});
                 } else {
+                  console.log('errrr ');
                 }
               })
               .catch(() => {});
@@ -331,7 +338,7 @@ export function LoginPage({ className }: Props) {
                 loading={lodingData}
               >
                 ادامه
-              </Button>{' '}
+              </Button>
             </Row>
           </Form>
           <Row gutter={8} className="footer">
@@ -362,6 +369,9 @@ export function LoginPage({ className }: Props) {
           <div className="titleLogin">رمز عبور</div>
           <div className="descPassowrd">
             جهت ورود به حساب کاربری لطفا رمز عبور خود را وارد نمایید.
+            {invalidPassword && (
+              <p className="invalidPass">اطلاعات وارد شده نادرست است</p>
+            )}
           </div>
           <Form onFinish={handlePasswordSubmit}>
             <Form.Item name="password" rules={[{ required: true }]}>
@@ -385,7 +395,7 @@ export function LoginPage({ className }: Props) {
                 loading={lodingPassData}
               >
                 ورود
-              </Button>{' '}
+              </Button>
             </Row>
           </Form>
           <Row gutter={8} className="footer">
@@ -482,7 +492,7 @@ export function LoginPage({ className }: Props) {
             />
           </div>
 
-          <div className="titleLogin">فراموشی رمز عبور</div>
+          <div className="titleLogin">رمز عبور جدید</div>
           <div>لطفا رمز عبور جدید را وارد نمایید</div>
           <Form onFinish={handleResetPassword}>
             <Form.Item name="password" rules={[{ required: true }]}>

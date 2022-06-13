@@ -7,13 +7,18 @@ export const StyledMenuSider = styled.section`
   background: ${theme.LAYOUT_HEADER_COLOR};
   background: #fff;
   width: 100%;
-  border-radius: 5px;
-  -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
-  -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
+  &.collapsed {
+    overflow: hidden;
+  }
+  h3 {
+    cursor: pointer;
+  }
   .categoryTitle {
     padding: 1em 1em 0.6em 0em;
     font-weight: bold;
+    color: black;
   }
 
   .iconCategory {
@@ -21,6 +26,7 @@ export const StyledMenuSider = styled.section`
   }
 
   .rowCategory {
+    cursor: pointer;
     margin-bottom: 1em;
     list-style-type: none;
     &:hover {
@@ -63,16 +69,17 @@ export const StyledMenuSider = styled.section`
     position: absolute;
     right: calc(100% - 7px);
     background: #fff;
-    z-index: 333;
+    z-index: 4;
     width: 150%;
     padding: 1em;
+    border: solid 1px #f2ab4f;
     border-radius: 5px;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     max-height: 250px;
-    height: 100%;
+    height: 110%;
     overflow-y: auto;
-    margin-top: -1.7em;
+    margin-top: -2.78em;
     -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
     -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
@@ -83,8 +90,8 @@ export const StyledMenuSider = styled.section`
   }
 
   .imgCategoryList {
-    width: 60px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
   }
 
   .rowImgCategoryList {
@@ -93,12 +100,9 @@ export const StyledMenuSider = styled.section`
   }
 
   .colCategoryList:hover {
-    padding: 1em;
     background: #fff;
     border-radius: 8px;
-    -webkit-box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.161);
   }
 
   .subCategoryListTitle {

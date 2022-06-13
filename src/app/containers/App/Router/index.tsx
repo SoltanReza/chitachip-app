@@ -10,6 +10,8 @@ import { RegisterPage } from 'app/containers/RegisterPage/Loadable';
 import { ResetPasswordPage } from 'app/containers/ResetPasswordPage/Loadable';
 import { SendInfoPage } from 'app/containers/SendInfoPage/Loadable';
 import { UserProfilePage } from 'app/containers/UserProfilePage/Loadable';
+import { AboutUsPage } from 'app/containers/AboutUsPage/index';
+import { RulesPage } from 'app/containers/RulesPage';
 import * as React from 'react';
 import {
   Route as BaseRoute,
@@ -110,6 +112,22 @@ export const Router = () => {
       component: PaymentCallbackPage,
       auth: {
         check: AuthLevel.AUTHENTICATED,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.about,
+      component: AboutUsPage,
+      auth: {
+        check: AuthLevel.ALL,
+      },
+    },
+    {
+      exact: true,
+      path: Routes.rules,
+      component: RulesPage,
+      auth: {
+        check: AuthLevel.ALL,
       },
     },
   ];

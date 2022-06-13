@@ -1,4 +1,6 @@
 export enum Routes {
+  about = '/about',
+  rules = '/rules',
   login = '/login',
   register = '/register/mobile=:mobile',
   logout = '/logout',
@@ -13,7 +15,7 @@ export enum Routes {
   basket = '/basket',
   userProfile = '/userprofile',
   resetPassword = '/resetpassword',
-  productList = '/productlist/catId=:catId,subId=:subId,catName=:catName',
+  productList = '/productlist/catId=:catId,subId=:subId,catName=:catName,item=:item',
   sendInfo = '/sendinfo',
   paymentCallback = '/payment-callback',
 

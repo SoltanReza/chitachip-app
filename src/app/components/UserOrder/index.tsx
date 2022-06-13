@@ -23,10 +23,15 @@ export const UserOrder = memo(({ className }: Props) => {
 
   const hisrtoryOfPurchaseData = useSelector(selectHisrtoryOfPurchase);
 
-  const handleShowsetOrderDetaile = useCallback(e => {
+  console.log(hisrtoryOfPurchaseData);
+  const handleShowsetOrderDetaile = e => {
     const data = e.currentTarget.dataset as any;
-    setOrderDetaileId(+data.id);
-  }, []);
+    if (orderDetaileId === data.id) {
+      setOrderDetaileId(0);
+    } else {
+      setOrderDetaileId(data.id);
+    }
+  };
 
   useEffect(() => {
     dispatch(appActions.hisrtoryOfPurchase({}));
@@ -79,106 +84,72 @@ export const UserOrder = memo(({ className }: Props) => {
         'در حال حاضر سفارشی موجود نمیباشد'
       )}
 
-      <div className="userOrderDetaileTitle">جزئیات سفارش (شماره سفارش)</div>
-      {orderDetaileId === 0 ? (
-        <Card className="userOrderDetaileCard">
-          <div className="addressName">
-            {hisrtoryOfPurchaseData.data?.data[0].bill.address_name}
-          </div>
-          <hr className="solid" />
-          <p>
-            <span className="reciverName">نام تحویل گیرنده: </span>
-            <span>{hisrtoryOfPurchaseData.data?.data[0].bill.user}</span>
-          </p>
-          <p>
-            <span className="addressTitle">آدرس: </span>
-            <span>{hisrtoryOfPurchaseData.data?.data[0].bill.address}</span>
-          </p>
-          <p>
-            <span className="mobile">شماره تماس: </span>
-            <span>{hisrtoryOfPurchaseData.data?.data[0].bill.phone}</span>
-          </p>
-        </Card>
-      ) : (
-        hisrtoryOfPurchaseData.data &&
-        hisrtoryOfPurchaseData.data.data.map(
-          item =>
-            item.bill.invoiceNumber === orderDetaileId.toString() && (
-              <Card className="userOrderDetaileCard">
-                <div className="addressName">{item.bill.address_name}</div>
-                <hr className="solid" />
-                <p>
-                  <span className="reciverName">نام تحویل گیرنده: </span>
-                  <span>{item.bill.user}</span>
-                </p>
-                <p>
-                  <span className="addressTitle">آدرس: </span>
-                  <span>{item.bill.address}</span>
-                </p>
-                <p>
-                  <span className="mobile">شماره تماس: </span>
-                  <span> {item.bill.phone}</span>
-                </p>
-              </Card>
-            ),
-        )
-      )}
+      {orderDetaileId !== 0
+        ? hisrtoryOfPurchaseData.data &&
+          hisrtoryOfPurchaseData.data.data.map(
+            item =>
+              item.bill.invoiceNumber === orderDetaileId.toString() && (
+                <Card className="userOrderDetaileCard">
+                  <div className="addressName">{item.bill.address_name}</div>
+                  <hr className="solid" />
+                  <p>
+                    <span className="reciverName">نام تحویل گیرنده: </span>
+                    <span>{item.bill.user}</span>
+                  </p>
+                  <p>
+                    <span className="addressTitle">آدرس: </span>
+                    <span>{item.bill.address}</span>
+                  </p>
+                  <p>
+                    <span className="mobile">شماره تماس: </span>
+                    <span> {item.bill.phone}</span>
+                  </p>
+                </Card>
+              ),
+          )
+        : null}
 
-      <div className="consignment">مرسولات</div>
-      {hisrtoryOfPurchaseData && hisrtoryOfPurchaseData.data ? (
-        <table className="orderTable">
-          <tr>
-            <th>عکس محصول</th>
-            <th>نام محصول</th>
-            <th>قیمت</th>
-            <th>تعداد</th>
-            <th>جمع قیمت</th>
-          </tr>
+      {hisrtoryOfPurchaseData &&
+      hisrtoryOfPurchaseData.data &&
+      orderDetaileId !== 0 ? (
+        <>
+          <h4 className="consignment">مرسولات</h4>
 
-          {hisrtoryOfPurchaseData.data.data.map(i =>
-            i.bill.prs.map(item => (
-              <tr>
-                <td>
-                  <img
-                    src={item.image}
-                    style={{ width: '70px', height: '70px' }}
-                  />
-                </td>
-                <td>{item.name}</td>
-                <td>{item.single_price} تومان</td>
-                <td>{item.qty}</td>
-                <td>{item.total_price} تومان</td>
-              </tr>
-            )),
-          )}
-        </table>
-      ) : (
-        'شما هیچ مرسوله ای ندارید'
-      )}
+          <table className="orderTable">
+            <tr>
+              <th>عکس محصول</th>
+              <th>نام محصول</th>
+              <th>قیمت</th>
+              <th>تعداد</th>
+              <th>جمع قیمت</th>
+            </tr>
 
-      <div className="sendType">نحوه ارسال</div>
+            {hisrtoryOfPurchaseData.data.data.map(i =>
+              i.bill.prs.map(item => (
+                <tr>
+                  <td>
+                    <img
+                      src={item.image}
+                      style={{ width: '70px', height: '70px' }}
+                    />
+                  </td>
+                  <td>{item.name}</td>
+                  <td>{item.single_price} تومان</td>
+                  <td>{item.qty}</td>
+                  <td>{item.total_price} تومان</td>
+                </tr>
+              )),
+            )}
+          </table>
+        </>
+      ) : null}
 
-      {orderDetaileId === 0 ? (
-        <table className="orderTable sendTypeTable">
-          <tr>
-            <th>تاریخ</th>
-            <th>حامل</th>
-            <th>وزن</th>
-            <th>هزینه ارسال</th>
-            <th>شماره پیگیری</th>
-          </tr>
+      {orderDetaileId !== 0 &&
+      hisrtoryOfPurchaseData &&
+      hisrtoryOfPurchaseData.data ? (
+        <>
+          <h4 className="sendType">نحوه ارسال</h4>
 
-          <tr>
-            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.date}</td>
-            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.user}</td>
-            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.weight}</td>
-            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.shipment} تومان</td>
-            <td>{hisrtoryOfPurchaseData.data?.data[0].bill.invoiceNumber}</td>
-          </tr>
-        </table>
-      ) : (
-        hisrtoryOfPurchaseData &&
-        hisrtoryOfPurchaseData.data && (
           <table className="orderTable sendTypeTable">
             <tr>
               <th>تاریخ</th>
@@ -200,8 +171,8 @@ export const UserOrder = memo(({ className }: Props) => {
                 ),
             )}
           </table>
-        )
-      )}
+        </>
+      ) : null}
     </StyledUserOrder>
   );
 });

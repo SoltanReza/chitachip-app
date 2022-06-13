@@ -40,7 +40,7 @@ export const TopPackagesCarousel = memo(({ className, banners }: Props) => {
         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
           <StyledCardCarousel defaultBackground="#3f51b5">
             <a href={banners.url_second} target="blank">
-              <img src={banners.second_banner} className="container_img" />{' '}
+              <img src={banners.second_banner} className="container_img" />
             </a>
           </StyledCardCarousel>
         </Col>

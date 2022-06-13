@@ -8,9 +8,7 @@ export const StyledCategorySider = styled.section`
   background: #fff;
   width: 100%;
   border-radius: 5px;
-  -webkit-box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
-  -moz-box-shadow: -1px 0px 5px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 0px 5px 0px rgb(0 0 0 / 75%);
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
   max-height: 235px;
   .categoryTitle {
@@ -23,9 +21,11 @@ export const StyledCategorySider = styled.section`
   }
 
   .rowCategory {
+    display: flex;
+    align-items: center;
     margin-bottom: 1em !important;
     list-style-type: none;
-    padding: 0 0.3em;
+    padding: 0.2em 0.3em;
 
     margin: 0 0.3em;
 
@@ -33,6 +33,7 @@ export const StyledCategorySider = styled.section`
       .hoverCategory {
         display: inline;
       }
+      background: rgba(249, 174, 59, 0.5);
     }
   }
 

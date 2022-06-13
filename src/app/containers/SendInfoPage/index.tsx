@@ -63,6 +63,7 @@ import { useWindowWidth } from '@react-hook/window-size';
 import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
 import { Routes } from '../App/Router/routes';
+import { ProductCard } from 'app/components/ProductCard';
 
 interface Props {
   className?: string;
@@ -93,7 +94,7 @@ export function SendInfoPage({ className }: Props) {
   const [selectTypeSend, setSelectTypeSend] = useState('');
   const [sendDate, setSendDate] = useState<SendDateResponse>();
   const onlyWidth = useWindowWidth();
-
+  let price = 0;
   const addAddressData = useSelector(selectAddAddress);
   const addressData = useSelector(selectBrowseAddress);
   const BasketData = useSelector(selectBrowseBasket);
@@ -210,7 +211,7 @@ export function SendInfoPage({ className }: Props) {
       })
       .catch(() => {});
   }, []);
-
+  console.log(addressData && addressData.data && addressData.data.data);
   return (
     <StyledSendInfoPage
       className={`SendInfoPage ${className || ''}`}
@@ -220,7 +221,7 @@ export function SendInfoPage({ className }: Props) {
       <Card className="cardInfo">
         <div className="cardInfoTitle">اطلاعات ارسال</div>
         <Row gutter={32}>
-          <Col xs={24} sm={24} md={18} lg={18} xl={18}>
+          <Col xs={24} sm={24} md={19} lg={19} xl={19}>
             <div className="userAddressAdd" onClick={handleShowModal}>
               <PlusOutlined className="userAddressAddIcon" size={3} />
               افزودن آدرس جدید
@@ -231,7 +232,7 @@ export function SendInfoPage({ className }: Props) {
                 addressData.data &&
                 addressData.data.data.map(item => (
                   <>
-                    <Row gutter={16}>
+                    <Row className="userAdressItem" gutter={16}>
                       <Col
                         xs={24}
                         sm={24}
@@ -263,12 +264,7 @@ export function SendInfoPage({ className }: Props) {
                         {currentElement === item.id && (
                           <p>
                             <span className="addressTitle">آدرس: </span>
-                            <span>
-                              {' '}
-                              ،طبقه اول شرکت آما180تهران، طرشت شمالی، بلوار شهید
-                              تیموری، پژوهشکده علوم و فناوری انرژی شریف ،پلاک
-                              1459777611 تهران - تهران
-                            </span>
+                            <span>{item.address}</span>
                           </p>
                         )}
 
@@ -294,19 +290,25 @@ export function SendInfoPage({ className }: Props) {
                         className="moreVeiw"
                       >
                         {currentElement === item.id ? (
-                          <div onClick={handleCloseMoreView}>
+                          <p
+                            className="clickable"
+                            onClick={handleCloseMoreView}
+                          >
                             مشاهده کمتر
-                            <DownOutlined />
-                          </div>
-                        ) : (
-                          <div data-id={item.id} onClick={handleShowMoreView}>
-                            مشاهده بیشتر
                             <UpOutlined />
-                          </div>
+                          </p>
+                        ) : (
+                          <p
+                            className="clickable"
+                            data-id={item.id}
+                            onClick={handleShowMoreView}
+                          >
+                            مشاهده بیشتر
+                            <DownOutlined />
+                          </p>
                         )}
                       </Col>
                     </Row>
-                    <hr className="solid" />
                   </>
                 ))}
             </Card>
@@ -326,70 +328,27 @@ export function SendInfoPage({ className }: Props) {
               // navigation
               // pagination={{ clickable: true }}
               // scrollbar={{ draggable: true }}
-              onSwiper={swiper => console.log(swiper)}
-              onSlideChange={() => console.log('slide change')}
+              style={{ padding: '20px' }}
             >
               {BasketData &&
                 BasketData.data &&
-                BasketData.data.data.products.map(item => (
-                  <SwiperSlide>
-                    <div className="offerCard">
-                      <div
-                        data-id={item.product_id}
-                        onClick={handleRouteToProductDetails(item.product_id)}
-                      >
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 20)}
-                        </div>
-                        <div className="imgProductWrapper">
-                          <img
-                            src={item.image}
-                            className="imgProduct"
-                            alt={item.title}
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className="buyProduct"
-                        id={`buyProduct${item.product_id}`}
-                      >
-                        <div>
-                          <StarFilled
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />{' '}
-                          1.3
-                        </div>
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
+                BasketData.data.data.products.map(item => {
+                  price += Number(
+                    item.price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, ''),
+                  );
+                  return (
+                    <SwiperSlide>
+                      <ProductCard data={item} />
+                    </SwiperSlide>
+                  );
+                })}
             </Swiper>
 
             <div className="cardInfoTitle">روش ارسال</div>
             <Card className="userAddressDetaileCard">
               {sendDate &&
                 sendDate.shipment.map(item => (
-                  <Row gutter={16}>
+                  <Row className="userAdressItem" gutter={16}>
                     <Col
                       xs={24}
                       sm={24}
@@ -427,7 +386,6 @@ export function SendInfoPage({ className }: Props) {
                   </Row>
                 ))}
 
-              <hr className="solid" />
               {/* <Row gutter={16}>
                 <Col xs={24} sm={24} md={4} lg={4} xl={4} className="selected">
                   <Button className="selectBtn">انتخاب</Button>
@@ -484,14 +442,21 @@ export function SendInfoPage({ className }: Props) {
               // onChange={this.onChange}
               />
 
-              <div className="roleTitle">
+              <a href="/rules" className="roleTitle">
                 (خواندن شرایط خدمات)شرایط خدمات را مطالعه کرده و بدون قید و شرط
                 با آن موافقم.
-              </div>
+              </a>
             </div>
             <div className="cardInfoTitle">درگاه پرداخت</div>
           </Col>
-          <Col xs={24} sm={24} md={6} lg={6} xl={6}>
+          <Col
+            className="productInfoWrapper"
+            xs={24}
+            sm={24}
+            md={5}
+            lg={5}
+            xl={5}
+          >
             <Card className="productInfo">
               <div className="price">
                 <div className="priceTitleDiv">قیمت محصولات</div>
@@ -504,7 +469,7 @@ export function SendInfoPage({ className }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    250.000
+                    {price}
                   </span>
                 </div>
               </div>
@@ -519,8 +484,7 @@ export function SendInfoPage({ className }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    {' '}
-                    250.000
+                    {price}
                   </span>
                 </div>
               </div>
@@ -553,8 +517,7 @@ export function SendInfoPage({ className }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    {' '}
-                    250.000
+                    {price}
                   </span>
                 </div>
               </div>

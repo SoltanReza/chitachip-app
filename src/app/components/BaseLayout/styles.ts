@@ -10,6 +10,7 @@ export const StyledBaseLayout = styled(Layout)`
   background-image: url(${background}) !important;
   background-size: contain;
   background-repeat: round;
+  position: relative;
 `;
 
 export const StyledMain = styled(Layout)`
@@ -29,16 +30,7 @@ export const StyledMain = styled(Layout)`
     display: none;
   }
 `;
-export const StyledHeader = styled(Layout.Header)`
-  padding: 0px !important;
-  /* .navCostum {
-    background-size: cover;
-  } */
-  background: transparent;
-  background-size: cover;
-  line-height: 79px;
-  height: 90px;
-`;
+export const StyledHeader = styled(Layout.Header)``;
 export const StyledContent = styled(Layout.Content)`
 
    min-height: 100vh;

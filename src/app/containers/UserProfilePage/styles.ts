@@ -16,6 +16,7 @@ export const StyledUserProfilePage = styled(BasketLayout)`
     display: flex;
     justify-content: space-between;
     margin-bottom: 2em;
+    width: fit-content;
   }
 
   .profileName {
@@ -23,5 +24,6 @@ export const StyledUserProfilePage = styled(BasketLayout)`
     font-weight: bold;
     font-size: 2em;
     color: #000;
+    transform: translateY(-12px);
   }
 `;

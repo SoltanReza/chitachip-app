@@ -29,8 +29,14 @@ import {
   DeleteFromBasketItemResponse,
   DeleteLikeItemRequest,
   DeleteLikeItemResponse,
+  GetAboutusRequest,
+  GetAboutusResponse,
   GetCodeRequest,
   GetCodeResponse,
+  GetHomeListProductsRequest,
+  GetHomeListProductsResponse,
+  GetProductFilesRequest,
+  GetProductFilesResponse,
   GetProductSliderRequest,
   GetProductSliderResponse,
   GetTokenRequest,
@@ -41,12 +47,18 @@ import {
   LikeProductResponse,
   LoginRequest,
   LoginResponse,
+  PostNewCommentRequest,
+  PostNewCommentResponse,
+  ProductRateRequest,
+  ProductRateResponse,
   RegisterOrderRequest,
   RegisterOrderResponse,
   RegisterRequest,
   RegisterResponse,
   ResetPasswordCodeRequest,
   ResetPasswordCodeResponse,
+  SearchProductRequest,
+  SearchProductResponse,
   SendEmailNewsRequest,
   SendEmailNewsResponse,
   UserInfoRequest,
@@ -245,4 +257,42 @@ export function verifyPaymentApi(
   return http
     .post('v1/verify-payment/', params)
     .then(response => response.data);
+}
+
+export function searchProductApi(
+  params: SearchProductRequest,
+): Promise<SearchProductResponse> {
+  return http.get('v1/search/', { params }).then(response => response.data);
+}
+
+export function getAboutusApi(): Promise<GetAboutusResponse> {
+  // params: GetAboutusRequest,
+  return http.get('v1/about-us/').then(response => response.data);
+}
+
+export function getHomeListProductsApi(
+  params: GetHomeListProductsRequest,
+): Promise<GetHomeListProductsResponse> {
+  // params: GetAboutusRequest,
+  return http
+    .get('v1/get-products-slider/', { params })
+    .then(response => response.data);
+}
+
+export function postNewCommentApi(
+  params: PostNewCommentRequest,
+): Promise<PostNewCommentResponse> {
+  return http.post('v1/comment/', params).then(response => response.data);
+}
+
+export function getProductFilesApi(
+  params: GetProductFilesRequest,
+): Promise<GetProductFilesResponse> {
+  return http.post('v1/file/', params).then(response => response.data);
+}
+
+export function addProductRateApi(
+  params: ProductRateRequest,
+): Promise<ProductRateResponse> {
+  return http.get('v1/rate/', { params }).then(response => response.data);
 }

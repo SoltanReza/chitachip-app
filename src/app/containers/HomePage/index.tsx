@@ -17,6 +17,8 @@ import {
 import { Tabs, Row, Col, Input, Button, message } from 'antd';
 import { DateTimeViewer } from 'app/components/DateTimeViewer';
 import { SliderProduct } from 'app/components/SliderProduct';
+import { ProductCard } from 'app/components/ProductCard';
+
 import { MenuSider } from 'app/components/MenuSider';
 import { TopPackagesCarousel } from 'app/containers/HomePage/components/TopPackagesCarousel';
 import { translations } from 'locales/i18n';
@@ -36,7 +38,7 @@ import { appActions } from '../App/slice';
 import { Offer } from './components/Offer';
 import { homePageSaga } from './saga';
 import { reducer, sliceKey } from './slice';
-import { StyledHomePage } from './styles';
+import { StyledHomePage, Tab } from './styles';
 import { UnitCarouselRight } from './UnitCarouselRight';
 import { useCallback } from 'react';
 import { useState } from 'react';
@@ -45,6 +47,7 @@ import { ellipseString } from 'utils/helpers';
 import { redirect } from 'utils/history';
 import { Routes } from '../App/Router/routes';
 import { useWindowWidth } from '@react-hook/window-size';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface Props {
   className?: string;
@@ -55,7 +58,6 @@ const { TabPane } = Tabs;
  *
  * @example ./extra.examples.md
 //  */
-
 export function HomePage({ className }: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
   useInjectSaga({ key: sliceKey, saga: homePageSaga });
@@ -63,6 +65,7 @@ export function HomePage({ className }: Props) {
   const dispatch = useDispatch();
   const [changeAffixed, setChangeAffixed] = useState(false);
   const [changeMail, setChangeMail] = useState('');
+  const [tab, setTab] = useState('best');
   const onlyWidth = useWindowWidth();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -171,6 +174,15 @@ export function HomePage({ className }: Props) {
     }
   }, [addToBasketData]);
 
+  const handleRoutToProductList = useCallback(data => {
+    redirect(Routes.productList, {
+      item: data,
+      catId: undefined,
+      subId: undefined,
+      catName: undefined,
+    });
+  }, []);
+
   return (
     <StyledHomePage
       className={`HomePage ${className || ''}`}
@@ -188,9 +200,12 @@ export function HomePage({ className }: Props) {
         </div>
       )}
       <Row gutter={[16, 24]}>
-        <Col xs={4} sm={4} md={6} lg={6} xl={6}>
+        <Col xs={0} sm={0} md={5} lg={5} xl={5}>
           {BrowseHomeList && BrowseHomeList.data && (
-            <MenuSider categories={BrowseHomeList.data.categories} />
+            <MenuSider
+              collapse={false}
+              categories={BrowseHomeList.data.categories}
+            />
           )}
           {/* {changeAffixed ? (
             <Affix offsetTop={20} onChange={handleChangeAffixed}>
@@ -212,7 +227,7 @@ export function HomePage({ className }: Props) {
                 <CustomerServiceOutlined />
               </span>
             </div>
-            <div>تماس با ما</div>
+            <h4>تماس با ما</h4>
             <div className="socialMedia">
               <a href="https://wa.me/+982632211001?text=I'm%20interested%20in%20your%20car%20for%20sale">
                 <WhatsAppOutlined />
@@ -225,7 +240,7 @@ export function HomePage({ className }: Props) {
             </div>
           </div>
         </Col>
-        <Col xs={20} sm={20} md={6} lg={18} xl={18}>
+        <Col xs={24} sm={24} md={19} lg={19} xl={19}>
           <div className="emptyBlocks"></div>
           {BrowseHomeList && BrowseHomeList.data && (
             <StoryProduct stories={BrowseHomeList.data.stories} />
@@ -234,40 +249,55 @@ export function HomePage({ className }: Props) {
           {BrowseHomeList && BrowseHomeList.data && (
             <>
               <TopPackagesCarousel banners={BrowseHomeList.data.banners} />
-              <Tabs defaultActiveKey="1">
-                <TabPane tab={<span>پرفروش ترین ها</span>} key="1">
-                  <SliderProduct product={BrowseHomeList.data.most_sold} />
-                </TabPane>
-                <TabPane tab={<span>جدیدترین</span>} key="2">
-                  <SliderProduct product={BrowseHomeList.data.new_products} />
-                </TabPane>
+              <Row gutter={16}>
+                <Tab
+                  onClick={() => setTab('best')}
+                  active={tab === 'best'}
+                  className="tab"
+                >
+                  <span>پرفروش ترین ها</span>
+                </Tab>
+                <Tab
+                  active={tab === 'new'}
+                  onClick={() => setTab('new')}
+                  className="tab"
+                >
+                  <span>جدیدترین ها</span>
+                </Tab>
+
                 {BrowseHomeList.data.offers && (
-                  <TabPane
-                    tab={
-                      <span>
-                        پیشنهاد های ویژه
-                        {BrowseHomeList.data.offers_time > 0 && (
-                          <DateTimeViewer />
-                        )}
-                      </span>
-                    }
-                    key="3"
-                  >
-                    <SliderProduct product={BrowseHomeList.data.offers} />
-                  </TabPane>
+                  <Tab active={tab === 'sugg'} onClick={() => setTab('sugg')}>
+                    <span>
+                      پیشنهاد های ویژه
+                      {BrowseHomeList.data.offers_time > 0 && (
+                        <DateTimeViewer />
+                      )}
+                    </span>
+                  </Tab>
                 )}
-              </Tabs>
+              </Row>
+              {tab === 'best' && (
+                <SliderProduct product={BrowseHomeList.data.most_sold} />
+              )}
+
+              {tab === 'new' && (
+                <SliderProduct product={BrowseHomeList.data.new_products} />
+              )}
+
+              {tab === 'sugg' && (
+                <SliderProduct product={BrowseHomeList.data.offers} />
+              )}
             </>
           )}
         </Col>
       </Row>
 
-      <Row gutter={[48, 48]}>
-        <Col xs={24} sm={24} md={10} lg={6} xl={6}>
+      <Row gutter={[16, 24]}>
+        <Col xs={0} sm={0} md={5} lg={5} xl={5}>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
               <img
-                src="images/bazargani.PNG"
+                src="images/bazargani.png"
                 className="rightBannerImg"
                 alt=""
               />
@@ -275,17 +305,16 @@ export function HomePage({ className }: Props) {
           </Row>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightContactUs">
-              {' '}
               <h2>با ما در تماس باشید</h2>
             </Col>
-            <Col span={16}>
+            <Col span={17}>
               <Input
                 placeholder="ایمیل خود را وارد نمایید"
                 className="newsInputStyle"
                 onChange={handleChangeMail}
               />
             </Col>
-            <Col span={8}>
+            <Col span={5}>
               <Button type="primary" shape="round" onClick={handleSendMail}>
                 تایید
               </Button>
@@ -293,7 +322,11 @@ export function HomePage({ className }: Props) {
           </Row>
           <Row gutter={16} className="rowWrraperRight">
             <Col span={24} className="rightBanner">
-              <img src="images/aboutus.PNG" className="rightBannerImg" alt="" />
+              <img
+                src="images/chitachip.png"
+                className="rightBannerImg"
+                alt=""
+              />
             </Col>
           </Row>
           <Row gutter={16} className="rowWrraperRight">
@@ -311,262 +344,88 @@ export function HomePage({ className }: Props) {
             {BrowseHomeList.data?.first_list.text}
           </h1>
           <div className="firsListSecondList">
-            <Col className="allViewBannerLeft" span={24}>
+            <Col
+              className="allViewBannerLeft"
+              span={24}
+              onClick={() => handleRoutToProductList(1)}
+            >
               مشاهده همه
             </Col>
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.first_list.prs.map(item => (
-                  <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-                    <div className="offerCard">
-                      <div
-                        data-id={item.id}
-                        onClick={handleRouteToProductDetails(item.id)}
-                      >
-                        <div className="imgProductWrapper">
-                          <img
-                            src={item.image}
-                            className="imgProduct"
-                            alt={item.title}
-                          />
-                        </div>
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 20)}
-                        </div>
-                      </div>
-                      <div className="buyProduct" id={`buyProduct${item.id}`}>
-                        <div>
-                          <StarFilled
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />{' '}
-                          1.3
-                        </div>
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="voteStyle">
-                        <div>
-                          {likeData && likeData.data ? (
-                            likeData.data.status === 201 ? (
-                              <HeartOutlined
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            ) : (
-                              <HeartFilled
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            )
-                          ) : (
-                            <HeartOutlined
-                              style={{ color: '#ffc107', fontSize: '1.7em' }}
-                              data-id={item.id}
-                              onClick={handleVoteLike}
-                            />
-                          )}
-                        </div>
-                        <div>
-                          {/* <ShoppingOutlined
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                            data-product_id={item.id}
-                            onClick={handleAddToBasket}
-                          />{' '} */}
-                          <span className="count">
-                            <PlusOutlined
-                              data-id={item.id}
-                              onClick={handlePlusQuantity}
-                            />
-                            {currentElement === item.id ? (
-                              <span>{addToBasketData.data?.quantity}</span>
-                            ) : (
-                              <span>0</span>
-                            )}
-                            <MinusOutlined
-                              data-id={item.id}
-                              onClick={handleMinusQuantity}
-                            />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                  <Col span={6} xs={12} sm={12} md={6} lg={6} xl={6}>
+                    <ProductCard data={item} />
                   </Col>
                 ))}
             </Row>
           </div>
           <Row gutter={[16, 24]}>
-            {BrowseHomeList && BrowseHomeList.data && (
-              <Col
-                xs={24}
-                sm={24}
-                md={24}
-                lg={24}
-                xl={24}
-                className="sliceCard"
-                style={{
-                  background:
-                    BrowseHomeList.data.banners.third_background_color,
-                }}
-              >
-                <a href={BrowseHomeList.data.banners.url_third} target="blank">
-                  <Row>
-                    <Col
-                      xs={14}
-                      sm={14}
-                      md={18}
-                      lg={14}
-                      xl={14}
-                      className="thirdBanner"
-                    >
-                      <Row>{BrowseHomeList.data.banners.third_title}</Row>
-                      <Row>{BrowseHomeList.data.banners.third_description}</Row>
-                    </Col>
-                    <Col
-                      xs={10}
-                      sm={10}
-                      md={6}
-                      lg={10}
-                      xl={10}
-                      style={{
-                        background: `url(${BrowseHomeList.data.banners.third_banner})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                      }}
-                    >
-                      {/* <img
-                        src={BrowseHomeList.data.banners.third_banner}
-                        className="sliceCardImg"
-                        alt=""
-                      /> */}
-                    </Col>
-                  </Row>
-                </a>
-              </Col>
-            )}
+            {BrowseHomeList &&
+              BrowseHomeList.data &&
+              BrowseHomeList.data.banners &&
+              BrowseHomeList.data.banners.url_third && (
+                <Col
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={24}
+                  xl={24}
+                  className="sliceCard"
+                  style={{
+                    background:
+                      BrowseHomeList.data.banners.third_background_color,
+                  }}
+                >
+                  <a
+                    href={BrowseHomeList.data.banners.url_third}
+                    target="blank"
+                  >
+                    <Row>
+                      <Col
+                        xs={18}
+                        sm={18}
+                        md={18}
+                        lg={18}
+                        xl={18}
+                        className="thirdBanner"
+                      >
+                        <Row>{BrowseHomeList.data.banners.third_title} </Row>
+                        <Row>
+                          {BrowseHomeList.data.banners.third_description}
+                        </Row>
+                      </Col>
+                      <Col xs={6} sm={6} md={6} lg={6} xl={6}>
+                        <img
+                          src={BrowseHomeList.data.banners.third_banner}
+                          className="sliceCardImg"
+                          alt=""
+                          style={{
+                            maxWidth: '250px',
+                          }}
+                        />
+                      </Col>
+                    </Row>
+                  </a>
+                </Col>
+              )}
           </Row>
           <h1 className="titleBannerLeft">
             {BrowseHomeList.data?.second_list.text}
           </h1>
           <div className="firsListSecondList">
-            <Col className="allViewBannerLeft" span={24}>
+            <Col
+              onClick={() => handleRoutToProductList(1)}
+              className="allViewBannerLeft"
+              span={24}
+            >
               مشاهده همه
             </Col>
             <Row gutter={[16, 24]}>
               {BrowseHomeList.data &&
                 BrowseHomeList.data.second_list.prs.map(item => (
-                  <Col xs={24} sm={24} md={12} lg={8} xl={8}>
-                    <div className="offerCard">
-                      <div
-                        data-id={item.id}
-                        onClick={handleRouteToProductDetails(item.id)}
-                      >
-                        <div className="imgProductWrapper">
-                          <img
-                            src={item.image}
-                            className="imgProduct"
-                            alt={item.title}
-                          />
-                        </div>
-                        <div className="titleProduct">
-                          {ellipseString(`${item.title}`, 20)}
-                        </div>
-                      </div>
-                      <div className="buyProduct" id={`buyProduct${item.id}`}>
-                        <div>
-                          <StarFilled
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                          />{' '}
-                          1.3
-                        </div>
-                        <div className="priceStyle">
-                          <div className="price">
-                            <div className="discount">
-                              {item.discount > 0 && item.discount}
-                            </div>
-                            <s className="priceDiscount">
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </s>
-                          </div>
-                          <div className="price">
-                            <div className="currency">تومان</div>
-                            <div>
-                              {item.price
-                                .toFixed()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="voteStyle">
-                        <div>
-                          {likeData && likeData.data ? (
-                            likeData.data.status === 201 ? (
-                              <HeartOutlined
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            ) : (
-                              <HeartFilled
-                                style={{ color: '#ffc107', fontSize: '1.7em' }}
-                                data-id={item.id}
-                                onClick={handleVoteLike}
-                              />
-                            )
-                          ) : (
-                            <HeartOutlined
-                              style={{ color: '#ffc107', fontSize: '1.7em' }}
-                              data-id={item.id}
-                              onClick={handleVoteLike}
-                            />
-                          )}
-                        </div>
-                        <div>
-                          {/* <ShoppingOutlined
-                            style={{ color: '#ffc107', fontSize: '1.5em' }}
-                            data-product_id={item.id}
-                            onClick={handleAddToBasket}
-                          />{' '} */}
-                          <span className="count">
-                            <PlusOutlined
-                              data-id={item.id}
-                              onClick={handlePlusQuantity}
-                            />
-                            {currentElement === item.id ? (
-                              <span>{addToBasketData.data?.quantity}</span>
-                            ) : (
-                              <span>0</span>
-                            )}
-                            <MinusOutlined
-                              data-id={item.id}
-                              onClick={handleMinusQuantity}
-                            />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                  <Col span={6} xs={12} sm={12} md={6} lg={6} xl={6}>
+                    <ProductCard data={item} />
                   </Col>
                 ))}
             </Row>
@@ -584,114 +443,49 @@ export function HomePage({ className }: Props) {
                 بیش از 10000 محصول در 100 بسته بندی مختلف
               </div>
               <Row gutter={16}>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
+                <Swiper
+                  // slidesPerView={4}
+                  // spaceBetween={30}
+                  navigation={true}
+                  // className="mySwiper"
+                  spaceBetween={20}
+                  slidesPerView={onlyWidth > 640 ? 4 : 2}
+                  // autoplay={{
+                  //   delay: 1000,
+                  // }}
+                  // navigation
+                  // pagination={{ clickable: true }}
+                  // scrollbar={{ draggable: true }}
                 >
-                  <Row>
-                    <img src="images/icons-chitachip/Group 25.png" />
-                  </Row>
-                  <Row>
-                    <Col span={24}>تجهیزات بیسیم</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 23.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>سنسور</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 24.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>موتور</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={5}
-                  xl={5}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 21.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>ماژول / مبدل</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
-                <Col
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={4}
-                  xl={4}
-                  className="colProductCount"
-                >
-                  <Row>
-                    <Col span={24}>
-                      <img src="images/icons-chitachip/Group 23.png" />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col span={24}>بردهای توسعه</Col>
-                  </Row>
-                  <Row>
-                    <Col span={24} className="ProductCount">
-                      {/* +1000 کالا */}
-                    </Col>
-                  </Row>
-                </Col>
+                  {BrowseHomeList &&
+                    BrowseHomeList.data &&
+                    BrowseHomeList.data.categories.map(i => {
+                      return (
+                        <SwiperSlide className="colProductCountWrapper">
+                          <Col
+                            data-cat-id={i.category.id}
+                            data-cat-name={i.category.name}
+                            onClick={handleRoutToProductList}
+                            className="colProductCount"
+                          >
+                            <Row>
+                              <Col span={24}>
+                                <img src={i.category.icon} />
+                              </Col>
+                            </Row>
+                            <Row>
+                              <Col span={24}>{i.category.name}</Col>
+                            </Row>
+                            {/* <Row>
+                              <Col span={24} className="ProductCount">
+                                +1000 کالا
+                              </Col>
+                            </Row> */}
+                          </Col>
+                        </SwiperSlide>
+                      );
+                    })}
+                </Swiper>
               </Row>
             </Col>
           </Row>

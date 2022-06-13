@@ -210,7 +210,6 @@
     "HomePage": {
       "title": "صفحه اصلی",
       "description": "صفحه اصلی",
-      "chartTitle": "نمودار های تغییر وضعیت ارزش سهام",
       "NewsCards": {
         "title": "اخبار سهام اردبیت"
       }
@@ -226,7 +225,7 @@
       "loginErrorMessage": "نام کاربری یا رمز عبور اشتباه میباشد",
       "LoginForm": {
         "rememberMe": "مرا به خاطر بسپار",
-        "forgotPassword": "فراموشی رمز عبور",
+        "forgotPassword": "تایید رمزعبور جدید",
         "continue": "ادامه",
         "login": "ورود",
         "or": "یا",
@@ -267,6 +266,14 @@
     "PaymentCallbackPage": {
       "title": "اطلاعات پرداخت",
       "description": "اطلاعات پرداخت"
+    },
+    "AboutUsPage": {
+      "title": "درباره ما",
+      "description": "درباره ما"
+    },
+    "RulesPage": {
+      "title": "قوانین و مقررات چیتاچیپ",
+      "description": "قوانین و مقررات چیتاچیپ"
     }
   }
 }

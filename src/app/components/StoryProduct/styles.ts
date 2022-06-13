@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const StyledStoryProduct = styled.section`
+  cursor: pointer;
   .swiper-container {
     /* margin: 1em 0em 2.2em 2em !important; */
     padding: 1em 1em 1em 1em !important;

@@ -7,16 +7,8 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { StyledBasketHeader } from './styles';
 
-import { useTranslation } from 'react-i18next';
-import {
-  HeartOutlined,
-  ShoppingOutlined,
-  ShareAltOutlined,
-  DeleteOutlined,
-  MinusOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
-import { Typography, Divider, Card, Row, Col, Button, message } from 'antd';
+import { DeleteOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Divider, Col, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectAddToBasket,
@@ -30,7 +22,6 @@ interface Props {
 }
 
 export const BasketHeader = memo(({ className }: Props) => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [quantity, setquantity] = useState<number | undefined>(0);
 
@@ -129,9 +120,6 @@ export const BasketHeader = memo(({ className }: Props) => {
         </div>
       )}
       <div className="basketItem">
-        {/* <div className="headerBasket">
-          <ShoppingOutlined /> سبد خرید
-        </div> */}
         <div className="bodyBasket">
           {basketData &&
           basketData.data &&

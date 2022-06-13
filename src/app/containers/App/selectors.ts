@@ -106,3 +106,28 @@ export const selectBrowseLikeList = createSelector(
   [selectDomain],
   state => state.browseLikeList,
 );
+
+export const selectSearchProduct = createSelector(
+  [selectDomain],
+  state => state.searchProduct,
+);
+
+export const selectHomeListProducts = createSelector(
+  [selectDomain],
+  state => state.homeListProducts,
+);
+
+export const selectAddComment = createSelector(
+  [selectDomain],
+  state => state.addComment,
+);
+
+export const selectProductFile = createSelector(
+  [selectDomain],
+  state => state.productFiles,
+);
+
+export const selectProductRate = createSelector(
+  [selectDomain],
+  state => state.addProductRate,
+);

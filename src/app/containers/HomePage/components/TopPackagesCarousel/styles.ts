@@ -34,6 +34,7 @@ export const StyledCardCarousel = styled.div<{
   defaultBackground: Nullable<string>;
 }>`
   border-radius: 7px;
+  /* border: transparent; */
   background-size: 100%;
   /* margin-left: 1em; */
   .slideProduct {

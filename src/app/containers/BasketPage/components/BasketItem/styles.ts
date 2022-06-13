@@ -23,11 +23,9 @@ export const StyledBasketItem = styled.section`
   }
 
   .basketItemAction {
-    background: #ece8e8;
-    border-radius: 3px;
-    -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
+    background: #f6f6f6;
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   }
 
   .imgProduct {
@@ -88,12 +86,12 @@ export const StyledBasketItem = styled.section`
     margin-bottom: 3em;
   }
 
-  .ant-card {
-    border-radius: 3px;
+  /* .ant-card {
+    border-radius: 15px;
     -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-  }
+  } */
 
   .leftItem {
     text-align: left;
@@ -131,6 +129,7 @@ export const StyledBasketItem = styled.section`
 
   .cardListProduct {
     margin-bottom: 1em;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
   }
 
   .quantity {

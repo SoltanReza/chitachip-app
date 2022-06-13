@@ -3,8 +3,9 @@ import { Layout } from 'antd';
 import { theme } from 'styles/theme';
 import Logo from '../BaseLayout/image/Chitachip.svg';
 import background from '../BaseLayout/image/back_img.png';
+import { BaseLayout } from '../BaseLayout';
 
-export const StyledBasketLayout = styled.section`
+export const StyledBasketLayout = styled(BaseLayout)`
   background-size: contain;
   background-image: url(${background}) !important;
 `;

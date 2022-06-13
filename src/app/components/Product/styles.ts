@@ -7,11 +7,12 @@ export const StyledProduct = styled.section`
   .cardTabProduct {
     margin: 20px 20px;
     border-radius: 7px;
-    -webkit-box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
-    -moz-box-shadow: 0px 0px 18px -8px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 18px -8px rgb(0 0 0 / 75%);
-  }
 
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+  }
+  .cardrelatedProduc {
+    padding: 1em;
+  }
   .relatedProductTitle {
     font-size: 2em;
     font-weight: bold;
@@ -27,27 +28,31 @@ export const StyledProduct = styled.section`
     background: #f6f6f6;
     border-radius: 9px;
     max-height: 76.8%;
-
     overflow-y: auto;
-    -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
+
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
   }
 
   .productInfoTitle {
+    position: absolute;
+    z-index: 5;
     font-weight: bold;
     font-size: 1.5em;
     color: #000;
     margin-bottom: 1em;
+    padding: 10px 20px;
+    background-color: #f6f6f6;
+    width: 85%;
   }
 
+  .properties {
+    padding-top: 50px;
+  }
   .priceInfoCard {
     background: #f6f6f6;
     border-radius: 9px;
     padding: 1em 0;
-    -webkit-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 11px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.161);
   }
 
   .productTitle {
@@ -63,6 +68,13 @@ export const StyledProduct = styled.section`
     color: red;
   }
 
+  .addToCardBtn,
+  .addToFavorite,
+  .Share {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8em;
+  }
   .addToCardBtn {
     background-image: linear-gradient(
       to right,
@@ -170,6 +182,76 @@ export const StyledProduct = styled.section`
     color: #000;
     text-align: center;
   }
+  .gallery-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    .icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+      svg {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .gallery-item {
+    border-radius: 5px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.5em;
+    &:hover {
+      box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .pictureWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .new-comment-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 1em 0;
+    textarea {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid gray;
+      width: 90%;
+      max-height: 200px;
+      resize: none;
+      padding: 0.75em 1em;
+      border-radius: 5px;
+      margin-left: 1em;
+      &:focus {
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+      }
+    }
+    button {
+      border: none;
+      outline: none;
+      background-color: orange;
+      display: flex;
+      padding: 0.5em 0.75em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .star-rating {
+    font-size: 1.4em;
+    text-align: center;
+  }
 
   @media (max-width: ${sizes.large}px) {
     .addToCardBtn,
@@ -182,5 +264,9 @@ export const StyledProduct = styled.section`
     .productInfoCard {
       padding-left: 0px !important;
     }
+  }
+
+  .swiper-slide {
+    margin-top: 20px;
   }
 `;

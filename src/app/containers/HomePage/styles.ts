@@ -1,8 +1,39 @@
+import { Col } from 'antd';
 import { BaseLayout } from 'app/components/BaseLayout';
 import styled from 'styled-components/macro';
 import { sizes } from 'styles/media';
+interface TabProps {
+  active?: boolean;
+}
+export const Tab = styled(Col)<TabProps>`
+  cursor: pointer;
+  color: ${props => (props.active ? 'black' : '#cbcbcb')};
+
+  span {
+    font-size: 1.6em;
+  }
+
+  @media screen and (max-width: 640px) {
+    span {
+      font-size: 1.1em;
+    }
+  }
+`;
 
 export const StyledHomePage = styled(BaseLayout)`
+  .swiper-button-next {
+    left: 20px !important;
+  }
+  .swiper-button-prev {
+    right: 20px !important;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 27px !important;
+    height: 20px !important;
+    overflow: hidden;
+  }
+
   .styleCarousel {
     height: '160px' !important;
     color: '#fff' !important;
@@ -32,13 +63,14 @@ export const StyledHomePage = styled(BaseLayout)`
   }
 
   .rightBanner {
-    height: 214px;
   }
 
   .rightBannerImg {
     width: 100%;
     height: 100%;
     border-radius: 7px;
+
+    object-fit: contain;
   }
 
   .rightContactUs {
@@ -64,6 +96,9 @@ export const StyledHomePage = styled(BaseLayout)`
   .titleBannerLeft {
     font-size: 2.7em;
     font-weight: bold;
+    @media screen and (max-width: 640px) {
+      font-size: 1.2em;
+    }
   }
 
   .sliceCard {
@@ -81,132 +116,11 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 9px;
     margin-bottom: 1em;
     block-size: fit-content;
-    font-size: 3em;
+    font-size: 2.5em;
     color: #fff;
-  }
-
-  .offerCard {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    padding: 1em;
-    border-radius: 6px;
-    min-width: 100%;
-    cursor: pointer;
-    box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -webkit-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    -moz-box-shadow: 0px 1px 8px 2px rgba(0, 0, 0, 0.73);
-    position: relative;
-    height: 275px;
-
-    &:hover {
-      .buyProduct {
-        display: none;
-      }
-      .voteStyle {
-        display: flex;
-      }
+    @media screen and (max-width: 640px) {
+      font-size: 1.1em;
     }
-  }
-
-  .imgProductWrapper {
-    display: flex;
-    justify-content: center;
-    height: 130px;
-  }
-
-  .imgProduct {
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
-  .titleProduct {
-    font-weight: bold;
-    margin-top: 0.7em;
-  }
-  .buyProduct {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between !important;
-    margin-top: 0.7em;
-  }
-  .price {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-  }
-  .priceBtn {
-    display: flex;
-    flex-direction: revert;
-    justify-content: space-between;
-  }
-  .iconeShop {
-    margin-left: 0.2em;
-  }
-  .discountBtn {
-    border-radius: 11px;
-    background: #ff9800;
-  }
-
-  .priceStyle {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .currency {
-    font-size: 0.6em;
-    line-height: 2.5em;
-  }
-
-  .discount {
-    margin-left: 1em;
-    color: red;
-    font-weight: bold;
-  }
-
-  .priceDiscount {
-    font-size: 0.8em;
-    line-height: 1.9em;
-  }
-
-  .voteLike {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #9e9e9e;
-    z-index: 9999;
-    opacity: 0.9;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    color: #ff0000;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-  .voteLikeNone {
-    display: none;
-  }
-
-  .voteStyle {
-    display: none;
-    flex-direction: row;
-    justify-content: space-between !important;
-    margin-top: 1.6em;
-  }
-
-  .count {
-    color: #fff;
-    background: #ff9800;
-    border-radius: 15px;
-    padding: 0px 0.5em 0px 0.5em;
-  }
-
-  .btnLogin {
   }
 
   .alertLogin {
@@ -226,12 +140,24 @@ export const StyledHomePage = styled(BaseLayout)`
     margin-bottom: 1em;
   }
 
+  .colProductCountWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 10px;
+    &:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+  }
   .colProductCount {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
-
   .ProductCount {
     color: #f9ae4e;
   }
@@ -241,6 +167,10 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 0 0 0.5em 0.8em !important;
     color: #0275db;
     font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      text-shadow: 1px 1px 1px rgba(2, 117, 219, 0.2);
+    }
   }
 
   .contactUs {
@@ -251,6 +181,10 @@ export const StyledHomePage = styled(BaseLayout)`
     top: 9px;
     > div {
       margin-left: 0.5em;
+    }
+    h4 {
+      margin-right: 1em;
+      margin-left: 5px;
     }
   }
   .socialMedia {
@@ -264,10 +198,14 @@ export const StyledHomePage = styled(BaseLayout)`
     padding: 0.2em 0.4em;
     color: #fff;
     border-radius: 10px;
-    font-size: 0.8em;
+    font-size: 0.7em;
+
     > span {
       margin-right: 0.2em;
     }
+    /* @media screen and (max-width: 1px) {
+      font-size: 0.6em;
+    } */
   }
 
   .sticky {
